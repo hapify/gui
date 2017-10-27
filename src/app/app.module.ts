@@ -1,16 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import {AppRoutingModule} from './app.routing';
 
+// Translation
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+// Components
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/common/header/header.component';
+import { ModelNewComponent } from './components/model/model-new/model-new.component';
+
+// Services
+import { ConfigService } from './services/config.service';
+import { StorageService } from './services/storage.service';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    ModelNewComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    ConfigService,
+    StorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
