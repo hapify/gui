@@ -22,3 +22,4 @@ import {RootComponent} from './components/root/root.component';
 export class ModelModule {
 }
 export {MODEL_ROUTES} from './model.routing';
+export {Field} from './interfaces/field';
