@@ -1,20 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app.routing';
 
 // Translation
-import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 // Components
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/common/header/header.component';
-import { ModelComponent } from './components/model/model.component';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './components/common/header/header.component';
+import {ModelComponent} from './components/model/model.component';
 
 // Services
-import { ConfigService } from './services/config.service';
-import { StorageService } from './services/storage.service';
+import {ConfigService} from './services/config.service';
+import {StorageService} from './services/storage.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,4 +45,5 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

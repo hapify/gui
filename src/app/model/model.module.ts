@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { ModelComponent } from './components/model/model.component';
-import { FieldComponent } from './components/field/field.component';
-import { NewComponent } from './components/new/new.component';
-import { RootComponent } from './components/root/root.component';
+import {ModelComponent} from './components/model/model.component';
+import {FieldComponent} from './components/field/field.component';
+import {NewComponent} from './components/new/new.component';
+import {RootComponent} from './components/root/root.component';
 
 @NgModule({
   imports: [
@@ -19,5 +19,6 @@ import { RootComponent } from './components/root/root.component';
     RootComponent
   ]
 })
-export class ModelModule { }
-export { MODEL_ROUTES} from './model.routing';
+export class ModelModule {
+}
+export {MODEL_ROUTES} from './model.routing';

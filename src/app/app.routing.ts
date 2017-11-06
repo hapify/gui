@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {ModelModule, MODEL_ROUTES} from './model/model.module';
 
-import { ModelComponent } from './components/model/model.component';
+import {ModelComponent} from './components/model/model.component';
 
 export const routes: Routes = [
   {
