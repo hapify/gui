@@ -1,20 +1,28 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {ModelNewComponent} from './components/model/model-new/model-new.component';
+import {ModelModule, MODEL_ROUTES} from './model/model.module';
+
+import { ModelComponent } from './components/model/model.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: ModelNewComponent,
-    data: {
-      title: 'New model'
-    }
+    redirectTo: '/model',
+    pathMatch: 'full'
+  },
+  {
+    path: 'model',
+    component: ModelComponent,
+    children: MODEL_ROUTES
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    ModelModule,
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

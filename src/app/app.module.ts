@@ -10,7 +10,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 // Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/common/header/header.component';
-import { ModelNewComponent } from './components/model/model-new/model-new.component';
+import { ModelComponent } from './components/model/model.component';
 
 // Services
 import { ConfigService } from './services/config.service';
@@ -25,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HeaderComponent,
-    ModelNewComponent
+    ModelComponent
   ],
   imports: [
     BrowserModule,
