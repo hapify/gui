@@ -3,9 +3,15 @@
   "common_save": "Save",
   "models_title": "My Models",
   "models_add_field": "Add field",
+  "field_type": "Field's type",
   "new_model_name": "MewModel",
   "error_name_required": "The name is required.",
   "error_name_format": "The name is malformed.",
   "error_name_min_length": "The name must be more than {{minLength}} chars length.",
-  "error_name_max_length": "The name must be less than {{maxLength}} chars length."
+  "error_name_max_length": "The name must be less than {{maxLength}} chars length.",
+  "error_type_required": "The type is required.",
+  "error_type_value": "The type is not valid.",
+  "tooltip_primary": "Is a primary key?",
+  "tooltip_searchable": "Is searchable?",
+  "tooltip_sortable": "Is sortable?"
 }

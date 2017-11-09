@@ -22,6 +22,9 @@
       </div>
     </div>
   </div>
+  <div *ngFor="let field of model.fields" class="my-3">
+    <app-model-field [field]="field"></app-model-field>
+  </div>
   <div class="row">
     <div class="col-sm-6 my-2">
       <button type="button" class="btn btn-secondary" (click)="addField()">{{ 'models_add_field' | translate }}</button>

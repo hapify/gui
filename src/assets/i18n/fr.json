@@ -3,9 +3,15 @@
   "common_save": "Sauvegarder",
   "models_title": "Mes Modèles",
   "models_add_field": "Ajouter un champs",
+  "field_type": "Type de champs",
   "new_model_name": "NouveauModele",
   "error_name_required": "Le nom est requis.",
   "error_name_format": "Le nom est malformé.",
   "error_name_min_length": "Le nom doit comporter au moins {{minLength}} caractères.",
-  "error_name_max_length": "Le nom doit comporter au plus {{maxLength}} caractères."
+  "error_name_max_length": "Le nom doit comporter au plus {{maxLength}} caractères.",
+  "error_type_required": "Le type est requis.",
+  "error_type_value": "Le type n'est pas valide.",
+  "tooltip_primary": "Est une clé primaire ?",
+  "tooltip_searchable": "Est recherchable ?",
+  "tooltip_sortable": "Est triable ?"
 }

@@ -1,5 +1,7 @@
 
 @import "~bootstrap/scss/bootstrap";
+$icon-font-path: '~open-iconic/font/fonts/' !default;
+@import "~open-iconic/font/css/open-iconic-bootstrap";
 
 html {
   font-size: 1.0rem;
