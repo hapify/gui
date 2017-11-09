@@ -18,7 +18,7 @@ export class Model implements IModel {
   /**
    * @inheritDoc
    */
-  newField(): IField {
+  public newField(): IField {
     return new Field();
   }
   /**

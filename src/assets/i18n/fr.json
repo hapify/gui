@@ -1,3 +1,9 @@
 {
-  "app_name": "Code my model"
+  "app_name": "Code my model",
+  "models_title": "Mes Modèles",
+  "new_model_name": "NouveauModele",
+  "error_name_required": "Le nom est requis.",
+  "error_name_format": "Le nom est malformé.",
+  "error_name_min_length": "Le nom doit comporter au moins {{minLength}} caractères.",
+  "error_name_max_length": "Le nom doit comporter au plus {{maxLength}} caractères."
 }
