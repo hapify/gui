@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {Model} from '../../classes/model';
 
@@ -13,8 +12,7 @@ export class NewComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor(private formBuilder: FormBuilder,
-              private translateService: TranslateService) {}
+  constructor(private translateService: TranslateService) {}
 
   /**
    * New model instance
@@ -22,25 +20,6 @@ export class NewComponent implements OnInit {
    * @type {Model}
    */
   public model: Model;
-  /**
-   * @type {FormGroup}
-   */
-  form: FormGroup;
-  /**
-   * @type {number}
-   */
-  minLength = 2;
-  /**
-   * @type {number}
-   */
-  maxLength = 32;
-  /**
-   * @type {{minLength: number; maxLength: number}}
-   */
-  translateParams = {
-    minLength: this.minLength,
-    maxLength: this.maxLength,
-  };
 
   /**
    * @inheritDoc
@@ -51,21 +30,14 @@ export class NewComponent implements OnInit {
     this.translateService.get('new_model_name').subscribe((text) => {
       this.model.name = text;
     });
-    // Form validator
-    this.form = this.formBuilder.group({
-      name: new FormControl(this.model.name, [
-        Validators.required,
-        Validators.minLength(this.minLength),
-        Validators.maxLength(this.maxLength),
-      ]),
-    });
   }
 
   /**
-   * Called when the user click on "save"
+   * Called when the user save the new model
    */
-  onSubmit() {
-
+  onSave(): void {
+    console.log(this.model.toObject());
   }
+
 
 }

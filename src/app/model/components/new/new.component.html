@@ -1,27 +1,5 @@
 <div id="new-model">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <input id="name" formControlName="name" class="form-control h2" [(ngModel)]="model.name" type="text">
-          <div
-            *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
-            class="alert alert-danger">
-            <div *ngIf="form.controls['name'].errors.required">
-              {{ 'error_name_required' | translate }}
-            </div>
-            <div *ngIf="form.controls['name'].errors.pattern && !form.controls['name'].errors.required">
-              {{ 'error_name_format' | translate }}
-            </div>
-            <div *ngIf="form.controls['name'].errors.minlength">
-              {{ 'error_name_min_length' | translate:translateParams }}
-            </div>
-            <div *ngIf="form.controls['name'].errors.maxlength">
-              {{ 'error_name_max_length' | translate:translateParams }}
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+    <app-model-model [model]="model" (onSave)="onSave()"></app-model-model>
   </div>
 </div>

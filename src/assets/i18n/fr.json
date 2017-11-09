@@ -1,6 +1,8 @@
 {
   "app_name": "Code my model",
+  "common_save": "Sauvegarder",
   "models_title": "Mes Modèles",
+  "models_add_field": "Ajouter un champs",
   "new_model_name": "NouveauModele",
   "error_name_required": "Le nom est requis.",
   "error_name_format": "Le nom est malformé.",
