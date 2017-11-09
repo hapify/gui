@@ -78,4 +78,12 @@ export class Model implements IModel {
       this.fromObject(object);
     }
   }
+  /**
+   * @inheritDoc
+   */
+  public filter(): void {
+    this.fields = this.fields.filter((field: IField): boolean => {
+      return !field.isEmpty();
+    });
+  }
 }

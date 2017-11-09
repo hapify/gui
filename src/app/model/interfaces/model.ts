@@ -67,4 +67,10 @@ export interface IModel extends IModelBase {
    * @returns {void}
    */
   unserialize(data: string): void;
+  /**
+   * Remove empty fields
+   *
+   * @returns {void}
+   */
+  filter(): void;
 }

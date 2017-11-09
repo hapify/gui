@@ -3,6 +3,7 @@
   "common_save": "Sauvegarder",
   "models_title": "Mes Modèles",
   "models_add_field": "Ajouter un champs",
+  "models_clean_fields": "Nettoyer",
   "field_type": "Type de champs",
   "new_model_name": "NouveauModele",
   "error_name_required": "Le nom est requis.",

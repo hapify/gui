@@ -26,10 +26,11 @@
     <app-model-field [field]="field"></app-model-field>
   </div>
   <div class="row">
-    <div class="col-sm-6 my-2">
+    <div class="col-sm-8 my-2">
       <button type="button" class="btn btn-secondary" (click)="addField()">{{ 'models_add_field' | translate }}</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="cleanFields()">{{ 'models_clean_fields' | translate }}</button>
     </div>
-    <div class="col-sm-6 mt-sm-2 mb-2 text-sm-right">
+    <div class="col-sm-4 mt-sm-2 mb-2 text-sm-right">
       <button type="submit" class="btn btn-primary">{{ 'common_save' | translate }}</button>
     </div>
   </div>

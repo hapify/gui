@@ -3,6 +3,7 @@
   "common_save": "Save",
   "models_title": "My Models",
   "models_add_field": "Add field",
+  "models_clean_fields": "Cleanup",
   "field_type": "Field's type",
   "new_model_name": "MewModel",
   "error_name_required": "The name is required.",

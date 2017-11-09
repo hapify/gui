@@ -79,4 +79,11 @@ export class ModelComponent implements OnInit {
   addField() {
     this.model.addField(this.model.newField());
   }
+
+  /**
+   * Called when the user click on "clean fields"
+   */
+  cleanFields() {
+    this.model.filter();
+  }
 }

@@ -1,6 +1,6 @@
 <div [formGroup]="form">
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 my-1 my-lg-0">
       <div class="input-cnt">
         <input id="name" formControlName="name" class="form-control" [(ngModel)]="field.name" type="text">
         <div
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 my-1 my-lg-0">
       <select name="type" formControlName="type" class="form-control" [(ngModel)]="field.type">
         <option disabled value="">{{ 'field_type' | translate }}</option>
         <option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 my-1 my-lg-0 text-lg-right">
       <div class="btn-group" data-toggle="buttons">
         <label class="btn" title="{{ 'tooltip_primary' | translate }}"
                [ngClass]="{ 'btn-primary': field.primary, 'btn-outline-secondary': !field.primary }">
