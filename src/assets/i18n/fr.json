@@ -1,6 +1,9 @@
 {
   "app_name": "Code my model",
   "common_save": "Sauvegarder",
+  "common_new_model": "Nouveau modèle",
+  "common_new_template": "Nouveau template",
+  "nav_model": "Modèles",
   "models_title": "Mes Modèles",
   "models_add_field": "Ajouter un champs",
   "models_clean_fields": "Nettoyer",

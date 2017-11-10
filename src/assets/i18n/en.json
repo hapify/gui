@@ -1,6 +1,9 @@
 {
   "app_name": "Code my model",
   "common_save": "Save",
+  "common_new_model": "New model",
+  "common_new_template": "New template",
+  "nav_model": "Models",
   "models_title": "My Models",
   "models_add_field": "Add field",
   "models_clean_fields": "Cleanup",

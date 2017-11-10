@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app.routing';
+import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 
 // Translation
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -37,7 +38,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    TooltipModule.forRoot(),
+    AlertModule.forRoot()
   ],
   providers: [
     ConfigService,

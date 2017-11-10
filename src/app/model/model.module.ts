@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 
 import {ModelComponent} from './components/model/model.component';
 import {FieldComponent} from './components/field/field.component';
@@ -28,7 +29,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    TooltipModule.forRoot(),
+    AlertModule.forRoot()
   ],
   declarations: [
     ModelComponent,
