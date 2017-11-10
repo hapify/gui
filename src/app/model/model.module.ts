@@ -12,6 +12,7 @@ import {RootComponent} from './components/root/root.component';
 // Translation
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { EditComponent } from './components/edit/edit.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -37,7 +38,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModelComponent,
     FieldComponent,
     NewComponent,
-    RootComponent
+    RootComponent,
+    EditComponent
   ]
 })
 export class ModelModule {

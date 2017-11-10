@@ -2,6 +2,12 @@ import {IField, IFieldBase} from './field';
 
 export interface IModelBase {
   /**
+   * The model's unique id
+   *
+   * @type {string}
+   */
+  id: string;
+  /**
    * The model's name
    *
    * @type {string}
@@ -54,19 +60,6 @@ export interface IModel extends IModelBase {
    * @returns {void}
    */
   addField(field: IField): void;
-  /**
-   * Transform the model into a string
-   *
-   * @returns {string}
-   */
-  serialize(): string;
-  /**
-   * Populate the instance from the string data
-   *
-   * @param {string} data
-   * @returns {void}
-   */
-  unserialize(data: string): void;
   /**
    * Remove empty fields
    *

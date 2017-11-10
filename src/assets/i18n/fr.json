@@ -1,10 +1,12 @@
 {
   "app_name": "Code my model",
   "common_save": "Sauvegarder",
+  "common_update": "Mettre à jour",
   "common_new_model": "Nouveau modèle",
   "common_new_template": "Nouveau template",
   "nav_model": "Modèles",
   "models_title": "Mes Modèles",
+  "models_not_found": "Le modèle n'existe pas.",
   "models_add_field": "Ajouter un champs",
   "models_clean_fields": "Nettoyer",
   "field_type": "Type de champs",

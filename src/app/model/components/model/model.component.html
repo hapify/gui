@@ -31,7 +31,7 @@
       <button type="button" class="btn btn-outline-secondary" (click)="cleanFields()">{{ 'models_clean_fields' | translate }}</button>
     </div>
     <div class="col-sm-4 mt-sm-2 mb-2 text-sm-right">
-      <button type="submit" class="btn btn-primary">{{ 'common_save' | translate }}</button>
+      <button type="submit" class="btn btn-primary" [disabled]="model.isEmpty()">{{ 'common_save' | translate }}</button>
     </div>
   </div>
 </form>

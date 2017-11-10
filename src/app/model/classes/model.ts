@@ -5,8 +5,16 @@ import {Field} from './field';
 export class Model implements IModel {
   /**
    * Constructor
+   * Auto-generate unique id
    */
-  constructor() {}
+  constructor() {
+    this.id = this.guid();
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public id: string;
   /**
    * @inheritDoc
    */
@@ -15,22 +23,41 @@ export class Model implements IModel {
    * @inheritDoc
    */
   public fields: IField[] = [];
+
+  /**
+   * Randomly generate id
+   *
+   * @example af8a8416-6e18-a307-bd9c-f2c947bbb3aa
+   * @returns {string}
+   */
+  protected guid(): string {
+    function _p8(s?: boolean) {
+      const p = (Math.random().toString(16) + '000000000').substr(2, 8);
+      return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
+    }
+
+    return _p8() + _p8(true) + _p8(true) + _p8();
+  }
+
   /**
    * @inheritDoc
    */
   public newField(): IField {
     return new Field();
   }
+
   /**
    * @inheritDoc
    */
   public addField(field: IField): void {
     this.fields.push(field);
   }
+
   /**
    * @inheritDoc
    */
   public fromObject(object: IModelBase): void {
+    this.id = object.id;
     this.name = object.name;
     this.fields = object.fields.map((fieldBase: IFieldBase): IField => {
       const field = this.newField();
@@ -38,17 +65,20 @@ export class Model implements IModel {
       return field;
     });
   }
+
   /**
    * @inheritDoc
    */
   public toObject(): IModelBase {
     return {
+      id: this.id,
       name: this.name,
-      fields: this.fields.map((field: IField): IFieldBase => {
-        return field.toObject();
-      })
+      fields: this.fields
+        .filter((field: IField): boolean => !field.isEmpty())
+        .map((field: IField): IFieldBase => field.toObject())
     };
   }
+
   /**
    * @inheritDoc
    */
@@ -60,24 +90,7 @@ export class Model implements IModel {
 
     return nameIsEmpty || fieldsAreEmpty;
   }
-  /**
-   * @inheritDoc
-   */
-  public serialize(): string {
-    const object = this.toObject();
-    return JSON.stringify(object);
-  }
-  /**
-   * @inheritDoc
-   */
-  public unserialize(data: string): void {
-    const object: IModelBase = typeof data === 'string' && data.length ?
-      JSON.parse(data) : null;
-    // If the json was not valid, do not change the current instance.
-    if (object) {
-      this.fromObject(object);
-    }
-  }
+
   /**
    * @inheritDoc
    */
