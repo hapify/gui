@@ -2,9 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 
 import {ModelComponent} from './components/model/model.component';
+import {ModelRowComponent} from './components/model-row/model-row.component';
 import {FieldComponent} from './components/field/field.component';
 import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
@@ -23,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
@@ -39,7 +42,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FieldComponent,
     NewComponent,
     RootComponent,
-    EditComponent
+    EditComponent,
+    ModelRowComponent
   ]
 })
 export class ModelModule {

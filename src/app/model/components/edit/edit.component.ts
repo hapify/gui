@@ -19,7 +19,7 @@ export class EditComponent implements OnInit, OnDestroy {
    */
   private _paramsSub: Subscription;
   /**
-   * New model instance
+   * Model instance
    *
    * @type {IModel}
    */
@@ -33,7 +33,7 @@ export class EditComponent implements OnInit, OnDestroy {
               private storageService: StorageService) { }
 
   /**
-   * On init
+   * @inheritDoc
    */
   ngOnInit() {
     this._paramsSub = this.route.params.subscribe(async params => {

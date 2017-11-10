@@ -1,0 +1,20 @@
+<div class="border rounded p-3">
+  <div class="row">
+    <div class="col-lg-9">
+      <h4 class="my-0 py-1">{{ model.name }}</h4>
+    </div>
+    <div class="col-lg-3 text-lg-right">
+      <a class="btn btn-secondary" [routerLink]="['/model', 'edit', model.id]">
+        <span class="oi oi-pencil"></span>
+      </a>
+      <span class="delete">
+      <button type="button" class="btn btn-outline-danger" (click)="deleteSwitch=!deleteSwitch">
+        <span class="oi oi-circle-x"></span>
+      </button>
+      <button *ngIf="deleteSwitch" type="button" class="btn btn-danger" (click)="didClickDelete()">
+        {{ 'models_delete_confirm' | translate }}
+      </button>
+    </span>
+    </div>
+  </div>
+</div>

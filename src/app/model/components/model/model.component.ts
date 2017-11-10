@@ -17,18 +17,19 @@ export class ModelComponent implements OnInit {
   }
 
   /**
-   * New model instance
+   * Model instance
    *
    * @type {IModel}
    */
   @Input() model: IModel;
   /**
-   * @type {Subject<IModel>}
+   * @type {Subject<void>}
    * @private
    */
   _onSave = new Subject<void>();
   /**
-   * The selected availability (Observable)
+   * On save event (Observable)
+   *
    * @type {Observable<void>}
    */
   @Output() onSave: Observable<void> = this._onSave.asObservable();
