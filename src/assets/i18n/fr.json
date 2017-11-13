@@ -10,6 +10,7 @@
   "models_add_field": "Ajouter un champs",
   "models_clean_fields": "Nettoyer",
   "models_delete_confirm": "Vraiment ?",
+  "models_delete_cancel": "Non",
   "field_type": "Type de champs",
   "new_model_name": "NouveauModele",
   "error_name_required": "Le nom est requis.",

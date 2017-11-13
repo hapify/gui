@@ -10,6 +10,7 @@
   "models_add_field": "Add field",
   "models_clean_fields": "Cleanup",
   "models_delete_confirm": "Really?",
+  "models_delete_cancel": "Nope",
   "field_type": "Field's type",
   "new_model_name": "MewModel",
   "error_name_required": "The name is required.",
