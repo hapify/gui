@@ -7,6 +7,9 @@ import {ModelComponent} from './components/model/model.component';
 import {ChannelModule, CHANNEL_ROUTES} from './channel/channel.module';
 import {ChannelComponent} from './components/channel/channel.component';
 
+import {GeneratorModule, GENERATOR_ROUTES} from './generator/generator.module';
+import {GeneratorComponent} from './components/generator/generator.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -22,6 +25,11 @@ export const routes: Routes = [
     path: 'channel',
     component: ChannelComponent,
     children: CHANNEL_ROUTES
+  },
+  {
+    path: 'generator',
+    component: GeneratorComponent,
+    children: GENERATOR_ROUTES
   }
 ];
 
@@ -29,6 +37,7 @@ export const routes: Routes = [
   imports: [
     ModelModule,
     ChannelModule,
+    GeneratorModule,
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]

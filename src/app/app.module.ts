@@ -13,6 +13,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/common/header/header.component';
 import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
+import {GeneratorComponent} from './components/generator/generator.component';
 
 // Services
 import {ConfigService} from './services/config.service';
@@ -28,7 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HeaderComponent,
     ModelComponent,
-    ChannelComponent
+    ChannelComponent,
+    GeneratorComponent
   ],
   imports: [
     BrowserModule,

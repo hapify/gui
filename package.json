@@ -25,6 +25,7 @@
     "@ngx-translate/http-loader": "^2.0.0",
     "bootstrap": "^4.0.0-beta.2",
     "core-js": "^2.4.1",
+    "dot": "^1.1.2",
     "ngx-bootstrap": "^2.0.0-beta.8",
     "open-iconic": "^1.1.1",
     "rxjs": "^5.4.2",
