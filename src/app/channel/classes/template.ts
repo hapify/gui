@@ -11,33 +11,23 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
-  public name = '';
+  public path = '';
   /**
    * @inheritDoc
    */
-  public type: TemplateType = TemplateType.String;
+  public type: TemplateType = TemplateType.Basic;
   /**
    * @inheritDoc
    */
-  public primary = false;
-  /**
-   * @inheritDoc
-   */
-  public searchable = false;
-  /**
-   * @inheritDoc
-   */
-  public sortable = false;
+  public content = '';
 
   /**
    * @inheritDoc
    */
   public fromObject(object: ITemplateBase): void {
-    this.name = object.name;
+    this.path = object.path;
     this.type = object.type;
-    this.primary = object.primary;
-    this.searchable = object.searchable;
-    this.sortable = object.sortable;
+    this.content = object.content;
   }
 
   /**
@@ -45,11 +35,9 @@ export class Template implements ITemplate {
    */
   public toObject(): ITemplateBase {
     return {
-      name: this.name,
+      path: this.path,
       type: this.type,
-      primary: this.primary,
-      searchable: this.searchable,
-      sortable: this.sortable,
+      content: this.content
     };
   }
 
@@ -57,8 +45,8 @@ export class Template implements ITemplate {
    * @inheritDoc
    */
   public isEmpty(): boolean {
-    return typeof this.name !== 'string'
-      || this.name === null
-      || this.name.length === 0;
+    return typeof this.content !== 'string'
+      || this.content === null
+      || this.content.trim().length === 0;
   }
 }

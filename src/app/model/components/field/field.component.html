@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-6 my-1 my-lg-0">
       <div class="input-cnt">
-        <input id="name" formControlName="name" class="form-control" [(ngModel)]="field.name" type="text">
+        <input formControlName="name" class="form-control" [(ngModel)]="field.name" type="text">
         <div
           *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
           class="alert alert-danger mt-2">
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="col-lg-3 my-1 my-lg-0">
-      <select name="type" formControlName="type" class="form-control" [(ngModel)]="field.type">
+      <select formControlName="type" class="form-control" [(ngModel)]="field.type">
         <option disabled value="">{{ 'field_type' | translate }}</option>
         <option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option>
       </select>

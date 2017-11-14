@@ -33,7 +33,11 @@ export class TemplateComponent implements OnInit {
   /**
    * @type {number}
    */
-  maxLength = 64;
+  maxLength = 128;
+  /**
+   * @type {boolean}
+   */
+  showCode = true;
   /**
    * @type {{minLength: number; maxLength: number}}
    */
@@ -48,11 +52,7 @@ export class TemplateComponent implements OnInit {
     value: TemplateType;
     name: string;
   }] = [
-    {name: 'String', value: TemplateType.String},
-    {name: 'Number', value: TemplateType.Number},
-    {name: 'Boolean', value: TemplateType.Boolean},
-    {name: 'Array', value: TemplateType.Array},
-    {name: 'Object', value: TemplateType.Object},
+    {name: 'Basic', value: TemplateType.Basic}
   ];
 
   /**
@@ -61,22 +61,12 @@ export class TemplateComponent implements OnInit {
   ngOnInit() {
     // Form validator
     this.form = this.formBuilder.group({
-      name: new FormControl(this.template.name, [
+      path: new FormControl(this.template.path, [
         Validators.minLength(this.minLength),
         Validators.maxLength(this.maxLength),
       ]),
-      type: new FormControl(this.template.type, [
-        Validators.required
-      ]),
-      primary: new FormControl(this.template.primary, [
-        Validators.required
-      ]),
-      searchable: new FormControl(this.template.searchable, [
-        Validators.required
-      ]),
-      sortable: new FormControl(this.template.sortable, [
-        Validators.required
-      ]),
+      type: new FormControl(this.template.type, []),
+      content: new FormControl(this.template.content, []),
     });
   }
 }

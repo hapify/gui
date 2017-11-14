@@ -1,60 +1,40 @@
 <div [formGroup]="form">
-  <div class="row">
-    <div class="col-lg-6 my-1 my-lg-0">
-      <div class="input-cnt">
-        <input id="name" formControlName="name" class="form-control" [(ngModel)]="template.name" type="text">
-        <div
-          *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
-          class="alert alert-danger mt-2">
-          <div *ngIf="form.controls['name'].errors.required">
-            {{ 'error_name_required' | translate }}
-          </div>
-          <div *ngIf="form.controls['name'].errors.pattern && !form.controls['name'].errors.required">
-            {{ 'error_name_format' | translate }}
-          </div>
-          <div *ngIf="form.controls['name'].errors.minlength">
-            {{ 'error_name_min_length' | translate:translateParams }}
-          </div>
-          <div *ngIf="form.controls['name'].errors.maxlength">
-            {{ 'error_name_max_length' | translate:translateParams }}
+  <div class="mb-2">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="input-cnt">
+          <input formControlName="path" class="form-control" [(ngModel)]="template.path" type="text">
+          <div
+            *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
+            class="alert alert-danger mt-2">
+            <div *ngIf="form.controls['path'].errors.required">
+              {{ 'error_path_required' | translate }}
+            </div>
+            <div *ngIf="form.controls['path'].errors.pattern && !form.controls['path'].errors.required">
+              {{ 'error_path_format' | translate }}
+            </div>
+            <div *ngIf="form.controls['path'].errors.minlength">
+              {{ 'error_path_min_length' | translate:translateParams }}
+            </div>
+            <div *ngIf="form.controls['path'].errors.maxlength">
+              {{ 'error_path_max_length' | translate:translateParams }}
+            </div>
           </div>
         </div>
+      </div>
+      <div class="col-md-3 text-md-right mt-1 mt-md-0">
+        <button *ngIf="!showCode" type="button" class="btn btn-outline-secondary" (click)="showCode=true">
+          {{ 'template_show' | translate }}
+        </button>
+        <button *ngIf="showCode" type="button" class="btn btn-secondary" (click)="showCode=false">
+          {{ 'template_hide' | translate }}
+        </button>
       </div>
     </div>
-    <div class="col-lg-3 my-1 my-lg-0">
-      <select name="type" formControlName="type" class="form-control" [(ngModel)]="template.type">
-        <option disabled value="">{{ 'template_type' | translate }}</option>
-        <option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option>
-      </select>
-      <div
-        *ngIf="form.controls['type'].invalid && (form.controls['type'].dirty || form.controls['type'].touched)"
-        class="alert alert-danger mt-2">
-        <div *ngIf="form.controls['type'].errors.required">
-          {{ 'error_type_required' | translate }}
-        </div>
-        <div *ngIf="form.controls['type'].errors.pattern && !form.controls['type'].errors.required">
-          {{ 'error_type_value' | translate }}
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 my-1 my-lg-0 text-lg-right">
-      <div class="btn-group" data-toggle="buttons">
-        <label class="btn" title="{{ 'tooltip_primary' | translate }}"
-               [ngClass]="{ 'btn-primary': template.primary, 'btn-outline-secondary': !template.primary }">
-          <input formControlName="primary" type="checkbox" autocomplete="off" [(ngModel)]="template.primary">
-          <span class="oi oi-key"></span>
-        </label>
-        <label class="btn" title="{{ 'tooltip_searchable' | translate }}"
-               [ngClass]="{ 'btn-primary': template.searchable, 'btn-outline-secondary': !template.searchable }">
-          <input formControlName="searchable" type="checkbox" autocomplete="off" [(ngModel)]="template.searchable">
-          <span class="oi oi-magnifying-glass"></span>
-        </label>
-        <label class="btn" title="{{ 'tooltip_sortable' | translate }}"
-               [ngClass]="{ 'btn-primary': template.sortable, 'btn-outline-secondary': !template.sortable }">
-          <input formControlName="sortable" type="checkbox" autocomplete="off" [(ngModel)]="template.sortable">
-          <span class="oi oi-arrow-thick-bottom"></span>
-        </label>
-      </div>
+  </div>
+  <div *ngIf="showCode" class="row">
+    <div class="col-lg-12">
+      <textarea formControlName="content" class="form-control" [(ngModel)]="template.content" rows="12"></textarea>
     </div>
   </div>
 </div>

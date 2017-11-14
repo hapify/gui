@@ -2,11 +2,11 @@ import {TemplateType} from './template-type.enum';
 
 export interface ITemplateBase {
   /**
-   * The template's name
+   * The template's path
    *
    * @type {string}
    */
-  name: string;
+  path: string;
   /**
    * The template's type
    *
@@ -14,23 +14,11 @@ export interface ITemplateBase {
    */
   type: TemplateType;
   /**
-   * Should be used as a primary key or not
+   * The template's content
    *
-   * @type {boolean}
+   * @type {string}
    */
-  primary: boolean;
-  /**
-   * Indicate whether the template is searchable or not
-   *
-   * @type {boolean}
-   */
-  searchable: boolean;
-  /**
-   * Indicate whether the template is sortable or not
-   *
-   * @type {boolean}
-   */
-  sortable: boolean;
+  content: string;
 }
 
 export interface ITemplate extends ITemplateBase {

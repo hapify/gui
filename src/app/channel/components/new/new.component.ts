@@ -36,9 +36,7 @@ export class NewComponent implements OnInit {
     this.channel = new Channel();
     // Default template
     const template = this.channel.newTemplate();
-    template.name = 'id';
-    template.type = TemplateType.Number;
-    template.primary = true;
+    template.path = 'path/to/file.js';
     this.channel.addTemplate(template);
     // Get default name
     this.translateService.get('new_channel_name').subscribe((text) => {
