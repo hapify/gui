@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group-lg">
+        <input id="name" formControlName="name" class="form-control" [(ngModel)]="channel.name" type="text">
+        <div
+          *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
+          class="alert alert-danger mt-2">
+          <div *ngIf="form.controls['name'].errors.required">
+            {{ 'error_name_required' | translate }}
+          </div>
+          <div *ngIf="form.controls['name'].errors.pattern && !form.controls['name'].errors.required">
+            {{ 'error_name_format' | translate }}
+          </div>
+          <div *ngIf="form.controls['name'].errors.minlength">
+            {{ 'error_name_min_length' | translate:translateParams }}
+          </div>
+          <div *ngIf="form.controls['name'].errors.maxlength">
+            {{ 'error_name_max_length' | translate:translateParams }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let template of channel.templates" class="my-3">
+    <app-channel-template [template]="template"></app-channel-template>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 my-2">
+      <button type="button" class="btn btn-secondary" (click)="addTemplate()">{{ 'channels_add_template' | translate }}</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="cleanTemplates()">{{ 'channels_clean_templates' |
+        translate }}
+      </button>
+    </div>
+    <div class="col-sm-4 mt-sm-2 mb-2 text-sm-right">
+      <button type="submit" class="btn btn-primary" [disabled]="channel.isEmpty()">{{ 'common_save' | translate }}
+      </button>
+    </div>
+  </div>
+</form>
