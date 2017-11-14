@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {StorageService} from '../../../services/storage.service';
+import {StorageService} from '../../services/storage.service';
 import {IModel} from '../../interfaces/model';
 
 @Component({
@@ -34,7 +34,7 @@ export class RootComponent implements OnInit {
    */
   deleteModel(model: IModel): void {
     // Store the model
-    this.storageService.deleteModel(model)
+    this.storageService.remove(model)
       .then(() => this.updateModels());
   }
 
@@ -44,7 +44,7 @@ export class RootComponent implements OnInit {
    * @returns {Promise<void>}
    */
   protected updateModels(): Promise<void> {
-    return this.storageService.models()
+    return this.storageService.list()
       .then((models) => {
         this.models = models.reverse();
       });

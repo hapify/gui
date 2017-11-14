@@ -14,7 +14,10 @@ import {RootComponent} from './components/root/root.component';
 // Translation
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { EditComponent } from './components/edit/edit.component';
+import {EditComponent} from './components/edit/edit.component';
+
+// Services
+import {StorageService} from './services/storage.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,7 +47,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     RootComponent,
     EditComponent,
     ModelRowComponent
-  ]
+  ],
+  providers: [
+    StorageService
+  ],
 })
 export class ModelModule {
 }
@@ -53,3 +59,4 @@ export {Model} from './classes/model';
 export {Field} from './classes/field';
 export {IModel, IModelBase} from './interfaces/model';
 export {IField, IFieldBase} from './interfaces/field';
+export {StorageService} from './services/storage.service';

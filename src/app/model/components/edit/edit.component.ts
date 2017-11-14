@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {IModel} from '../../interfaces/model';
 import {Router, ActivatedRoute} from '@angular/router';
-import {StorageService} from '../../../services/storage.service';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-edit',
@@ -40,7 +40,7 @@ export class EditComponent implements OnInit, OnDestroy {
       // Get model id
       const id = params['id'];
       // Load model
-      const model = await this.storageService.findModel(id);
+      const model = await this.storageService.find(id);
       // Bind the model if any
       if (model) {
         this.model = model;
@@ -60,7 +60,7 @@ export class EditComponent implements OnInit, OnDestroy {
    */
   onSave(): void {
     // Store the model
-    this.storageService.updateModel(this.model);
+    this.storageService.update(this.model);
   }
 
 }

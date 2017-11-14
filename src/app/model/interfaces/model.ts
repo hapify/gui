@@ -1,12 +1,7 @@
 import {IField, IFieldBase} from './field';
+import {IStorableBase, IStorable} from '../../interfaces/storable';
 
-export interface IModelBase {
-  /**
-   * The model's unique id
-   *
-   * @type {string}
-   */
-  id: string;
+export interface IModelBase extends IStorableBase {
   /**
    * The model's name
    *
@@ -21,26 +16,13 @@ export interface IModelBase {
   fields: IFieldBase[];
 }
 
-export interface IModel extends IModelBase {
+export interface IModel extends IModelBase, IStorable {
   /**
    * The fields of the model
    *
    * @type {IField[]}
    */
   fields: IField[];
-  /**
-   * Convert the instance to an object
-   *
-   * @returns {IModelBase}
-   */
-  toObject(): IModelBase;
-  /**
-   * Bind properties from the base object to this object
-   *
-   * @param {IModelBase} object
-   * @returns {void}
-   */
-  fromObject(object: IModelBase): void;
   /**
    * Denotes if the field should be considered as empty
    *

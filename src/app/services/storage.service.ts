@@ -1,17 +1,14 @@
-import {Injectable} from '@angular/core';
-import {IModel} from '../model/interfaces/model';
-import {Model} from '../model/classes/model';
+import {IStorable} from '../interfaces/storable';
 
-@Injectable()
-export class StorageService {
+export abstract class StorageService {
 
   /**
-   * Cached models
+   * Cached instances
    *
-   * @type {IModel[]}
+   * @type {IStorable[]}
    * @private
    */
-  private _models: IModel[] = null;
+  private _instances: IStorable[] = null;
   /**
    * The storage used to keep data
    *
@@ -27,105 +24,111 @@ export class StorageService {
   }
 
   /**
-   * Returns the current models
+   * Returns the current instances
    *
-   * @returns {Promise<IModel[]>}
+   * @returns {Promise<IStorable[]>}
    */
-  async models(): Promise<IModel[]> {
-    // Create the cached models if not created
-    if (this._models === null) {
-      const json = this._storage.getItem('models');
-      // If the models are not created yet, keep null as value
+  async list(): Promise<IStorable[]> {
+    // Create the cached instances if not created
+    if (this._instances === null) {
+      const json = this._storage.getItem(this.bucket());
+      // If the instances are not created yet, keep null as value
       const objects = typeof json === 'string' && json.length ? JSON.parse(json) : [];
-      // Create models from objects
-      this._models = objects.map((object) => {
-        const model = this.newModel();
-        model.fromObject(object);
-        return model;
+      // Create instances from objects
+      this._instances = objects.map((object) => {
+        const instance = this.instance();
+        instance.fromObject(object);
+        return instance;
       });
     }
-    // Returns models
-    return this._models;
+    // Returns instances
+    return this._instances;
   }
 
   /**
-   * Save current models to storage
+   * Save current instances to storage
    *
    * @protected
-   * @param {IModel[]} models
+   * @param {IStorable[]} instances
    * @returns {Promise<void>}
    */
-  protected async saveModels(models: IModel[]): Promise<void> {
-    // Convert models
-    const objects = models.map((model) => model.toObject());
+  protected async save(instances: IStorable[]): Promise<void> {
+    // Convert instances
+    const objects = instances.map((instance) => instance.toObject());
     // Store
-    this._storage.setItem('models', JSON.stringify(objects));
+    this._storage.setItem(this.bucket(), JSON.stringify(objects));
     // Clear cache
-    this._models = null;
+    this._instances = null;
   }
 
   /**
-   * Push a model into the storage
+   * Push a instance into the storage
    *
-   * @param {IModel} model
+   * @param {IStorable} instance
    * @returns {Promise<void>}
    */
-  async addModel(model: IModel): Promise<void> {
-    // Add the model to the list
-    const models = await this.models();
-    models.push(model);
-    // Save the models
-    await this.saveModels(models);
+  async add(instance: IStorable): Promise<void> {
+    // Add the instance to the list
+    const instances = await this.list();
+    instances.push(instance);
+    // Save the instances
+    await this.save(instances);
   }
 
   /**
-   * Find a model with its id
+   * Find a instance with its id
    *
    * @param {string} id
-   * @returns {Promise<IModel>}
+   * @returns {Promise<IStorable>}
    */
-  async findModel(id: string): Promise<IModel> {
-    // Add the model to the list
-    const models = await this.models();
-    // Find model
-    return models.find((model) => model.id === id);
+  async find(id: string): Promise<IStorable> {
+    // Add the instance to the list
+    const instances = await this.list();
+    // Find instance
+    return instances.find((instance) => instance.id === id);
   }
 
   /**
-   * Find a model and remove it
+   * Find a instance and remove it
    *
-   * @param {IModel} model
+   * @param {IStorable} instance
    * @returns {Promise<void>}
    */
-  async deleteModel(model: IModel): Promise<void> {
-    // Add the model to the list
-    const models = (await this.models())
-      .filter((m) => m.id !== model.id);
-    // Find model
-    await this.saveModels(models);
+  async remove(instance: IStorable): Promise<void> {
+    // Add the instance to the list
+    const instances = (await this.list())
+      .filter((m) => m.id !== instance.id);
+    // Find instance
+    await this.save(instances);
   }
 
   /**
-   * Find a model and replace it with its new version
+   * Find a instance and replace it with its new version
    *
-   * @param {IModel} model
+   * @param {IStorable} instance
    * @returns {Promise<void>}
    */
-  async updateModel(model: IModel): Promise<void> {
-    // Remove model
-    await this.deleteModel(model);
-    // Push new vesion
-    await this.addModel(model);
+  async update(instance: IStorable): Promise<void> {
+    // Remove instance
+    await this.remove(instance);
+    // Push new version
+    await this.add(instance);
   }
 
   /**
-   * Returns a new model instance
+   * Returns a new instance
    *
    * @protected
-   * @returns {IModel}
+   * @returns {IStorable}
    */
-  protected newModel(): IModel {
-    return new Model();
-  }
+  protected abstract instance(): IStorable;
+
+  /**
+   * Returns the name of the bucket to store data
+   *
+   * @protected
+   * @returns {string}
+   */
+  protected abstract bucket(): string;
 
 }

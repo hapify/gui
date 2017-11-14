@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Model} from '../../classes/model';
 import {FieldType} from '../../interfaces/field-type.enum';
-import {StorageService} from '../../../services/storage.service';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-model-new',
@@ -51,9 +51,11 @@ export class NewComponent implements OnInit {
    */
   onSave(): void {
     // Store the model
-    this.storageService.addModel(this.model);
-    // Go to edit page
-    this.router.navigate(['../edit', this.model.id], {relativeTo: this.route});
+    this.storageService.add(this.model)
+      .then(() => {
+        // Go to edit page
+        this.router.navigate(['../edit', this.model.id], {relativeTo: this.route});
+      });
   }
 
 

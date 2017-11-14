@@ -15,7 +15,6 @@ import {ModelComponent} from './components/model/model.component';
 
 // Services
 import {ConfigService} from './services/config.service';
-import {StorageService} from './services/storage.service';
 import {StringService} from './services/string.service';
 
 // AoT requires an exported function for factories
@@ -45,7 +44,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     ConfigService,
-    StorageService,
     StringService
   ],
   bootstrap: [AppComponent]
