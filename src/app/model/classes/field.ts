@@ -5,7 +5,9 @@ export class Field implements IField {
   /**
    * Constructor
    */
-  constructor() {}
+  constructor() {
+  }
+
   /**
    * @inheritDoc
    */
@@ -26,6 +28,7 @@ export class Field implements IField {
    * @inheritDoc
    */
   public sortable = false;
+
   /**
    * @inheritDoc
    */
@@ -36,6 +39,7 @@ export class Field implements IField {
     this.searchable = object.searchable;
     this.sortable = object.sortable;
   }
+
   /**
    * @inheritDoc
    */
@@ -48,6 +52,7 @@ export class Field implements IField {
       sortable: this.sortable,
     };
   }
+
   /**
    * @inheritDoc
    */

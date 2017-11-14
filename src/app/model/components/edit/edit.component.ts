@@ -30,7 +30,8 @@ export class EditComponent implements OnInit, OnDestroy {
    */
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private storageService: StorageService) { }
+              private storageService: StorageService) {
+  }
 
   /**
    * @inheritDoc

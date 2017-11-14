@@ -8,7 +8,8 @@
         <span class="oi oi-pencil"></span>
       </a>
       <span class="delete">
-      <button *ngIf="!deleteSwitch" type="button" class="btn btn-outline-secondary" (click)="deleteSwitch=!deleteSwitch">
+      <button *ngIf="!deleteSwitch" type="button" class="btn btn-outline-secondary"
+              (click)="deleteSwitch=!deleteSwitch">
         <span class="oi oi-circle-x"></span>
       </button>
       <button *ngIf="deleteSwitch" type="button" class="btn btn-outline-danger" (click)="didClickDelete()">

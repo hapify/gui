@@ -32,7 +32,7 @@ export abstract class StorageService {
     // Create the cached instances if not created
     if (this._instances === null) {
       const json = this._storage.getItem(this.bucket());
-      // If the instances are not created yet, keep null as value
+      // If the instances are not created yet, use []
       const objects = typeof json === 'string' && json.length ? JSON.parse(json) : [];
       // Create instances from objects
       this._instances = objects.map((object) => {

@@ -40,7 +40,8 @@ export class ModelRowComponent implements OnInit {
   /**
    * @inheritDoc
    */
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   /**
    * Called when the user click on "delete"
