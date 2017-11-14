@@ -5,7 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {StorageService} from '../../services/storage.service';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-model-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })

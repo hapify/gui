@@ -4,10 +4,14 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
+import {ModelModule, StorageService as ModelStorageService} from '../model/model.module';
+import {ChannelModule, StorageService as ChannelStorageService} from '../channel/channel.module';
 
-import { SimpleComponent } from './components/simple/simple.component';
+// Components
+import {SimpleComponent} from './components/simple/simple.component';
 
 // Services
+import {GeneratorService} from './services/generator.service';
 import {DotGeneratorService} from './services/dot-generator.service';
 
 // Translation
@@ -33,16 +37,21 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     TooltipModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ModelModule,
+    ChannelModule
   ],
   declarations: [
     SimpleComponent
   ],
   providers: [
+    ModelStorageService,
+    ChannelStorageService,
+    GeneratorService,
     DotGeneratorService
   ],
 })
 export class GeneratorModule {
 }
 export {GENERATOR_ROUTES} from './generator.routing';
-export {DotGeneratorService} from './services/dot-generator.service';
+export {GeneratorService} from './services/generator.service';

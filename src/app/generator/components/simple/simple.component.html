@@ -1,3 +1,39 @@
-<p>
-  simple works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="input-group-lg">
+        <label>{{ 'generator_select_model' | translate }}</label>
+        <select [(ngModel)]="model" class="form-control">
+          <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="input-group-lg">
+        <label>{{ 'generator_select_channel' | translate }}</label>
+        <select [(ngModel)]="channel" class="form-control">
+          <option *ngFor="let channel of channels" [ngValue]="channel">{{channel.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="model && channel" class="col-lg-4">
+      <div class="input-group-lg">
+        <label>{{ 'generator_select_template' | translate }}</label>
+        <select [(ngModel)]="template" class="form-control" (ngModelChange)="onTemplateChange($event)">
+          <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.path}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="result" class="mt-3">
+    <div class="row">
+      <div class="col-lg-12">
+      <pre>
+        <code>
+          {{ result }}
+        </code>
+      </pre>
+      </div>
+    </div>
+  </div>
+</div>

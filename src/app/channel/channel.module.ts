@@ -59,4 +59,5 @@ export {Channel} from './classes/channel';
 export {Template} from './classes/template';
 export {IChannel, IChannelBase} from './interfaces/channel';
 export {ITemplate, ITemplateBase} from './interfaces/template';
+export {TemplateEngine} from './interfaces/template-engine.enum';
 export {StorageService} from './services/storage.service';

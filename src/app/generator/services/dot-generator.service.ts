@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
-import {GeneratorService} from './generator.service';
+import {IGenerator} from '../interfaces/generator';
+import {IModel} from '../../model/model.module';
+import {ITemplate} from '../../channel/channel.module';
 
 @Injectable()
-export class DotGeneratorService extends GeneratorService {
+export class DotGeneratorService implements IGenerator {
 
-
+  /**
+   * @inheritDoc
+   */
+  async run(model: IModel, template: ITemplate): Promise<string> {
+    return 'success';
+  }
 }
