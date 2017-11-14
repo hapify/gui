@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ITemplate} from '../../interfaces/template';
-import {TemplateType} from '../../interfaces/template-type.enum';
+import {TemplateEngine} from '../../interfaces/template-engine.enum';
 
 @Component({
   selector: 'app-channel-template',
@@ -49,10 +49,10 @@ export class TemplateComponent implements OnInit {
    * Availables types
    */
   types: [{
-    value: TemplateType;
+    value: TemplateEngine;
     name: string;
   }] = [
-    {name: 'Basic', value: TemplateType.Basic}
+    {name: 'doT', value: TemplateEngine.doT}
   ];
 
   /**
@@ -65,7 +65,7 @@ export class TemplateComponent implements OnInit {
         Validators.minLength(this.minLength),
         Validators.maxLength(this.maxLength),
       ]),
-      type: new FormControl(this.template.type, []),
+      engine: new FormControl(this.template.engine, []),
       content: new FormControl(this.template.content, []),
     });
   }

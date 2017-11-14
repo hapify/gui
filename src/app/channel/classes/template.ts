@@ -1,5 +1,5 @@
 import {ITemplate, ITemplateBase} from '../interfaces/template';
-import {TemplateType} from '../interfaces/template-type.enum';
+import {TemplateEngine} from '../interfaces/template-engine.enum';
 
 export class Template implements ITemplate {
   /**
@@ -15,7 +15,7 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
-  public type: TemplateType = TemplateType.Basic;
+  public engine: TemplateEngine = TemplateEngine.doT;
   /**
    * @inheritDoc
    */
@@ -26,7 +26,7 @@ export class Template implements ITemplate {
    */
   public fromObject(object: ITemplateBase): void {
     this.path = object.path;
-    this.type = object.type;
+    this.engine = object.engine;
     this.content = object.content;
   }
 
@@ -36,7 +36,7 @@ export class Template implements ITemplate {
   public toObject(): ITemplateBase {
     return {
       path: this.path,
-      type: this.type,
+      engine: this.engine,
       content: this.content
     };
   }

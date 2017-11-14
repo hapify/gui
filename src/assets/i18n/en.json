@@ -19,7 +19,7 @@
   "channels_delete_confirm": "Really?",
   "channels_delete_cancel": "Nope",
   "field_type": "Field's type",
-  "template_type": "Template's type",
+  "template_engine": "Template's engine",
   "template_show": "Show",
   "template_hide": "Hide",
   "new_model_name": "NewModel",
