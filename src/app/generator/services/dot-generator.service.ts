@@ -32,6 +32,7 @@ export class DotGeneratorService implements IGenerator {
     m.names = this.stringService.formatSentences(m.name);
     m.fields = m.fields.map((f) => {
       f.names = this.stringService.formatSentences(f.name);
+      return f;
     });
 
     const output = templateFunction({ model: m, m });
