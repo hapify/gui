@@ -11,6 +11,10 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
+  public name = '';
+  /**
+   * @inheritDoc
+   */
   public path = '';
   /**
    * @inheritDoc
@@ -25,6 +29,7 @@ export class Template implements ITemplate {
    * @inheritDoc
    */
   public fromObject(object: ITemplateBase): void {
+    this.name = object.name;
     this.path = object.path;
     this.engine = object.engine;
     this.content = object.content;
@@ -35,6 +40,7 @@ export class Template implements ITemplate {
    */
   public toObject(): ITemplateBase {
     return {
+      name: this.name,
       path: this.path,
       engine: this.engine,
       content: this.content

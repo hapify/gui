@@ -20,7 +20,7 @@
       <div class="input-group-lg">
         <label>{{ 'generator_select_template' | translate }}</label>
         <select [(ngModel)]="template" class="form-control" (ngModelChange)="onTemplateChange($event)">
-          <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.path}}</option>
+          <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.name}}</option>
         </select>
       </div>
     </div>

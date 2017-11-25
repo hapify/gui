@@ -61,6 +61,10 @@ export class TemplateComponent implements OnInit {
   ngOnInit() {
     // Form validator
     this.form = this.formBuilder.group({
+      name: new FormControl(this.template.name, [
+        Validators.minLength(this.minLength),
+        Validators.maxLength(this.maxLength),
+      ]),
       path: new FormControl(this.template.path, [
         Validators.minLength(this.minLength),
         Validators.maxLength(this.maxLength),

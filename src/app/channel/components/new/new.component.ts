@@ -34,13 +34,18 @@ export class NewComponent implements OnInit {
   ngOnInit() {
     // New channel
     this.channel = new Channel();
-    // Default template
-    const template = this.channel.newTemplate();
-    template.path = 'path/to/file.js';
-    this.channel.addTemplate(template);
     // Get default name
     this.translateService.get('new_channel_name').subscribe((text) => {
       this.channel.name = text;
+    });
+    // Get default name
+    this.translateService.get('new_template_name').subscribe((text) => {
+      // Default template
+      const template = this.channel.newTemplate();
+      template.name = text;
+      template.path = 'path/to/file.js';
+      // Push template to channel
+      this.channel.addTemplate(template);
     });
   }
 

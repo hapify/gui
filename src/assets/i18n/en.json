@@ -29,6 +29,7 @@
   "template_hide": "Hide",
   "new_model_name": "NewModel",
   "new_channel_name": "NewChannel",
+  "new_template_name": "NewTemplate",
   "error_name_required": "The name is required.",
   "error_name_format": "The name is malformed.",
   "error_name_min_length": "The name must be more than {{minLength}} chars length.",
