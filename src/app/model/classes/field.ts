@@ -34,7 +34,7 @@ export class Field implements IField {
    */
   public fromObject(object: IFieldBase): void {
     this.name = object.name;
-    this.type = object.type;
+    this.type = Number(object.type);
     this.primary = object.primary;
     this.searchable = object.searchable;
     this.sortable = object.sortable;
@@ -46,7 +46,7 @@ export class Field implements IField {
   public toObject(): IFieldBase {
     return {
       name: this.name,
-      type: this.type,
+      type: Number(this.type),
       primary: this.primary,
       searchable: this.searchable,
       sortable: this.sortable,

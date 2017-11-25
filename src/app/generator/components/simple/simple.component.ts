@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {StorageService as ChannelStorageService, IChannel, ITemplate} from '../../../channel/channel.module';
 import {GeneratorService} from '../../services/generator.service';
+import {IGeneratorResult} from "../../interfaces/generator-result";
 
 @Component({
   selector: 'app-generator-simple',
@@ -57,7 +58,7 @@ export class SimpleComponent implements OnInit {
   /**
    * Generation results
    */
-  result: string;
+  result: IGeneratorResult;
 
   /**
    * @inheritDoc
