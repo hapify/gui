@@ -2,15 +2,15 @@
   <div class="container">
     <div class="channels-list">
 
-      <div *ngFor="let channel of channels;" class="my-3">
-        <app-channel-channel-row [channel]="channel" (onDelete)="deleteChannel(channel)"></app-channel-channel-row>
+      <div *ngIf="channels && channels.length" class="mb-5">
+        <div *ngFor="let channel of channels;" class="my-3">
+          <app-channel-channel-row [channel]="channel" (onDelete)="deleteChannel(channel)"></app-channel-channel-row>
+        </div>
       </div>
 
-      <div *ngIf="channels && !channels.length">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <a [routerLink]="['/channel/new']" class="btn btn-primary">{{ 'common_new_channel' | translate }}</a>
-          </div>
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <a [routerLink]="['/channel/new']" class="btn btn-primary">{{ 'common_new_channel' | translate }}</a>
         </div>
       </div>
 

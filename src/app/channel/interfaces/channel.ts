@@ -48,4 +48,10 @@ export interface IChannel extends IChannelBase, IStorable {
    * @returns {void}
    */
   filter(): void;
+  /**
+   * Convert the instance to an object
+   *
+   * @returns {IChannelBase}
+   */
+  toObject(): IChannelBase;
 }

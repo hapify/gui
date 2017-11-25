@@ -2,15 +2,15 @@
   <div class="container">
     <div class="models-list">
 
-      <div *ngFor="let model of models;" class="my-3">
-        <app-model-model-row [model]="model" (onDelete)="deleteModel(model)"></app-model-model-row>
+      <div *ngIf="models && models.length" class="mb-5">
+        <div *ngFor="let model of models;" class="my-3">
+          <app-model-model-row [model]="model" (onDelete)="deleteModel(model)"></app-model-model-row>
+        </div>
       </div>
 
-      <div *ngIf="models && !models.length">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <a [routerLink]="['/model/new']" class="btn btn-primary">{{ 'common_new_model' | translate }}</a>
-          </div>
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <a [routerLink]="['/model/new']" class="btn btn-primary">{{ 'common_new_model' | translate }}</a>
         </div>
       </div>
 

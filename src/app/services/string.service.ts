@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SentenceFormat} from '../interfaces/sentence-format.enum';
+import {IFormattedSentences} from "../interfaces/formatted-sentences";
 
 @Injectable()
 export class StringService {
@@ -326,6 +327,25 @@ export class StringService {
 
     throw new Error(`Format ${format} is unknown`);
 
+  }
+
+  /**
+   * Returns the string with all formats
+   *
+   * @param {string} value
+   * @returns {string}
+   */
+  public formatSentences(value: string): IFormattedSentences {
+    return {
+      raw: this.format(value, SentenceFormat.Original),
+      hyphen: this.format(value, SentenceFormat.SlugHyphen),
+      underscore: this.format(value, SentenceFormat.SlugUnderscore),
+      oneWord: this.format(value, SentenceFormat.SlugOneWord),
+      wordsUpper: this.format(value, SentenceFormat.WordsUpperCase),
+      wordsLower: this.format(value, SentenceFormat.WordsLowerCase),
+      upperCamel: this.format(value, SentenceFormat.UpperCamelCase),
+      lowerCamel: this.format(value, SentenceFormat.LowerCamelCase)
+    }
   }
 
 }

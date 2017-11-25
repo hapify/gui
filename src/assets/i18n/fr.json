@@ -23,6 +23,8 @@
   "generator_select_model": "Modèle",
   "generator_select_channel": "Channel",
   "generator_select_template": "Template",
+  "generator_title_path": "Chemin",
+  "generator_title_content": "Contenu",
   "field_type": "Type de champs",
   "template_engine": "Moteur de template",
   "template_show": "Afficher",

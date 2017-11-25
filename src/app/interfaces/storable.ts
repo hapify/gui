@@ -12,13 +12,13 @@ export interface IStorable extends IStorableBase {
   /**
    * Convert the instance to an object
    *
-   * @returns {IModelBase}
+   * @returns {IStorableBase}
    */
   toObject(): IStorableBase;
   /**
    * Bind properties from the base object to this object
    *
-   * @param {IModelBase} object
+   * @param {IStorableBase} object
    * @returns {void}
    */
   fromObject(object: IStorableBase): void;

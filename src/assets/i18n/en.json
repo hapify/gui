@@ -23,6 +23,8 @@
   "generator_select_model": "Model",
   "generator_select_channel": "Channel",
   "generator_select_template": "Template",
+  "generator_title_path": "Path",
+  "generator_title_content": "Content",
   "field_type": "Field's type",
   "template_engine": "Template's engine",
   "template_show": "Show",
