@@ -46,13 +46,14 @@ export class TemplateComponent implements OnInit {
     maxLength: this.maxLength,
   };
   /**
-   * Availables types
+   * Availables engines
    */
-  types: [{
+  engines: [{
     value: TemplateEngine;
     name: string;
   }] = [
-    {name: 'doT', value: TemplateEngine.doT}
+    {name: 'doT', value: TemplateEngine.doT},
+    {name: 'Mustache', value: TemplateEngine.Mustache}
   ];
 
   /**
@@ -69,7 +70,9 @@ export class TemplateComponent implements OnInit {
         Validators.minLength(this.minLength),
         Validators.maxLength(this.maxLength),
       ]),
-      engine: new FormControl(this.template.engine, []),
+      engine: new FormControl(this.template.engine, [
+        Validators.required
+      ]),
       content: new FormControl(this.template.content, []),
     });
   }

@@ -55,6 +55,22 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4 mt-2 mt-md-0">
+        <select formControlName="engine" class="form-control" [(ngModel)]="template.engine">
+          <option disabled value="">{{ 'template_engine' | translate }}</option>
+          <option *ngFor="let engine of engines" value="{{engine.value}}">{{engine.name}}</option>
+        </select>
+        <div
+            *ngIf="form.controls['engine'].invalid && (form.controls['engine'].dirty || form.controls['engine'].touched)"
+            class="alert alert-danger mt-2">
+          <div *ngIf="form.controls['engine'].errors.required">
+            {{ 'error_engine_required' | translate }}
+          </div>
+          <div *ngIf="form.controls['engine'].errors.pattern && !form.controls['engine'].errors.required">
+            {{ 'error_engine_value' | translate }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div *ngIf="showCode" class="mb-5">

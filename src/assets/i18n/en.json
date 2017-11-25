@@ -40,6 +40,8 @@
   "error_path_max_length": "The path must be less than {{maxLength}} chars length.",
   "error_type_required": "The type is required.",
   "error_type_value": "The type is not valid.",
+  "error_engine_required": "The engine is required.",
+  "error_engine_value": "The engine is not valid.",
   "tooltip_primary": "Is a primary key?",
   "tooltip_searchable": "Is searchable?",
   "tooltip_sortable": "Is sortable?"
