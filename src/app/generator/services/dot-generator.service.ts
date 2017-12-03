@@ -30,10 +30,18 @@ export class DotGeneratorService implements IGenerator {
 
     // Convert names
     m.names = this.stringService.formatSentences(m.name);
-    m.fields = m.fields.map((f) => {
+    // Get and format fields
+    const fields = m.fields.map((f) => {
       f.names = this.stringService.formatSentences(f.name);
       return f;
     });
+    // Get primary fields
+    const primary = fields.find((f) => f.primary);
+    // Set fields to model
+    m.fields = {
+      list: fields,
+      primary
+    };
 
     const output = templateFunction({ model: m, m });
 

@@ -31,7 +31,7 @@ export class Template implements ITemplate {
   public fromObject(object: ITemplateBase): void {
     this.name = object.name;
     this.path = object.path;
-    this.engine = Number(object.engine);
+    this.engine = object.engine;
     this.content = object.content;
   }
 
@@ -42,7 +42,7 @@ export class Template implements ITemplate {
     return {
       name: this.name,
       path: this.path,
-      engine: Number(this.engine),
+      engine: this.engine,
       content: this.content
     };
   }
