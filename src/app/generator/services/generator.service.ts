@@ -34,16 +34,15 @@ export class GeneratorService {
     // Compute content
     let content;
     if (template.engine === TemplateEngine.doT) {
-      content = await this.dotGeneratorService.run(model, template);
-    }
-    else {
+      content = await this.dotGeneratorService.run(this.explicitModel(model), template);
+    } else {
       throw new Error('Unknown engine');
     }
 
     return {
       content,
       path
-    }
+    };
   }
 
   /**
@@ -67,6 +66,52 @@ export class GeneratorService {
     path = path.replace(/{model\.lowerCamel}/g, this.stringService.format(model.name, SentenceFormat.LowerCamelCase));
 
     return path;
+  }
+
+  /**
+   * Convert the model to an object containing all its properties
+   *
+   * @param {IModel} model
+   */
+  protected explicitModel(model: IModel): any {
+
+    // Create object
+    const m: any = model.toObject();
+
+    // Convert names
+    m.names = this.stringService.formatSentences(m.name);
+
+    // Get and format fields
+    const fields = m.fields.map((f) => {
+      f.names = this.stringService.formatSentences(f.name);
+      return f;
+    });
+
+    // Get primary field
+    const primary = fields.find((f) => f.primary);
+
+    // Get searchables fields
+    const searchables = fields.filter((f) => f.searchable);
+
+    // Get sortables fields
+    const sortables = fields.filter((f) => f.sortable);
+
+    // Set fields to model
+    m.fields = {
+      list: fields,
+      l: fields,
+      primary,
+      p: primary,
+      searchables,
+      se: searchables,
+      sortables,
+      so: sortables
+    };
+
+    // Add short name
+    m.f = m.fields;
+
+    return m;
   }
 
 }

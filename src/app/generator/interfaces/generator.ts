@@ -1,4 +1,3 @@
-import {IModel} from '../../model/interfaces/model';
 import {ITemplate} from '../../channel/interfaces/template';
 
 export interface IGenerator {
@@ -6,10 +5,10 @@ export interface IGenerator {
   /**
    * Run generation process
    *
-   * @param {IModel} model
+   * @param {any} model
    * @param {ITemplate} template
    * @returns {Promise<string>}
    */
-  run(model: IModel, template: ITemplate): Promise<string>;
+  run(model: any, template: ITemplate): Promise<string>;
 }
 
