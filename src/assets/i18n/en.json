@@ -46,5 +46,7 @@
   "error_engine_value": "The engine is not valid.",
   "tooltip_primary": "Is a primary key?",
   "tooltip_searchable": "Is searchable?",
-  "tooltip_sortable": "Is sortable?"
+  "tooltip_sortable": "Is sortable?",
+  "tooltip_private": "Is private ?",
+  "tooltip_internal": "Is for internal use ?"
 }

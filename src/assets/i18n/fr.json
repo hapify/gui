@@ -46,5 +46,7 @@
   "error_engine_value": "Le moteur n'est pas valide.",
   "tooltip_primary": "Est une clé primaire ?",
   "tooltip_searchable": "Est recherchable ?",
-  "tooltip_sortable": "Est triable ?"
+  "tooltip_sortable": "Est triable ?",
+  "tooltip_private": "Est privé ?",
+  "tooltip_internal": "Pour une utilisation interne ?"
 }

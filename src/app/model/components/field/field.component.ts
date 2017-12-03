@@ -76,6 +76,12 @@ export class FieldComponent implements OnInit {
       sortable: new FormControl(this.field.sortable, [
         Validators.required
       ]),
+      isPrivate: new FormControl(this.field.isPrivate, [
+        Validators.required
+      ]),
+      internal: new FormControl(this.field.internal, [
+        Validators.required
+      ]),
     });
   }
 }

@@ -1,6 +1,6 @@
 <div [formGroup]="form">
   <div class="row">
-    <div class="col-lg-6 my-1 my-lg-0">
+    <div class="col-lg-5 my-1 my-lg-0">
       <div class="input-cnt">
         <input formControlName="name" class="form-control" [(ngModel)]="field.name" type="text">
         <div
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3 my-1 my-lg-0 text-lg-right">
+    <div class="col-lg-4 my-1 my-lg-0 text-lg-right">
       <div class="btn-group" data-toggle="buttons">
         <label class="btn" title="{{ 'tooltip_primary' | translate }}"
                [ngClass]="{ 'btn-primary': field.primary, 'btn-outline-secondary': !field.primary }">
@@ -53,6 +53,16 @@
                [ngClass]="{ 'btn-primary': field.sortable, 'btn-outline-secondary': !field.sortable }">
           <input formControlName="sortable" type="checkbox" autocomplete="off" [(ngModel)]="field.sortable">
           <span class="oi oi-arrow-thick-bottom"></span>
+        </label>
+        <label class="btn" title="{{ 'tooltip_private' | translate }}"
+               [ngClass]="{ 'btn-primary': field.isPrivate, 'btn-outline-secondary': !field.isPrivate }">
+          <input formControlName="isPrivate" type="checkbox" autocomplete="off" [(ngModel)]="field.isPrivate">
+          <span class="oi oi-shield"></span>
+        </label>
+        <label class="btn" title="{{ 'tooltip_internal' | translate }}"
+               [ngClass]="{ 'btn-primary': field.internal, 'btn-outline-secondary': !field.internal }">
+          <input formControlName="internal" type="checkbox" autocomplete="off" [(ngModel)]="field.internal">
+          <span class="oi oi-code"></span>
         </label>
       </div>
     </div>

@@ -31,6 +31,18 @@ export interface IFieldBase {
    * @type {boolean}
    */
   sortable: boolean;
+  /**
+   * Indicate whether the field is private (should not be exposed)
+   *
+   * @type {boolean}
+   */
+  isPrivate: boolean;
+  /**
+   * Indicate whether the field is for an internal use only (should not be defined by an user)
+   *
+   * @type {boolean}
+   */
+  internal: boolean;
 }
 
 export interface IField extends IFieldBase {

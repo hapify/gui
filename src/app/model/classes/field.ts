@@ -28,6 +28,14 @@ export class Field implements IField {
    * @inheritDoc
    */
   public sortable = false;
+  /**
+   * @inheritDoc
+   */
+  public isPrivate = false;
+  /**
+   * @inheritDoc
+   */
+  public internal = false;
 
   /**
    * @inheritDoc
@@ -38,6 +46,8 @@ export class Field implements IField {
     this.primary = object.primary;
     this.searchable = object.searchable;
     this.sortable = object.sortable;
+    this.isPrivate = object.isPrivate;
+    this.internal = object.internal;
   }
 
   /**
@@ -50,6 +60,8 @@ export class Field implements IField {
       primary: this.primary,
       searchable: this.searchable,
       sortable: this.sortable,
+      isPrivate: this.isPrivate,
+      internal: this.internal
     };
   }
 

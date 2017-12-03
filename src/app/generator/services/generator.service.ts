@@ -90,11 +90,17 @@ export class GeneratorService {
     // Get primary field
     const primary = fields.find((f) => f.primary);
 
-    // Get searchables fields
-    const searchables = fields.filter((f) => f.searchable);
+    // Get searchable fields
+    const searchable = fields.filter((f) => f.searchable);
 
-    // Get sortables fields
-    const sortables = fields.filter((f) => f.sortable);
+    // Get sortable fields
+    const sortable = fields.filter((f) => f.sortable);
+
+    // Get private fields
+    const isPrivate = fields.filter((f) => f.isPrivate);
+
+    // Get internal fields
+    const internal = fields.filter((f) => f.internal);
 
     // Set fields to model
     m.fields = {
@@ -102,10 +108,14 @@ export class GeneratorService {
       l: fields,
       primary,
       p: primary,
-      searchables,
-      se: searchables,
-      sortables,
-      so: sortables
+      searchable,
+      se: searchable,
+      sortable,
+      so: sortable,
+      isPrivate,
+      ip: isPrivate,
+      internal,
+      i: internal
     };
 
     // Add short name
