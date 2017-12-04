@@ -1,5 +1,11 @@
 <script>
-'use strict';
+{{ function defaultValue(f) {
+  if (f.type === "boolean") return "false";
+  if (f.type === "string") return "''";
+  if (f.type === "number") return "0";
+  return "null";
+}
+}}'use strict';
 /**
  * Create {{=it.m.names.wordsLower}}.
  * Returns the created {{=it.m.names.wordsLower}}.
@@ -28,7 +34,10 @@ server.route({
 
         // Get {{=it.m.names.wordsLower}} from payload
         const {{=it.m.names.underscore}} = request.payload;
-
+{{?it.m.f.i.length}}
+        // Init internal fields{{~it.m.f.i : i}}{{?!i.primary}}
+        {{=it.m.names.underscore}}.{{=i.names.raw}} = {{ out += defaultValue(i); }};{{?}}{{~}}
+{{?}}
         // Insertion options
         const options = { w: 'majority' };
 
@@ -42,7 +51,7 @@ server.route({
                 // Delete private properties{{~it.m.f.ip : p}}
                 delete {{=it.m.names.underscore}}.{{=p.names.raw}};{{~}}
 {{?}}
-                reply({{=it.m.names.underscore}})
+                reply({{=it.m.names.underscore}}).code(201)
             })
             .catch((e) => reply(Boom.boomify(e));
     }
