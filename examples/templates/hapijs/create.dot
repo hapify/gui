@@ -1,0 +1,50 @@
+<script>
+'use strict';
+/**
+ * Create {{=it.m.names.wordsLower}}.
+ * Returns the created {{=it.m.names.wordsLower}}.
+ */
+
+const Joi = require('joi');
+const Boom = require('boom');
+const MongoDB = require('mongodb');
+
+const schema = { {{~it.m.f.l : f}}{{?!f.internal}}
+    {{=f.names.underscore}}: Joi.{{=f.type}}().required(),{{?}}{{~}}
+};
+
+/**
+ * Add route to create {{=it.m.names.wordsLower}}
+ */
+server.route({
+    method: 'POST',
+    path: `/{{=it.m.names.hyphen}}`,
+    config: {
+        validate: {
+            payload: schema
+        }
+    },
+    handler: (request, reply) => {
+
+        // Get {{=it.m.names.wordsLower}} from payload
+        const {{=it.m.names.underscore}} = request.payload;
+
+        // Insertion options
+        const options = { w: 'majority' };
+
+        // Insert {{=it.m.names.wordsLower}} into database
+        request.server.db.collection('{{=it.m.names.underscore}}')
+            .insertOne({{=it.m.names.underscore}}, options)
+            .then((results) => {
+
+                const {{=it.m.names.underscore}} = results;
+{{?it.m.f.ip.length}}
+                // Delete private properties{{~it.m.f.ip : p}}
+                delete {{=it.m.names.underscore}}.{{=p.names.raw}};{{~}}
+{{?}}
+                reply({{=it.m.names.underscore}})
+            })
+            .catch((e) => reply(Boom.boomify(e));
+    }
+});
+</script>

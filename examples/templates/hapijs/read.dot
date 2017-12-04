@@ -1,38 +1,46 @@
 <script>
 'use strict';
 /**
- * Read {{=it.m.names.wordsUpper}}
+ * Read {{=it.m.names.wordsLower}}
  */
 
 const Joi = require('joi');
+const Boom = require('boom');
+const MongoDB = require('mongodb');
 
 const schema = {
-    {{=it.m.fields.primary.names.wordsLower}}: Joi.{{=it.m.fields.primary.type}}().required()
-}
+    {{=it.m.f.p.names.underscore}}: Joi.string().length(24).hex().required()
+};
 
 /**
- * Add route to get {{=it.m.names.wordsUpper}}
+ * Add route to get {{=it.m.names.wordsLower}}
  */
 server.route({
     method: 'GET',
-    path: `/{{=it.m.names.hyphen}}/{{{=it.m.fields.primary.names.underscore}}}`,
+    path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
     config: {
-       validate: {
-           params: schema
-       }
+        validate: {
+            params: schema
+        }
     },
     handler: (request, reply) => {
 
-        // Get {{=it.m.names.wordsLower}} {{=it.m.fields.primary.names.wordsLower}}
-        const {{=it.m.fields.primary.names.underscore}} = request.params.{{=it.m.fields.primary.names.underscore}};
+        // Get {{=it.m.names.wordsLower}} {{=it.m.f.p.names.wordsLower}}
+        const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
 
-        // Get object from database
+        // Get {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
-          .find({ {{=it.m.fields.primary.names.raw}}: {{=it.m.fields.primary.names.underscore}} })
-          .then((results) => {
-              reply(results)
-          })
-          .catch(reply);
+            .find({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
+            .then((results) => {
+
+                const {{=it.m.names.underscore}} = results;
+{{?it.m.f.ip.length}}
+                // Delete private properties{{~it.m.f.ip : p}}
+                delete {{=it.m.names.underscore}}.{{=p.names.raw}};{{~}}
+{{?}}
+                reply({{=it.m.names.underscore}});
+            })
+            .catch((e) => reply(Boom.boomify(e));
     }
 });
 </script>
