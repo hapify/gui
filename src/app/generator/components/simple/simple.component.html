@@ -40,8 +40,8 @@
       <div class="row">
         <div class="col-lg-12">
           <h4>{{ 'generator_title_content' | translate }}</h4>
-          <div class="p-3 rounded bg-light">
-            <pre class="m-0"><code>{{ result.content }}</code></pre>
+          <div>
+            <pre class="m-0"><code class="generated-code p-3 rounded bg-light" [innerHTML]="result.content"></code></pre>
           </div>
         </div>
       </div>

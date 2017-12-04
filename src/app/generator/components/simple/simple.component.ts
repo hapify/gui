@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {StorageService as ChannelStorageService, IChannel, ITemplate} from '../../../channel/channel.module';
 import {GeneratorService} from '../../services/generator.service';
-import {IGeneratorResult} from "../../interfaces/generator-result";
+import {IGeneratorResult} from '../../interfaces/generator-result';
+import {HighlightJsService} from 'angular2-highlight-js';
 
 @Component({
   selector: 'app-generator-simple',
@@ -14,11 +15,15 @@ export class SimpleComponent implements OnInit {
   /**
    * Constructor
    *
+   * @param elementRef
+   * @param highlightJsService
    * @param modelStorageService
    * @param channelStorageService
    * @param generatorService
    */
-  constructor(private modelStorageService: ModelStorageService,
+  constructor(private elementRef: ElementRef,
+              private highlightJsService: HighlightJsService,
+              private modelStorageService: ModelStorageService,
               private channelStorageService: ChannelStorageService,
               private generatorService: GeneratorService) {
   }
@@ -72,7 +77,6 @@ export class SimpleComponent implements OnInit {
       this.models = models;
       this.channels = channels;
     });
-
   }
 
   /**
@@ -87,6 +91,9 @@ export class SimpleComponent implements OnInit {
     this.generatorService.run(this.model, this.template)
       .then((result) => {
         this.result = result;
+        setTimeout(() => {
+          this.highlightJsService.highlight(this.elementRef.nativeElement.querySelector('.generated-code'));
+        });
       });
   }
 

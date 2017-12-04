@@ -3,6 +3,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app.routing';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
+import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
 // Translation
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -44,11 +45,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     TooltipModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    HighlightJsModule
   ],
   providers: [
     ConfigService,
-    StringService
+    StringService,
+    HighlightJsService
   ],
   bootstrap: [AppComponent]
 })

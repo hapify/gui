@@ -23,6 +23,7 @@
     "@angular/router": "^4.2.4",
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "^2.0.0",
+    "angular2-highlight-js": "^6.0.1-alpha",
     "bootstrap": "^4.0.0-beta.2",
     "core-js": "^2.4.1",
     "dot": "^1.1.2",

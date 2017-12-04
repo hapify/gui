@@ -19,10 +19,13 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "scss/styles.scss"
+        "scss/styles.scss",
+        "lib/highlight/styles/atom-one-light.css"
       ],
       "scripts": [
-        "../node_modules/dot/doT.js"
+        "../node_modules/dot/doT.js",
+        "lib/highlight/highlight.pack.js"
+
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
