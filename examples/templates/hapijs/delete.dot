@@ -1,0 +1,40 @@
+<script>
+'use strict';
+/**
+ * Delete {{=it.m.names.wordsLower}}
+ */
+
+const Joi = require('joi');
+const Boom = require('boom');
+const MongoDB = require('mongodb');
+
+const schema = {
+    {{=it.m.f.p.names.underscore}}: Joi.string().length(24).hex().required()
+};
+
+/**
+ * Add route to delete {{=it.m.names.wordsLower}}
+ */
+server.route({
+    method: 'DELETE',
+    path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
+    config: {
+        validate: {
+            params: schema
+        }
+    },
+    handler: (request, reply) => {
+
+        // Get {{=it.m.names.wordsLower}} {{=it.m.f.p.names.wordsLower}}
+        const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
+
+        // Remove {{=it.m.names.wordsLower}} from database
+        request.server.db.collection('{{=it.m.names.underscore}}')
+            .deleteOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
+            .then((results) => {
+                reply().code(204);
+            })
+            .catch((e) => reply(Boom.boomify(e)));
+    }
+});
+</script>
