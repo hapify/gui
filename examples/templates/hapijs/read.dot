@@ -8,9 +8,10 @@ const Joi = require('joi');
 const Boom = require('boom');
 const MongoDB = require('mongodb');
 
-const schema = {
+// Validation schema for params
+const schema = Joi.object({
     {{=it.m.f.p.names.underscore}}: Joi.string().length(24).hex().required()
-};
+});
 
 /**
  * Add route to get {{=it.m.names.wordsLower}}

@@ -14,9 +14,10 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const schema = { {{~it.m.f.l : f}}{{?!f.internal}}
+// Validation schema for payload
+const schema = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
     {{=f.names.underscore}}: Joi.{{=f.type}}().required(),{{?}}{{~}}
-};
+});
 
 /**
  * Add route to create {{=it.m.names.wordsLower}}

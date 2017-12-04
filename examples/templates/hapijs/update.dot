@@ -1,7 +1,7 @@
 <script>
 'use strict';
 /**
- * Delete {{=it.m.names.wordsLower}}
+ * Update {{=it.m.names.wordsLower}}
  */
 
 const Joi = require('joi');
@@ -9,29 +9,40 @@ const Boom = require('boom');
 const MongoDB = require('mongodb');
 
 // Validation schema for params
-const schema = Joi.object({
+const schemaParams = Joi.object({
     {{=it.m.f.p.names.underscore}}: Joi.string().length(24).hex().required()
 });
+// Validation schema for payload
+const schemaPayload = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
+    {{=f.names.underscore}}: Joi.{{=f.type}}(),{{?}}{{~}}
+}).min(1);
 
 /**
- * Add route to delete {{=it.m.names.wordsLower}}
+ * Add route to update {{=it.m.names.wordsLower}}
  */
 server.route({
-    method: 'DELETE',
+    method: 'PATCH',
     path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
     config: {
         validate: {
-            params: schema
+            params: schemaParams,
+            payload: schemaPayload
         }
     },
     handler: (request, reply) => {
 
+        // Get updates from payload
+        const updates = request.payload;
+
         // Get {{=it.m.names.wordsLower}} {{=it.m.f.p.names.wordsLower}}
         const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
 
-        // Remove {{=it.m.names.wordsLower}} from database
+        // Insertion options
+        const options = { w: 'majority' };
+
+        // Update {{=it.m.names.wordsLower}} in database
         request.server.db.collection('{{=it.m.names.underscore}}')
-            .deleteOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
+            .findOneAndUpdate({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} }, updates, options)
             .then((results) => {
                 reply().code(204);
             })
