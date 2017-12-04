@@ -40,7 +40,7 @@ server.route({
 {{?}}
                 reply({{=it.m.names.underscore}});
             })
-            .catch((e) => reply(Boom.boomify(e));
+            .catch((e) => reply(Boom.boomify(e)));
     }
 });
 </script>

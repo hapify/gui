@@ -13,7 +13,6 @@
 
 const Joi = require('joi');
 const Boom = require('boom');
-const MongoDB = require('mongodb');
 
 const schema = { {{~it.m.f.l : f}}{{?!f.internal}}
     {{=f.names.underscore}}: Joi.{{=f.type}}().required(),{{?}}{{~}}
@@ -51,9 +50,9 @@ server.route({
                 // Delete private properties{{~it.m.f.ip : p}}
                 delete {{=it.m.names.underscore}}.{{=p.names.raw}};{{~}}
 {{?}}
-                reply({{=it.m.names.underscore}}).code(201)
+                reply({{=it.m.names.underscore}}).code(201);
             })
-            .catch((e) => reply(Boom.boomify(e));
+            .catch((e) => reply(Boom.boomify(e)));
     }
 });
 </script>
