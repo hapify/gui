@@ -5,6 +5,8 @@ import {ITemplate, TemplateEngine} from '../../channel/channel.module';
 import {IGeneratorResult} from '../interfaces/generator-result';
 import {StringService} from '../../services/string.service';
 import {SentenceFormat} from '../../interfaces/sentence-format.enum';
+import {FieldType} from '../../model/interfaces/field-type.enum';
+import {StorageService as ModelStorageService} from '../../model/services/storage.service';
 
 @Injectable()
 export class GeneratorService {
@@ -12,10 +14,12 @@ export class GeneratorService {
   /**
    * Constructor
    *
+   * @param modelStorageService
    * @param stringService
    * @param dotGeneratorService
    */
-  constructor(private stringService: StringService,
+  constructor(private modelStorageService: ModelStorageService,
+              private stringService: StringService,
               private dotGeneratorService: DotGeneratorService) {
   }
 
@@ -34,7 +38,8 @@ export class GeneratorService {
     // Compute content
     let content;
     if (template.engine === TemplateEngine.doT) {
-      content = await this.dotGeneratorService.run(this.explicitModel(model), template);
+      const explicit = await this.explicitModel(model);
+      content = await this.dotGeneratorService.run(explicit, template);
     } else {
       throw new Error('Unknown engine');
     }
@@ -72,8 +77,10 @@ export class GeneratorService {
    * Convert the model to an object containing all its properties
    *
    * @param {IModel} model
+   * @param {boolean} addReferences
+   * @return {Promise<any>}
    */
-  protected explicitModel(model: IModel): any {
+  protected async explicitModel(model: IModel, addReferences = true): Promise<any> {
 
     // Create object
     const m: any = model.toObject();
@@ -89,6 +96,7 @@ export class GeneratorService {
 
     // Get primary field
     const primary = fields.find((f) => f.primary);
+
 
     // Get searchable fields
     const searchable = fields.filter((f) => f.searchable);
@@ -117,6 +125,25 @@ export class GeneratorService {
       internal,
       i: internal
     };
+
+    // Add references on first level
+    if (addReferences) {
+
+      // Construct promises
+      // Then explicit the reference. If no reference is found returns null (it will be filtered after)
+      const promises = fields.filter((f) => (f.type === FieldType.Entity) && f.reference)
+        .map((field) => {
+          return this.modelStorageService.find(field.reference)
+            .then((reference) => reference ? this.explicitModel(reference, false) : Promise.resolve(null));
+        });
+
+      // Get reference fields
+      const references = (await Promise.all(promises)).filter((f) => f);
+
+      // Add to object
+      m.fields.references = references;
+      m.fields.r = references;
+    }
 
     // Add short name
     m.f = m.fields;
