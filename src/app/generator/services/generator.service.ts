@@ -134,7 +134,18 @@ export class GeneratorService {
       const promises = fields.filter((f) => (f.type === FieldType.Entity) && f.reference)
         .map((field) => {
           return this.modelStorageService.find(field.reference)
-            .then((reference) => reference ? this.explicitModel(reference, false) : Promise.resolve(null));
+            .then(async (reference) => {
+              // Nothing found
+              if (!reference) {
+                return null;
+              }
+              // Add reference to object
+              const subField = await this.explicitModel(reference, false);
+              field.model = subField;
+              field.m = subField;
+
+              return field;
+            });
         });
 
       // Get reference fields

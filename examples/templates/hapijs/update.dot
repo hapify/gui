@@ -50,7 +50,7 @@ server.route({
         // Update {{=it.m.names.wordsLower}} in database
         request.server.db.collection('{{=it.m.names.underscore}}')
             .findOneAndUpdate({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} }, updates, options)
-            .then((results) => {
+            .then((result) => {
                 reply().code(204);
             })
             .catch((e) => reply(Boom.boomify(e)));

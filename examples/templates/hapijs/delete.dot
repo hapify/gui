@@ -32,7 +32,7 @@ server.route({
         // Remove {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
             .deleteOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
-            .then((results) => {
+            .then((result) => {
                 reply().code(204);
             })
             .catch((e) => reply(Boom.boomify(e)));

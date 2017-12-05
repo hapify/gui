@@ -31,15 +31,31 @@ server.route({
 
         // Get {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
-            .find({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
-            .then((results) => {
+            .findOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
+            .then((result) => {
 
-                const {{=it.m.names.underscore}} = results;
+                const {{=it.m.names.underscore}} = result;
 {{?it.m.f.ip.length}}
                 // Delete private properties{{~it.m.f.ip : p}}
                 delete {{=it.m.names.underscore}}.{{=p.names.raw}};{{~}}
-{{?}}
+{{?}}{{?it.m.f.r.length}}
+                // Convert reference fields
+                const promises = [];{{~it.m.f.r : r}}
+                // Append {{=r.names.wordsLower}}
+                promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
+                  .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) })
+                  .then((reference) => {
+                    {{=it.m.names.underscore}}.{{=r.names.raw}} = reference;
+                  }));{{~}}
+
+                // Run promises
+                return Promise.all(promises)
+                  .then(() => {
+                    reply({{=it.m.names.underscore}});
+                  });
+{{?}}{{?!it.m.f.r.length}}
                 reply({{=it.m.names.underscore}});
+{{?}}
             })
             .catch((e) => reply(Boom.boomify(e)));
     }
