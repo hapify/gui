@@ -19,7 +19,7 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
-  public engine: TemplateEngine = TemplateEngine.doT;
+  public engine = TemplateEngine.doT;
   /**
    * @inheritDoc
    */

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Channel} from '../../classes/channel';
-import {TemplateEngine} from '../../interfaces/template-engine.enum';
 import {StorageService} from '../../services/storage.service';
 
 @Component({

@@ -1,7 +1,9 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {StorageService} from '../../services/storage.service';
 import {IField} from '../../interfaces/field';
 import {FieldType} from '../../interfaces/field-type.enum';
+import {IModel} from '../../interfaces/model';
 
 @Component({
   selector: 'app-model-field',
@@ -12,8 +14,12 @@ export class FieldComponent implements OnInit {
 
   /**
    * Constructor
+   *
+   * @param storageService
+   * @param formBuilder
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private storageService: StorageService,
+              private formBuilder: FormBuilder) {
   }
 
   /**
@@ -45,7 +51,7 @@ export class FieldComponent implements OnInit {
    * Availables types
    */
   types: [{
-    value: FieldType;
+    value: string;
     name: string;
   }] = [
     {name: 'String', value: FieldType.String},
@@ -53,11 +59,24 @@ export class FieldComponent implements OnInit {
     {name: 'Boolean', value: FieldType.Boolean},
     {name: 'Entity', value: FieldType.Entity}
   ];
+  /**
+   * Link to FieldType class
+   */
+  fieldType = FieldType;
+  /**
+   * Available models
+   */
+  models: IModel[];
 
   /**
    * @inheritDoc
    */
   ngOnInit() {
+    // Get available models
+    this.storageService.list()
+      .then((models) => {
+        this.models = models;
+      });
     // Form validator
     this.form = this.formBuilder.group({
       name: new FormControl(this.field.name, [

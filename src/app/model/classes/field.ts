@@ -15,7 +15,7 @@ export class Field implements IField {
   /**
    * @inheritDoc
    */
-  public type: FieldType = FieldType.String;
+  public type = FieldType.String;
   /**
    * @inheritDoc
    */

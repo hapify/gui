@@ -1,4 +1,3 @@
-import {TemplateEngine} from './template-engine.enum';
 
 export interface ITemplateBase {
   /**
@@ -16,9 +15,9 @@ export interface ITemplateBase {
   /**
    * The template's type
    *
-   * @type {TemplateEngine}
+   * @type {string}
    */
-  engine: TemplateEngine;
+  engine: string;
   /**
    * The template's content
    *

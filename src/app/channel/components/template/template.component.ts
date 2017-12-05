@@ -49,7 +49,7 @@ export class TemplateComponent implements OnInit {
    * Availables engines
    */
   engines: [{
-    value: TemplateEngine;
+    value: string;
     name: string;
   }] = [
     {name: 'doT', value: TemplateEngine.doT},

@@ -1,4 +1,3 @@
-import {FieldType} from './field-type.enum';
 
 export interface IFieldBase {
   /**
@@ -10,9 +9,9 @@ export interface IFieldBase {
   /**
    * The field's type
    *
-   * @type {FieldType}
+   * @type {string}
    */
-  type: FieldType;
+  type: string;
   /**
    * Should be used as a primary key or not
    *
