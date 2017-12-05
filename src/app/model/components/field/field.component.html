@@ -1,6 +1,6 @@
 <div [formGroup]="form">
   <div class="row">
-    <div class="col-lg-5 my-1 my-lg-0">
+    <div class="col-lg-4 my-1 my-lg-0">
       <div class="input-cnt">
         <input formControlName="name" class="form-control" [(ngModel)]="field.name" type="text">
         <div
@@ -21,19 +21,39 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-3 my-1 my-lg-0">
-      <select formControlName="type" class="form-control" [(ngModel)]="field.type">
-        <option disabled value="">{{ 'field_type' | translate }}</option>
-        <option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option>
-      </select>
-      <div
-        *ngIf="form.controls['type'].invalid && (form.controls['type'].dirty || form.controls['type'].touched)"
-        class="alert alert-danger mt-2">
-        <div *ngIf="form.controls['type'].errors.required">
-          {{ 'error_type_required' | translate }}
+    <div class="col-lg-4 my-1 my-lg-0">
+      <div class="row">
+        <div [ngClass]="{'col-lg-6': field.type === 'entity', 'col-lg-12': field.type !== 'entity'}">
+          <select formControlName="type" class="form-control" [(ngModel)]="field.type">
+            <option disabled value="">{{ 'field_type' | translate }}</option>
+            <option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option>
+          </select>
+          <div
+            *ngIf="form.controls['type'].invalid && (form.controls['type'].dirty || form.controls['type'].touched)"
+            class="alert alert-danger mt-2">
+            <div *ngIf="form.controls['type'].errors.required">
+              {{ 'error_type_required' | translate }}
+            </div>
+            <div *ngIf="form.controls['type'].errors.pattern && !form.controls['type'].errors.required">
+              {{ 'error_type_value' | translate }}
+            </div>
+          </div>
         </div>
-        <div *ngIf="form.controls['type'].errors.pattern && !form.controls['type'].errors.required">
-          {{ 'error_type_value' | translate }}
+        <div *ngIf="models && field.type === fieldType.Entity" class="col-lg-6">
+          <select formControlName="reference" class="form-control" [(ngModel)]="field.reference">
+            <option disabled value="">{{ 'reference' | translate }}</option>
+            <option *ngFor="let model of models" value="{{model.id}}">{{model.name}}</option>
+          </select>
+          <div
+            *ngIf="form.controls['reference'].invalid && (form.controls['reference'].dirty || form.controls['reference'].touched)"
+            class="alert alert-danger mt-2">
+            <div *ngIf="form.controls['reference'].errors.required">
+              {{ 'error_reference_required' | translate }}
+            </div>
+            <div *ngIf="form.controls['reference'].errors.pattern && !form.controls['reference'].errors.required">
+              {{ 'error_reference_value' | translate }}
+            </div>
+          </div>
         </div>
       </div>
     </div>

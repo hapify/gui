@@ -13,6 +13,13 @@ export interface IFieldBase {
    */
   type: string;
   /**
+   * The field's reference if the type is entity
+   * Is the GUID string of the targeted model
+   *
+   * @type {string}
+   */
+  reference: string;
+  /**
    * Should be used as a primary key or not
    *
    * @type {boolean}

@@ -19,6 +19,10 @@ export class Field implements IField {
   /**
    * @inheritDoc
    */
+  public reference = null;
+  /**
+   * @inheritDoc
+   */
   public primary = false;
   /**
    * @inheritDoc
@@ -43,6 +47,7 @@ export class Field implements IField {
   public fromObject(object: IFieldBase): void {
     this.name = object.name;
     this.type = object.type;
+    this.reference = object.reference;
     this.primary = object.primary;
     this.searchable = object.searchable;
     this.sortable = object.sortable;
@@ -57,6 +62,7 @@ export class Field implements IField {
     return {
       name: this.name,
       type: this.type,
+      reference: this.reference,
       primary: this.primary,
       searchable: this.searchable,
       sortable: this.sortable,

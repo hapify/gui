@@ -86,6 +86,9 @@ export class FieldComponent implements OnInit {
       type: new FormControl(this.field.type, [
         Validators.required
       ]),
+      reference: new FormControl(this.field.reference, [
+        Validators.required
+      ]),
       primary: new FormControl(this.field.primary, [
         Validators.required
       ]),
