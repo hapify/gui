@@ -5,6 +5,13 @@
   if (f.type === "number") return "0";
   return "null";
 }
+}}{{ function joiValidator(f) {
+    if (f.type === "boolean") return "boolean()";
+    if (f.type === "string") return "string()";
+    if (f.type === "number") return "number()";
+    if (f.type === "entity") return "string().length(24).hex()";
+    return "null";
+  }
 }}'use strict';
 /**
  * Create {{=it.m.names.wordsLower}}.
@@ -16,7 +23,7 @@ const Boom = require('boom');
 
 // Validation schema for payload
 const schema = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
-    {{=f.names.underscore}}: Joi.{{=f.type}}().required(),{{?}}{{~}}
+    {{=f.names.underscore}}: Joi.{{ out += joiValidator(f); }}.required(),{{?}}{{~}}
 });
 
 /**
