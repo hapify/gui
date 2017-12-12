@@ -26,6 +26,7 @@
   "generator_title_path": "Path",
   "generator_title_content": "Content",
   "generator_title_error": "An error occurred",
+  "generator_download": "Download ZIP",
   "field_type": "Field's type",
   "reference": "Reference",
   "template_engine": "Template's engine",

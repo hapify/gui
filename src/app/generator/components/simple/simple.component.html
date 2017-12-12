@@ -1,14 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
-      <div class="input-group-lg">
-        <label>{{ 'generator_select_model' | translate }}</label>
-        <select [(ngModel)]="model" class="form-control">
-          <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-lg-4">
+    <div class="col-10 col-lg-3 mt-3 mt-lg-0">
       <div class="input-group-lg">
         <label>{{ 'generator_select_channel' | translate }}</label>
         <select [(ngModel)]="channel" class="form-control">
@@ -16,7 +8,25 @@
         </select>
       </div>
     </div>
-    <div *ngIf="model && channel" class="col-lg-4">
+    <div *ngIf="channel && channel.templates && models" class="col-2 col-lg-1 mt-3 mt-lg-0">
+      <div class="input-group-lg">
+        <label>&nbsp;</label>
+        <div class="p-1">
+          <button (click)="onDownload($event)" class="btn btn-outline-primary" title="{{ 'generator_download' | translate }}">
+            <span class="oi oi-data-transfer-download"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="channel" class="col-lg-4 mt-3 mt-lg-0">
+      <div class="input-group-lg">
+        <label>{{ 'generator_select_model' | translate }}</label>
+        <select [(ngModel)]="model" class="form-control">
+          <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="model && channel" class="col-lg-4 mt-3 mt-lg-0">
       <div class="input-group-lg">
         <label>{{ 'generator_select_template' | translate }}</label>
         <select [(ngModel)]="template" class="form-control" (ngModelChange)="onTemplateChange($event)">

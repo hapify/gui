@@ -26,6 +26,7 @@
   "generator_title_path": "Chemin",
   "generator_title_content": "Contenu",
   "generator_title_error": "Une erreur est survenue",
+  "generator_download": "Télécharger le ZIP",
   "field_type": "Type de champs",
   "reference": "Référence",
   "template_engine": "Moteur de template",

@@ -7,6 +7,10 @@ import {StringService} from '../../services/string.service';
 import {SentenceFormat} from '../../interfaces/sentence-format.enum';
 import {FieldType} from '../../model/interfaces/field-type.enum';
 import {StorageService as ModelStorageService} from '../../model/services/storage.service';
+import {IChannel} from '../../channel/interfaces/channel';
+
+import JSZip from 'jszip';
+import FileSaver from 'file-saver';
 
 @Injectable()
 export class GeneratorService {
@@ -48,6 +52,41 @@ export class GeneratorService {
       content,
       path
     };
+  }
+
+  /**
+   * Download all models through all templates
+   *
+   * @param {IModel} models
+   * @param {IChannel} channel
+   * @returns {Promise<void>}
+   */
+  async download(models: IModel[], channel: IChannel): Promise<void> {
+    // Create results stack
+    const promises: Promise<IGeneratorResult>[] = [];
+    // For each template, build each models
+    channel.templates.forEach((template: ITemplate) => {
+      models.forEach((model: IModel) => {
+        promises.push(this.run(model, template));
+      });
+    });
+    // Wait results
+    const contents = await Promise.all(promises);
+    // If no contents, scream
+    if (!contents.length) {
+      throw new Error('No contents generated');
+    }
+    // Create ZIP
+    const zip = new JSZip();
+    // Append files
+    contents.forEach((content: IGeneratorResult) => {
+      zip.file(content.path, content.content);
+    });
+    // Generate ZIP
+    const blob = await zip.generateAsync({ type: 'blob' });
+    // Force download
+    const fileName = this.stringService.format(channel.name, SentenceFormat.SlugHyphen);
+    FileSaver.saveAs(blob, `${fileName}.zip`);
   }
 
   /**

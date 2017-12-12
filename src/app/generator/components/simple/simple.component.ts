@@ -106,4 +106,20 @@ export class SimpleComponent implements OnInit {
       });
   }
 
+  /**
+   * Called when the use click on download
+   *
+   * @param $event
+   */
+  onDownload($event) {
+    // Clean results and error
+    this.result = null;
+    this.error = null;
+    // Generate ZIP
+    this.generatorService.download(this.models, this.channel)
+      .catch((e) => {
+        this.error = `${e.message}\n\n${e.stack}`;
+      });
+  }
+
 }
