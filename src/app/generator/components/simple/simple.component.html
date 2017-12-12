@@ -25,6 +25,18 @@
       </div>
     </div>
   </div>
+  <div *ngIf="error">
+    <div class="mt-3">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>{{ 'generator_title_error' | translate }}</h4>
+          <div class="p-3 rounded alert alert-danger">
+            <pre class="m-0">{{ error }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div *ngIf="result">
     <div class="mt-3">
       <div class="row">

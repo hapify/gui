@@ -25,6 +25,7 @@
   "generator_select_template": "Template",
   "generator_title_path": "Path",
   "generator_title_content": "Content",
+  "generator_title_error": "An error occurred",
   "field_type": "Field's type",
   "reference": "Reference",
   "template_engine": "Template's engine",

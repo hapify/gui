@@ -66,6 +66,11 @@ export class SimpleComponent implements OnInit {
   result: IGeneratorResult;
 
   /**
+   * Generation error
+   */
+  error: string;
+
+  /**
    * @inheritDoc
    */
   ngOnInit() {
@@ -85,8 +90,9 @@ export class SimpleComponent implements OnInit {
    * @param $event
    */
   onTemplateChange($event) {
-    // Clean results
+    // Clean results and error
     this.result = null;
+    this.error = null;
     // Run generation
     this.generatorService.run(this.model, this.template)
       .then((result) => {
@@ -94,6 +100,9 @@ export class SimpleComponent implements OnInit {
         setTimeout(() => {
           this.highlightJsService.highlight(this.elementRef.nativeElement.querySelector('.generated-code'));
         });
+      })
+      .catch((e) => {
+        this.error = `${e.message}\n\n${e.stack}`;
       });
   }
 
