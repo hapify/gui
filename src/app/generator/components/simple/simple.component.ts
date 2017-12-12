@@ -112,12 +112,11 @@ export class SimpleComponent implements OnInit {
    * @param $event
    */
   onDownload($event) {
-    // Clean results and error
-    this.result = null;
-    this.error = null;
     // Generate ZIP
     this.generatorService.download(this.models, this.channel)
       .catch((e) => {
+        // Clean results and error
+        this.result = null;
         this.error = `${e.message}\n\n${e.stack}`;
       });
   }

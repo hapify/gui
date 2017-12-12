@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IGenerator} from '../interfaces/generator';
 import {ITemplate} from '../../channel/channel.module';
+import {IFormattedSentences} from '../../interfaces/formatted-sentences';
 import doT from 'dot';
 
 @Injectable()
@@ -16,11 +17,11 @@ export class DotGeneratorService implements IGenerator {
   /**
    * @inheritDoc
    */
-  async run(model: any, template: ITemplate): Promise<string> {
+  async run(model: any, all: IFormattedSentences[], template: ITemplate): Promise<string> {
 
     // Create template function
     const templateFunction = doT.template(template.content);
-
-    return templateFunction({ model, m: model });
+    console.log({ model, m: model, all });
+    return templateFunction({ model, m: model, all });
   }
 }

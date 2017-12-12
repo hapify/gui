@@ -42,8 +42,13 @@ export class GeneratorService {
     // Compute content
     let content;
     if (template.engine === TemplateEngine.doT) {
+      // Explicit model
       const explicit = await this.explicitModel(model);
-      content = await this.dotGeneratorService.run(explicit, template);
+      // Add all models names (on first level)
+      const all = (await this.modelStorageService.list())
+        .map((mod: IModel) => this.stringService.formatSentences(mod.name));
+      // Get content
+      content = await this.dotGeneratorService.run(explicit, all, template);
     } else {
       throw new Error('Unknown engine');
     }
@@ -116,10 +121,10 @@ export class GeneratorService {
    * Convert the model to an object containing all its properties
    *
    * @param {IModel} model
-   * @param {boolean} addReferences
+   * @param {number} depth
    * @return {Promise<any>}
    */
-  protected async explicitModel(model: IModel, addReferences = true): Promise<any> {
+  protected async explicitModel(model: IModel, depth = 0): Promise<any> {
 
     // Create object
     const m: any = model.toObject();
@@ -166,7 +171,7 @@ export class GeneratorService {
     };
 
     // Add references on first level
-    if (addReferences) {
+    if (depth === 0) {
 
       // Construct promises
       // Then explicit the reference. If no reference is found returns null (it will be filtered after)
@@ -179,7 +184,7 @@ export class GeneratorService {
                 return null;
               }
               // Add reference to object
-              const subField = await this.explicitModel(reference, false);
+              const subField = await this.explicitModel(reference, depth + 1);
               field.model = subField;
               field.m = subField;
 

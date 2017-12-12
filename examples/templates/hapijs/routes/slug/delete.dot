@@ -14,9 +14,9 @@ const schema = Joi.object({
 });
 
 /**
- * Add route to delete {{=it.m.names.wordsLower}}
+ * Export route to delete {{=it.m.names.wordsLower}}
  */
-server.route({
+module.exports = {
     method: 'DELETE',
     path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
     config: {
@@ -37,5 +37,5 @@ server.route({
             })
             .catch((e) => reply(Boom.boomify(e)));
     }
-});
+};
 </script>

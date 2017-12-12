@@ -28,9 +28,9 @@ const schema = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
 });
 
 /**
- * Add route to create {{=it.m.names.wordsLower}}
+ * Export route to create {{=it.m.names.wordsLower}}
  */
-server.route({
+module.exports = {
     method: 'POST',
     path: `/{{=it.m.names.hyphen}}`,
     config: {
@@ -82,5 +82,5 @@ server.route({
             })
             .catch((e) => reply(Boom.boomify(e)));
     }
-});
+};
 </script>

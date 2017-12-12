@@ -25,9 +25,9 @@ const schemaPayload = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
 }).min(1);
 
 /**
- * Add route to update {{=it.m.names.wordsLower}}
+ * Export route to update {{=it.m.names.wordsLower}}
  */
-server.route({
+module.exports = {
     method: 'PATCH',
     path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
     config: {
@@ -55,5 +55,5 @@ server.route({
             })
             .catch((e) => reply(Boom.boomify(e)));
     }
-});
+};
 </script>
