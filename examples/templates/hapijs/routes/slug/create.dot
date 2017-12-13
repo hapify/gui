@@ -34,9 +34,9 @@ module.exports = {
     method: 'POST',
     path: `/{{=it.m.names.hyphen}}`,
     config: {
-        validate: {
-            payload: schema
-        }
+        validate: { payload: schema },
+        description: 'Route to create {{=it.m.names.wordsLower}}',
+        tags: ['{{=it.m.names.hyphen}}']
     },
     handler: (request, reply) => {
 

@@ -8,6 +8,13 @@ const Joi = require('joi');
 const Boom = require('boom');
 const MongoDB = require('mongodb');
 
+/**
+ * Reject if the result is empty
+ *
+ * @param error
+ */
+const screamIfNoResult = (error) => (result) => !result ? Promise.reject(error) : result;
+
 // Validation schema for params
 const schema = Joi.object({
     {{=it.m.f.p.names.underscore}}: Joi.string().length(24).hex().required()
@@ -20,9 +27,9 @@ module.exports = {
     method: 'GET',
     path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
     config: {
-        validate: {
-            params: schema
-        }
+        validate: { params: schema },
+        description: 'Route to get {{=it.m.names.wordsLower}}',
+        tags: ['{{=it.m.names.hyphen}}']
     },
     handler: (request, reply) => {
 
@@ -32,6 +39,7 @@ module.exports = {
         // Get {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
             .findOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
+            .then(screamIfNoResult(Boom.notFound('{{=it.m.names.wordsUpper}} not found')))
             .then((result) => {
 
                 const {{=it.m.names.underscore}} = result;

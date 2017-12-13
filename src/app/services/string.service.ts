@@ -345,7 +345,7 @@ export class StringService {
       wordsLower: this.format(value, SentenceFormat.WordsLowerCase),
       upperCamel: this.format(value, SentenceFormat.UpperCamelCase),
       lowerCamel: this.format(value, SentenceFormat.LowerCamelCase)
-    }
+    };
   }
 
 }

@@ -34,7 +34,9 @@ module.exports = {
         validate: {
             params: schemaParams,
             payload: schemaPayload
-        }
+        },
+        description: 'Route to update {{=it.m.names.wordsLower}}',
+        tags: ['{{=it.m.names.hyphen}}']
     },
     handler: (request, reply) => {
 

@@ -20,9 +20,9 @@ module.exports = {
     method: 'DELETE',
     path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
     config: {
-        validate: {
-            params: schema
-        }
+        validate: { params: schema },
+        description: 'Route to delete {{=it.m.names.wordsLower}}',
+        tags: ['{{=it.m.names.hyphen}}']
     },
     handler: (request, reply) => {
 
