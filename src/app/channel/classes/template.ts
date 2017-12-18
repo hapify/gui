@@ -62,4 +62,12 @@ export class Template implements ITemplate {
       || this.content === null
       || this.content.trim().length === 0;
   }
+
+  /**
+   * @inheritDoc
+   */
+  public needsModel(): boolean {
+    return this.input === TemplateInput.One;
+  }
+
 }

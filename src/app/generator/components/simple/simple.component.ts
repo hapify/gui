@@ -85,16 +85,20 @@ export class SimpleComponent implements OnInit {
   }
 
   /**
-   * Called when the use select a template
+   * Called when the use select a model or a template
    *
    * @param $event
    */
-  onTemplateChange($event) {
+  onChange($event) {
+    // Leave if not possible
+    if (this.template.needsModel() && !this.model) {
+      return;
+    }
     // Clean results and error
     this.result = null;
     this.error = null;
     // Run generation
-    this.generatorService.run(this.model, this.template)
+    this.generatorService.run(this.template, this.model)
       .then((result) => {
         this.result = result;
         setTimeout(() => {

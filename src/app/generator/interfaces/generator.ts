@@ -1,17 +1,24 @@
 import {ITemplate} from '../../channel/interfaces/template';
-import {IFormattedSentences} from '../../interfaces/formatted-sentences';
 
 export interface IGenerator {
 
   /**
-   * Run generation process
+   * Run generation process for one model
    *
    * @param {any} model
-   * @param {IFormattedSentences[]} all
-   *  Only models names
    * @param {ITemplate} template
    * @returns {Promise<string>}
    */
-  run(model: any, all: IFormattedSentences[], template: ITemplate): Promise<string>;
+  one(model: any, template: ITemplate): Promise<string>;
+
+  /**
+   * Run generation process for one model
+   *
+   * @param {any[]} models
+   *  All models in the project
+   * @param {ITemplate} template
+   * @returns {Promise<string>}
+   */
+  all(models: any[], template: ITemplate): Promise<string>;
 }
 

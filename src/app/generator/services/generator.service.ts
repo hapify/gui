@@ -30,25 +30,72 @@ export class GeneratorService {
   /**
    * Run generation process
    *
-   * @param {IModel} model
    * @param {ITemplate} template
+   * @param {IModel|null} model
    * @returns {Promise<IGeneratorResult>}
    */
-  async run(model: IModel, template: ITemplate): Promise<IGeneratorResult> {
+  run(template: ITemplate, model: IModel|null): Promise<IGeneratorResult> {
+    if (template.needsModel()) {
+      if (!model) {
+        throw new Error('Model should be defined for this template');
+      }
+      return this._one(template, model);
+    } else {
+      return this._all(template);
+    }
+  }
+
+  /**
+   * Run generation process for one model
+   *
+   * @param {ITemplate} template
+   * @param {IModel} model
+   * @returns {Promise<IGeneratorResult>}
+   * @private
+   */
+
+  private async _one(template: ITemplate, model: IModel): Promise<IGeneratorResult> {
 
     // Compute path
     const path = this.getPath(model, template);
+    // Get full model description
+    const input = await this.explicitModel(model);
 
     // Compute content
     let content;
     if (template.engine === TemplateEngine.doT) {
-      // Explicit model
-      const explicit = await this.explicitModel(model);
-      // Add all models names (on first level)
-      const all = (await this.modelStorageService.list())
-        .map((mod: IModel) => this.stringService.formatSentences(mod.name));
       // Get content
-      content = await this.dotGeneratorService.run(explicit, all, template);
+      content = await this.dotGeneratorService.one(input, template);
+    } else {
+      throw new Error('Unknown engine');
+    }
+
+    return {
+      content,
+      path
+    };
+  }
+
+  /**
+   * Run generation process for all models
+   *
+   * @param {ITemplate} template
+   * @returns {Promise<IGeneratorResult>}
+   * @private
+   */
+  private async _all(template: ITemplate): Promise<IGeneratorResult> {
+
+    // Compute path
+    const path = template.path;
+    // Get full model description
+    const input =  await Promise.all((await this.modelStorageService.list())
+      .map( (mod: IModel) => this.explicitModel(mod)));
+
+    // Compute content
+    let content;
+    if (template.engine === TemplateEngine.doT) {
+      // Get content
+      content = await this.dotGeneratorService.all(input, template);
     } else {
       throw new Error('Unknown engine');
     }
@@ -71,9 +118,13 @@ export class GeneratorService {
     const promises: Promise<IGeneratorResult>[] = [];
     // For each template, build each models
     channel.templates.forEach((template: ITemplate) => {
-      models.forEach((model: IModel) => {
-        promises.push(this.run(model, template));
-      });
+      if (template.needsModel()) {
+        models.forEach((model: IModel) => {
+          promises.push(this._one(template, model));
+        });
+      } else {
+        promises.push(this._all(template));
+      }
     });
     // Wait results
     const contents = await Promise.all(promises);

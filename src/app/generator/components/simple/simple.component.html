@@ -20,17 +20,17 @@
     </div>
     <div *ngIf="channel" class="col-lg-4 mt-3 mt-lg-0">
       <div class="input-group-lg">
-        <label>{{ 'generator_select_model' | translate }}</label>
-        <select [(ngModel)]="model" class="form-control">
-          <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
+        <label>{{ 'generator_select_template' | translate }}</label>
+        <select [(ngModel)]="template" class="form-control" (ngModelChange)="onChange($event)">
+          <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.name}}</option>
         </select>
       </div>
     </div>
-    <div *ngIf="model && channel" class="col-lg-4 mt-3 mt-lg-0">
+    <div *ngIf="channel && template && template.needsModel()" class="col-lg-4 mt-3 mt-lg-0">
       <div class="input-group-lg">
-        <label>{{ 'generator_select_template' | translate }}</label>
-        <select [(ngModel)]="template" class="form-control" (ngModelChange)="onTemplateChange($event)">
-          <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.name}}</option>
+        <label>{{ 'generator_select_model' | translate }}</label>
+        <select [(ngModel)]="model" class="form-control" (ngModelChange)="onChange($event)">
+          <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
         </select>
       </div>
     </div>

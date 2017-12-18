@@ -4,8 +4,8 @@
  * Export all routes.
  */
 
-module.exports = {{{~it.all : m}}
-    {{=m.upperCamel}}: require('./{{=m.hyphen}}'),{{~}}
+module.exports = {{{~it.m : m}}
+    {{=m.names.upperCamel}}: require('./{{=m.names.hyphen}}'),{{~}}
 };
 
 </script>

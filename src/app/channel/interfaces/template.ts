@@ -52,4 +52,10 @@ export interface ITemplate extends ITemplateBase {
    * @returns {boolean}
    */
   isEmpty(): boolean;
+  /**
+   * Denotes if the template needs a specific model to be generated
+   *
+   * @returns {boolean}
+   */
+  needsModel(): boolean;
 }
