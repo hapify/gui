@@ -13,6 +13,7 @@ import {SimpleComponent} from './components/simple/simple.component';
 // Services
 import {GeneratorService} from './services/generator.service';
 import {DotGeneratorService} from './services/dot-generator.service';
+import {JavaScriptGeneratorService} from './services/js-generator.service';
 
 // Translation
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -48,7 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModelStorageService,
     ChannelStorageService,
     GeneratorService,
-    DotGeneratorService
+    DotGeneratorService,
+    JavaScriptGeneratorService
   ],
 })
 export class GeneratorModule {

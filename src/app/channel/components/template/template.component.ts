@@ -54,7 +54,7 @@ export class TemplateComponent implements OnInit {
     name: string;
   }] = [
     {name: 'doT', value: TemplateEngine.doT},
-    {name: 'Mustache', value: TemplateEngine.Mustache}
+    {name: 'JavaScript', value: TemplateEngine.JavaScript}
   ];
   /**
    * Available inputs
