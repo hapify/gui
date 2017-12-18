@@ -3,7 +3,7 @@ const _output = {
   "values": [
     {
       "key": "apiUrl",
-      "value": "http://dev.api.com",
+      "value": "http://dev.api.app-bootstrap.com",
       "type": "text",
       "enabled": true
     },
@@ -17,4 +17,4 @@ const _output = {
   "timestamp": Date.now(),
 };
 
-exports = JSON.stringify(_output, null, 4);
+module.export = JSON.stringify(_output, null, 4);
