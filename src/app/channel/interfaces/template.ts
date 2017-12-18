@@ -19,6 +19,12 @@ export interface ITemplateBase {
    */
   engine: string;
   /**
+   * Denotes if the template has to to be ran for one or all models
+   *
+   * @type {string}
+   */
+  input: string;
+  /**
    * The template's content
    *
    * @type {string}

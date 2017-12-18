@@ -34,7 +34,7 @@
   </div>
   <div *ngIf="showCode" class="mb-2">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="input-cnt">
           <input formControlName="path" class="form-control" [(ngModel)]="template.path" type="text">
           <div
@@ -55,19 +55,35 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 mt-2 mt-md-0">
+      <div class="col-md-3 mt-2 mt-md-0">
         <select formControlName="engine" class="form-control" [(ngModel)]="template.engine">
           <option disabled value="">{{ 'template_engine' | translate }}</option>
           <option *ngFor="let engine of engines" value="{{engine.value}}">{{engine.name}}</option>
         </select>
         <div
-            *ngIf="form.controls['engine'].invalid && (form.controls['engine'].dirty || form.controls['engine'].touched)"
-            class="alert alert-danger mt-2">
+                *ngIf="form.controls['engine'].invalid && (form.controls['engine'].dirty || form.controls['engine'].touched)"
+                class="alert alert-danger mt-2">
           <div *ngIf="form.controls['engine'].errors.required">
             {{ 'error_engine_required' | translate }}
           </div>
           <div *ngIf="form.controls['engine'].errors.pattern && !form.controls['engine'].errors.required">
             {{ 'error_engine_value' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt-2 mt-md-0">
+        <select formControlName="input" class="form-control" [(ngModel)]="template.input">
+          <option disabled value="">{{ 'template_input' | translate }}</option>
+          <option *ngFor="let input of inputs" value="{{input.value}}">{{input.name | translate}}</option>
+        </select>
+        <div
+                *ngIf="form.controls['input'].invalid && (form.controls['input'].dirty || form.controls['input'].touched)"
+                class="alert alert-danger mt-2">
+          <div *ngIf="form.controls['input'].errors.required">
+            {{ 'error_input_required' | translate }}
+          </div>
+          <div *ngIf="form.controls['input'].errors.pattern && !form.controls['input'].errors.required">
+            {{ 'error_input_value' | translate }}
           </div>
         </div>
       </div>

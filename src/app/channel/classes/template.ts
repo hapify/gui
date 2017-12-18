@@ -1,5 +1,6 @@
 import {ITemplate, ITemplateBase} from '../interfaces/template';
 import {TemplateEngine} from '../interfaces/template-engine.enum';
+import {TemplateInput} from '../interfaces/template-input.enum';
 
 export class Template implements ITemplate {
   /**
@@ -23,6 +24,10 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
+  public input = TemplateInput.One;
+  /**
+   * @inheritDoc
+   */
   public content = '';
 
   /**
@@ -32,6 +37,7 @@ export class Template implements ITemplate {
     this.name = object.name;
     this.path = object.path;
     this.engine = object.engine;
+    this.input = object.input;
     this.content = object.content;
   }
 
@@ -43,6 +49,7 @@ export class Template implements ITemplate {
       name: this.name,
       path: this.path,
       engine: this.engine,
+      input: this.input,
       content: this.content
     };
   }
