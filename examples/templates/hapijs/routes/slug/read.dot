@@ -11,7 +11,8 @@ const MongoDB = require('mongodb');
 /**
  * Reject if the result is empty
  *
- * @param error
+ * @param {Object} error
+ * @returns {Function}
  */
 const screamIfNoResult = (error) => (result) => !result ? Promise.reject(error) : result;
 
@@ -25,7 +26,7 @@ const schema = Joi.object({
  */
 module.exports = {
     method: 'GET',
-    path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
+    path: '/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}',
     config: {
         validate: { params: schema },
         description: 'Route to get {{=it.m.names.wordsLower}}',
@@ -52,7 +53,10 @@ module.exports = {
                 // Append {{=r.names.wordsLower}}
                 promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
                   .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) })
-                  .then((reference) => {
+                  .then((reference) => {{{?r.m.f.ip.length}}
+                    // Delete private properties{{~r.m.f.ip : p}}
+                    delete reference.{{=p.names.raw}};{{~}}
+{{?}}
                     {{=it.m.names.underscore}}.{{=r.names.raw}} = reference;
                   }));{{~}}
 

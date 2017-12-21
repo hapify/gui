@@ -28,11 +28,19 @@ const schema = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
 });
 
 /**
+ * Get MongoDB results or scream if no insertion has been done
+ *
+ * @param {Object} error
+ * @returns {Function}
+ */
+const screamIfNoInsertion = (error) => (r) => (r.insertedCount === 0 ? Promise.reject(error) : r.ops[0]);
+
+/**
  * Export route to create {{=it.m.names.wordsLower}}
  */
 module.exports = {
     method: 'POST',
-    path: `/{{=it.m.names.hyphen}}`,
+    path: '/{{=it.m.names.hyphen}}',
     config: {
         validate: { payload: schema },
         description: 'Route to create {{=it.m.names.wordsLower}}',
@@ -55,6 +63,7 @@ module.exports = {
         // Insert {{=it.m.names.wordsLower}} into database
         request.server.db.collection('{{=it.m.names.underscore}}')
             .insertOne({{=it.m.names.underscore}}, options)
+            .then(screamIfNoInsertion(Boom.internal('Insert error')))
             .then((result) => {
 
                 const {{=it.m.names.underscore}} = result;
@@ -67,7 +76,10 @@ module.exports = {
                 // Append {{=r.names.wordsLower}}
                 promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
                   .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) })
-                  .then((reference) => {
+                  .then((reference) => {{{?r.m.f.ip.length}}
+                    // Delete private properties{{~r.m.f.ip : p}}
+                    delete reference.{{=p.names.raw}};{{~}}
+{{?}}
                     {{=it.m.names.underscore}}.{{=r.names.raw}} = reference;
                   }));{{~}}
 

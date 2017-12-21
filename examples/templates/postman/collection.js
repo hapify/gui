@@ -24,9 +24,9 @@ const _infos = {
 //--------------------------------------------------
 function __defaultValue(f) {
     if (f.type === "boolean") return true;
-    if (f.type === "string") return `Test ${f.names.wordsUpper}`;
+    if (f.type === "string") return `${f.names.wordsUpper}`;
     if (f.type === "number") return 2;
-    if (f.type === "entity") return `{{${f.names.lowerCamel}Id}}`;
+    if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
 
@@ -47,7 +47,7 @@ function __create(model) {
     const setVar = `    postman.setGlobalVariable("${model.names.lowerCamel}Id", jsonData._id);`;
 
     return {
-        name: "Create",
+        name: `Create ${model.names.lowerCamel}`,
         event: [
             {
                 listen: "test",
@@ -84,10 +84,33 @@ function __create(model) {
  */
 function __read(model) {
     return {
-        name: "Read",
+        name: `Read ${model.names.lowerCamel}`,
         request: {
             url: `{{apiUrl}}/{{apiVersion}}/${model.names.hyphen}/{{${model.names.lowerCamel}Id}}`,
             method: "GET",
+            header: _headers,
+            body: {
+                mode: "raw",
+                raw: ""
+            },
+            description: ""
+        },
+        response: []
+    };
+}
+
+/**
+ * Generate a read
+ *
+ * @param model
+ * @private
+ */
+function __delete(model) {
+    return {
+        name: `Delete ${model.names.lowerCamel}`,
+        request: {
+            url: `{{apiUrl}}/{{apiVersion}}/${model.names.hyphen}/{{${model.names.lowerCamel}Id}}`,
+            method: "DELETE",
             header: _headers,
             body: {
                 mode: "raw",
@@ -111,7 +134,8 @@ function __model(model) {
         description: "",
         item: [
             __create(model),
-            __read(model)
+            __read(model),
+            __delete(model)
         ]
     };
 }

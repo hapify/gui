@@ -29,7 +29,7 @@ const schemaPayload = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
  */
 module.exports = {
     method: 'PATCH',
-    path: `/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}`,
+    path: '/{{=it.m.names.hyphen}}/{{{=it.m.f.p.names.underscore}}}',
     config: {
         validate: {
             params: schemaParams,
