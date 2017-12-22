@@ -30,7 +30,7 @@ module.exports = {
     config: {
         validate: { params: schema },
         description: 'Route to delete {{=it.m.names.wordsLower}}',
-        tags: ['{{=it.m.names.hyphen}}']
+        tags: ['{{=it.m.names.hyphen}}', 'delete']
     },
     handler: (request, reply) => {
 

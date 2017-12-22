@@ -30,7 +30,7 @@ module.exports = {
     config: {
         validate: { params: schema },
         description: 'Route to get {{=it.m.names.wordsLower}}',
-        tags: ['{{=it.m.names.hyphen}}']
+        tags: ['{{=it.m.names.hyphen}}', 'read']
     },
     handler: (request, reply) => {
 

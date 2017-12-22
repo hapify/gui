@@ -44,7 +44,7 @@ module.exports = {
             payload: schemaPayload
         },
         description: 'Route to update {{=it.m.names.wordsLower}}',
-        tags: ['{{=it.m.names.hyphen}}']
+        tags: ['{{=it.m.names.hyphen}}', 'update']
     },
     handler: (request, reply) => {
 

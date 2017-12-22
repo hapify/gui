@@ -44,7 +44,7 @@ module.exports = {
     config: {
         validate: { payload: schema },
         description: 'Route to create {{=it.m.names.wordsLower}}',
-        tags: ['{{=it.m.names.hyphen}}']
+        tags: ['{{=it.m.names.hyphen}}', 'create']
     },
     handler: (request, reply) => {
 
