@@ -29,9 +29,16 @@ function __defaultValue(f) {
     if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
+function __defaultUpdatedValue(f) {
+    if (f.type === "boolean") return false;
+    if (f.type === "string") return `New ${f.names.wordsUpper}`;
+    if (f.type === "number") return 3;
+    if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
+    return "null";
+}
 
 /**
- * Generate a read
+ * Generate a create
  *
  * @param model
  * @private
@@ -100,7 +107,7 @@ function __read(model) {
 }
 
 /**
- * Generate a read
+ * Generate a delete
  *
  * @param model
  * @private
@@ -123,6 +130,36 @@ function __delete(model) {
 }
 
 /**
+ * Generate an update
+ *
+ * @param model
+ * @private
+ */
+function __update(model) {
+
+    const payload = model.fields.list.reduce((p, f) => {
+        if (f.internal) return p;
+        p[f.names.underscore] = __defaultUpdatedValue(f);
+        return p;
+    }, {});
+
+    return {
+        name: `Update ${model.names.lowerCamel}`,
+        request: {
+            url: `{{apiUrl}}/{{apiVersion}}/${model.names.hyphen}/{{${model.names.lowerCamel}Id}}`,
+            method: "PATCH",
+            header: _headers,
+            body: {
+                mode: "raw",
+                raw: JSON.stringify(payload, null, 2)
+            },
+            description: ""
+        },
+        response: []
+    };
+}
+
+/**
  * Generate a model
  *
  * @param model
@@ -135,6 +172,7 @@ function __model(model) {
         item: [
             __create(model),
             __read(model),
+            __update(model),
             __delete(model)
         ]
     };

@@ -25,6 +25,14 @@ const schemaPayload = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
 }).min(1);
 
 /**
+ * Get MongoDB results or scream if no update has been done
+ *
+ * @param {Object} error
+ * @returns {Function}
+ */
+const screamIfNoUpdate = (error) => (r) => (r.value === null ? Promise.reject(error) : r.value);
+
+/**
  * Export route to update {{=it.m.names.wordsLower}}
  */
 module.exports = {
@@ -52,7 +60,8 @@ module.exports = {
         // Update {{=it.m.names.wordsLower}} in database
         request.server.db.collection('{{=it.m.names.underscore}}')
             .findOneAndUpdate({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} }, updates, options)
-            .then((result) => {
+            .then(screamIfNoUpdate(Boom.notFound('{{=it.m.names.wordsUpper}} not found')))
+            .then(() => {
                 reply().code(204);
             })
             .catch((e) => reply(Boom.boomify(e)));
