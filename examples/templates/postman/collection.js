@@ -36,6 +36,13 @@ function __defaultUpdatedValue(f) {
     if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
+function __defaultSearchValue(f) {
+    if (f.type === "boolean") return "true";
+    if (f.type === "string") return `${f.names.wordsUpper}`;
+    if (f.type === "number") return 2;
+    if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
+    return "null";
+}
 
 /**
  * Generate a create
@@ -158,6 +165,97 @@ function __update(model) {
         response: []
     };
 }
+/**
+ * Generate a list
+ *
+ * @param model
+ * @private
+ */
+function __list(model) {
+
+    const query = [];
+    model.fields.searchable.forEach((f) => {
+        query.push({
+            key: f.names.underscore,
+            value:  __defaultSearchValue(f),
+            equals: true,
+            description: "",
+            disabled: true
+        });
+        if (f.type === 'number') {
+            query.push({
+                key: `${f.names.underscore}__min`,
+                value:  1,
+                equals: true,
+                description: "",
+                disabled: true
+            });
+            query.push({
+                key: `${f.names.underscore}__max`,
+                value:  10,
+                equals: true,
+                description: "",
+                disabled: true
+            });
+        }
+    });
+    
+    const pagination = [
+        {
+            key: "_page",
+            value: "0",
+            equals: true,
+            description: ""
+        },
+        {
+            key: "_limit",
+            value: "10",
+            equals: true,
+            description: ""
+        }
+    ];
+
+    const sorter = model.fields.sortable.length ? [
+        {
+            key: "_sort",
+            value: model.fields.sortable[0].names.underscore,
+            equals: true,
+            description: "",
+            disabled: true
+        },
+        {
+            key: "_order",
+            value: "asc",
+            equals: true,
+            description: "",
+            disabled: true
+        }
+    ] : [];
+
+    return {
+        name: `List ${model.names.lowerCamel}`,
+        request: {
+            url: {
+                raw: `{{apiUrl}}/{{apiVersion}}/${model.names.hyphen}?_page=0&_limit=10`,
+                host: ["{{apiUrl}}"],
+                path: [
+                    "{{apiVersion}}",
+                    model.names.hyphen
+                ],
+                query: query.concat(pagination).concat(sorter),
+                variable: []
+            },
+            method: "GET",
+            header: _headers,
+            body: {
+                mode: "raw",
+                raw: ""
+            },
+            description: ""
+        },
+        response: []
+    };
+}
 
 /**
  * Generate a model
@@ -173,7 +271,8 @@ function __model(model) {
             __create(model),
             __read(model),
             __update(model),
-            __delete(model)
+            __delete(model),
+            __list(model)
         ]
     };
 }
