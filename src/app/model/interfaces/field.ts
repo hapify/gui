@@ -26,6 +26,12 @@ export interface IFieldBase {
    */
   primary: boolean;
   /**
+   * Should be used as a unique key or not
+   *
+   * @type {boolean}
+   */
+  unique: boolean;
+  /**
    * Indicate whether the field is searchable or not
    *
    * @type {boolean}

@@ -55,6 +55,7 @@
   "error_input_required": "The input type is required.",
   "error_input_value": "The input type is not valid.",
   "tooltip_primary": "Is a primary key?",
+  "tooltip_unique": "Is a unique key?",
   "tooltip_searchable": "Is searchable?",
   "tooltip_sortable": "Is sortable?",
   "tooltip_private": "Is private ?",

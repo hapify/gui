@@ -205,6 +205,8 @@ export class GeneratorService {
     // Get primary field
     const primary = fields.find((f) => f.primary);
 
+    // Get primary field
+    const unique = fields.find((f) => f.unique);
 
     // Get searchable fields
     const searchable = fields.filter((f) => f.searchable);
@@ -224,6 +226,8 @@ export class GeneratorService {
       l: fields,
       primary,
       p: primary,
+      unique,
+      u: unique,
       searchable,
       se: searchable,
       sortable,
