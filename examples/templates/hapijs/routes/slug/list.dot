@@ -1,0 +1,118 @@
+<script>
+{{
+function defaultValue(f) {
+    if (f.type === "boolean") return "false";
+    if (f.type === "string") return "''";
+    if (f.type === "number") return "0";
+    return "null";
+} }}{{
+function joiValidator(f) {
+    var prop = f.names.underscore;
+    if (f.type === "boolean") return prop + ": Joi.boolean(),";
+    if (f.type === "string") return prop + ": Joi.string(),";
+    if (f.type === "number") {
+        return prop + ": Joi.number(),\n    " + prop + "__min: Joi.number(),\n    " + prop + "__max: Joi.number(),";
+    }
+    if (f.type === "entity") return prop + ": Joi.string().length(24).hex(),";
+    return "null";
+}
+}}{{
+function validList(fs) {
+    return fs.map(function(f) { return "'"+f.names.underscore+"'"; }).join(', ');
+}
+}}'use strict';
+/**
+ * List {{=it.m.names.wordsLower}}
+ */
+
+const Joi = require('joi');
+const Boom = require('boom');
+const MongoDB = require('mongodb');
+
+// Validation schema for query
+const schema = Joi.object({ {{~it.m.f.se : f}}
+    {{ out += joiValidator(f); }}{{~}}
+    _page: Joi.number().min(0).required(),
+    _limit: Joi.number().min(1).max(100).required(){{?it.m.f.so.length}},
+    _sort: Joi.string().valid({{ out += validList(it.m.f.so); }}),
+    _order: Joi.string().valid('asc', 'desc'){{?}}
+}){{~it.m.f.se : f}}{{?f.type=='number'}}
+    .without('{{=f.names.underscore }}', ['{{=f.names.underscore }}__min', '{{=f.names.underscore }}__max']){{?}}{{~}};
+
+/**
+ * Export route to list {{=it.m.names.wordsLower}}
+ */
+module.exports = {
+    method: 'GET',
+    path: '/{{=it.m.names.hyphen}}',
+    config: {
+        validate: { query: schema },
+        description: 'Route to list {{=it.m.names.wordsLower}}',
+        tags: ['{{=it.m.names.hyphen}}', 'list']
+    },
+    handler: (request, reply) => {
+
+        // Build filter from query
+        const filter = Object.assign({}, request.query);
+        delete filter._page;
+        delete filter._limit;
+        delete filter._sort;
+        delete filter._order;
+{{~it.m.f.se : f}}{{?f.type=='number'}}
+        // Set min for {{=f.names.wordsLower }} if defined
+        if (typeof filter.{{=f.names.underscore }}__min !== 'undefined') {
+            filter.{{=f.names.underscore }} = filter.{{=f.names.underscore }} || {};
+            filter.{{=f.names.underscore }}.$gte = filter.{{=f.names.underscore }}__min;
+            delete filter.{{=f.names.underscore }}__min;
+        }
+        // Set max for {{=f.names.wordsLower }} if defined
+        if (typeof filter.{{=f.names.underscore }}__max !== 'undefined') {
+            filter.{{=f.names.underscore }} = filter.{{=f.names.underscore }} || {};
+            filter.{{=f.names.underscore }}.$lte = filter.{{=f.names.underscore }}__max;
+            delete filter.{{=f.names.underscore }}__max;
+        }
+{{?}}{{?f.type=='entity'}}
+        // Convert MongoId for {{=f.names.wordsLower }}
+        if (filter.{{=f.names.underscore }}) {
+            filter.{{=f.names.underscore }} = new MongoDB.ObjectId(filter.{{=f.names.underscore }});
+        }
+{{?}}{{~}}{{?it.m.f.ip.length}}
+        // Build projection for filtering private fields
+        const projection = { {{~it.m.f.ip : f}}
+            {{=f.names.underscore }}: false,{{~}}
+        };
+{{?}}
+        // Build cursor vars
+        const skip = request.query._page * request.query._limit;
+        const order = request.query._order || 'asc';
+        const sort = request.query._sort;
+
+        // Get {{=it.m.names.wordsLower}} list from database
+        const cursor = request.server.db.collection('{{=it.m.names.underscore}}')
+            .find(filter{{?it.m.f.ip.length}}, projection{{?}})
+            .skip(skip)
+            .limit(request.query._limit);
+
+        // Add sorting if available
+        if (sort) {
+            cursor.sort( { [sort]: order === 'asc' ? 1 : -1 } );
+        }
+
+        // Start query
+        cursor
+            .toArray()
+            .then((results) => cursor
+                .count()
+                .then((total) => {
+                    reply({
+                        page: request.query._page,
+                        limit: request.query._limit,
+                        count: results.length,
+                        total,
+                        items: results
+                    });
+                }))
+            .catch((e) => reply(Boom.boomify(e)));
+    }
+};
+</script>
