@@ -39,6 +39,7 @@ export class NewComponent implements OnInit {
     field.name = 'id';
     field.type = FieldType.Number;
     field.primary = true;
+    field.internal = true;
     this.model.addField(field);
     // Get default name
     this.translateService.get('new_model_name').subscribe((text) => {

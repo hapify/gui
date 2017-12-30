@@ -13,9 +13,26 @@ export interface DemoChannel {
   templates: DemoTemplate[];
 }
 
+export interface DemoField {
+  name: string;
+  type: string;
+  reference: string;
+  primary: boolean;
+  unique: boolean;
+  searchable: boolean;
+  sortable: boolean;
+  isPrivate: boolean;
+  internal: boolean;
+}
+
+export interface DemoModel {
+  id: string;
+  name: string;
+  fields: DemoField[];
+}
+
 export interface DemoManifest {
   clean: boolean;
   channels: DemoChannel[];
+  models: DemoModel[];
 }
-
-
