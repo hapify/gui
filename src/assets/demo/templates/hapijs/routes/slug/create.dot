@@ -1,4 +1,3 @@
-<script>
 {{ function defaultValue(f) {
   if (f.type === "boolean") return "false";
   if (f.type === "string") return "''";
@@ -95,4 +94,4 @@ module.exports = {
             .catch((e) => reply(Boom.boomify(e)));
     }
 };
-</script>
+

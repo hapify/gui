@@ -103,6 +103,15 @@ export abstract class StorageService {
   }
 
   /**
+   * Clear all the storage
+   *
+   * @returns {Promise<void>}
+   */
+  async clear(): Promise<void> {
+    await this.save([]);
+  }
+
+  /**
    * Find a instance and replace it with its new version
    *
    * @param {IStorable} instance

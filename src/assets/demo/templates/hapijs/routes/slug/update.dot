@@ -1,4 +1,3 @@
-<script>
 {{ function joiValidator(f) {
     if (f.type === "boolean") return "boolean()";
     if (f.type === "string") return "string()";
@@ -67,4 +66,4 @@ module.exports = {
             .catch((e) => reply(Boom.boomify(e)));
     }
 };
-</script>
+

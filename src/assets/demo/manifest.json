@@ -1,0 +1,278 @@
+{
+  "clean": true,
+  "channels": [
+    {
+      "id": "f9237304-a03a-ff69-5b17-7da8bf745016",
+      "name": "Postman",
+      "templates": [
+        {
+          "name": "Collection",
+          "path": "collection.json",
+          "engine": "js",
+          "input": "all",
+          "content": "templates/postman/collection.js"
+        },
+        {
+          "name": "Environnement",
+          "path": "environment.json",
+          "engine": "js",
+          "input": "all",
+          "content": "templates/postman/environment.js"
+        }
+      ]
+    },
+    {
+      "id": "2824fcf3-cdc3-ac52-a66e-2df4e0cbdc0f",
+      "name": "HapiJs Crud",
+      "templates": [
+        {
+          "name": "Create",
+          "path": "routes/{model.hyphen}/create.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/slug/create.dot"
+        },
+        {
+          "name": "Read",
+          "path": "routes/{model.hyphen}/read.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/index.dot"
+        },
+        {
+          "name": "Update",
+          "path": "routes/{model.hyphen}/update.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/slug/update.dot"
+        },
+        {
+          "name": "Delete",
+          "path": "routes/{model.hyphen}/delete.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/slug/delete.dot"
+        },
+        {
+          "name": "Index",
+          "path": "routes/{model.hyphen}/index.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/index.dot"
+        },
+        {
+          "name": "Index All",
+          "path": "routes/index.js",
+          "engine": "dot",
+          "input": "all",
+          "content": "templates/hapijs/routes/index.dot"
+        },
+        {
+          "name": "List",
+          "path": "routes/{model.hyphen}/list.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/index.dot"
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "5554c6b4-3d0b-dff5-0f4e-e1acdb08cfb1",
+      "name": "Group",
+      "fields": [
+        {
+          "name": "_id",
+          "type": "string",
+          "primary": true,
+          "searchable": false,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "searchable": true,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "searchable": false,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "id": "0e09747c-7791-f0a8-537e-f61c7369b925",
+      "name": "Ad",
+      "fields": [
+        {
+          "name": "_id",
+          "type": "string",
+          "primary": true,
+          "searchable": false,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "searchable": true,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": false
+        },
+        {
+          "name": "owner",
+          "type": "entity",
+          "reference": "6a9b6cf5-499a-c90b-ab9b-e3a8982b0f69",
+          "primary": false,
+          "searchable": true,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": false
+        },
+        {
+          "name": "validated",
+          "type": "boolean",
+          "reference": null,
+          "primary": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": true
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "reference": null,
+          "primary": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "id": "6a9b6cf5-499a-c90b-ab9b-e3a8982b0f69",
+      "name": "User",
+      "fields": [
+        {
+          "name": "_id",
+          "type": "string",
+          "primary": true,
+          "searchable": false,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": true
+        },
+        {
+          "name": "first_name",
+          "type": "string",
+          "primary": false,
+          "searchable": true,
+          "sortable": true
+        },
+        {
+          "name": "last_name",
+          "type": "string",
+          "primary": false,
+          "searchable": true,
+          "sortable": true
+        },
+        {
+          "name": "validated",
+          "type": "boolean",
+          "primary": false,
+          "searchable": true,
+          "sortable": true,
+          "internal": true
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "primary": false,
+          "searchable": true,
+          "sortable": true,
+          "internal": false
+        },
+        {
+          "name": "group",
+          "type": "entity",
+          "reference": "5554c6b4-3d0b-dff5-0f4e-e1acdb08cfb1",
+          "primary": false,
+          "searchable": true,
+          "sortable": false,
+          "isPrivate": false,
+          "internal": false
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "searchable": false,
+          "sortable": false,
+          "isPrivate": true,
+          "internal": false
+        },
+        {
+          "name": "password_salt",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "searchable": false,
+          "sortable": false,
+          "isPrivate": true,
+          "internal": true
+        },
+        {
+          "name": "counter",
+          "type": "number",
+          "reference": null,
+          "primary": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": false
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "reference": null,
+          "primary": false,
+          "unique": true,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": false
+        }
+      ]
+    }
+  ]
+}

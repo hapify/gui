@@ -4,6 +4,7 @@
   "common_update": "Update",
   "common_new_model": "New model",
   "common_new_channel": "New channel",
+  "common_load_demo": "Load demo",
   "nav_model": "Models",
   "nav_channel": "Channels",
   "nav_generator": "Generator",

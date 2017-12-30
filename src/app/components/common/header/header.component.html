@@ -17,7 +17,7 @@
           <a [routerLink]="['/generator']" class="nav-link">{{ 'nav_generator' | translate }}</a>
         </li>
       </ul>
-      <a [routerLink]="['/model/new']" class="btn btn-outline-primary">{{ 'common_new_model' | translate }}</a>
+      <button class="btn btn-outline-primary" [disabled]="loadingDemo" (click)="onLoadDemo();">{{ 'common_load_demo' | translate }}</button>
     </div>
   </nav>
 </header>

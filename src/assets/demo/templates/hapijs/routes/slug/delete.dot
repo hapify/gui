@@ -1,4 +1,3 @@
-<script>
 'use strict';
 /**
  * Delete {{=it.m.names.wordsLower}}
@@ -47,4 +46,4 @@ module.exports = {
             .catch((e) => reply(Boom.boomify(e)));
     }
 };
-</script>
+

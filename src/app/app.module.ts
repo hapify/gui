@@ -19,6 +19,7 @@ import {GeneratorComponent} from './components/generator/generator.component';
 // Services
 import {ConfigService} from './services/config.service';
 import {StringService} from './services/string.service';
+import {DemoService} from './services/demo.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,7 +52,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     ConfigService,
     StringService,
-    HighlightJsService
+    HighlightJsService,
+    DemoService
   ],
   bootstrap: [AppComponent]
 })
