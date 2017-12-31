@@ -90,8 +90,17 @@ module.exports = {
 {{?}}{{?!it.m.f.r.length}}
                 reply({{=it.m.names.underscore}}).code(201);
 {{?}}
-            })
-            .catch((e) => reply(Boom.boomify(e)));
+            }){{?it.m.f.u.length}}
+            .catch((e) => {
+                // Handle duplicated key for unique indexes
+                if (e.name === 'MongoError' && e.code === 11000) {
+                    return reply(Boom.conflict('Duplicate key'));
+                }
+
+                // Otherwise, wrap the error
+                return reply(Boom.boomify(e));
+            });{{?}}{{?!it.m.f.u.length}}
+            .catch((e) => reply(Boom.boomify(e)));{{?}}
     }
 };
 

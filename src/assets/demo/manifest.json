@@ -22,6 +22,19 @@
       ]
     },
     {
+      "id": "f9cf6346-362b-f4fb-b455-50e51710a9ab",
+      "name": "MongoDB",
+      "templates": [
+        {
+          "name": "Indexes",
+          "path": "cmd/setup/indexes.json",
+          "engine": "js",
+          "input": "all",
+          "content": "templates/mongodb/indexes.js"
+        }
+      ]
+    },
+    {
       "id": "2824fcf3-cdc3-ac52-a66e-2df4e0cbdc0f",
       "name": "HapiJs Crud",
       "templates": [
