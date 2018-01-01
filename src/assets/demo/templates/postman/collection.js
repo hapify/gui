@@ -372,7 +372,35 @@ function __static() {
                         description: ""
                     },
                     response: []
-                }
+                },
+                {
+                    name: 'Current',
+                    event: [
+                        {
+                            listen: "test",
+                            script: {
+                                type: "text/javascript",
+                                exec: [
+                                    "if (responseCode.code === 200) {",
+                                    "    var jsonData = JSON.parse(responseBody);",
+                                    "    postman.setGlobalVariable(\"userId\", jsonData._id);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    request: {
+                        url: `{{apiUrl}}/{{apiVersion}}/session`,
+                        method: "GET",
+                        header: _headers,
+                        body: {
+                            mode: "raw",
+                            raw: ""
+                        },
+                        description: ""
+                    },
+                    response: []
+                },
             ]
         }
     ];
