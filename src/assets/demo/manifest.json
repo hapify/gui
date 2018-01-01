@@ -223,6 +223,17 @@
           "internal": true
         },
         {
+          "name": "creation",
+          "type": "datetime",
+          "reference": null,
+          "primary": false,
+          "unique": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": true
+        },
+        {
           "name": "item",
           "type": "entity",
           "reference": "76ae98f9-d943-989a-62dc-aa061ace3866",

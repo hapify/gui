@@ -29,7 +29,7 @@ const schema = Joi.object({ {{~it.m.f.se : f}}
     _limit: Joi.number().min(1).max(100).required(){{?it.m.f.so.length}},
     _sort: Joi.string().valid({{ out += validList(it.m.f.so); }}),
     _order: Joi.string().valid('asc', 'desc'){{?}}
-}){{~it.m.f.se : f}}{{?f.type=='number'}}
+}){{~it.m.f.se : f}}{{?f.type == 'number' || f.type == 'datetime'}}
     .without('{{=f.names.underscore }}', ['{{=f.names.underscore }}__min', '{{=f.names.underscore }}__max']){{?}}{{~}};
 
 /**
@@ -51,7 +51,7 @@ module.exports = {
         delete filter._limit;
         delete filter._sort;
         delete filter._order;
-{{~it.m.f.se : f}}{{?f.type=='number'}}
+{{~it.m.f.se : f}}{{?f.type == 'number' || f.type == 'datetime'}}
         // Set min for {{=f.names.wordsLower }} if defined
         if (typeof filter.{{=f.names.underscore }}__min !== 'undefined') {
             filter.{{=f.names.underscore }} = filter.{{=f.names.underscore }} || {};
