@@ -184,17 +184,6 @@
           "internal": false
         },
         {
-          "name": "password_hash",
-          "type": "string",
-          "reference": null,
-          "primary": false,
-          "unique": false,
-          "searchable": false,
-          "sortable": false,
-          "isPrivate": true,
-          "internal": true
-        },
-        {
           "name": "last_connection",
           "type": "datetime",
           "reference": null,

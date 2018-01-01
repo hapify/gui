@@ -296,13 +296,81 @@ function __model(model) {
     };
 }
 
+/**
+ * Returns static routes
+ *
+ * @return {[{}]}
+ * @private
+ */
+function __static() {
+    return [
+        {
+            name: "Misc",
+            description: "",
+            item: [
+                {
+                    name: 'Alive',
+                    request: {
+                        url: `{{apiUrl}}/alive`,
+                        method: "GET",
+                        header: _headers,
+                        body: {
+                            mode: "raw",
+                            raw: ""
+                        },
+                        description: ""
+                    },
+                    response: []
+                }
+            ]
+        },
+        {
+            name: "Session",
+            description: "",
+            item: [
+                {
+                    name: 'Login',
+                    request: {
+                        url: `{{apiUrl}}/{{apiVersion}}/session`,
+                        method: "POST",
+                        header: _headers,
+                        body: {
+                            mode: "raw",
+                            raw: JSON.stringify({
+                                email: 'test@mail.com',
+                                password: 'passtest'
+                            }, null, 2)
+                        },
+                        description: ""
+                    },
+                    response: []
+                },
+                {
+                    name: 'Logout',
+                    request: {
+                        url: `{{apiUrl}}/{{apiVersion}}/session`,
+                        method: "DELETE",
+                        header: _headers,
+                        body: {
+                            mode: "raw",
+                            raw: ""
+                        },
+                        description: ""
+                    },
+                    response: []
+                }
+            ]
+        }
+    ];
+}
+
 //--------------------------------------------------
 //  Output
 //--------------------------------------------------
 const _output = {
     variables: [],
     info: _infos,
-    item: models.map(__model)
+    item: models.map(__model).concat(__static())
 };
 
 module.export = JSON.stringify(_output, null, 4);

@@ -48,7 +48,7 @@ module.exports = {
     handler: (request, reply) => {
 
         // Get updates from payload
-        const updates = request.payload;
+        const updates = { $set: request.payload };
 
         // Get {{=it.m.names.wordsLower}} {{=it.m.f.p.names.wordsLower}}
         const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
