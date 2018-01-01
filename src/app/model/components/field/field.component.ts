@@ -57,6 +57,7 @@ export class FieldComponent implements OnInit {
     {name: 'String', value: FieldType.String},
     {name: 'Number', value: FieldType.Number},
     {name: 'Boolean', value: FieldType.Boolean},
+    {name: 'DateTime', value: FieldType.DateTime},
     {name: 'Entity', value: FieldType.Entity}
   ];
   /**

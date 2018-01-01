@@ -1,6 +1,7 @@
 //--------------------------------------------------
 //  Commons
 //--------------------------------------------------
+const DAY = 1000 * 60 * 60 * 24;
 const _headers = [
     {
         key: "Accept",
@@ -26,6 +27,7 @@ function __defaultValue(f) {
     if (f.type === "boolean") return true;
     if (f.type === "string") return `${f.names.wordsUpper}`;
     if (f.type === "number") return 2;
+    if (f.type === "datetime") return Date.now();
     if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
@@ -33,6 +35,7 @@ function __defaultUpdatedValue(f) {
     if (f.type === "boolean") return false;
     if (f.type === "string") return `New ${f.names.wordsUpper}`;
     if (f.type === "number") return 3;
+    if (f.type === "datetime") return Date.now() + 15 * DAY;
     if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
@@ -40,6 +43,7 @@ function __defaultSearchValue(f) {
     if (f.type === "boolean") return "true";
     if (f.type === "string") return `${f.names.wordsUpper}`;
     if (f.type === "number") return 2;
+    if (f.type === "datetime") return Date.now();
     if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
@@ -182,7 +186,7 @@ function __list(model) {
             description: "",
             disabled: true
         });
-        if (f.type === 'number') {
+        if (f.type === 'number' || f.type === 'datetime') {
             query.push({
                 key: `${f.names.underscore}__min`,
                 value:  1,

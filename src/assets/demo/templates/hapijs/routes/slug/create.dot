@@ -2,12 +2,13 @@
   if (f.type === "boolean") return "false";
   if (f.type === "string") return "''";
   if (f.type === "number") return "0";
+  if (f.type === "datetime") return "Date.now()";
   return "null";
 }
 }}{{ function joiValidator(f) {
     if (f.type === "boolean") return "boolean()";
     if (f.type === "string") return "string()";
-    if (f.type === "number") return "number()";
+    if (f.type === "number" || f.type === "datetime") return "number()";
     if (f.type === "entity") return "string().length(24).hex()";
     return "null";
   }

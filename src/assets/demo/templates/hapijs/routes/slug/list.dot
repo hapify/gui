@@ -1,15 +1,9 @@
 {{
-function defaultValue(f) {
-    if (f.type === "boolean") return "false";
-    if (f.type === "string") return "''";
-    if (f.type === "number") return "0";
-    return "null";
-} }}{{
 function joiValidator(f) {
     var prop = f.names.underscore;
     if (f.type === "boolean") return prop + ": Joi.boolean(),";
     if (f.type === "string") return prop + ": Joi.string(),";
-    if (f.type === "number") {
+    if (f.type === "number" || f.type === "datetime") {
         return prop + ": Joi.number(),\n    " + prop + "__min: Joi.number(),\n    " + prop + "__max: Joi.number(),";
     }
     if (f.type === "entity") return prop + ": Joi.string().length(24).hex(),";

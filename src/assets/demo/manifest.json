@@ -107,8 +107,8 @@
           "internal": true
         },
         {
-          "name": "datetime",
-          "type": "number",
+          "name": "creation",
+          "type": "datetime",
           "reference": null,
           "primary": false,
           "unique": false,
@@ -195,8 +195,8 @@
           "internal": true
         },
         {
-          "name": "last_connection_datetime",
-          "type": "number",
+          "name": "last_connection",
+          "type": "datetime",
           "reference": null,
           "primary": false,
           "unique": false,
@@ -273,8 +273,8 @@
           "internal": true
         },
         {
-          "name": "datetime",
-          "type": "number",
+          "name": "creation",
+          "type": "datetime",
           "reference": null,
           "primary": false,
           "unique": false,
@@ -334,8 +334,8 @@
           "internal": true
         },
         {
-          "name": "datetime",
-          "type": "number",
+          "name": "creation",
+          "type": "datetime",
           "reference": null,
           "primary": false,
           "unique": false,
