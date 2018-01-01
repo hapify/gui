@@ -330,6 +330,20 @@ function __static() {
             item: [
                 {
                     name: 'Login',
+                    event: [
+                        {
+                            listen: "test",
+                            script: {
+                                type: "text/javascript",
+                                exec: [
+                                    "if (responseCode.code === 201) {",
+                                    "    var jsonData = JSON.parse(responseBody);",
+                                    "    postman.setGlobalVariable(\"userId\", jsonData._id);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
                     request: {
                         url: `{{apiUrl}}/{{apiVersion}}/session`,
                         method: "POST",
