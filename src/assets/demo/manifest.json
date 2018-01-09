@@ -2,6 +2,19 @@
   "clean": true,
   "channels": [
     {
+      "id": "a0337304-3730-fad9-5b17-6d58ee4745034",
+      "name": "Apiary",
+      "templates": [
+        {
+          "name": "Blueprint",
+          "path": "CRUD.md",
+          "engine": "js",
+          "input": "all",
+          "content": "templates/apiary/blueprint.js"
+        }
+      ]
+    },
+    {
       "id": "f9237304-a03a-ff69-5b17-7da8bf745016",
       "name": "Postman",
       "templates": [
