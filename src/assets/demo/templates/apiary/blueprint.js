@@ -420,112 +420,106 @@ function __model(model) {
  * @private
  */
 function __static() {
-    return [
+    return `## Session [/session]
+
+### Login [POST]
+
++ Request (application/json)
+
         {
-            name: "Misc",
-            description: "",
-            item: [
-                {
-                    name: 'Alive',
-                    request: {
-                        url: `{{apiUrl}}/alive`,
-                        method: "GET",
-                        header: _headers,
-                        body: {
-                            mode: "raw",
-                            raw: ""
-                        },
-                        description: ""
-                    },
-                    response: []
-                }
-            ]
-        },
-        {
-            name: "Session",
-            description: "",
-            item: [
-                {
-                    name: 'Login',
-                    event: [
-                        {
-                            listen: "test",
-                            script: {
-                                type: "text/javascript",
-                                exec: [
-                                    "if (responseCode.code === 201) {",
-                                    "    var jsonData = JSON.parse(responseBody);",
-                                    "    postman.setGlobalVariable(\"userId\", jsonData._id);",
-                                    "}"
-                                ]
-                            }
-                        }
-                    ],
-                    request: {
-                        url: `{{apiUrl}}/{{apiVersion}}/session`,
-                        method: "POST",
-                        header: _headers,
-                        body: {
-                            mode: "raw",
-                            raw: JSON.stringify({
-                                email: 'test@mail.com',
-                                password: 'passtest'
-                            }, null, 2)
-                        },
-                        description: ""
-                    },
-                    response: []
-                },
-                {
-                    name: 'Logout',
-                    request: {
-                        url: `{{apiUrl}}/{{apiVersion}}/session`,
-                        method: "DELETE",
-                        header: _headers,
-                        body: {
-                            mode: "raw",
-                            raw: ""
-                        },
-                        description: ""
-                    },
-                    response: []
-                },
-                {
-                    name: 'Current',
-                    event: [
-                        {
-                            listen: "test",
-                            script: {
-                                type: "text/javascript",
-                                exec: [
-                                    "if (responseCode.code === 200) {",
-                                    "    var jsonData = JSON.parse(responseBody);",
-                                    "    postman.setGlobalVariable(\"userId\", jsonData._id);",
-                                    "}"
-                                ]
-                            }
-                        }
-                    ],
-                    request: {
-                        url: `{{apiUrl}}/{{apiVersion}}/session`,
-                        method: "GET",
-                        header: _headers,
-                        body: {
-                            mode: "raw",
-                            raw: ""
-                        },
-                        description: ""
-                    },
-                    response: []
-                },
-            ]
+            "email": "example@mail.com",
+            "password": "passtest"
         }
-    ];
+
++ Response 201 (application/json)
+
+    Login sucessful. An authentication cookie is also returned.
+
+    + Body
+
+            {
+                "_id": "33d0baf1bb244e1ce4227145"
+            }
+
++ Response 400 (application/json)
+
+    Invalid input.
+
+    + Body
+
+            {
+                "statusCode": 400,
+                "error": "Bad Request",
+                "message": "Errors details here"
+            }
+
++ Response 404 (application/json)
+
+    Wrong login or wrong password.
+
+    + Body
+
+            {
+                "statusCode": 404,
+                "error": "Not Found",
+                "message": "User not found or wrong password"
+            }
+
+### Logout [DELETE]
+
++ Request (application/json)
+
++ Response 204 (application/json)
+
++ Response 401 (application/json)
+
+    Missing or wrong cookie.
+
+    + Body
+
+            {
+                "statusCode": 401,
+                "error": "Unauthorized",
+                "message": "Invalid cookie"
+            }
+
+### Current user [GET]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+        {
+            "_id": "28580d91e489c5e161fbb2b8"
+        }
+
++ Response 401 (application/json)
+
+    Missing or wrong cookie.
+
+    + Body
+
+            {
+                "statusCode": 401,
+                "error": "Unauthorized",
+                "message": "Missing authentication"
+            }
+
+## Miscellaneous [/]
+
+### Health check [GET /alive]
+
++ Response 204 (application/json)
+
++ Response 503 (application/json)
+
+`;
 }
 
 
 let ouput = __intro(models);
 ouput += models.map(__model).join("\n\n");
+ouput += __static();
 
 module.export = ouput;
 
