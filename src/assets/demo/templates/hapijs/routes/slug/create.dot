@@ -73,13 +73,14 @@ module.exports = {
 {{?}}{{?it.m.f.r.length}}
                 // Convert reference fields
                 const promises = [];{{~it.m.f.r : r}}
-                // Append {{=r.names.wordsLower}}
+
+                // Append {{=r.names.wordsLower}}{{?r.m.f.ip.length}}
+                const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
+                    {{=f.names.underscore }}: false,{{~}}
+                };{{?}}
                 promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
-                  .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) })
-                  .then((reference) => {{{?r.m.f.ip.length}}
-                    // Delete private properties{{~r.m.f.ip : p}}
-                    delete reference.{{=p.names.raw}};{{~}}
-{{?}}
+                  .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
+                  .then((reference) => {
                     {{=it.m.names.underscore}}.{{=r.names.raw}} = reference;
                   }));{{~}}
 
