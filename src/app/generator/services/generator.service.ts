@@ -51,6 +51,26 @@ export class GeneratorService {
   }
 
   /**
+   * Only process the path
+   *
+   * @param {ITemplate} template
+   * @param {IModel|null} model
+   * @returns {string}
+   * @throws {Error}
+   *  If the template needs a model and no model is passed
+   */
+  path(template: ITemplate, model: IModel|null): string {
+    if (template.needsModel()) {
+      if (!model) {
+        throw new Error('Model should be defined for this template');
+      }
+      return this.getPath(model, template);
+    } else {
+      return template.path;
+    }
+  }
+
+  /**
    * Run generation process for one model
    *
    * @param {ITemplate} template
@@ -60,7 +80,6 @@ export class GeneratorService {
    *  If the template rendering engine is unknown
    * @private
    */
-
   private async _one(template: ITemplate, model: IModel): Promise<IGeneratorResult> {
 
     // Compute path

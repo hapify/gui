@@ -1,0 +1,17 @@
+.editor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #ffffff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  .template-content {
+    background-color: #f8f9fa;
+    &:focus {
+      background-color: #e9ecef;
+    }
+  }
+}

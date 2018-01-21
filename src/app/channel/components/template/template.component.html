@@ -95,10 +95,19 @@
         <div class="template-preview">
           <pre class="m-0 bg-light p-3 rounded"><code [innerHTML]="template.content"></code></pre>
           <div class="open-overlay d-flex align-items-center justify-content-center">
-            <button class="btn btn-outline-primary">{{ 'template_open_editor' | translate }}</button>
+            <button type="button" class="btn btn-outline-primary" (click)="onShowEditor();">{{ 'template_open_editor' | translate }}</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="showEditor">
+    <app-channel-editor
+            [pathMaxLength]="maxLength"
+            [pathMinLength]="minlength"
+            [template]="template"
+            (onSave)="onEditorSave()"
+            (onCancel)="onEditorCancel()">
+    </app-channel-editor>
   </div>
 </div>

@@ -1,0 +1,81 @@
+<div class="editor">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="collapse navbar-collapse">
+        <div class="navbar-nav mr-auto">
+          <div class="navbar-brand name">{{ template.name }}</div>
+          <select *ngIf="template.needsModel()"
+                  [(ngModel)]="model"
+                  class="form-control"
+                  (change)="onModelChange();">
+            <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
+          </select>
+          <div class="btn-group ml-2" data-toggle="buttons">
+            <label class="btn" title="{{ 'tooltip_internal' | translate }}"
+                   [ngClass]="{ 'btn-primary': autoGenerate, 'btn-outline-secondary': !autoGenerate }">
+              <input type="checkbox" autocomplete="off" [(ngModel)]="autoGenerate">
+              <span class="oi oi-reload"></span>
+            </label>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-light" (click)="didClickCancel();">{{ 'common_cancel' | translate }}</button>
+        <button type="button" class="btn btn-light ml-2" [disabled]="form.invalid" (click)="didClickSave();">{{ 'common_save' | translate }}</button>
+      </div>
+    </nav>
+  </header>
+  <div class="path p-3">
+    <div class="row">
+      <div class="col-lg-6 input">
+        <div [formGroup]="form">
+          <div class="input-cnt">
+            <input formControlName="path" class="form-control" [(ngModel)]="wip.path" type="text">
+            <div
+                    *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
+                    class="alert alert-danger mt-2">
+              <div *ngIf="form.controls['path'].errors.required">
+                {{ 'error_path_required' | translate }}
+              </div>
+              <div *ngIf="form.controls['path'].errors.pattern && !form.controls['path'].errors.required">
+                {{ 'error_path_format' | translate }}
+              </div>
+              <div *ngIf="form.controls['path'].errors.minlength">
+                {{ 'error_path_min_length' | translate:translateParams }}
+              </div>
+              <div *ngIf="form.controls['path'].errors.maxlength">
+                {{ 'error_path_max_length' | translate:translateParams }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 output">
+          <input *ngIf="!template.needsModel() || model"
+                 class="form-control"
+                 readonly
+                 [value]="generatorService.path(wip, model)"
+                 type="text">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 input">
+        <pre class="mt-3 p-3 rounded template-content"
+             contenteditable="true"
+             [contentEditableModel]="wip.content"
+             [contentChangeDelay]="1"
+             (contentBlur)="onBlur($event);"
+             (contentChange)="onChange($event);"></pre>
+      </div>
+      <div class="col-lg-6 output">
+        <pre *ngIf="result" class="mt-3 bg-light p-3 rounded"><code
+                class="generated-code bg-light p-0"
+                [innerHTML]="result.content"></code></pre>
+        <div *ngIf="error">
+          <div class="p-3 rounded alert alert-danger">
+            <pre class="m-0">{{ error }}</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

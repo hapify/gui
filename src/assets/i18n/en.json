@@ -1,6 +1,7 @@
 {
   "app_name": "Code my model",
   "common_save": "Save",
+  "common_cancel": "Cancel",
   "common_update": "Update",
   "common_new_model": "New model",
   "common_new_channel": "New channel",
@@ -20,6 +21,7 @@
   "channels_clean_templates": "Cleanup",
   "channels_delete_confirm": "Really?",
   "channels_delete_cancel": "Nope",
+  "channels_tooltip_autogenerate": "Auto-refresh",
   "generator_title": "Generator",
   "generator_select_model": "Model",
   "generator_select_channel": "Channel",

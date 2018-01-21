@@ -26,7 +26,7 @@ export class ChannelComponent implements OnInit {
    * @type {Subject<void>}
    * @private
    */
-  _onSave = new Subject<void>();
+  private _onSave = new Subject<void>();
   /**
    * On save event (Observable)
    *

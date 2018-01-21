@@ -70,4 +70,13 @@ export class Template implements ITemplate {
     return this.input === TemplateInput.One;
   }
 
+  /**
+   * @inheritDoc
+   */
+  public clone(): ITemplate {
+    const output = new Template();
+    output.fromObject(this.toObject());
+
+    return output;
+  }
 }

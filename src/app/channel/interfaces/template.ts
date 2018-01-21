@@ -47,6 +47,12 @@ export interface ITemplate extends ITemplateBase {
    */
   fromObject(object: ITemplateBase): void;
   /**
+   * Create a clone of this template
+   *
+   * @returns {ITemplate}
+   */
+  clone(): ITemplate;
+  /**
    * Denotes if the template should be considered as empty
    *
    * @returns {boolean}

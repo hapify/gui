@@ -18,6 +18,10 @@ import {EditComponent} from './components/edit/edit.component';
 
 // Services
 import {StorageService} from './services/storage.service';
+import { EditorComponent } from './components/editor/editor.component';
+
+// Directives
+import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,7 +50,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewComponent,
     RootComponent,
     EditComponent,
-    ChannelRowComponent
+    ChannelRowComponent,
+    EditorComponent,
+    ContentEditableModelDirective
   ],
   providers: [
     StorageService

@@ -25,7 +25,7 @@ export class ModelRowComponent implements OnInit {
    * @type {Subject<void>}
    * @private
    */
-  _onDelete = new Subject<void>();
+  private _onDelete = new Subject<void>();
   /**
    * On delete event (Observable)
    *

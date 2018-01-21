@@ -40,6 +40,10 @@ export class TemplateComponent implements OnInit {
    */
   showCode = true;
   /**
+   * @type {boolean}
+   */
+  showEditor = false;
+  /**
    * @type {{minLength: number; maxLength: number}}
    */
   translateParams = {
@@ -89,5 +93,26 @@ export class TemplateComponent implements OnInit {
       ]),
       content: new FormControl(this.template.content, []),
     });
+  }
+
+  /**
+   * Called when the user click on "Open Editor" button
+   */
+  onShowEditor() {
+    this.showEditor = true;
+  }
+
+  /**
+   * Called when the editor is saved
+   */
+  onEditorSave() {
+    this.showEditor = false;
+  }
+
+  /**
+   * Called when the editor is saved
+   */
+  onEditorCancel() {
+    this.showEditor = false;
   }
 }

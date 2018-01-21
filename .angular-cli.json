@@ -65,6 +65,9 @@
     "class": {
       "spec": false
     },
-    "component": {}
+    "component": {},
+    "build": {
+      "showCircularDependencies": false
+    }
   }
 }
