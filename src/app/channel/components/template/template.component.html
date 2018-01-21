@@ -77,8 +77,8 @@
           <option *ngFor="let input of inputs" value="{{input.value}}">{{input.name | translate}}</option>
         </select>
         <div
-                *ngIf="form.controls['input'].invalid && (form.controls['input'].dirty || form.controls['input'].touched)"
-                class="alert alert-danger mt-2">
+            *ngIf="form.controls['input'].invalid && (form.controls['input'].dirty || form.controls['input'].touched)"
+            class="alert alert-danger mt-2">
           <div *ngIf="form.controls['input'].errors.required">
             {{ 'error_input_required' | translate }}
           </div>
@@ -92,7 +92,12 @@
   <div *ngIf="showCode" class="mb-5">
     <div class="row">
       <div class="col-lg-12">
-        <textarea formControlName="content" class="form-control" [(ngModel)]="template.content" rows="12"></textarea>
+        <div class="template-preview">
+          <pre class="m-0 bg-light p-3 rounded"><code [innerHTML]="template.content"></code></pre>
+          <div class="open-overlay d-flex align-items-center justify-content-center">
+            <button class="btn btn-outline-primary">{{ 'template_open_editor' | translate }}</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

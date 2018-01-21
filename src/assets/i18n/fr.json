@@ -36,6 +36,7 @@
   "template_input": "Type d'entrée",
   "template_input_one": "Un modèle",
   "template_input_all": "Tous les modèles",
+  "template_open_editor": "Ouvrir l'éditeur",
   "new_model_name": "NouveauModele",
   "new_channel_name": "NouveauChannel",
   "new_template_name": "NouveauTemplate",
