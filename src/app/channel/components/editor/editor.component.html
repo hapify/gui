@@ -11,14 +11,17 @@
             <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
           </select>
           <div class="btn-group ml-2" data-toggle="buttons">
-            <label class="btn" title="{{ 'tooltip_internal' | translate }}"
-                   [ngClass]="{ 'btn-primary': autoGenerate, 'btn-outline-secondary': !autoGenerate }">
+            <label class="btn" title="{{ 'channels_tooltip_autogenerate' | translate }}"
+                   [ngClass]="{ 'btn-light': autoGenerate, 'btn-outline-light': !autoGenerate }">
               <input type="checkbox" autocomplete="off" [(ngModel)]="autoGenerate">
               <span class="oi oi-reload"></span>
             </label>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-light" (click)="didClickCancel();">{{ 'common_cancel' | translate }}</button>
+        <button type="button" class="btn btn-outline-light" (click)="didClickDump();" title="{{ 'channels_tooltip_dump' | translate }}">
+          <span class="oi oi-code"></span>
+        </button>
+        <button type="button" class="btn btn-outline-light ml-4" (click)="didClickCancel();">{{ 'common_cancel' | translate }}</button>
         <button type="button" class="btn btn-light ml-2" [disabled]="form.invalid" (click)="didClickSave();">{{ 'common_save' | translate }}</button>
       </div>
     </nav>

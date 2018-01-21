@@ -64,9 +64,23 @@ export class GeneratorService {
       if (!model) {
         throw new Error('Model should be defined for this template');
       }
-      return this.getPath(model, template);
+      return this._path(model, template);
     } else {
-      return template.path;
+      return this._pathForAll(template);
+    }
+  }
+
+  /**
+   * Returns the input(s) that will be injected in a template
+   *
+   * @param {IModel|null} model
+   * @returns {Promise<any|any[]>}
+   */
+  inputs(model: IModel|null = null): Promise<any|any[]> {
+    if (model) {
+      return this._explicitModel(model);
+    } else {
+      return this._explicitAllModels();
     }
   }
 
@@ -83,9 +97,9 @@ export class GeneratorService {
   private async _one(template: ITemplate, model: IModel): Promise<IGeneratorResult> {
 
     // Compute path
-    const path = this.getPath(model, template);
+    const path = this._path(model, template);
     // Get full model description
-    const input = await this.explicitModel(model);
+    const input = await this._explicitModel(model);
 
     // Compute content
     let content;
@@ -115,10 +129,9 @@ export class GeneratorService {
   private async _all(template: ITemplate): Promise<IGeneratorResult> {
 
     // Compute path
-    const path = template.path;
-    // Get full model description
-    const input =  await Promise.all((await this.modelStorageService.list())
-      .map( (mod: IModel) => this.explicitModel(mod)));
+    const path = this._pathForAll(template);
+    // Get full models description
+    const input = await this._explicitAllModels();
 
     // Compute content
     let content;
@@ -178,14 +191,14 @@ export class GeneratorService {
   }
 
   /**
-   * Compute path
+   * Compute path for a "one model" template
    *
    * @param {IModel} model
    * @param {ITemplate} template
    * @returns {string}
-   * @protected
+   * @private
    */
-  protected getPath(model: IModel, template: ITemplate): string {
+  private _path(model: IModel, template: ITemplate): string {
 
     // Get path
     let path = template.path;
@@ -201,13 +214,25 @@ export class GeneratorService {
   }
 
   /**
+   * Compute path for a "all model" template
+   *
+   * @param {ITemplate} template
+   * @returns {string}
+   * @private
+   */
+  private _pathForAll(template: ITemplate): string {
+    return template.path;
+  }
+
+  /**
    * Convert the model to an object containing all its properties
    *
    * @param {IModel} model
    * @param {number} depth
    * @return {Promise<any>}
+   * @private
    */
-  protected async explicitModel(model: IModel, depth = 0): Promise<any> {
+  private async _explicitModel(model: IModel, depth = 0): Promise<any> {
 
     // Create object
     const m: any = model.toObject();
@@ -271,7 +296,7 @@ export class GeneratorService {
                 return null;
               }
               // Add reference to object
-              const subField = await this.explicitModel(reference, depth + 1);
+              const subField = await this._explicitModel(reference, depth + 1);
               field.model = subField;
               field.m = subField;
 
@@ -293,4 +318,14 @@ export class GeneratorService {
     return m;
   }
 
+  /**
+   * Convert all the models to an array of objects containing all its properties
+   *
+   * @return {Promise<any[]>}
+   * @private
+   */
+  private async _explicitAllModels(): Promise<any[]> {
+    return await Promise.all((await this.modelStorageService.list())
+      .map( (mod: IModel) => this._explicitModel(mod)));
+  }
 }

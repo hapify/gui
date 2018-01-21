@@ -22,6 +22,7 @@
   "channels_delete_confirm": "Vraiment ?",
   "channels_delete_cancel": "Non",
   "channels_tooltip_autogenerate": "Auto-génération",
+  "channels_tooltip_dump": "Afficher les entrées dans la console",
   "generator_title": "Générateur",
   "generator_select_model": "Modèle",
   "generator_select_channel": "Channel",

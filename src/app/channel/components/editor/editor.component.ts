@@ -146,7 +146,9 @@ export class EditorComponent implements OnInit {
     this.modelStorageService.list()
       .then((models) => {
         this.models = models;
-        this.model = this.models[0];
+        if (this.wip.needsModel()) {
+          this.model = this.models[0];
+        }
         // Generate
         this._generate();
       });
@@ -225,6 +227,15 @@ export class EditorComponent implements OnInit {
     if (this.autoGenerate) {
       this._generate();
     }
+  }
+
+  /**
+   * Call when the user click on "dump"
+   *
+   * @param {string} content
+   */
+  async didClickDump(content: string) {
+    console.log(await this.generatorService.inputs(this.model));
   }
 
 }
