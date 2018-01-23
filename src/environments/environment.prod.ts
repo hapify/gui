@@ -6,6 +6,6 @@ export const environment = {
   },
   ace: {
     baseUri: '/assets/ace-builds/src-min',
-    theme: 'eclipse'
+    theme: 'xcode'
   }
 };
