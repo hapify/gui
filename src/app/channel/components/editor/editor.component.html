@@ -1,4 +1,4 @@
-<div class="editor">
+<div class="editor d-flex flex-column align-items-stretch">
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="collapse navbar-collapse">
@@ -26,59 +26,59 @@
       </div>
     </nav>
   </header>
-  <div class="path p-3">
-    <div class="row">
-      <div class="col-lg-6 input">
-        <div [formGroup]="form">
-          <div class="input-cnt">
-            <input formControlName="path" class="form-control" [(ngModel)]="wip.path" type="text">
-            <div
-                    *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
-                    class="alert alert-danger mt-2">
-              <div *ngIf="form.controls['path'].errors.required">
-                {{ 'error_path_required' | translate }}
-              </div>
-              <div *ngIf="form.controls['path'].errors.pattern && !form.controls['path'].errors.required">
-                {{ 'error_path_format' | translate }}
-              </div>
-              <div *ngIf="form.controls['path'].errors.minlength">
-                {{ 'error_path_min_length' | translate:translateParams }}
-              </div>
-              <div *ngIf="form.controls['path'].errors.maxlength">
-                {{ 'error_path_max_length' | translate:translateParams }}
-              </div>
+  <div class="d-flex grow">
+    <div class="col-lg-6 input d-flex flex-column p-3">
+      <div [formGroup]="form">
+        <div class="input-cnt">
+          <input formControlName="path" class="form-control" [(ngModel)]="wip.path" type="text">
+          <div
+                  *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
+                  class="alert alert-danger mt-2">
+            <div *ngIf="form.controls['path'].errors.required">
+              {{ 'error_path_required' | translate }}
+            </div>
+            <div *ngIf="form.controls['path'].errors.pattern && !form.controls['path'].errors.required">
+              {{ 'error_path_format' | translate }}
+            </div>
+            <div *ngIf="form.controls['path'].errors.minlength">
+              {{ 'error_path_min_length' | translate:translateParams }}
+            </div>
+            <div *ngIf="form.controls['path'].errors.maxlength">
+              {{ 'error_path_max_length' | translate:translateParams }}
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 output">
-          <input *ngIf="!template.needsModel() || model"
-                 class="form-control"
-                 readonly
-                 [value]="generatorService.path(wip, model)"
-                 type="text">
-      </div>
+      <div class="mt-3 p-3 rounded code grow bg-light"
+           ace-editor
+           [(text)]="wip.content"
+           [mode]="aceService.mode(wip.extension(), false)"
+           [theme]="aceService.theme()"
+           [options]="{}"
+           [readOnly]="false"
+           [autoUpdateContent]="true"
+           [durationBeforeCallback]="1000"
+           (textChanged)="onChange($event)"></div>
     </div>
-    <div class="row">
-      <div class="col-lg-6 input">
-        <pre class="mt-3 p-3 rounded template-content"
-             contenteditable="true"
-             [contentEditableModel]="wip.content"
-             [contentChangeDelay]="1"
-             (contentBlur)="onBlur($event);"
-             (contentChange)="onChange($event);"></pre>
-      </div>
-      <div class="col-lg-6 output">
-        <pre *ngIf="result" class="mt-3 bg-light p-3 rounded"><code
-                class="generated-code bg-light p-0"
-                [innerHTML]="result.content"></code></pre>
-        <div *ngIf="error">
-          <div class="p-3 rounded alert alert-danger">
-            <pre class="m-0">{{ error }}</pre>
-          </div>
+    <div class="col-lg-6 output d-flex flex-column p-3">
+      <input *ngIf="!template.needsModel() || model"
+               class="form-control"
+               readonly
+               [value]="generatorService.path(wip, model)"
+               type="text">
+      <div *ngIf="result" class="mt-3 p-3 rounded code grow bg-light"
+           ace-editor
+           [(text)]="result.content"
+           [mode]="aceService.mode(wip.path)"
+           [theme]="aceService.theme()"
+           [options]="{printMargin: false}"
+           [readOnly]="true"
+           [autoUpdateContent]="true"></div>
+      <div *ngIf="error">
+        <div class="mt-3 rounded alert alert-danger small">
+          <pre class="m-0 p-2">{{ error }}</pre>
         </div>
       </div>
-
     </div>
   </div>
 </div>

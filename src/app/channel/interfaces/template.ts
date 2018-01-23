@@ -53,6 +53,12 @@ export interface ITemplate extends ITemplateBase {
    */
   clone(): ITemplate;
   /**
+   * Get the extension of the input file
+   *
+   * @returns {string}
+   */
+  extension(): string;
+  /**
    * Denotes if the template should be considered as empty
    *
    * @returns {boolean}

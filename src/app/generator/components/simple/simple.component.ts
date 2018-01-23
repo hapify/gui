@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {StorageService as ChannelStorageService, IChannel, ITemplate} from '../../../channel/channel.module';
 import {GeneratorService} from '../../services/generator.service';
 import {IGeneratorResult} from '../../interfaces/generator-result';
-import {HighlightJsService} from 'angular2-highlight-js';
+import {AceService} from '../../../services/ace.service';
 
 @Component({
   selector: 'app-generator-simple',
@@ -15,14 +15,11 @@ export class SimpleComponent implements OnInit {
   /**
    * Constructor
    *
-   * @param elementRef
-   * @param highlightJsService
    * @param modelStorageService
    * @param channelStorageService
    * @param generatorService
    */
-  constructor(private elementRef: ElementRef,
-              private highlightJsService: HighlightJsService,
+  constructor(public aceService: AceService,
               private modelStorageService: ModelStorageService,
               private channelStorageService: ChannelStorageService,
               private generatorService: GeneratorService) {
@@ -101,9 +98,6 @@ export class SimpleComponent implements OnInit {
     this.generatorService.run(this.template, this.model)
       .then((result) => {
         this.result = result;
-        setTimeout(() => {
-          this.highlightJsService.highlight(this.elementRef.nativeElement.querySelector('.generated-code'));
-        });
       })
       .catch((e) => {
         this.error = `${e.message}\n\n${e.stack}`;

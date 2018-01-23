@@ -19,15 +19,13 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "scss/styles.scss",
-        "lib/highlight/styles/atom-one-light.css"
+        "scss/styles.scss"
       ],
       "scripts": [
         "../node_modules/dot/doT.js",
         "../node_modules/jszip/dist/jszip.js",
         "../node_modules/file-saver/FileSaver.js",
-        "lib/highlight/highlight.pack.js"
-
+        "lib/ace-builds/src-min/ace.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -65,7 +63,8 @@
     "class": {
       "spec": false
     },
-    "component": {},
+    "component": {
+    },
     "build": {
       "showCircularDependencies": false
     }

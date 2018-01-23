@@ -57,6 +57,14 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
+  public extension(): string {
+    if (this.engine === TemplateEngine.doT) return 'dot';
+    return 'js';
+  }
+
+  /**
+   * @inheritDoc
+   */
   public isEmpty(): boolean {
     return typeof this.content !== 'string'
       || this.content === null

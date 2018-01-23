@@ -6,12 +6,11 @@
   bottom: 0;
   z-index: 10;
   background-color: #ffffff;
-  overflow-y: auto;
-  overflow-x: hidden;
-  .template-content {
-    background-color: #f8f9fa;
-    &:focus {
-      background-color: #e9ecef;
-    }
+  overflow: hidden;
+  .grow {
+    flex-grow: 1;
+  }
+  .small {
+    font-size: 12px;
   }
 }

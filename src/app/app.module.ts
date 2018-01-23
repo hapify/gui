@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app.routing';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
-import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
 // Translation
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -21,6 +20,7 @@ import {GeneratorComponent} from './components/generator/generator.component';
 import {ConfigService} from './services/config.service';
 import {StringService} from './services/string.service';
 import {DemoService} from './services/demo.service';
+import {AceService} from './services/ace.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -48,14 +48,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
-    HighlightJsModule,
     FormsModule
   ],
   providers: [
     ConfigService,
     StringService,
-    HighlightJsService,
-    DemoService
+    DemoService,
+    AceService
   ],
   bootstrap: [AppComponent]
 })

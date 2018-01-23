@@ -109,4 +109,13 @@ describe('StringService', () => {
     expect(service.format('Une phrase-commeCa ', SentenceFormat.WordsUpperCase)).toBe('Une Phrase Comme Ca');
   }));
 
+  it('tests extension', inject([StringService], (service: StringService) => {
+    expect(service.extension('test.jpg')).toBe('jpg');
+    expect(service.extension('test.png.JPG')).toBe('jpg');
+    expect(service.extension('test.png.jpeg.jpg')).toBe('jpg');
+    expect(service.extension('test')).toBe(null);
+    expect(service.extension('')).toBe(null);
+    expect(service.extension(null)).toBe(null);
+  }));
+
 });

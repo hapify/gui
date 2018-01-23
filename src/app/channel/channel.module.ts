@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 import {ChannelComponent} from './components/channel/channel.component';
 import {ChannelRowComponent} from './components/channel-row/channel-row.component';
@@ -34,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    AceEditorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

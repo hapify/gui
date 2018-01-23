@@ -1,4 +1,4 @@
-import {Component, ElementRef, Injector, Input, OnInit, Output} from '@angular/core';
+import {Component, Injector, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
@@ -6,7 +6,7 @@ import {ITemplate} from '../../interfaces/template';
 import {GeneratorService} from '../../../generator/services/generator.service';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
-import {HighlightJsService} from 'angular2-highlight-js';
+import {AceService} from '../../../services/ace.service';
 
 @Component({
   selector: 'app-channel-editor',
@@ -123,8 +123,7 @@ export class EditorComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private injector: Injector,
-              private elementRef: ElementRef,
-              private highlightJsService: HighlightJsService,) {
+              public aceService: AceService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
     this.modelStorageService = this.injector.get(ModelStorageService);
@@ -191,9 +190,6 @@ export class EditorComponent implements OnInit {
     this.generatorService.run(this.wip, this.model)
       .then((result) => {
         this.result = result;
-        setTimeout(() => {
-          this.highlightJsService.highlight(this.elementRef.nativeElement.querySelector('.generated-code'));
-        });
       })
       .catch((e) => {
         this.error = `${e.message}\n\n${e.stack}`;
@@ -201,7 +197,7 @@ export class EditorComponent implements OnInit {
   }
 
   /**
-   * Call when the content is left
+   * Call when the selected model is changed
    */
   onModelChange() {
     this._generate();
