@@ -8,5 +8,8 @@ export const environment = {
   demo: {
     baseUri: '/assets/demo',
     manifest: 'manifest.json',
+  },
+  ace: {
+    baseUri: '/assets/ace-builds/src-min'
   }
 };

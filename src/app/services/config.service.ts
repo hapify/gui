@@ -24,4 +24,13 @@ export class ConfigService {
   getDemoManifest(): string {
     return environment.demo.manifest;
   }
+
+  /**
+   * Get the base path for ace
+   *
+   * @return {string}
+   */
+  getAceBaseUri(): string {
+    return environment.ace.baseUri;
+  }
 }

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {StringService} from './string.service';
+import {ConfigService} from './config.service';
+
+declare const ace: any;
 
 @Injectable()
 export class AceService {
@@ -12,13 +15,18 @@ export class AceService {
    */
   private _modeMap: any = {
     js: 'javascript',
+    ts: 'typescript',
     md: 'markdown'
   };
 
   /**
    * Constructor
    */
-  constructor(private stringService: StringService) { }
+  constructor(private stringService: StringService,
+              private configService: ConfigService) {
+    // Set base url for ace
+    ace.config.set('basePath', this.configService.getAceBaseUri());
+  }
 
   /**
    * Returns the main theme

@@ -25,7 +25,7 @@
         "../node_modules/dot/doT.js",
         "../node_modules/jszip/dist/jszip.js",
         "../node_modules/file-saver/FileSaver.js",
-        "lib/ace-builds/src-min/ace.js"
+        "../node_modules/ace-builds/src-min/ace.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
