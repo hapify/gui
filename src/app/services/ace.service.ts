@@ -34,7 +34,7 @@ export class AceService {
    * @return {string}
    */
   theme(): string {
-    return 'eclipse';
+    return this.configService.getAceTheme();
   }
 
   /**

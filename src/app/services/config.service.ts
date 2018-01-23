@@ -33,4 +33,13 @@ export class ConfigService {
   getAceBaseUri(): string {
     return environment.ace.baseUri;
   }
+
+  /**
+   * Get the theme for ace
+   *
+   * @return {string}
+   */
+  getAceTheme(): string {
+    return environment.ace.theme;
+  }
 }

@@ -10,6 +10,7 @@ export const environment = {
     manifest: 'manifest.json',
   },
   ace: {
-    baseUri: '/assets/ace-builds/src-min'
+    baseUri: '/assets/ace-builds/src-min',
+    theme: 'xcode'
   }
 };
