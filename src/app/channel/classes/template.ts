@@ -58,7 +58,7 @@ export class Template implements ITemplate {
    * @inheritDoc
    */
   public extension(): string {
-    if (this.engine === TemplateEngine.doT) return 'dot';
+    if (this.engine === TemplateEngine.doT) return 'dotjs';
     return 'js';
   }
 

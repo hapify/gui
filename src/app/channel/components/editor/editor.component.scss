@@ -1,3 +1,6 @@
+$c-string: #DF0002;
+$c-comment: #008E00;
+
 .editor {
   position: fixed;
   top: 0;
@@ -12,5 +15,48 @@
   }
   .small {
     font-size: 12px;
+  }
+
+  ::ng-deep {
+    .ace_dotjs {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      &.ace_inter {
+        background-color: rgba(220, 153, 153, 0.3);
+      }
+      &.ace_cond {
+        background-color: rgba(180, 220, 180, 0.7);
+      }
+      &.ace_iter {
+        background-color: rgba(220, 220, 255, 0.7);
+      }
+      &.ace_eval {
+        background-color: rgba(153, 153, 153, 0.3);
+      }
+    }
+    // Force comment color on interpolations
+    .ace_comment {
+      + .ace_dotjs.ace_inter {
+        color: $c-comment;
+        + .ace_dotjs.ace_inter {
+          color: $c-comment;
+          + .ace_dotjs.ace_inter {
+            color: $c-comment;
+          }
+        }
+      }
+    }
+    // Force string color on interpolations
+    .ace_string {
+      + .ace_dotjs.ace_inter {
+        color: $c-string;
+        + .ace_dotjs.ace_inter {
+          color: $c-string;
+          + .ace_dotjs.ace_inter {
+            color: $c-string;
+          }
+        }
+      }
+    }
+
   }
 }
