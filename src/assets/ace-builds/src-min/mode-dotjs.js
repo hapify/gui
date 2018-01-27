@@ -87,7 +87,7 @@ DocCommentHighlightRules.getEndRule = function (start) {
 exports.DocCommentHighlightRules = DocCommentHighlightRules;
 
 });
-
+// Created with https://ace.c9.io/tool/mode_creator.html
 define("ace/mode/dotjs_highlight_rules",["require","exports","module","ace/lib/oop","ace/lib/lang","ace/mode/javascript_highlight_rules"], function(require, exports, module) {
     /* global define */
     "use strict";
