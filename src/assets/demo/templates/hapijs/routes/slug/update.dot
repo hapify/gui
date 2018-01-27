@@ -1,6 +1,6 @@
 {{ function joiValidator(f) {
     if (f.type === "boolean") return "boolean()";
-    if (f.type === "string") return "string()";
+    if (f.type === "string") return "string().trim()";
     if (f.type === "number" || f.type === "datetime") return "number()";
     if (f.type === "entity") return "string().length(24).hex()";
     return "null";
