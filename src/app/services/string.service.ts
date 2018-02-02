@@ -204,6 +204,17 @@ export class StringService {
   }
 
   /**
+   * Replace non alpha numeric with a special char but the underscore
+   *
+   * @param {string} value
+   * @param {string} separator
+   * @returns {string}
+   */
+  public replaceNonAlphaNumericCharsButUnderscore(value: string, separator: string = ' '): string {
+    return value.replace(/[^a-z0-9_]+|\s+/gmi, separator);
+  }
+
+  /**
    * Replace multiple spaces with a single one
    *
    * @param {string} value
@@ -279,10 +290,21 @@ export class StringService {
     if (format === SentenceFormat.Original) {
       return value;
     }
+
     // Pre-convert name
     value = this.removeDiacritics(value);
     // Split camel cases
     value = this.splitCamelCase(value);
+
+    if (format === SentenceFormat.SlugUnderscore) {
+      // Use only spaces
+      value = this.replaceNonAlphaNumericCharsButUnderscore(value);
+      // Replace double spaces
+      value = this.removeMultipleSpaces(value).trim().toLowerCase();
+
+      return value.split(' ').join('_');
+    }
+
     // Use only spaces
     value = this.replaceNonAlphaNumericChars(value);
     // Replace double spaces
@@ -315,10 +337,6 @@ export class StringService {
 
     if (format === SentenceFormat.SlugHyphen) {
       return lower.split(' ').join('-');
-    }
-
-    if (format === SentenceFormat.SlugUnderscore) {
-      return lower.split(' ').join('_');
     }
 
     if (format === SentenceFormat.SlugOneWord) {

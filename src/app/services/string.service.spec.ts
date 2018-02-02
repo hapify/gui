@@ -23,6 +23,11 @@ describe('StringService', () => {
     expect(service.replaceNonAlphaNumericChars('J\'ai éternué à l\'Étagères; Ça $$.', '_')).toBe('J_ai_ternu_l_tag_res_a_');
   }));
 
+  it('tests replaceNonAlphaNumericCharsButUnderscore', inject([StringService], (service: StringService) => {
+    expect(service.replaceNonAlphaNumericCharsButUnderscore('J\'ai éternué à l\'Étagères; Ça $$.')).toBe('J ai ternu l tag res a ');
+    expect(service.replaceNonAlphaNumericCharsButUnderscore('__cette_phrase___ne_Doit_pas_changer123', '_')).toBe('__cette_phrase___ne_Doit_pas_changer123');
+  }));
+
   it('tests removeMultipleSpaces', inject([StringService], (service: StringService) => {
     expect(service.removeMultipleSpaces('J\'ai   éternué à  l\'Étagères; Ça  $$.   ')).toBe('J\'ai éternué à l\'Étagères; Ça $$. ');
   }));
@@ -68,10 +73,12 @@ describe('StringService', () => {
   }));
 
   it('tests format SlugUnderscore', inject([StringService], (service: StringService) => {
-    expect(service.format('$Une Phrase Comme Ça ?', SentenceFormat.SlugUnderscore)).toBe('une_phrase_comme_ca');
-    expect(service.format('UnePhraseComme$Ca', SentenceFormat.SlugUnderscore)).toBe('une_phrase_comme_ca');
-    expect(service.format('UnePhrase_CommeCa ', SentenceFormat.SlugUnderscore)).toBe('une_phrase_comme_ca');
-    expect(service.format('Une phrase-commeCa ', SentenceFormat.SlugUnderscore)).toBe('une_phrase_comme_ca');
+    expect(service.format('_id', SentenceFormat.SlugUnderscore)).toBe('_id');
+    expect(service.format(' _id', SentenceFormat.SlugUnderscore)).toBe('_id');
+    expect(service.format(' __id ', SentenceFormat.SlugUnderscore)).toBe('__id');
+    expect(service.format(' _id- ', SentenceFormat.SlugUnderscore)).toBe('_id');
+    expect(service.format(' UnePhraseBelle', SentenceFormat.SlugUnderscore)).toBe('une_phrase_belle');
+    expect(service.format(' $UnePhraseBelle', SentenceFormat.SlugUnderscore)).toBe('une_phrase_belle');
   }));
 
   it('tests format SlugOneWord', inject([StringService], (service: StringService) => {
