@@ -161,9 +161,9 @@ export class {{=it.m.names.upperCamel}}Service {
           count: result.count,
           total: result.total,
           items: result.items.map((item): {{=it.m.names.upperCamel}} => {
-            const {{=it.m.names.underscore}} = new {{=it.m.names.upperCamel}}();
-            {{=it.m.names.underscore}}.fromObject(item);
-            return {{=it.m.names.underscore}};
+            const {{=it.m.names.lowerCamel}} = new {{=it.m.names.upperCamel}}();
+            {{=it.m.names.lowerCamel}}.fromObject(item);
+            return {{=it.m.names.lowerCamel}};
           })
         };
       });

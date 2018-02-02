@@ -3,22 +3,22 @@ import {ActivatedRoute} from '@angular/router';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {ErrorService} from '@app/messages';
-import {User} from '../../user';
-import {UserService} from '../../user.service';
+import {{{=it.m.names.upperCamel}}} from '../../{{=it.m.names.hyphen}}';
+import {{{=it.m.names.upperCamel}}Service} from '../../{{=it.m.names.hyphen}}.service';
 
 @Component({
-  selector: 'anms-user-read',
-  templateUrl: './user-read.component.html',
-  styleUrls: ['./user-read.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-read',
+  templateUrl: './{{=it.m.names.hyphen}}-read.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-read.component.scss']
 })
-export class UserReadComponent implements OnInit, OnDestroy {
+export class {{=it.m.names.upperCamel}}ReadComponent implements OnInit, OnDestroy {
 
   /**
-   * The user
+   * The {{=it.m.names.wordsLower}}
    *
-   * @type {User}
+   * @type {{{=it.m.names.upperCamel}}}
    */
-  user: User;
+  {{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}};
 
   /**
    * The id subscription
@@ -31,23 +31,23 @@ export class UserReadComponent implements OnInit, OnDestroy {
    * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {ErrorService} errorService
-   * @param {UserService} userService
+   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
    */
   constructor(private route: ActivatedRoute,
               private router: Router,
               private errorService: ErrorService,
-              private userService: UserService) {
+              private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service) {
   }
 
   /**
    * Init
    */
   ngOnInit() {
-    // Get the user after reading the id
+    // Get the {{=it.m.names.wordsLower}} after reading the id
     this.idSubscription = this.route.params.subscribe(params => {
-      this.userService.get(params['id'])
-        .then((user: User) => {
-          this.user = user;
+      this.{{=it.m.names.lowerCamel}}Service.get(params['id'])
+        .then(({{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}}) => {
+          this.{{=it.m.names.lowerCamel}} = {{=it.m.names.lowerCamel}};
         })
         .catch((error) => this.errorService.handle(error));
     });
@@ -61,12 +61,12 @@ export class UserReadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Called when the user is deleted
+   * Called when the {{=it.m.names.wordsLower}} is deleted
    */
-  onUserDelete(): void {
-    this.userService.remove(this.user.getId())
+  on{{=it.m.names.upperCamel}}Delete(): void {
+    this.{{=it.m.names.lowerCamel}}Service.remove(this.{{=it.m.names.lowerCamel}}.getId())
       .then(() => {
-        this.router.navigateByUrl('/user');
+        this.router.navigateByUrl('/{{=it.m.names.hyphen}}');
       })
       .catch((error) => this.errorService.handle(error));
   }

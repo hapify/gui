@@ -1,4 +1,4 @@
-<anms-user-details *ngIf="user" [user]="user" (onDelete)="onUserDelete()"></anms-user-details>
-<div *ngIf="!user" class="my-5">
+<anms-{{=it.m.names.hyphen}}-details *ngIf="{{=it.m.names.lowerCamel}}" [{{=it.m.names.lowerCamel}}]="{{=it.m.names.lowerCamel}}" (onDelete)="on{{=it.m.names.upperCamel}}Delete()"></anms-{{=it.m.names.hyphen}}-details>
+<div *ngIf="!{{=it.m.names.lowerCamel}}" class="my-5">
     <mat-spinner class="mx-auto"></mat-spinner>
 </div>
