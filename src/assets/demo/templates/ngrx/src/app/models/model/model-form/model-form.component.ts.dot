@@ -1,0 +1,64 @@
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {User} from '../user';
+
+@Component({
+  selector: 'anms-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss']
+})
+export class UserFormComponent implements OnInit {
+
+  /**
+   * The user to inject in the form
+   */
+  @Input() user: User;
+
+  /**
+   * Denotes if the form will be used for creation or edition
+   */
+  @Input() edition: boolean = false;
+
+  /**
+   * Called the save button is clicked
+   *
+   * @type {EventEmitter<void>}
+   */
+  @Output() onSave = new EventEmitter<void>();
+
+  /**
+   * @type {FormGroup}
+   */
+  form: FormGroup;
+
+  /**
+   * Constructor
+   *
+   * @param {FormBuilder} formBuilder
+   */
+  constructor(private formBuilder: FormBuilder) {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+    const required = this.edition ? [] : [Validators.required];
+    // Form validator
+    this.form = this.formBuilder.group({
+      first_name: new FormControl(this.user.props.first_name, [].concat(required)),
+      last_name: new FormControl(this.user.props.last_name, [].concat(required)),
+      email: new FormControl(this.user.props.email, [].concat(required)),
+      password: new FormControl(this.user.props.password, [].concat(required)),
+    });
+  }
+
+  /**
+   * Called on form submit
+   */
+  onSubmit(): void {
+    this.onSave.next();
+  }
+
+
+}

@@ -1,0 +1,39 @@
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+
+import {SettingsComponent} from './settings';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'about',
+    pathMatch: 'full'
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    data: {
+      title: 'Settings'
+    }
+  },
+  {
+    path: 'session',
+    loadChildren: 'app/session/session.module#SessionModule'
+  },{{~it.m : m}}
+  {
+    path: '{{=m.names.hyphen}}',
+    loadChildren: 'app/models/{{=m.names.hyphen}}/{{=m.names.hyphen}}.module#{{=m.names.upperCamel}}Module'
+  },{{~}}
+  {
+    path: '**',
+    redirectTo: 'about'
+  }
+];
+
+@NgModule({
+  // useHash supports github.io demo page, remove in your app
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+}

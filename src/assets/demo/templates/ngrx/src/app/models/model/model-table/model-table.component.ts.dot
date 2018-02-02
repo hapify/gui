@@ -1,0 +1,133 @@
+import {Component, OnInit, Input, ViewChild, OnDestroy} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {UserSearchParams} from '../user-search-params';
+import {UserListInterface} from '../user.service';
+import {User} from '../user';
+
+@Component({
+  selector: 'anms-user-table',
+  templateUrl: './user-table.component.html',
+  styleUrls: ['./user-table.component.scss']
+})
+export class UserTableComponent implements OnInit, OnDestroy {
+
+  /**
+   * The search params
+   *
+   * @type {UserSearchParams}
+   */
+  @Input() userSearchParams: UserSearchParams;
+
+  /**
+   * The search results
+   *
+   * @type {Observable<UserListInterface>}
+   */
+  @Input() userList: Observable<UserListInterface>;
+
+  /**
+   * Raised if the list in being updated
+   *
+   * @type {boolean}
+   */
+  @Input() refreshing: boolean;
+
+  /**
+   * Subscription to the tables events
+   *
+   * @type {Subscription[]}
+   */
+  private _subscriptions: Subscription[] = [];
+
+  /**
+   * Columns to show
+   *
+   * @type {[string]}
+   */
+  columns = [
+    '_id',
+    'first_name',
+    'last_name',
+    'creation',
+    'score',
+    'validated'
+  ];
+
+  /**
+   * Data wrapper for MatTable
+   *
+   * @type {MatTableDataSource<User>}
+   */
+  dataSource: MatTableDataSource<User> = new MatTableDataSource();
+
+  /**
+   * Length of the received results
+   *
+   * @type {number}
+   */
+  total = 0;
+
+  /**
+   * Paginator sub view
+   */
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  /**
+   * Sort sub view
+   */
+  @ViewChild(MatSort) sort: MatSort;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+    // Empty data
+    this._subscriptions = [
+      this.sort.sortChange.subscribe(() => {
+        // If the user changes the sort order, reset back to the first page.
+        this.paginator.pageIndex = 0;
+        this._update();
+      }),
+      this.paginator.page.subscribe(() => {
+        this._update();
+      }),
+      this.userList.subscribe((data: UserListInterface) => {
+        // Link data
+        this.dataSource.data = data.items;
+        this.total = data.total;
+      })
+    ];
+
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this._subscriptions.map(s => s.unsubscribe());
+  }
+
+  /**
+   * Update data
+   *
+   * @private
+   */
+  private _update(): void {
+    // Copy controls to params
+    this.userSearchParams.props._page = this.paginator.pageIndex;
+    this.userSearchParams.props._limit = this.paginator.pageSize;
+    this.userSearchParams.props._sort = this.sort.active;
+    this.userSearchParams.props._order = this.sort.direction;
+    // Trigger update
+    this.userSearchParams.next();
+  }
+
+}

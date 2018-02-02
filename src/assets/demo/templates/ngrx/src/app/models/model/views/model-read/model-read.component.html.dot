@@ -1,0 +1,4 @@
+<anms-user-details *ngIf="user" [user]="user" (onDelete)="onUserDelete()"></anms-user-details>
+<div *ngIf="!user" class="my-5">
+    <mat-spinner class="mx-auto"></mat-spinner>
+</div>

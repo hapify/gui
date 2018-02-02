@@ -1,0 +1,58 @@
+import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import {User} from '../user';
+import {MatSlideToggleChange} from '@angular/material';
+
+@Component({
+  selector: 'anms-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.scss']
+})
+export class UserDetailsComponent implements OnInit {
+
+  /**
+   * The user to inject in the form
+   */
+  @Input() user: User;
+
+  /**
+   * Called the save button is clicked
+   *
+   * @type {EventEmitter<void>}
+   */
+  @Output() onDelete = new EventEmitter<void>();
+
+  /**
+   * Toggle delete button display
+   *
+   * @type {boolean}
+   */
+  deletionUnlocked: boolean = false;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+  }
+
+  /**
+   * Triggered when the lock is moved
+   *
+   * @param {MatSlideToggleChange} event
+   */
+  onDeletionUnlock(event: MatSlideToggleChange): void {
+    this.deletionUnlocked = event.checked;
+  }
+
+  /**
+   * Called on deletion
+   */
+  onDeleteClick(): void {
+    this.onDelete.next();
+  }
+}

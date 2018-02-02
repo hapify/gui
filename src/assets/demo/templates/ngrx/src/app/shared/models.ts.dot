@@ -1,0 +1,16 @@
+interface ModelLink {
+  label: string;
+  link: [string];
+}
+
+/**
+ * Available models
+ *
+ * @type {[ModelLink]}
+ */
+export const ModelsLinks: [ModelLink] = [{{~it.m : m}}
+  {
+    label: '{{=m.names.wordsUpper}}',
+    link: ['{{=m.names.hyphen}}']
+  },{{~}}
+];

@@ -1,0 +1,172 @@
+{{ function type(f) {
+  if (f.type === "boolean") return "boolean";
+  if (f.type === "string") return "string";
+  if (f.type === "number") return "number";
+  if (f.type === "datetime") return "number";
+  if (f.type === "entity") return "string";
+  return "any";
+}
+}}import {Injectable} from '@angular/core';
+import {environment} from '@app/../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {{{=it.m.names.upperCamel}}, {{=it.m.names.upperCamel}}Interface} from './{{=it.m.names.hyphen}}';
+import {{{=it.m.names.upperCamel}}SearchParamsInterface} from './{{=it.m.names.hyphen}}-search-params';
+
+/**
+ * Interface for creation
+ */
+export interface {{=it.m.names.upperCamel}}Creation {{{~it.m.f.l : f}}{{? !f.internal }}
+  {{=f.names.raw}}: {{ out += type(f); }};{{?}}{{~}}
+}
+
+/**
+ * Interface for updates
+ */
+export interface {{=it.m.names.upperCamel}}Updates {{{~it.m.f.l : f}}{{? !f.internal }}
+  {{=f.names.raw}}?: {{ out += type(f); }};{{?}}{{~}}
+}
+
+/**
+ * Interface for listings result
+ */
+interface {{=it.m.names.upperCamel}}ListResultInterface {
+  page: number;
+  limit: number;
+  count: number;
+  total: number;
+  items: {{=it.m.names.upperCamel}}Interface[];
+}
+
+/**
+ * Interface for listings
+ */
+export interface {{=it.m.names.upperCamel}}ListInterface {
+  page: number;
+  limit: number;
+  count: number;
+  total: number;
+  items: {{=it.m.names.upperCamel}}[];
+}
+
+@Injectable()
+export class {{=it.m.names.upperCamel}}Service {
+
+  /**
+   * Base route for this module
+   *
+   * @type {string}
+   * @private
+   */
+  private _uri: string = `${environment.api.uri}/{{=it.m.names.hyphen}}`;
+
+  /**
+   * Constructor
+   *
+   * @param {HttpClient} http
+   */
+  constructor(private http: HttpClient) {
+  }
+
+  /**
+   * Create a new {{=it.m.names.wordsLower}}
+   *
+   * @param {{{=it.m.names.upperCamel}}Creation} payload
+   * @return {Promise<{{=it.m.names.upperCamel}}>}
+   */
+  create(payload: {{=it.m.names.upperCamel}}Creation): Promise<{{=it.m.names.upperCamel}}> {
+    // Start request
+    const options = {withCredentials: true};
+    return this.http
+      .post(`${this._uri}`, payload, options)
+      .toPromise()
+      .then((result: {{=it.m.names.upperCamel}}Interface) => {
+        // Create {{=it.m.names.wordsLower}} from results
+        const output = new {{=it.m.names.upperCamel}}();
+        output.fromObject(result);
+
+        return output;
+      });
+  }
+
+  /**
+   * Get an {{=it.m.names.wordsLower}} from it's id
+   *
+   * @param {string} id
+   * @return {Promise<{{=it.m.names.upperCamel}}>}
+   */
+  get(id: string): Promise<{{=it.m.names.upperCamel}}> {
+    // Start request
+    const options = {withCredentials: true};
+    return this.http
+      .get(`${this._uri}/${id}`, options)
+      .toPromise()
+      .then((result: {{=it.m.names.upperCamel}}Interface) => {
+        // Create {{=it.m.names.wordsLower}} from results
+        const output = new {{=it.m.names.upperCamel}}();
+        output.fromObject(result);
+
+        return output;
+      });
+  }
+
+  /**
+   * Update an {{=it.m.names.wordsLower}} selected from it's id
+   *
+   * @param {string} id
+   * @param {{{=it.m.names.upperCamel}}Updates} payload
+   * @return {Promise<any>}
+   */
+  update(id: string, payload: {{=it.m.names.upperCamel}}Updates): Promise<any> {
+    // Start request
+    const options = {withCredentials: true};
+    return this.http
+      .patch(`${this._uri}/${id}`, payload, options)
+      .toPromise();
+  }
+
+  /**
+   * Delete an {{=it.m.names.wordsLower}} selected from it's id
+   *
+   * @param {string} id
+   * @return {Promise<any>}
+   */
+  remove(id: string): Promise<any> {
+    // Start request
+    const options = {withCredentials: true};
+    return this.http
+      .delete(`${this._uri}/${id}`, options)
+      .toPromise();
+  }
+
+  /**
+   * Get list for {{=it.m.names.wordsLower}} search
+   *
+   * @param {{{=it.m.names.upperCamel}}SearchParamsInterface} searchParams
+   * @return {Promise<{{=it.m.names.upperCamel}}ListInterface>}
+   */
+  list(searchParams: {{=it.m.names.upperCamel}}SearchParamsInterface): Promise<{{=it.m.names.upperCamel}}ListInterface> {
+    // Start request
+    const options = {
+      withCredentials: true,
+      params: searchParams as {}
+    };
+    return this.http
+      .get(`${this._uri}`, options)
+      .toPromise()
+      .then((result: {{=it.m.names.upperCamel}}ListResultInterface) => {
+        // Create list from results
+        return {
+          page: result.page,
+          limit: result.limit,
+          count: result.count,
+          total: result.total,
+          items: result.items.map((item): {{=it.m.names.upperCamel}} => {
+            const {{=it.m.names.underscore}} = new {{=it.m.names.upperCamel}}();
+            {{=it.m.names.underscore}}.fromObject(item);
+            return {{=it.m.names.underscore}};
+          })
+        };
+      });
+  }
+
+}

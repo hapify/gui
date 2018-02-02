@@ -101,6 +101,82 @@
           "content": "templates/hapijs/routes/index.dot"
         }
       ]
+    },
+    {
+      "id": "4173ebef-4bcd-8843-ab7c-57b1f45a510e",
+      "name": "Angular Material",
+      "templates": [
+        {
+          "name": "English JSON",
+          "path": "src/assets/i18n/en.json",
+          "engine": "js",
+          "input": "all",
+          "content": "templates/ngrx/src/assets/i18n/en.js"
+        },
+        {
+          "name": "App Module",
+          "path": "src/app/app.module.ts",
+          "engine": "dot",
+          "input": "all",
+          "content": "templates/ngrx/src/app/app.module.ts.dot"
+        },
+        {
+          "name": "App Routing Module",
+          "path": "src/app/app-routing.module.ts",
+          "engine": "dot",
+          "input": "all",
+          "content": "templates/ngrx/src/app/app-routing.module.ts.dot"
+        },
+        {
+          "name": "Shared Models",
+          "path": "src/app/shared/models.ts",
+          "engine": "dot",
+          "input": "all",
+          "content": "templates/ngrx/src/app/shared/models.ts.dot"
+        },
+        {
+          "name": "Models Index",
+          "path": "src/app/models/{model.hyphen}/index.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/index.ts.dot"
+        },
+        {
+          "name": "Models Module",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}.module.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model.module.ts.dot"
+        },
+        {
+          "name": "Models Service",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}.service.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model.service.ts.dot"
+        },
+        {
+          "name": "Models Model",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model.ts.dot"
+        },
+        {
+          "name": "Models Routing",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-routing.module.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-routing.module.ts.dot"
+        },
+        {
+          "name": "Models Search Params",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-search-params.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-search-params.ts.dot"
+        }
+      ]
     }
   ],
   "models": [

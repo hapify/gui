@@ -1,0 +1,17 @@
+<mat-sidenav-container class="sidenav-cnt">
+    <mat-sidenav #sidenav
+                 mode="side"
+                 opened="true"
+                 class="sidenav p-3"
+                 [fixedInViewport]="false"
+                 [fixedTopGap]="0"
+                 [fixedBottomGap]="0">
+        <anms-user-filters [userSearchParams]="userSearchParams"></anms-user-filters>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-ctt">
+        <anms-user-table [userList]="userList.asObservable()"
+                         [userSearchParams]="userSearchParams"
+                         [refreshing]="refreshing"
+        ></anms-user-table>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,57 @@
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ErrorService} from '@app/messages';
+import {User} from '../../user';
+import {UserService} from '../../user.service';
+
+@Component({
+  selector: 'anms-user-create',
+  templateUrl: './user-create.component.html',
+  styleUrls: ['./user-create.component.scss']
+})
+export class UserCreateComponent implements OnInit {
+
+  /**
+   * A new user
+   *
+   * @type {User}
+   */
+  user: User;
+
+  /**
+   * Constructor
+   *
+   * @param {Router} router
+   * @param {ErrorService} errorService
+   * @param {UserService} userService
+   */
+  constructor(private router: Router,
+              private errorService: ErrorService,
+              private userService: UserService) {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+    // Create a new user
+    this.user = new User();
+  }
+
+  /**
+   * Called when the user is saved
+   */
+  onUserSave(): void {
+    this.userService.create({
+      first_name: this.user.props.first_name,
+      last_name: this.user.props.last_name,
+      email: this.user.props.email,
+      password: this.user.props.password
+    })
+      .then((user: User) => {
+        this.router.navigateByUrl(`/user/${user.getId()}`);
+      })
+      .catch((error) => this.errorService.handle(error));
+  }
+
+}

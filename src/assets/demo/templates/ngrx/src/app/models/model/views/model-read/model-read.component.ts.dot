@@ -1,0 +1,73 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {ErrorService} from '@app/messages';
+import {User} from '../../user';
+import {UserService} from '../../user.service';
+
+@Component({
+  selector: 'anms-user-read',
+  templateUrl: './user-read.component.html',
+  styleUrls: ['./user-read.component.scss']
+})
+export class UserReadComponent implements OnInit, OnDestroy {
+
+  /**
+   * The user
+   *
+   * @type {User}
+   */
+  user: User;
+
+  /**
+   * The id subscription
+   */
+  idSubscription: Subscription;
+
+  /**
+   * Constructor
+   *
+   * @param {ActivatedRoute} route
+   * @param {Router} router
+   * @param {ErrorService} errorService
+   * @param {UserService} userService
+   */
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private errorService: ErrorService,
+              private userService: UserService) {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+    // Get the user after reading the id
+    this.idSubscription = this.route.params.subscribe(params => {
+      this.userService.get(params['id'])
+        .then((user: User) => {
+          this.user = user;
+        })
+        .catch((error) => this.errorService.handle(error));
+    });
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.idSubscription.unsubscribe();
+  }
+
+  /**
+   * Called when the user is deleted
+   */
+  onUserDelete(): void {
+    this.userService.remove(this.user.getId())
+      .then(() => {
+        this.router.navigateByUrl('/user');
+      })
+      .catch((error) => this.errorService.handle(error));
+  }
+}

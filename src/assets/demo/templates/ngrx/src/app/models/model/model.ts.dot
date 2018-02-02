@@ -1,0 +1,52 @@
+{{ function type(f) {
+  if (f.type === "boolean") return "boolean";
+  if (f.type === "string") return "string";
+  if (f.type === "number") return "number";
+  if (f.type === "datetime") return "number";
+  if (f.type === "entity") return "string";
+  return "any";
+}
+}}export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}{{? !f.private }}
+  {{=f.names.raw}}?: {{ out += type(f); }};{{?}}{{~}}
+}
+
+export class {{=it.m.names.upperCamel}} {
+
+  /**
+   * Store {{=it.m.names.wordsLower}} properties
+   */
+  props: {{=it.m.names.upperCamel}}Interface = {};
+
+  /**
+   * Constructor
+   */
+  constructor() {
+  }
+
+  /**
+   * Short function to get id
+   *
+   * @return {string}
+   */
+  getId() {
+    return this.props.{{=it.m.f.p.names.raw}};
+  }
+
+  /**
+   * Populate the current instance from an object
+   *
+   * @param {{{=it.m.names.upperCamel}}Interface} object
+   */
+  fromObject(object: {{=it.m.names.upperCamel}}Interface) {
+    this.props = Object.assign({}, object);
+  }
+
+  /**
+   * Convert the current instance to an object
+   *
+   * @return {{{=it.m.names.upperCamel}}Interface}
+   */
+  toObject(): {{=it.m.names.upperCamel}}Interface {
+    return this.props;
+  }
+}

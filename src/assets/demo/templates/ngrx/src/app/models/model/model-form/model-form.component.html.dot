@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row">
+        <div class="offset-md-2 col-md-8 offset-lg-3 col-lg-6 offset-xl-4 col-xl-4 mt-3 mb-3 mt-lg-5 mb-lg-5">
+            <form class="user-form w-100" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                <!-- First Name -->
+                <mat-form-field class="w-100 mb-3">
+                    <input matInput
+                           placeholder="{{ 'user_placeholder_first_name' | translate }}"
+                           id="first_name"
+                           formControlName="first_name"
+                           class="form-control"
+                           [(ngModel)]="user.props.first_name">
+                    <mat-error
+                            *ngIf="form.controls['first_name'].invalid && (form.controls['first_name'].dirty || form.controls['first_name'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="form.controls['first_name'].errors.required">
+                            {{ 'user_error_first_name_required' | translate }}
+                        </div>
+                        <div *ngIf="form.controls['first_name'].errors.pattern && !form.controls['first_name'].errors.required">
+                            {{ 'user_error_first_name_format' | translate }}
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+                <!-- /First Name -->
+
+                <!-- Last Name -->
+                <mat-form-field class="w-100 mb-3">
+                    <input matInput
+                           placeholder="{{ 'user_placeholder_last_name' | translate }}"
+                           id="last_name"
+                           formControlName="last_name"
+                           class="form-control"
+                           [(ngModel)]="user.props.last_name">
+                    <mat-error
+                            *ngIf="form.controls['last_name'].invalid && (form.controls['last_name'].dirty || form.controls['last_name'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="form.controls['last_name'].errors.required">
+                            {{ 'user_error_last_name_required' | translate }}
+                        </div>
+                        <div *ngIf="form.controls['last_name'].errors.pattern && !form.controls['last_name'].errors.required">
+                            {{ 'user_error_last_name_format' | translate }}
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+                <!-- /Last Name -->
+
+                <!-- Email -->
+                <mat-form-field class="w-100 mb-3">
+                    <input matInput
+                           placeholder="{{ 'user_placeholder_email' | translate }}"
+                           id="email"
+                           formControlName="email"
+                           class="form-control"
+                           [(ngModel)]="user.props.email">
+                    <mat-error
+                            *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="form.controls['email'].errors.required">
+                            {{ 'user_error_email_required' | translate }}
+                        </div>
+                        <div *ngIf="form.controls['email'].errors.pattern && !form.controls['email'].errors.required">
+                            {{ 'user_error_email_format' | translate }}
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+                <!-- /Email -->
+
+                <!-- Password -->
+                <mat-form-field class="w-100 mb-3">
+                    <input matInput
+                           placeholder="{{ 'user_placeholder_password' | translate }}"
+                           id="password"
+                           formControlName="password"
+                           class="form-control"
+                           [(ngModel)]="user.props.password">
+                    <mat-error
+                            *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)"
+                            class="alert alert-danger mt-2">
+                        <div *ngIf="form.controls['password'].errors.required">
+                            {{ 'user_error_password_required' | translate }}
+                        </div>
+                        <div *ngIf="form.controls['password'].errors.pattern && !form.controls['password'].errors.required">
+                            {{ 'user_error_password_format' | translate }}
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+                <!-- /Password -->
+
+                <button class="mt-4" mat-raised-button color="primary" [disabled]="form.invalid">
+                    {{ 'user_action_save' | translate }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

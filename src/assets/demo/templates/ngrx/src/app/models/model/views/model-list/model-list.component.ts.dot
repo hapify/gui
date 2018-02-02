@@ -1,0 +1,113 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Subscription} from 'rxjs/Subscription';
+import {ErrorService} from '@app/messages';
+import {UserService, UserListInterface} from '../../user.service';
+import {UserSearchParams} from '../../user-search-params';
+import {Helpers} from '@app/shared';
+import {Subject} from 'rxjs/Subject';
+
+@Component({
+  selector: 'anms-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
+})
+export class UserListComponent implements OnInit, OnDestroy {
+
+  /**
+   * The filters
+   *
+   * @type {UserSearchParams}
+   */
+  userSearchParams: UserSearchParams = new UserSearchParams();
+
+  /**
+   * Results from search
+   *
+   * @type {Subject<UserListInterface>}
+   */
+  userList: Subject<UserListInterface> = new Subject();
+
+  /**
+   * The query subscription
+   *
+   * @type {Subscription}
+   */
+  querySubscription: Subscription;
+
+  /**
+   * The search params subscription
+   *
+   * @type {Subscription}
+   */
+  paramsSubscription: Subscription;
+
+  /**
+   * Raised if the list in being updated
+   *
+   * @type {boolean}
+   */
+  refreshing = false;
+
+  /**
+   * Delay to show loading spinner
+   * Avoid blinking effect on fast APIs
+   *
+   * @type {number}
+   */
+  refreshingDelay = 200;
+
+  /**
+   * Constructor
+   *
+   * @param {ActivatedRoute} route
+   * @param {location} location
+   * @param {ErrorService} errorService
+   * @param {UserService} userService
+   */
+  constructor(private route: ActivatedRoute,
+              private location: Location,
+              private errorService: ErrorService,
+              private userService: UserService) {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+    // Get results when params change
+    this.paramsSubscription = this.userSearchParams.subscribe(() => {
+      const params = this.userSearchParams.toObject();
+      // Update query string
+      this.location.replaceState('/user', Helpers.toQueryString(params));
+      // Set refreshing flag
+      const refreshTimeout = setTimeout(() => {
+        this.refreshing = true;
+      }, this.refreshingDelay);
+      // Get list
+      this.userService.list(params)
+        .then((results) => {
+          this.userList.next(results);
+        })
+        .catch((error) => this.errorService.handle(error))
+        .then(() => {
+          clearTimeout(refreshTimeout);
+          this.refreshing = false;
+        });
+    });
+    // Init the search from query params
+    this.querySubscription = this.route.queryParams.subscribe(params => {
+      this.userSearchParams.fromObject(params);
+    });
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
+    this.querySubscription.unsubscribe();
+  }
+
+}

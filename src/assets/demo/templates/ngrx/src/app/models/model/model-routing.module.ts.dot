@@ -1,0 +1,52 @@
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+
+import {UserComponent} from './user/user.component';
+import {UserCreateComponent} from './views/user-create/user-create.component';
+import {UserReadComponent} from './views/user-read/user-read.component';
+import {UserEditComponent} from './views/user-edit/user-edit.component';
+import {UserListComponent} from './views/user-list/user-list.component';
+
+const routes: Routes = [
+  {
+    path: 'user',
+    component: UserComponent,
+    children: [
+      {
+        path: '',
+        component: UserListComponent,
+        data: {
+          title: 'List user'
+        }
+      },
+      {
+        path: 'create',
+        component: UserCreateComponent,
+        data: {
+          title: 'Create user'
+        }
+      },
+      {
+        path: 'edit/:id',
+        component: UserEditComponent,
+        data: {
+          title: 'Edit user'
+        }
+      },
+      {
+        path: ':id',
+        component: UserReadComponent,
+        data: {
+          title: 'Read user'
+        }
+      },
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class UserRoutingModule {
+}

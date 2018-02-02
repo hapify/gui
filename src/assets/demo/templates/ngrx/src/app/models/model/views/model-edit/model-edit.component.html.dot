@@ -1,0 +1,4 @@
+<anms-user-form *ngIf="user" [user]="user" [edition]="true" (onSave)="onUserSave()"></anms-user-form>
+<div *ngIf="!user" class="my-5">
+    <mat-spinner class="mx-auto"></mat-spinner>
+</div>

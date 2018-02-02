@@ -1,0 +1,78 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {ErrorService} from '@app/messages';
+import {User} from '../../user';
+import {UserService} from '../../user.service';
+
+@Component({
+  selector: 'anms-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.scss']
+})
+export class UserEditComponent implements OnInit, OnDestroy {
+
+  /**
+   * A new user
+   *
+   * @type {User}
+   */
+  user: User;
+
+  /**
+   * The id subscription
+   */
+  idSubscription: Subscription;
+
+  /**
+   * Constructor
+   *
+   * @param {ActivatedRoute} route
+   * @param {Router} router
+   * @param {ErrorService} errorService
+   * @param {UserService} userService
+   */
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private errorService: ErrorService,
+              private userService: UserService) {
+  }
+
+  /**
+   * Init
+   */
+  ngOnInit() {
+    // Get the user after reading the id
+    this.idSubscription = this.route.params.subscribe(params => {
+      this.userService.get(params['id'])
+        .then((user: User) => {
+          this.user = user;
+        })
+        .catch((error) => this.errorService.handle(error));
+    });
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.idSubscription.unsubscribe();
+  }
+
+  /**
+   * Called when the user is saved
+   */
+  onUserSave(): void {
+    this.userService.update(this.user.getId(), {
+      first_name: this.user.props.first_name,
+      last_name: this.user.props.last_name,
+      email: this.user.props.email,
+      password: this.user.props.password
+    })
+      .then(() => {
+        this.router.navigateByUrl(`/user/${this.user.getId()}`);
+      })
+      .catch((error) => this.errorService.handle(error));
+  }
+}
