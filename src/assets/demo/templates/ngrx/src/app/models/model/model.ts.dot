@@ -7,7 +7,7 @@
   return "any";
 }
 }}export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}{{? !f.private }}
-  {{=f.names.raw}}?: {{ out += type(f); }};{{?}}{{~}}
+  {{=f.names.underscore}}?: {{ out += type(f); }};{{?}}{{~}}
 }
 
 export class {{=it.m.names.upperCamel}} {
@@ -29,7 +29,7 @@ export class {{=it.m.names.upperCamel}} {
    * @return {string}
    */
   getId() {
-    return this.props.{{=it.m.f.p.names.raw}};
+    return this.props.{{=it.m.f.p.names.underscore}};
   }
 
   /**

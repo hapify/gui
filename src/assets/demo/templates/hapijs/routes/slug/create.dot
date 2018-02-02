@@ -52,10 +52,10 @@ module.exports = {
         const {{=it.m.names.underscore}} = request.payload;
 {{?it.m.f.i.length}}
         // Init internal fields{{~it.m.f.i : i}}{{?!i.primary}}
-        {{=it.m.names.underscore}}.{{=i.names.raw}} = {{ out += defaultValue(i); }};{{?}}{{~}}
+        {{=it.m.names.underscore}}.{{=i.names.underscore}} = {{ out += defaultValue(i); }};{{?}}{{~}}
 {{?}}{{?it.m.f.r.length}}
         // Convert reference fields{{~it.m.f.r : r}}{{?!r.internal}}
-        {{=it.m.names.underscore}}.{{=r.names.raw}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});{{?}}{{~}}
+        {{=it.m.names.underscore}}.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});{{?}}{{~}}
 {{?}}
         // Insertion options
         const options = { w: 'majority' };
@@ -69,7 +69,7 @@ module.exports = {
                 const {{=it.m.names.underscore}} = result;
 {{?it.m.f.ip.length}}
                 // Delete private properties{{~it.m.f.ip : p}}
-                delete {{=it.m.names.underscore}}.{{=p.names.raw}};{{~}}
+                delete {{=it.m.names.underscore}}.{{=p.names.underscore}};{{~}}
 {{?}}{{?it.m.f.r.length}}
                 // Convert reference fields
                 const promises = [];{{~it.m.f.r : r}}
@@ -79,9 +79,9 @@ module.exports = {
                     {{=f.names.underscore }}: false,{{~}}
                 };{{?}}
                 promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
-                  .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
+                  .findOne({ {{=r.m.f.p.names.underscore}}: new MongoDB.ObjectId(result.{{=r.names.underscore}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
                   .then((reference) => {
-                    {{=it.m.names.underscore}}.{{=r.names.raw}} = reference;
+                    {{=it.m.names.underscore}}.{{=r.names.underscore}} = reference;
                   }));{{~}}
 
                 // Run promises

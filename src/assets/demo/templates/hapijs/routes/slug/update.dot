@@ -54,8 +54,8 @@ module.exports = {
         const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
 {{?it.m.f.r.length}}
         // Convert reference fields{{~it.m.f.r : r}}{{?!r.internal}}
-        if (typeof request.payload.{{=r.names.raw}} !== 'undefined') {
-            updates.$set.{{=r.names.raw}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});
+        if (typeof request.payload.{{=r.names.underscore}} !== 'undefined') {
+            updates.$set.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});
         }{{?}}{{~}}
 {{?}}
         // Insertion options
@@ -63,7 +63,7 @@ module.exports = {
 
         // Update {{=it.m.names.wordsLower}} in database
         request.server.db.collection('{{=it.m.names.underscore}}')
-            .findOneAndUpdate({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} }, updates, options)
+            .findOneAndUpdate({ {{=it.m.f.p.names.underscore}}: {{=it.m.f.p.names.underscore}} }, updates, options)
             .then(screamIfNoUpdate(Boom.notFound('{{=it.m.names.wordsUpper}} not found')))
             .then(() => {
                 reply().code(204);

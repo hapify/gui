@@ -16,14 +16,14 @@ import {{{=it.m.names.upperCamel}}SearchParamsInterface} from './{{=it.m.names.h
  * Interface for creation
  */
 export interface {{=it.m.names.upperCamel}}Creation {{{~it.m.f.l : f}}{{? !f.internal }}
-  {{=f.names.raw}}: {{ out += type(f); }};{{?}}{{~}}
+  {{=f.names.underscore}}: {{ out += type(f); }};{{?}}{{~}}
 }
 
 /**
  * Interface for updates
  */
 export interface {{=it.m.names.upperCamel}}Updates {{{~it.m.f.l : f}}{{? !f.internal }}
-  {{=f.names.raw}}?: {{ out += type(f); }};{{?}}{{~}}
+  {{=f.names.underscore}}?: {{ out += type(f); }};{{?}}{{~}}
 }
 
 /**

@@ -38,7 +38,7 @@ module.exports = {
 
         // Remove {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
-            .deleteOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} })
+            .deleteOne({ {{=it.m.f.p.names.underscore}}: {{=it.m.f.p.names.underscore}} })
             .then(screamIfNoDeletion(Boom.notFound('{{=it.m.names.wordsUpper}} not found')))
             .then(() => {
                 reply().code(204);

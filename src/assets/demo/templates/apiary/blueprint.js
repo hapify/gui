@@ -96,7 +96,7 @@ function __randomId () {
  */
 function __intro(models) {
 
-    const modelsNames = models.map((m) => m.names.raw).join('`, `');
+    const modelsNames = models.map((m) => m.names.underscore).join('`, `');
 
     return `FORMAT: 1A
 HOST: http://dev.api.app-bootstrap.com/v1/
@@ -182,7 +182,7 @@ function __output(model, deep) {
     const output = {};
     model.fields.list.forEach((f) => {
         if (f.isPrivate) return;
-        output[f.names.raw] = __defaultOutputValue(f, deep);
+        output[f.names.underscore] = __defaultOutputValue(f, deep);
     });
     
     return output;

@@ -43,7 +43,7 @@ module.exports = {
 {{?}}
         // Get {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
-            .findOne({ {{=it.m.f.p.names.raw}}: {{=it.m.f.p.names.underscore}} }{{?it.m.f.ip.length}}, projection{{?}})
+            .findOne({ {{=it.m.f.p.names.underscore}}: {{=it.m.f.p.names.underscore}} }{{?it.m.f.ip.length}}, projection{{?}})
             .then(screamIfNoResult(Boom.notFound('{{=it.m.names.wordsUpper}} not found'))){{?it.m.f.r.length}}
             .then((result) => {
 
@@ -57,9 +57,9 @@ module.exports = {
                     {{=f.names.underscore }}: false,{{~}}
                 };{{?}}
                 promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
-                  .findOne({ {{=r.m.f.p.names.raw}}: new MongoDB.ObjectId(result.{{=r.names.raw}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
+                  .findOne({ {{=r.m.f.p.names.underscore}}: new MongoDB.ObjectId(result.{{=r.names.underscore}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
                   .then((reference) => {
-                    {{=it.m.names.underscore}}.{{=r.names.raw}} = reference;
+                    {{=it.m.names.underscore}}.{{=r.names.underscore}} = reference;
                   }));{{~}}
 
                 // Run promises
