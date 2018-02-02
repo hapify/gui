@@ -1,19 +1,38 @@
-import {Subject} from 'rxjs/Subject';
+{{ function _type(f) {
+  if (f.type === "boolean") return "string | boolean";
+  if (f.type === "string") return "string";
+  if (f.type === "number") return "string | number";
+  if (f.type === "datetime") return "string | number | Date";
+  if (f.type === "entity") return "string";
+  return "any";
+}
+function _interface(f) {
+    const prop = f.names.underscore;
+    const type = _type(f);
+    let line = `${prop}?: ${type}`;
+    if (f.type === "number" || f.type === "datetime") {
+        line += `;\n  ${prop}__min?: ${type}`;
+        line += `;\n  ${prop}__max?: ${type}`;
+    }
+    return line;
+}
+function _key(f) {
+    const prop = f.names.underscore;
+    let line = `'${prop}'`;
+    if (f.type === "number" || f.type === "datetime") {
+        line += `,\n  '${prop}__min'`;
+        line += `,\n  '${prop}__max'`;
+    }
+    return line;
+}
+}}import {Subject} from 'rxjs/Subject';
 import {Helpers} from '@app/shared';
 
 /**
  * Used to export and import search params
  */
-export interface UserSearchParamsInterface {
-  first_name?: string;
-  last_name?: string;
-  creation?: string | number | Date;
-  creation__min?: string | number | Date;
-  creation__max?: string | number | Date;
-  validated?: string | boolean;
-  score?: string | number;
-  score__min?: string | number;
-  score__max?: string | number;
+export interface {{=it.m.names.upperCamel}}SearchParamsInterface {{{~it.m.f.se : f}}
+  {{ out += _interface(f); }};{{~}}
   _page?: string | number;
   _limit?: string | number;
   _sort?: string;
@@ -26,16 +45,8 @@ export interface UserSearchParamsInterface {
  * @type {string[]}
  * @private
  */
-const AllowedKeys: string[] = [
-  "first_name",
-  "last_name",
-  "creation",
-  "creation__min",
-  "creation__max",
-  "validated",
-  "score",
-  "score__min",
-  "score__max",
+const AllowedKeys: string[] = [{{~it.m.f.se : f}}
+  {{ out += _key(f); }},{{~}}
   "_page",
   "_limit",
   "_sort",
@@ -43,14 +54,14 @@ const AllowedKeys: string[] = [
 ];
 
 /**
- * Manage user search params
+ * Manage {{=it.m.names.wordsLower}} search params
  */
-export class UserSearchParams extends Subject<void> {
+export class {{=it.m.names.upperCamel}}SearchParams extends Subject<void> {
 
   /**
    * Stores the properties of the instance
    */
-  props: UserSearchParamsInterface;
+  props: {{=it.m.names.upperCamel}}SearchParamsInterface;
 
   /**
    * Default page number
@@ -78,28 +89,33 @@ export class UserSearchParams extends Subject<void> {
   /**
    * Populate the instance from an object (extracted from query string)
    *
-   * @param {UserSearchParamsInterface} input
+   * @param {{{=it.m.names.upperCamel}}SearchParamsInterface} input
    */
-  fromObject(input: UserSearchParamsInterface): void {
+  fromObject(input: {{=it.m.names.upperCamel}}SearchParamsInterface): void {
+
     // Clone object with allowed keys only
-    const props: UserSearchParamsInterface = {};
+    const props: {{=it.m.names.upperCamel}}SearchParamsInterface = {};
     AllowedKeys.map((key: string) => {
       if (typeof input[key] !== 'undefined')
         props[key] = input[key];
     });
+
     // Keep default values
     if (typeof props._page === 'undefined') props._page = this.defaultPage;
     if (typeof props._limit === 'undefined') props._limit = this.defaultLimit;
-    // Convert booleans
-    if (typeof props.validated !== 'undefined')
-      props.validated = Helpers.convertToBoolean(props.validated);
-    // Convert dates
-    if (typeof props.creation !== 'undefined')
-      props.creation = Helpers.convertToDate(props.creation);
-    if (typeof props.creation__min !== 'undefined')
-      props.creation__min = Helpers.convertToDate(props.creation__min);
-    if (typeof props.creation__max !== 'undefined')
-      props.creation__max = Helpers.convertToDate(props.creation__max);
+{{~it.m.f.se : f}}{{? f.type === 'boolean' }}
+    // Convert boolean {{=f.names.wordsLower}}
+    if (typeof props.{{=f.names.underscore}} !== 'undefined')
+      props.{{=f.names.underscore}} = Helpers.convertToBoolean(props.{{=f.names.underscore}});
+{{?}}{{~}}{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
+    // Convert dates for {{=f.names.wordsLower}}
+    if (typeof props.{{=f.names.underscore}} !== 'undefined')
+      props.{{=f.names.underscore}} = Helpers.convertToDate(props.{{=f.names.underscore}});
+    if (typeof props.{{=f.names.underscore}}__min !== 'undefined')
+      props.{{=f.names.underscore}}__min = Helpers.convertToDate(props.{{=f.names.underscore}}__min);
+    if (typeof props.{{=f.names.underscore}}__max !== 'undefined')
+      props.{{=f.names.underscore}}__max = Helpers.convertToDate(props.{{=f.names.underscore}}__max);
+{{?}}{{~}}
     // Assign values
     this.props = props;
     this.next();
@@ -108,27 +124,24 @@ export class UserSearchParams extends Subject<void> {
   /**
    * Convert the instance to an object readable for the API and storable in the query string
    *
-   * @return {UserSearchParamsInterface}
+   * @return {{{=it.m.names.upperCamel}}SearchParamsInterface}
    */
-  toObject(): UserSearchParamsInterface {
+  toObject(): {{=it.m.names.upperCamel}}SearchParamsInterface {
 
     // Filter not allowed, undefined and null values
-    const props: UserSearchParamsInterface = {};
+    const props: {{=it.m.names.upperCamel}}SearchParamsInterface = {};
     AllowedKeys.map(Helpers.prepareObjectForApi(this.props, props));
-
-    // Avoid conflict in values
-    if (typeof props.creation !== 'undefined') {
-      delete props.creation__min;
-      delete props.creation__max;
+{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
+    // Avoid conflict in value of {{=f.names.wordsLower}}
+    if (typeof props.{{=f.names.underscore}} !== 'undefined') {
+      delete props.{{=f.names.underscore}}__min;
+      delete props.{{=f.names.underscore}}__max;
     }
-    if (typeof props.score !== 'undefined') {
-      delete props.score__min;
-      delete props.score__max;
-    }
-
-    // Convert booleans
-    if (typeof props.validated !== 'undefined')
-      props.validated = props.validated ? "true" : "false";
+{{?}}{{~}}{{~it.m.f.se : f}}{{? f.type === 'boolean' }}
+    // Convert boolean {{=f.names.wordsLower}}
+    if (typeof props.{{=f.names.underscore}} !== 'undefined')
+      props.{{=f.names.underscore}} = props.{{=f.names.underscore}} ? "true" : "false";
+{{?}}{{~}}
 
     return props;
   }

@@ -1,43 +1,43 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {UserComponent} from './user/user.component';
-import {UserCreateComponent} from './views/user-create/user-create.component';
-import {UserReadComponent} from './views/user-read/user-read.component';
-import {UserEditComponent} from './views/user-edit/user-edit.component';
-import {UserListComponent} from './views/user-list/user-list.component';
+import {{{=it.m.names.upperCamel}}Component} from './{{=it.m.names.hyphen}}/{{=it.m.names.hyphen}}.component';
+import {{{=it.m.names.upperCamel}}CreateComponent} from './views/{{=it.m.names.hyphen}}-create/{{=it.m.names.hyphen}}-create.component';
+import {{{=it.m.names.upperCamel}}ReadComponent} from './views/{{=it.m.names.hyphen}}-read/{{=it.m.names.hyphen}}-read.component';
+import {{{=it.m.names.upperCamel}}EditComponent} from './views/{{=it.m.names.hyphen}}-edit/{{=it.m.names.hyphen}}-edit.component';
+import {{{=it.m.names.upperCamel}}ListComponent} from './views/{{=it.m.names.hyphen}}-list/{{=it.m.names.hyphen}}-list.component';
 
 const routes: Routes = [
   {
-    path: 'user',
-    component: UserComponent,
+    path: '{{=it.m.names.hyphen}}',
+    component: {{=it.m.names.upperCamel}}Component,
     children: [
       {
         path: '',
-        component: UserListComponent,
+        component: {{=it.m.names.upperCamel}}ListComponent,
         data: {
-          title: 'List user'
+          title: 'List {{=it.m.names.wordsLower}}'
         }
       },
       {
         path: 'create',
-        component: UserCreateComponent,
+        component: {{=it.m.names.upperCamel}}CreateComponent,
         data: {
-          title: 'Create user'
+          title: 'Create {{=it.m.names.wordsLower}}'
         }
       },
       {
         path: 'edit/:id',
-        component: UserEditComponent,
+        component: {{=it.m.names.upperCamel}}EditComponent,
         data: {
-          title: 'Edit user'
+          title: 'Edit {{=it.m.names.wordsLower}}'
         }
       },
       {
         path: ':id',
-        component: UserReadComponent,
+        component: {{=it.m.names.upperCamel}}ReadComponent,
         data: {
-          title: 'Read user'
+          title: 'Read {{=it.m.names.wordsLower}}'
         }
       },
     ]
@@ -48,5 +48,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserRoutingModule {
+export class {{=it.m.names.upperCamel}}RoutingModule {
 }
