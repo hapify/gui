@@ -196,6 +196,27 @@
           "engine": "dot",
           "input": "one",
           "content": "templates/ngrx/src/app/models/model/views/model-read/model-read.component.ts.dot"
+        },
+        {
+          "name": "Models View List Html",
+          "path": "src/app/models/{model.hyphen}/views/{model.hyphen}-list/{model.hyphen}-list.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/views/model-list/model-list.component.html.dot"
+        },
+        {
+          "name": "Models View List Scss",
+          "path": "src/app/models/{model.hyphen}/views/{model.hyphen}-list/{model.hyphen}-list.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/views/model-list/model-list.component.scss.dot"
+        },
+        {
+          "name": "Models View List Ts",
+          "path": "src/app/models/{model.hyphen}/views/{model.hyphen}-list/{model.hyphen}-list.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/views/model-list/model-list.component.ts.dot"
         }
       ]
     }
@@ -430,7 +451,7 @@
     },
     {
       "id": "76ae98f9-d943-989a-62dc-aa061ace3866",
-      "name": "Item",
+      "name": "Online Item",
       "fields": [
         {
           "name": "_id",

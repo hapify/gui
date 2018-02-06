@@ -6,12 +6,12 @@
                  [fixedInViewport]="false"
                  [fixedTopGap]="0"
                  [fixedBottomGap]="0">
-        <anms-user-filters [userSearchParams]="userSearchParams"></anms-user-filters>
+        <anms-{{=it.m.names.hyphen}}-filters [{{=it.m.names.lowerCamel}}SearchParams]="{{=it.m.names.lowerCamel}}SearchParams"></anms-{{=it.m.names.hyphen}}-filters>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-ctt">
-        <anms-user-table [userList]="userList.asObservable()"
-                         [userSearchParams]="userSearchParams"
+        <anms-{{=it.m.names.hyphen}}-table [{{=it.m.names.lowerCamel}}List]="{{=it.m.names.lowerCamel}}List.asObservable()"
+                         [{{=it.m.names.lowerCamel}}SearchParams]="{{=it.m.names.lowerCamel}}SearchParams"
                          [refreshing]="refreshing"
-        ></anms-user-table>
+        ></anms-{{=it.m.names.hyphen}}-table>
     </mat-sidenav-content>
 </mat-sidenav-container>

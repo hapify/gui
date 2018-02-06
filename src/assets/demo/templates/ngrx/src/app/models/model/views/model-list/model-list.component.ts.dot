@@ -3,31 +3,31 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
 import {ErrorService} from '@app/messages';
-import {UserService, UserListInterface} from '../../user.service';
-import {UserSearchParams} from '../../user-search-params';
+import {{{=it.m.names.upperCamel}}Service, {{=it.m.names.upperCamel}}ListInterface} from '../../{{=it.m.names.hyphen}}.service';
+import {{{=it.m.names.upperCamel}}SearchParams} from '../../{{=it.m.names.hyphen}}-search-params';
 import {Helpers} from '@app/shared';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
-  selector: 'anms-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-list',
+  templateUrl: './{{=it.m.names.hyphen}}-list.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-list.component.scss']
 })
-export class UserListComponent implements OnInit, OnDestroy {
+export class {{=it.m.names.upperCamel}}ListComponent implements OnInit, OnDestroy {
 
   /**
    * The filters
    *
-   * @type {UserSearchParams}
+   * @type {{{=it.m.names.upperCamel}}SearchParams}
    */
-  userSearchParams: UserSearchParams = new UserSearchParams();
+  {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new {{=it.m.names.upperCamel}}SearchParams();
 
   /**
    * Results from search
    *
-   * @type {Subject<UserListInterface>}
+   * @type {Subject<{{=it.m.names.upperCamel}}ListInterface>}
    */
-  userList: Subject<UserListInterface> = new Subject();
+  {{=it.m.names.lowerCamel}}List: Subject<{{=it.m.names.upperCamel}}ListInterface> = new Subject();
 
   /**
    * The query subscription
@@ -64,12 +64,12 @@ export class UserListComponent implements OnInit, OnDestroy {
    * @param {ActivatedRoute} route
    * @param {location} location
    * @param {ErrorService} errorService
-   * @param {UserService} userService
+   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
    */
   constructor(private route: ActivatedRoute,
               private location: Location,
               private errorService: ErrorService,
-              private userService: UserService) {
+              private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service) {
   }
 
   /**
@@ -77,18 +77,18 @@ export class UserListComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     // Get results when params change
-    this.paramsSubscription = this.userSearchParams.subscribe(() => {
-      const params = this.userSearchParams.toObject();
+    this.paramsSubscription = this.{{=it.m.names.lowerCamel}}SearchParams.subscribe(() => {
+      const params = this.{{=it.m.names.lowerCamel}}SearchParams.toObject();
       // Update query string
-      this.location.replaceState('/user', Helpers.toQueryString(params));
+      this.location.replaceState('/{{=it.m.names.hyphen}}', Helpers.toQueryString(params));
       // Set refreshing flag
       const refreshTimeout = setTimeout(() => {
         this.refreshing = true;
       }, this.refreshingDelay);
       // Get list
-      this.userService.list(params)
+      this.{{=it.m.names.lowerCamel}}Service.list(params)
         .then((results) => {
-          this.userList.next(results);
+          this.{{=it.m.names.lowerCamel}}List.next(results);
         })
         .catch((error) => this.errorService.handle(error))
         .then(() => {
@@ -98,7 +98,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     });
     // Init the search from query params
     this.querySubscription = this.route.queryParams.subscribe(params => {
-      this.userSearchParams.fromObject(params);
+      this.{{=it.m.names.lowerCamel}}SearchParams.fromObject(params);
     });
   }
 
