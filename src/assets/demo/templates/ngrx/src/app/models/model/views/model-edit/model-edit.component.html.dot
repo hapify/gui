@@ -1,4 +1,8 @@
-<anms-user-form *ngIf="user" [user]="user" [edition]="true" (onSave)="onUserSave()"></anms-user-form>
-<div *ngIf="!user" class="my-5">
+<anms-{{=it.m.names.hyphen}}-form
+        *ngIf="{{=it.m.names.lowerCamel}}"
+        [{{=it.m.names.lowerCamel}}]="{{=it.m.names.lowerCamel}}"
+        [edition]="true"
+        (onSave)="on{{=it.m.names.upperCamel}}Save()"></anms-{{=it.m.names.hyphen}}-form>
+<div *ngIf="!{{=it.m.names.lowerCamel}}" class="my-5">
     <mat-spinner class="mx-auto"></mat-spinner>
 </div>

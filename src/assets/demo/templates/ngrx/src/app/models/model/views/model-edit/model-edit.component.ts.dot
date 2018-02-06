@@ -3,22 +3,22 @@ import {ActivatedRoute} from '@angular/router';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {ErrorService} from '@app/messages';
-import {User} from '../../user';
-import {UserService} from '../../user.service';
+import {{{=it.m.names.upperCamel}}} from '../../{{=it.m.names.hyphen}}';
+import {{{=it.m.names.upperCamel}}Service} from '../../{{=it.m.names.hyphen}}.service';
 
 @Component({
-  selector: 'anms-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-edit',
+  templateUrl: './{{=it.m.names.hyphen}}-edit.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-edit.component.scss']
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class {{=it.m.names.upperCamel}}EditComponent implements OnInit, OnDestroy {
 
   /**
-   * A new user
+   * The {{=it.m.names.wordsLower}}
    *
-   * @type {User}
+   * @type {{{=it.m.names.upperCamel}}}
    */
-  user: User;
+  {{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}};
 
   /**
    * The id subscription
@@ -31,23 +31,23 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {ErrorService} errorService
-   * @param {UserService} userService
+   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
    */
   constructor(private route: ActivatedRoute,
               private router: Router,
               private errorService: ErrorService,
-              private userService: UserService) {
+              private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service) {
   }
 
   /**
    * Init
    */
   ngOnInit() {
-    // Get the user after reading the id
+    // Get the {{=it.m.names.wordsLower}} after reading the id
     this.idSubscription = this.route.params.subscribe(params => {
-      this.userService.get(params['id'])
-        .then((user: User) => {
-          this.user = user;
+      this.{{=it.m.names.lowerCamel}}Service.get(params['id'])
+        .then(({{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}}) => {
+          this.{{=it.m.names.lowerCamel}} = {{=it.m.names.lowerCamel}};
         })
         .catch((error) => this.errorService.handle(error));
     });
@@ -61,17 +61,17 @@ export class UserEditComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Called when the user is saved
+   * Called when the {{=it.m.names.wordsLower}} is saved
    */
-  onUserSave(): void {
-    this.userService.update(this.user.getId(), {
-      first_name: this.user.props.first_name,
-      last_name: this.user.props.last_name,
-      email: this.user.props.email,
-      password: this.user.props.password
+  on{{=it.m.names.upperCamel}}Save(): void {
+    this.{{=it.m.names.lowerCamel}}Service.update(this.{{=it.m.names.lowerCamel}}.getId(), {
+      first_name: this.{{=it.m.names.lowerCamel}}.props.first_name,
+      last_name: this.{{=it.m.names.lowerCamel}}.props.last_name,
+      email: this.{{=it.m.names.lowerCamel}}.props.email,
+      password: this.{{=it.m.names.lowerCamel}}.props.password
     })
       .then(() => {
-        this.router.navigateByUrl(`/user/${this.user.getId()}`);
+        this.router.navigateByUrl(`/{{=it.m.names.hyphen}}/${this.{{=it.m.names.lowerCamel}}.getId()}`);
       })
       .catch((error) => this.errorService.handle(error));
   }
