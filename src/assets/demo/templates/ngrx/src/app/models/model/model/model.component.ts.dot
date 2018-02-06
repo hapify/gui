@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'anms-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}',
+  templateUrl: './{{=it.m.names.hyphen}}.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}.component.scss']
 })
-export class UserComponent implements OnInit {
+export class {{=it.m.names.upperCamel}}Component implements OnInit {
 
   /**
    * Constructor

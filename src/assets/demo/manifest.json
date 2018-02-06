@@ -259,6 +259,27 @@
           "engine": "dot",
           "input": "one",
           "content": "templates/ngrx/src/app/models/model/views/model-create/model-create.component.ts.dot"
+        },
+        {
+          "name": "Models Model Html",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}/{model.hyphen}.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model//model/model.component.html.dot"
+        },
+        {
+          "name": "Models Model Scss",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}/{model.hyphen}.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model//model/model.component.scss.dot"
+        },
+        {
+          "name": "Models Model Ts",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}/{model.hyphen}.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model//model/model.component.ts.dot"
         }
       ]
     }
