@@ -1,1 +1,1 @@
-<anms-user-form [user]="user" (onSave)="onUserSave()"></anms-user-form>
+<anms-{{=it.m.names.hyphen}}-form [{{=it.m.names.lowerCamel}}]="{{=it.m.names.lowerCamel}}" (onSave)="on{{=it.m.names.upperCamel}}Save()"></anms-{{=it.m.names.hyphen}}-form>

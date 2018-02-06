@@ -238,6 +238,27 @@
           "engine": "dot",
           "input": "one",
           "content": "templates/ngrx/src/app/models/model/views/model-edit/model-edit.component.ts.dot"
+        },
+        {
+          "name": "Models View Create Html",
+          "path": "src/app/models/{model.hyphen}/views/{model.hyphen}-create/{model.hyphen}-create.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/views/model-create/model-create.component.html.dot"
+        },
+        {
+          "name": "Models View Create Scss",
+          "path": "src/app/models/{model.hyphen}/views/{model.hyphen}-create/{model.hyphen}-create.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/views/model-create/model-create.component.scss.dot"
+        },
+        {
+          "name": "Models View Create Ts",
+          "path": "src/app/models/{model.hyphen}/views/{model.hyphen}-create/{model.hyphen}-create.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/views/model-create/model-create.component.ts.dot"
         }
       ]
     }
