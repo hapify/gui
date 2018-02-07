@@ -5,7 +5,7 @@
     <input matInput
            (keyup)="onChange();"
            placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}"
-           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}_name">
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
 </mat-form-field>
 <!-- /{{=f.names.wordsUpper}} -->
 {{??f.type==='number'}}
@@ -79,13 +79,12 @@
 <!-- /{{=f.names.wordsUpper}} max -->
 {{??f.type==='boolean'}}
 <!-- {{=f.names.wordsUpper}} -->
-<div class="my-3">
-    <mat-checkbox class="w-100"
-                  (change)="onChange();"
-                  [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
-        {{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}
-    </mat-checkbox>
-</div>
+<mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}"
+            [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
+    <mat-option>{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_any' | translate {{=it.c}}</mat-option>
+    <mat-option [value]="false">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}</mat-option>
+    <mat-option [value]="true">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' | translate {{=it.c}}</mat-option>
+</mat-select>
 <!-- /{{=f.names.wordsUpper}} -->
 {{?}}
 {{~}}

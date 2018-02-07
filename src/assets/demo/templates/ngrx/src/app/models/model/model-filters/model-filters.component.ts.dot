@@ -1,19 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserSearchParams} from '../{{=it.m.names.hyphen}}-search-params';
+import {{{=it.m.names.upperCamel}}SearchParams} from '../{{=it.m.names.hyphen}}-search-params';
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-filters',
   templateUrl: './{{=it.m.names.hyphen}}-filters.component.html',
   styleUrls: ['./{{=it.m.names.hyphen}}-filters.component.scss']
 })
-export class UserFiltersComponent implements OnInit {
+export class {{=it.m.names.upperCamel}}FiltersComponent implements OnInit {
 
   /**
    * The filters
    *
-   * @type {UserSearchParams}
+   * @type {{{=it.m.names.upperCamel}}SearchParams}
    */
-  @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new UserSearchParams();
+  @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new {{=it.m.names.upperCamel}}SearchParams();
 
   /**
    * Constrcutor

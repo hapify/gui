@@ -31,13 +31,12 @@
                     <mat-datepicker-toggle matSuffix [for]="picker_{{=f.names.underscore}}"></mat-datepicker-toggle>
                     <mat-datepicker #picker_{{=f.names.underscore}}></mat-datepicker>
 {{??f.type==='boolean'}}
-                    <div class="my-3">
-                        <mat-checkbox class="w-100"
-                              formControlName="{{=f.names.underscore}}"
-                              [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}">
-                            {{=it.o}} '{{=it.m.names.underscore}}_placeholder_{{=f.names.underscore}}' | translate {{=it.c}}
-                        </mat-checkbox>
-                    </div>
+                    <mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_placeholder_{{=f.names.underscore}}' | translate {{=it.c}}"
+                                formControlName="{{=f.names.underscore}}"
+                                [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}">
+                        <mat-option [value]="false">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}</mat-option>
+                        <mat-option [value]="true">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' | translate {{=it.c}}</mat-option>
+                    </mat-select>
 {{?}}
                     <mat-error
                             *ngIf="form.controls['{{=f.names.underscore}}'].invalid && (form.controls['{{=f.names.underscore}}'].dirty || form.controls['{{=f.names.underscore}}'].touched)"

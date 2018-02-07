@@ -2,11 +2,13 @@
   if (f.type === "boolean") return "boolean";
   if (f.type === "string") return "string";
   if (f.type === "number") return "number";
-  if (f.type === "datetime") return "number";
+  if (f.type === "datetime") return "number | Date";
   if (f.type === "entity") return "string";
   return "any";
 }
-}}export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}{{? !f.private }}
+}}import {Helpers} from '@app/shared';
+
+export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}{{? !f.private }}
   {{=f.names.underscore}}?: {{ out += type(f); }};{{?}}{{~}}
 }
 
@@ -38,7 +40,8 @@ export class {{=it.m.names.upperCamel}} {
    * @param {{{=it.m.names.upperCamel}}Interface} object
    */
   fromObject(object: {{=it.m.names.upperCamel}}Interface) {
-    this.props = Object.assign({}, object);
+    this.props = Object.assign({}, object);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
+    this.props.{{=f.names.underscore}} = Helpers.convertToDate(this.props.{{=f.names.underscore}});{{?}}{{~}}
   }
 
   /**
@@ -47,6 +50,8 @@ export class {{=it.m.names.upperCamel}} {
    * @return {{{=it.m.names.upperCamel}}Interface}
    */
   toObject(): {{=it.m.names.upperCamel}}Interface {
-    return this.props;
+    const props = Object.assign({}, this.props);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
+    props.{{=f.names.underscore}} = Helpers.convertToTimestamp(props.{{=f.names.underscore}});{{?}}{{~}}
+    return props;
   }
 }

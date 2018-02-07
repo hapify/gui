@@ -53,6 +53,7 @@ function __read(model) {
             if (f.type === 'boolean') {
                 p[`${modelKey}_${key}_true`] = 'Yes';
                 p[`${modelKey}_${key}_false`] = 'No';
+                p[`${modelKey}_${key}_any`] = 'Any';
             }
             return p;
         }, {});
@@ -70,7 +71,7 @@ function __filter(model) {
         .reduce((p, f) => {
             const key = f.names.underscore;
             p[`${modelKey}_filter_${key}`] = `${f.names.wordsUpper}`;
-            if (f.type === 'number' || f.type === 'date') {
+            if (f.type === 'number' || f.type === 'datetime') {
                 p[`${modelKey}_filter_${key}__min`] = `${f.names.wordsUpper} min`;
                 p[`${modelKey}_filter_${key}__max`] = `${f.names.wordsUpper} max`;
             }
