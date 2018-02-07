@@ -1,40 +1,31 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
 import {ErrorService} from '@app/messages';
 import {{{=it.m.names.upperCamel}}} from '../../{{=it.m.names.hyphen}}';
 import {{{=it.m.names.upperCamel}}Service} from '../../{{=it.m.names.hyphen}}.service';
 
 @Component({
-  selector: 'anms-{{=it.m.names.hyphen}}-edit',
-  templateUrl: './{{=it.m.names.hyphen}}-edit.component.html',
-  styleUrls: ['./{{=it.m.names.hyphen}}-edit.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-create',
+  templateUrl: './{{=it.m.names.hyphen}}-create.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-create.component.scss']
 })
-export class {{=it.m.names.upperCamel}}EditComponent implements OnInit, OnDestroy {
+export class {{=it.m.names.upperCamel}}CreateComponent implements OnInit {
 
   /**
-   * The {{=it.m.names.wordsLower}}
+   * A new {{=it.m.names.wordsLower}}
    *
    * @type {{{=it.m.names.upperCamel}}}
    */
   {{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}};
 
   /**
-   * The id subscription
-   */
-  idSubscription: Subscription;
-
-  /**
    * Constructor
    *
-   * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {ErrorService} errorService
    * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
    */
-  constructor(private route: ActivatedRoute,
-              private router: Router,
+  constructor(private router: Router,
               private errorService: ErrorService,
               private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service) {
   }
@@ -43,21 +34,8 @@ export class {{=it.m.names.upperCamel}}EditComponent implements OnInit, OnDestro
    * Init
    */
   ngOnInit() {
-    // Get the {{=it.m.names.wordsLower}} after reading the id
-    this.idSubscription = this.route.params.subscribe(params => {
-      this.{{=it.m.names.lowerCamel}}Service.get(params['id'])
-        .then(({{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}}) => {
-          this.{{=it.m.names.lowerCamel}} = {{=it.m.names.lowerCamel}};
-        })
-        .catch((error) => this.errorService.handle(error));
-    });
-  }
-
-  /**
-   * Destroy
-   */
-  ngOnDestroy() {
-    this.idSubscription.unsubscribe();
+    // Create a new {{=it.m.names.wordsLower}}
+    this.{{=it.m.names.lowerCamel}} = new {{=it.m.names.upperCamel}}();
   }
 
   /**
@@ -65,12 +43,13 @@ export class {{=it.m.names.upperCamel}}EditComponent implements OnInit, OnDestro
    */
   on{{=it.m.names.upperCamel}}Save(): void {
     const props = this.{{=it.m.names.lowerCamel}}.toObject();
-    this.{{=it.m.names.lowerCamel}}Service.update(this.{{=it.m.names.lowerCamel}}.getId(), {{{~it.m.f.l : f}}{{? !f.internal }}
+    this.{{=it.m.names.lowerCamel}}Service.create({{{~it.m.f.l : f}}{{? !f.internal }}
       {{=f.names.underscore}}: {{?f.type==='datetime'}}<number>{{?}}props.{{=f.names.underscore}},{{?}}{{~}}
     })
-      .then(() => {
-        this.router.navigateByUrl(`/{{=it.m.names.hyphen}}/${this.{{=it.m.names.lowerCamel}}.getId()}`);
+      .then(({{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}}) => {
+        this.router.navigateByUrl(`/{{=it.m.names.hyphen}}/${{{=it.m.names.lowerCamel}}.getId()}`);
       })
       .catch((error) => this.errorService.handle(error));
   }
+
 }
