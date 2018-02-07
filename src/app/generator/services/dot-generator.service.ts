@@ -20,7 +20,7 @@ export class DotGeneratorService implements IGenerator {
 
     // Create template function
     const templateFunction = doT.template(template.content);
-    return templateFunction({ model, m: model });
+    return templateFunction({ model, m: model, o: '{{', c: '}}' });
   }
 
   /**
@@ -30,6 +30,6 @@ export class DotGeneratorService implements IGenerator {
     
     // Create template function
     const templateFunction = doT.template(template.content);
-    return templateFunction({ models, m: models });
+    return templateFunction({ models, m: models, o: '{{', c: '}}' });
   }
 }

@@ -1,18 +1,18 @@
 import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
-import {User} from '../user';
+import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 import {MatSlideToggleChange} from '@angular/material';
 
 @Component({
-  selector: 'anms-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-details',
+  templateUrl: './{{=it.m.names.hyphen}}-details.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-details.component.scss']
 })
-export class UserDetailsComponent implements OnInit {
+export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
 
   /**
-   * The user to inject in the form
+   * The {{=it.m.names.wordsLower}} to inject in the form
    */
-  @Input() user: User;
+  @Input() {{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}};
 
   /**
    * Called the save button is clicked

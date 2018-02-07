@@ -265,21 +265,42 @@
           "path": "src/app/models/{model.hyphen}/{model.hyphen}/{model.hyphen}.component.html",
           "engine": "dot",
           "input": "one",
-          "content": "templates/ngrx/src/app/models/model//model/model.component.html.dot"
+          "content": "templates/ngrx/src/app/models/model/model/model.component.html.dot"
         },
         {
           "name": "Models Model Scss",
           "path": "src/app/models/{model.hyphen}/{model.hyphen}/{model.hyphen}.component.scss",
           "engine": "dot",
           "input": "one",
-          "content": "templates/ngrx/src/app/models/model//model/model.component.scss.dot"
+          "content": "templates/ngrx/src/app/models/model/model/model.component.scss.dot"
         },
         {
           "name": "Models Model Ts",
           "path": "src/app/models/{model.hyphen}/{model.hyphen}/{model.hyphen}.component.ts",
           "engine": "dot",
           "input": "one",
-          "content": "templates/ngrx/src/app/models/model//model/model.component.ts.dot"
+          "content": "templates/ngrx/src/app/models/model/model/model.component.ts.dot"
+        },
+        {
+          "name": "Models Model Details Html",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-details/{model.hyphen}-details.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-details/model-details.component.html.dot"
+        },
+        {
+          "name": "Models Model Details Scss",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-details/{model.hyphen}-details.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-details/model-details.component.scss.dot"
+        },
+        {
+          "name": "Models Model Details Ts",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-details/{model.hyphen}-details.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-details/model-details.component.ts.dot"
         }
       ]
     }

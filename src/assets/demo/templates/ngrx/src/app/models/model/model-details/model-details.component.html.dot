@@ -3,55 +3,21 @@
         <div class="offset-md-1 col-md-10 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 mt-3 mb-3 mt-lg-5 mb-lg-5">
 
             <mat-card>
-
-                <!-- First Name -->
+{{~it.m.f.l : f}}{{? !f.private }}
+                <!-- {{=f.names.wordsUpper}} -->
                 <div class="mb-4">
-                    <h5>{{ 'user_title_first_name' | translate }}</h5>
-                    <div>{{ user.props.first_name }}</div>
+                    <h5>{{=it.o}} '{{=it.m.names.underscore}}_title_{{=f.names.underscore}}' | translate {{=it.c}}</h5>
+                    {{?f.type==='datetime'}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} | date:'medium' {{=it.c}}</div>
+                    {{??f.type==='boolean'}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} ? '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' : '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}</div>
+                    {{??}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} {{=it.c}}</div>{{?}}
                 </div>
-                <!-- /First Name -->
-
-                <!-- Last Name -->
-                <div class="mb-4">
-                    <h5>{{ 'user_title_last_name' | translate }}</h5>
-                    <div>{{ user.props.last_name }}</div>
-                </div>
-                <!-- /Last Name -->
-
-                <!-- Email -->
-                <div class="mb-4">
-                    <h5>{{ 'user_title_email' | translate }}</h5>
-                    <div>{{ user.props.email }}</div>
-                </div>
-                <!-- /Email -->
-
-                <!-- Validated -->
-                <div class="mb-4">
-                    <h5>{{ 'user_title_validated' | translate }}</h5>
-                    <div>{{ user.props.validated ? 'user_validated_true' : 'user_validated_false' | translate }}</div>
-                </div>
-                <!-- /Validated -->
-
-                <!-- Last connection -->
-                <div class="mb-4">
-                    <h5>{{ 'user_title_last_connection' | translate }}</h5>
-                    <div>{{ user.props.last_connection | date:'medium' }}</div>
-                </div>
-                <!-- /Last connection -->
-
-                <!-- Creation -->
-                <div class="mb-4">
-                    <h5>{{ 'user_title_creation' | translate }}</h5>
-                    <div>{{ user.props.user_title_creation | date:'medium' }}</div>
-                </div>
-                <!-- /Creation -->
-
-
+                <!-- /{{=f.names.wordsUpper}} -->
+{{?}}{{~}}
                 <mat-divider class="mb-4"></mat-divider>
                 <div class="row">
                     <div class="col-4">
-                        <a [routerLink]="['/user/edit', user.getId()]" mat-raised-button color="primary">
-                            {{ 'user_action_edit' | translate }}
+                        <a [routerLink]="['/{{=it.m.names.hyphen}}/edit', {{=it.m.names.lowerCamel}}.getId()]" mat-raised-button color="primary">
+                            {{=it.o}} '{{=it.m.names.underscore}}_action_edit' | translate {{=it.c}}
                         </a>
                     </div>
                     <div class="col-8">
@@ -65,7 +31,7 @@
                                     (click)="onDeleteClick()"
                                     mat-raised-button
                                     color="warn">
-                                {{ 'user_action_delete' | translate }}
+                                {{=it.o}} '{{=it.m.names.underscore}}_action_delete' | translate {{=it.c}}
                             </button>
                         </div>
                     </div>
