@@ -1,18 +1,18 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {User} from '../user';
+import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 
 @Component({
-  selector: 'anms-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-form',
+  templateUrl: './{{=it.m.names.hyphen}}-form.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
+export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
 
   /**
-   * The user to inject in the form
+   * The {{=it.m.names.wordsLower}} to inject in the form
    */
-  @Input() user: User;
+  @Input() {{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}};
 
   /**
    * Denotes if the form will be used for creation or edition
@@ -45,11 +45,8 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     const required = this.edition ? [] : [Validators.required];
     // Form validator
-    this.form = this.formBuilder.group({
-      first_name: new FormControl(this.user.props.first_name, [].concat(required)),
-      last_name: new FormControl(this.user.props.last_name, [].concat(required)),
-      email: new FormControl(this.user.props.email, [].concat(required)),
-      password: new FormControl(this.user.props.password, [].concat(required)),
+    this.form = this.formBuilder.group({{{~it.m.f.l : f}}{{? !f.internal }}
+      {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, [].concat(required)),{{?}}{{~}}
     });
   }
 

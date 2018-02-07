@@ -322,6 +322,27 @@
           "engine": "dot",
           "input": "one",
           "content": "templates/ngrx/src/app/models/model/model-filters/model-filters.component.ts.dot"
+        },
+        {
+          "name": "Models Model Form Html",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-form/{model.hyphen}-form.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-form/model-form.component.html.dot"
+        },
+        {
+          "name": "Models Model Form Scss",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-form/{model.hyphen}-form.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-form/model-form.component.scss.dot"
+        },
+        {
+          "name": "Models Model Form Ts",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-form/{model.hyphen}-form.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-form/model-form.component.ts.dot"
         }
       ]
     }
