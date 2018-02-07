@@ -301,6 +301,27 @@
           "engine": "dot",
           "input": "one",
           "content": "templates/ngrx/src/app/models/model/model-details/model-details.component.ts.dot"
+        },
+        {
+          "name": "Models Model Filters Html",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-filters/{model.hyphen}-filters.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-filters/model-filters.component.html.dot"
+        },
+        {
+          "name": "Models Model Filters Scss",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-filters/{model.hyphen}-filters.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-filters/model-filters.component.scss.dot"
+        },
+        {
+          "name": "Models Model Filters Ts",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-filters/{model.hyphen}-filters.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-filters/model-filters.component.ts.dot"
         }
       ]
     }

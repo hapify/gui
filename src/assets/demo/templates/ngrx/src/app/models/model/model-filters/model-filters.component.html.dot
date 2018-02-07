@@ -1,96 +1,91 @@
-<!-- First Name -->
+{{~it.m.f.se : f}}
+{{?f.type==='string'}}
+<!-- {{=f.names.wordsUpper}} -->
 <mat-form-field class="w-100">
     <input matInput
            (keyup)="onChange();"
-           placeholder="{{ 'user_filter_first_name' | translate }}"
-           [(ngModel)]="userSearchParams.props.first_name">
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}_name">
 </mat-form-field>
-<!-- /First Name -->
-
-<!-- Last Name -->
+<!-- /{{=f.names.wordsUpper}} -->
+{{??f.type==='number'}}
+<!-- {{=f.names.wordsUpper}} -->
 <mat-form-field class="w-100">
     <input matInput
+           type="number"
+           (change)="onChange();"
            (keyup)="onChange();"
-           placeholder="{{ 'user_filter_last_name' | translate }}"
-           [(ngModel)]="userSearchParams.props.last_name">
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
 </mat-form-field>
-<!-- /Last Name -->
+<!-- /{{=f.names.wordsUpper}} -->
 
-<!-- Validated -->
+<!-- {{=f.names.wordsUpper}} min -->
+<mat-form-field class="w-100">
+    <input matInput
+           type="number"
+           (change)="onChange();"
+           (keyup)="onChange();"
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}__min' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}__min">
+</mat-form-field>
+<!-- /{{=f.names.wordsUpper}} min -->
+
+<!-- {{=f.names.wordsUpper}} max -->
+<mat-form-field class="w-100">
+    <input matInput
+           type="number"
+           (change)="onChange();"
+           (keyup)="onChange();"
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}__max' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}__max">
+</mat-form-field>
+<!-- /{{=f.names.wordsUpper}} max -->
+{{??f.type==='datetime'}}
+<!-- {{=f.names.wordsUpper}} -->
+<mat-form-field class="w-100">
+    <input matInput
+           [matDatepicker]="picker_{{=f.names.underscore}}"
+           (dateChange)="onChange();"
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
+    <mat-datepicker-toggle matSuffix [for]="picker_{{=f.names.underscore}}"></mat-datepicker-toggle>
+    <mat-datepicker #picker_{{=f.names.underscore}}></mat-datepicker>
+</mat-form-field>
+<!-- /{{=f.names.wordsUpper}} -->
+
+<!-- {{=f.names.wordsUpper}} min -->
+<mat-form-field class="w-100">
+    <input matInput
+           [matDatepicker]="picker_{{=f.names.underscore}}__min"
+           (dateChange)="onChange();"
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}__min' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}__min">
+    <mat-datepicker-toggle matSuffix [for]="picker_{{=f.names.underscore}}__min"></mat-datepicker-toggle>
+    <mat-datepicker #picker_{{=f.names.underscore}}__min></mat-datepicker>
+</mat-form-field>
+<!-- /{{=f.names.wordsUpper}} min -->
+
+<!-- {{=f.names.wordsUpper}} max -->
+<mat-form-field class="w-100">
+    <input matInput
+           [matDatepicker]="picker_{{=f.names.underscore}}__max"
+           (dateChange)="onChange();"
+           placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}__max' | translate {{=it.c}}"
+           [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}__max">
+    <mat-datepicker-toggle matSuffix [for]="picker_{{=f.names.underscore}}__max"></mat-datepicker-toggle>
+    <mat-datepicker #picker_{{=f.names.underscore}}__max></mat-datepicker>
+</mat-form-field>
+<!-- /{{=f.names.wordsUpper}} max -->
+{{??f.type==='boolean'}}
+<!-- {{=f.names.wordsUpper}} -->
 <div class="my-3">
     <mat-checkbox class="w-100"
                   (change)="onChange();"
-                  [(ngModel)]="userSearchParams.props.validated">
-        {{ 'user_filter_validated' | translate }}
+                  [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
+        {{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}
     </mat-checkbox>
 </div>
-<!-- /Validated -->
-
-<!-- Score -->
-<mat-form-field class="w-100">
-    <input matInput
-           type="number"
-           (change)="onChange();"
-           (keyup)="onChange();"
-           placeholder="{{ 'user_filter_score' | translate }}"
-           [(ngModel)]="userSearchParams.props.score">
-</mat-form-field>
-<!-- /Score -->
-
-<!-- Score min -->
-<mat-form-field class="w-100">
-    <input matInput
-           type="number"
-           (change)="onChange();"
-           (keyup)="onChange();"
-           placeholder="{{ 'user_filter_score__min' | translate }}"
-           [(ngModel)]="userSearchParams.props.score__min">
-</mat-form-field>
-<!-- /Score min -->
-
-<!-- Score max -->
-<mat-form-field class="w-100">
-    <input matInput
-           type="number"
-           (change)="onChange();"
-           (keyup)="onChange();"
-           placeholder="{{ 'user_filter_score__max' | translate }}"
-           [(ngModel)]="userSearchParams.props.score__max">
-</mat-form-field>
-<!-- /Score max -->
-
-<!-- Creation -->
-<mat-form-field class="w-100">
-    <input matInput
-           [matDatepicker]="picker_creation"
-           (dateChange)="onChange();"
-           placeholder="{{ 'user_filter_creation' | translate }}"
-           [(ngModel)]="userSearchParams.props.creation">
-    <mat-datepicker-toggle matSuffix [for]="picker_creation"></mat-datepicker-toggle>
-    <mat-datepicker #picker_creation></mat-datepicker>
-</mat-form-field>
-<!-- /Creation -->
-
-<!-- Creation min -->
-<mat-form-field class="w-100">
-    <input matInput
-           [matDatepicker]="picker_creation__min"
-           (dateChange)="onChange();"
-           placeholder="{{ 'user_filter_creation__min' | translate }}"
-           [(ngModel)]="userSearchParams.props.creation__min">
-    <mat-datepicker-toggle matSuffix [for]="picker_creation__min"></mat-datepicker-toggle>
-    <mat-datepicker #picker_creation__min></mat-datepicker>
-</mat-form-field>
-<!-- /Creation min -->
-
-<!-- Creation max -->
-<mat-form-field class="w-100">
-    <input matInput
-           [matDatepicker]="picker_creation__max"
-           (dateChange)="onChange();"
-           placeholder="{{ 'user_filter_creation__max' | translate }}"
-           [(ngModel)]="userSearchParams.props.creation__max">
-    <mat-datepicker-toggle matSuffix [for]="picker_creation__max"></mat-datepicker-toggle>
-    <mat-datepicker #picker_creation__max></mat-datepicker>
-</mat-form-field>
-<!-- /Creation max -->
+<!-- /{{=f.names.wordsUpper}} -->
+{{?}}
+{{~}}

@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserSearchParams} from '../user-search-params';
+import {UserSearchParams} from '../{{=it.m.names.hyphen}}-search-params';
 
 @Component({
-  selector: 'anms-user-filters',
-  templateUrl: './user-filters.component.html',
-  styleUrls: ['./user-filters.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-filters',
+  templateUrl: './{{=it.m.names.hyphen}}-filters.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-filters.component.scss']
 })
 export class UserFiltersComponent implements OnInit {
 
@@ -13,7 +13,7 @@ export class UserFiltersComponent implements OnInit {
    *
    * @type {UserSearchParams}
    */
-  @Input() userSearchParams: UserSearchParams = new UserSearchParams();
+  @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new UserSearchParams();
 
   /**
    * Constrcutor
@@ -31,7 +31,7 @@ export class UserFiltersComponent implements OnInit {
    * Called when an input is changed
    */
   onChange() {
-    this.userSearchParams.next();
+    this.{{=it.m.names.lowerCamel}}SearchParams.next();
   }
 
 }
