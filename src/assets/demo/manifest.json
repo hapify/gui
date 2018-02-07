@@ -620,7 +620,18 @@
           "searchable": true,
           "sortable": true,
           "isPrivate": false,
-          "internal": true
+          "internal": false
+        },
+        {
+          "name": "publication",
+          "type": "datetime",
+          "reference": null,
+          "primary": false,
+          "unique": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": false
         },
         {
           "name": "title",
@@ -639,7 +650,7 @@
           "reference": null,
           "primary": false,
           "unique": false,
-          "searchable": true,
+          "searchable": false,
           "sortable": false,
           "isPrivate": false,
           "internal": false
@@ -650,30 +661,30 @@
           "reference": null,
           "primary": false,
           "unique": false,
-          "searchable": false,
+          "searchable": true,
           "sortable": true,
           "isPrivate": false,
           "internal": false
         },
         {
           "name": "longitude",
-          "type": "string",
+          "type": "number",
           "reference": null,
           "primary": false,
           "unique": false,
-          "searchable": false,
-          "sortable": false,
+          "searchable": true,
+          "sortable": true,
           "isPrivate": false,
           "internal": false
         },
         {
           "name": "latitude",
-          "type": "string",
+          "type": "number",
           "reference": null,
           "primary": false,
           "unique": false,
-          "searchable": false,
-          "sortable": false,
+          "searchable": true,
+          "sortable": true,
           "isPrivate": false,
           "internal": false
         },
@@ -683,7 +694,7 @@
           "reference": null,
           "primary": false,
           "unique": false,
-          "searchable": false,
+          "searchable": true,
           "sortable": true,
           "isPrivate": false,
           "internal": false
