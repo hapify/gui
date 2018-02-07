@@ -343,6 +343,27 @@
           "engine": "dot",
           "input": "one",
           "content": "templates/ngrx/src/app/models/model/model-form/model-form.component.ts.dot"
+        },
+        {
+          "name": "Models Model Table Html",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-table/{model.hyphen}-table.component.html",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-table/model-table.component.html.dot"
+        },
+        {
+          "name": "Models Model Table Scss",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-table/{model.hyphen}-table.component.scss",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-table/model-table.component.scss.dot"
+        },
+        {
+          "name": "Models Model Table Ts",
+          "path": "src/app/models/{model.hyphen}/{model.hyphen}-table/{model.hyphen}-table.component.ts",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/ngrx/src/app/models/model/model-table/model-table.component.ts.dot"
         }
       ]
     }

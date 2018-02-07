@@ -1,4 +1,4 @@
-<div class="user-list-container">
+<div class="{{=it.m.names.hyphen}}-list-container">
 
     <div class="p-2 p-md-3 p-lg-4" [ngClass]="{'d-none': !total}">
         <mat-card class="table-container">
@@ -9,55 +9,23 @@
                        [dataSource]="dataSource"
                        matSort
                        matSortDisableClear
-                       matSortActive="{{userSearchParams.props._sort}}"
-                       matSortDirection="{{userSearchParams.props.order}}">
-
-                <!-- Number Column -->
-                <ng-container matColumnDef="_id">
-                    <mat-header-cell *matHeaderCellDef>{{ 'user_list_title_id' | translate }}</mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                        <a [routerLink]="['/user', row.getId()]">{{ row.props._id }}</a>
+                       matSortActive="{{=it.o}} {{=it.m.names.lowerCamel}}SearchParams.props._sort {{=it.c}}"
+                       matSortDirection="{{=it.o}} {{=it.m.names.lowerCamel}}SearchParams.props._order {{=it.c}}">
+{{~it.m.f.l : f}}{{? !f.private }}
+                <!-- {{=f.names.wordsUpper}} Column -->
+                <ng-container matColumnDef="{{=f.names.underscore}}">
+                    <mat-header-cell *matHeaderCellDef{{?f.sortable}} mat-sort-header{{?}}>
+                        {{=it.o}} '{{=it.m.names.underscore}}_list_title_{{=f.names.underscore}}' | translate {{=it.c}}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{?f.primary}}
+                        <a [routerLink]="['/{{=it.m.names.hyphen}}', row.getId()]">{{?}}
+                        {{?f.type==='datetime'}}{{=it.o}} row.props.{{=f.names.underscore}} | date:'medium' {{=it.c}}
+                        {{??f.type==='boolean'}}{{=it.o}} row.props.{{=f.names.underscore}} ? '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' : '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}
+                        {{??}}{{=it.o}} row.props.{{=f.names.underscore}} {{=it.c}}
+                        {{?}}{{?f.primary}}</a>{{?}}
                     </mat-cell>
                 </ng-container>
-
-                <!-- First Name Column -->
-                <ng-container matColumnDef="first_name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{ 'user_list_title_first_name' | translate }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.props.first_name }}</mat-cell>
-                </ng-container>
-
-                <!-- Last Name Column -->
-                <ng-container matColumnDef="last_name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{ 'user_list_title_last_name' | translate }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.props.last_name }}</mat-cell>
-                </ng-container>
-
-                <!-- Creation Column -->
-                <ng-container matColumnDef="creation">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{ 'user_list_title_creation' | translate }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.props.creation | date:'medium' }}</mat-cell>
-                </ng-container>
-
-                <!-- Score Column -->
-                <ng-container matColumnDef="score">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'user_list_title_score' | translate }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.props.score }}</mat-cell>
-                </ng-container>
-
-                <!-- Validated Column -->
-                <ng-container matColumnDef="validated">
-                    <mat-header-cell *matHeaderCellDef>{{ 'user_list_title_validated' | translate }}</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.props.validated ? 'user_validated_true' :
-                        'user_validated_false' | translate }}
-                    </mat-cell>
-                </ng-container>
+{{?}}{{~}}
 
                 <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: columns;"></mat-row>
@@ -65,19 +33,19 @@
 
             <mat-paginator
                     [length]="total"
-                    [pageSize]="userSearchParams.props._limit"
-                    [pageIndex]="userSearchParams.props._page"
+                    [pageSize]="{{=it.m.names.lowerCamel}}SearchParams.props._limit"
+                    [pageIndex]="{{=it.m.names.lowerCamel}}SearchParams.props._page"
                     [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </mat-card>
     </div>
     <div *ngIf="!total" class="text-center p-2 p-md-3 p-lg-4">
         <mat-card>
-            <h4 class="my-3">{{ 'user_list_nothing' | translate }}</h4>
+            <h4 class="my-3">{{=it.o}} '{{=it.m.names.underscore}}_list_nothing' | translate {{=it.c}}</h4>
         </mat-card>
     </div>
     <div class="text-center my-4">
-        <a [routerLink]="['/user/create']" mat-raised-button color="primary">
-            {{ 'user_action_create' | translate }}
+        <a [routerLink]="['/{{=it.m.names.hyphen}}/create']" mat-raised-button color="primary">
+            {{=it.o}} '{{=it.m.names.underscore}}_action_create' | translate {{=it.c}}
         </a>
     </div>
 </div>

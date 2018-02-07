@@ -2,30 +2,30 @@ import {Component, OnInit, Input, ViewChild, OnDestroy} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
-import {UserSearchParams} from '../user-search-params';
-import {UserListInterface} from '../user.service';
-import {User} from '../user';
+import {{{=it.m.names.upperCamel}}SearchParams} from '../{{=it.m.names.hyphen}}-search-params';
+import {{{=it.m.names.upperCamel}}ListInterface} from '../{{=it.m.names.hyphen}}.service';
+import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 
 @Component({
-  selector: 'anms-user-table',
-  templateUrl: './user-table.component.html',
-  styleUrls: ['./user-table.component.scss']
+  selector: 'anms-{{=it.m.names.hyphen}}-table',
+  templateUrl: './{{=it.m.names.hyphen}}-table.component.html',
+  styleUrls: ['./{{=it.m.names.hyphen}}-table.component.scss']
 })
-export class UserTableComponent implements OnInit, OnDestroy {
+export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestroy {
 
   /**
    * The search params
    *
-   * @type {UserSearchParams}
+   * @type {{{=it.m.names.upperCamel}}SearchParams}
    */
-  @Input() userSearchParams: UserSearchParams;
+  @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams;
 
   /**
    * The search results
    *
-   * @type {Observable<UserListInterface>}
+   * @type {Observable<{{=it.m.names.upperCamel}}ListInterface>}
    */
-  @Input() userList: Observable<UserListInterface>;
+  @Input() {{=it.m.names.lowerCamel}}List: Observable<{{=it.m.names.upperCamel}}ListInterface>;
 
   /**
    * Raised if the list in being updated
@@ -46,21 +46,16 @@ export class UserTableComponent implements OnInit, OnDestroy {
    *
    * @type {[string]}
    */
-  columns = [
-    '_id',
-    'first_name',
-    'last_name',
-    'creation',
-    'score',
-    'validated'
+  columns = [{{~it.m.f.l : f}}{{? !f.private }}
+    '{{=f.names.underscore}}',{{?}}{{~}}
   ];
 
   /**
    * Data wrapper for MatTable
    *
-   * @type {MatTableDataSource<User>}
+   * @type {MatTableDataSource<{{=it.m.names.upperCamel}}>}
    */
-  dataSource: MatTableDataSource<User> = new MatTableDataSource();
+  dataSource: MatTableDataSource<{{=it.m.names.upperCamel}}> = new MatTableDataSource();
 
   /**
    * Length of the received results
@@ -92,14 +87,14 @@ export class UserTableComponent implements OnInit, OnDestroy {
     // Empty data
     this._subscriptions = [
       this.sort.sortChange.subscribe(() => {
-        // If the user changes the sort order, reset back to the first page.
+        // If the {{=it.m.names.wordsLower}} changes the sort order, reset back to the first page.
         this.paginator.pageIndex = 0;
         this._update();
       }),
       this.paginator.page.subscribe(() => {
         this._update();
       }),
-      this.userList.subscribe((data: UserListInterface) => {
+      this.{{=it.m.names.lowerCamel}}List.subscribe((data: {{=it.m.names.upperCamel}}ListInterface) => {
         // Link data
         this.dataSource.data = data.items;
         this.total = data.total;
@@ -122,12 +117,12 @@ export class UserTableComponent implements OnInit, OnDestroy {
    */
   private _update(): void {
     // Copy controls to params
-    this.userSearchParams.props._page = this.paginator.pageIndex;
-    this.userSearchParams.props._limit = this.paginator.pageSize;
-    this.userSearchParams.props._sort = this.sort.active;
-    this.userSearchParams.props._order = this.sort.direction;
+    this.{{=it.m.names.lowerCamel}}SearchParams.props._page = this.paginator.pageIndex;
+    this.{{=it.m.names.lowerCamel}}SearchParams.props._limit = this.paginator.pageSize;
+    this.{{=it.m.names.lowerCamel}}SearchParams.props._sort = this.sort.active;
+    this.{{=it.m.names.lowerCamel}}SearchParams.props._order = this.sort.direction;
     // Trigger update
-    this.userSearchParams.next();
+    this.{{=it.m.names.lowerCamel}}SearchParams.next();
   }
 
 }
