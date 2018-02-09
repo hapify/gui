@@ -37,6 +37,12 @@
                         <mat-option [value]="false">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}</mat-option>
                         <mat-option [value]="true">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' | translate {{=it.c}}</mat-option>
                     </mat-select>
+{{??f.type==='entity'}}
+                    <mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_placeholder_{{=f.names.underscore}}' | translate {{=it.c}}"
+                                formControlName="{{=f.names.underscore}}"
+                                [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}">
+                        <mat-option *ngFor="let {{=f.m.names.lowerCamel}} of {{=f.m.names.lowerCamel}}List" [value]="{{=f.m.names.lowerCamel}}">{{=it.o}} {{=f.m.names.lowerCamel}}.getLabel() {{=it.c}}</mat-option>
+                    </mat-select>
 {{?}}
                     <mat-error
                             *ngIf="form.controls['{{=f.names.underscore}}'].invalid && (form.controls['{{=f.names.underscore}}'].dirty || form.controls['{{=f.names.underscore}}'].touched)"

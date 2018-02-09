@@ -35,6 +35,15 @@ export class {{=it.m.names.upperCamel}} {
   }
 
   /**
+   * Short function to get label of instance
+   *
+   * @return {string}
+   */
+  getLabel() {
+    return this.props._id;
+  }
+
+  /**
    * Denotes if the instance has been created or already exists in the API
    *
    * @return {boolean}

@@ -708,7 +708,7 @@
           "searchable": true,
           "sortable": true,
           "isPrivate": false,
-          "internal": true
+          "internal": false
         }
       ]
     }
