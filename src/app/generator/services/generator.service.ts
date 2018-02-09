@@ -310,6 +310,23 @@ export class GeneratorService {
       // Add to object
       m.fields.references = references;
       m.fields.r = references;
+
+      // Add dependencies to the model
+      const duplicates = {};
+      const dependencies = references
+        // Remove self
+        .filter((ref: any) => ref.model.id !== model.id)
+        // Remove duplicates
+        .filter((ref: any) => {
+          if (duplicates[ref.reference] === true) return false;
+          duplicates[ref.reference] = true;
+          return true;
+        })
+        // Extract models
+        .map((ref: any) => ref.model);
+
+      m.dependencies = dependencies;
+      m.d = dependencies;
     }
 
     // Add short name
