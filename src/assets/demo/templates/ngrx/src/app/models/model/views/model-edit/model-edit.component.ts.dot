@@ -62,15 +62,10 @@ export class {{=it.m.names.upperCamel}}EditComponent implements OnInit, OnDestro
 
   /**
    * Called when the {{=it.m.names.wordsLower}} is saved
+   *
+   * @param {{{=it.m.names.upperCamel}}} {{=it.m.names.lowerCamel}}
    */
-  on{{=it.m.names.upperCamel}}Save(): void {
-    const props = this.{{=it.m.names.lowerCamel}}.toObject();
-    this.{{=it.m.names.lowerCamel}}Service.update(this.{{=it.m.names.lowerCamel}}.getId(), {{{~it.m.f.l : f}}{{? !f.internal }}
-      {{=f.names.underscore}}: {{?f.type==='datetime'}}<number>{{?}}props.{{=f.names.underscore}},{{?}}{{~}}
-    })
-      .then(() => {
-        this.router.navigateByUrl(`/{{=it.m.names.hyphen}}/${this.{{=it.m.names.lowerCamel}}.getId()}`);
-      })
-      .catch((error) => this.errorService.handle(error));
+  on{{=it.m.names.upperCamel}}Save({{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}}): void {
+    this.router.navigateByUrl(`/{{=it.m.names.hyphen}}/${{{=it.m.names.lowerCamel}}.getId()}`);
   }
 }

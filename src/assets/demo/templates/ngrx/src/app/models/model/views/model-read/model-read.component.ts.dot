@@ -64,10 +64,6 @@ export class {{=it.m.names.upperCamel}}ReadComponent implements OnInit, OnDestro
    * Called when the {{=it.m.names.wordsLower}} is deleted
    */
   on{{=it.m.names.upperCamel}}Delete(): void {
-    this.{{=it.m.names.lowerCamel}}Service.remove(this.{{=it.m.names.lowerCamel}}.getId())
-      .then(() => {
-        this.router.navigateByUrl('/{{=it.m.names.hyphen}}');
-      })
-      .catch((error) => this.errorService.handle(error));
+    this.router.navigateByUrl('/{{=it.m.names.hyphen}}');
   }
 }

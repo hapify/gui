@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
-import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 import {MatSlideToggleChange} from '@angular/material';
+import {ErrorService} from '@app/messages';
+import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
+import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-details',
@@ -30,8 +32,12 @@ export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
 
   /**
    * Constructor
+   *
+   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
+   * @param {ErrorService} errorService
    */
-  constructor() {
+  constructor(private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service,
+              private errorService: ErrorService) {
   }
 
   /**
@@ -53,6 +59,10 @@ export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
    * Called on deletion
    */
   onDeleteClick(): void {
-    this.onDelete.next();
+    this.{{=it.m.names.lowerCamel}}Service.remove(this.{{=it.m.names.lowerCamel}}.getId())
+      .then(() => {
+        this.onDelete.next();
+      })
+      .catch((error) => this.errorService.handle(error));
   }
 }
