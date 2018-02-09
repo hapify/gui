@@ -16,7 +16,7 @@ export class {{=it.m.names.upperCamel}}FiltersComponent implements OnInit {
   @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new {{=it.m.names.upperCamel}}SearchParams();
 
   /**
-   * Constrcutor
+   * Constructor
    */
   constructor() {
   }
