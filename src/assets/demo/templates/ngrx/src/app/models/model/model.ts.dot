@@ -35,6 +35,15 @@ export class {{=it.m.names.upperCamel}} {
   }
 
   /**
+   * Denotes if the instance has been created or already exists in the API
+   *
+   * @return {boolean}
+   */
+  isNew() {
+    return !this.props._id;
+  }
+
+  /**
    * Populate the current instance from an object
    *
    * @param {{{=it.m.names.upperCamel}}Interface} object
