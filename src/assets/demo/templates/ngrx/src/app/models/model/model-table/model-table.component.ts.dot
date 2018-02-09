@@ -1,9 +1,9 @@
 import {Component, OnInit, Input, ViewChild, OnDestroy} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
+import {ErrorService} from '@app/messages';
 import {{{=it.m.names.upperCamel}}SearchParams} from '../{{=it.m.names.hyphen}}-search-params';
-import {{{=it.m.names.upperCamel}}ListInterface} from '../{{=it.m.names.hyphen}}.service';
+import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';
 import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 
 @Component({
@@ -21,18 +21,19 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
   @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams;
 
   /**
-   * The search results
-   *
-   * @type {Observable<{{=it.m.names.upperCamel}}ListInterface>}
-   */
-  @Input() {{=it.m.names.lowerCamel}}List: Observable<{{=it.m.names.upperCamel}}ListInterface>;
-
-  /**
    * Raised if the list in being updated
    *
    * @type {boolean}
    */
-  @Input() refreshing: boolean;
+  refreshing: boolean = false;
+
+  /**
+   * Delay to show loading spinner
+   * Avoid blinking effect on fast APIs
+   *
+   * @type {number}
+   */
+  refreshingDelay = 200;
 
   /**
    * Subscription to the tables events
@@ -46,7 +47,7 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
    *
    * @type {[string]}
    */
-  columns = [{{~it.m.f.l : f}}{{? !f.private }}
+  columns = [{{~it.m.f.l : f}}{{? !f.isPrivate }}
     '{{=f.names.underscore}}',{{?}}{{~}}
   ];
 
@@ -76,15 +77,19 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
 
   /**
    * Constructor
+   *
+   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
+   * @param {ErrorService} errorService
    */
-  constructor() {
+  constructor(private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service,
+              private errorService: ErrorService) {
   }
 
   /**
    * Init
    */
   ngOnInit() {
-    // Empty data
+    // Subscriptions
     this._subscriptions = [
       this.sort.sortChange.subscribe(() => {
         // If the {{=it.m.names.wordsLower}} changes the sort order, reset back to the first page.
@@ -94,13 +99,12 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
       this.paginator.page.subscribe(() => {
         this._update();
       }),
-      this.{{=it.m.names.lowerCamel}}List.subscribe((data: {{=it.m.names.upperCamel}}ListInterface) => {
-        // Link data
-        this.dataSource.data = data.items;
-        this.total = data.total;
+      this.{{=it.m.names.lowerCamel}}SearchParams.subscribe(() => {
+        this._refresh();
       })
     ];
-
+    // Refresh once on startup
+    this._refresh();
   }
 
   /**
@@ -123,6 +127,31 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
     this.{{=it.m.names.lowerCamel}}SearchParams.props._order = this.sort.direction;
     // Trigger update
     this.{{=it.m.names.lowerCamel}}SearchParams.next();
+  }
+
+  /**
+   * Refresh data from search params
+   *
+   * @private
+   */
+  private _refresh(): void {
+    const params = this.{{=it.m.names.lowerCamel}}SearchParams.toObject();
+    // Set refreshing flag
+    const refreshTimeout = setTimeout(() => {
+      this.refreshing = true;
+    }, this.refreshingDelay);
+    // Get list
+    this.{{=it.m.names.lowerCamel}}Service.list(params)
+      .then((results) => {
+        // Link data
+        this.dataSource.data = results.items;
+        this.total = results.total;
+      })
+      .catch((error) => this.errorService.handle(error))
+      .then(() => {
+        clearTimeout(refreshTimeout);
+        this.refreshing = false;
+      });
   }
 
 }

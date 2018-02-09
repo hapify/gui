@@ -2,11 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
-import {ErrorService} from '@app/messages';
-import {{{=it.m.names.upperCamel}}Service, {{=it.m.names.upperCamel}}ListInterface} from '../../{{=it.m.names.hyphen}}.service';
 import {{{=it.m.names.upperCamel}}SearchParams} from '../../{{=it.m.names.hyphen}}-search-params';
 import {Helpers} from '@app/shared';
-import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-list',
@@ -23,13 +20,6 @@ export class {{=it.m.names.upperCamel}}ListComponent implements OnInit, OnDestro
   {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new {{=it.m.names.upperCamel}}SearchParams();
 
   /**
-   * Results from search
-   *
-   * @type {Subject<{{=it.m.names.upperCamel}}ListInterface>}
-   */
-  {{=it.m.names.lowerCamel}}List: Subject<{{=it.m.names.upperCamel}}ListInterface> = new Subject();
-
-  /**
    * The query subscription
    *
    * @type {Subscription}
@@ -44,32 +34,13 @@ export class {{=it.m.names.upperCamel}}ListComponent implements OnInit, OnDestro
   paramsSubscription: Subscription;
 
   /**
-   * Raised if the list in being updated
-   *
-   * @type {boolean}
-   */
-  refreshing = false;
-
-  /**
-   * Delay to show loading spinner
-   * Avoid blinking effect on fast APIs
-   *
-   * @type {number}
-   */
-  refreshingDelay = 200;
-
-  /**
    * Constructor
    *
    * @param {ActivatedRoute} route
    * @param {location} location
-   * @param {ErrorService} errorService
-   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service
    */
   constructor(private route: ActivatedRoute,
-              private location: Location,
-              private errorService: ErrorService,
-              private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service) {
+              private location: Location) {
   }
 
   /**
@@ -81,20 +52,6 @@ export class {{=it.m.names.upperCamel}}ListComponent implements OnInit, OnDestro
       const params = this.{{=it.m.names.lowerCamel}}SearchParams.toObject();
       // Update query string
       this.location.replaceState('/{{=it.m.names.hyphen}}', Helpers.toQueryString(params));
-      // Set refreshing flag
-      const refreshTimeout = setTimeout(() => {
-        this.refreshing = true;
-      }, this.refreshingDelay);
-      // Get list
-      this.{{=it.m.names.lowerCamel}}Service.list(params)
-        .then((results) => {
-          this.{{=it.m.names.lowerCamel}}List.next(results);
-        })
-        .catch((error) => this.errorService.handle(error))
-        .then(() => {
-          clearTimeout(refreshTimeout);
-          this.refreshing = false;
-        });
     });
     // Init the search from query params
     this.querySubscription = this.route.queryParams.subscribe(params => {

@@ -11,7 +11,7 @@
                        matSortDisableClear
                        matSortActive="{{=it.o}} {{=it.m.names.lowerCamel}}SearchParams.props._sort {{=it.c}}"
                        matSortDirection="{{=it.o}} {{=it.m.names.lowerCamel}}SearchParams.props._order {{=it.c}}">
-{{~it.m.f.l : f}}{{? !f.private }}
+{{~it.m.f.l : f}}{{? !f.isPrivate }}
                 <!-- {{=f.names.wordsUpper}} Column -->
                 <ng-container matColumnDef="{{=f.names.underscore}}">
                     <mat-header-cell *matHeaderCellDef{{?f.sortable}} mat-sort-header{{?}}>
@@ -20,7 +20,7 @@
                     <mat-cell *matCellDef="let row">{{?f.primary}}
                         <a [routerLink]="['/{{=it.m.names.hyphen}}', row.getId()]">{{?}}
                         {{?f.type==='datetime'}}{{=it.o}} row.props.{{=f.names.underscore}} | date:'medium' {{=it.c}}
-                        {{??f.type==='boolean'}}{{=it.o}} row.props.{{=f.names.underscore}} ? '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' : '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}
+                        {{??f.type==='boolean'}}{{=it.o}} (row.props.{{=f.names.underscore}} ? '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' : '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false') | translate {{=it.c}}
                         {{??}}{{=it.o}} row.props.{{=f.names.underscore}} {{=it.c}}
                         {{?}}{{?f.primary}}</a>{{?}}
                     </mat-cell>

@@ -9,9 +9,6 @@
         <anms-{{=it.m.names.hyphen}}-filters [{{=it.m.names.lowerCamel}}SearchParams]="{{=it.m.names.lowerCamel}}SearchParams"></anms-{{=it.m.names.hyphen}}-filters>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-ctt">
-        <anms-{{=it.m.names.hyphen}}-table [{{=it.m.names.lowerCamel}}List]="{{=it.m.names.lowerCamel}}List.asObservable()"
-                         [{{=it.m.names.lowerCamel}}SearchParams]="{{=it.m.names.lowerCamel}}SearchParams"
-                         [refreshing]="refreshing"
-        ></anms-{{=it.m.names.hyphen}}-table>
+        <anms-{{=it.m.names.hyphen}}-table [{{=it.m.names.lowerCamel}}SearchParams]="{{=it.m.names.lowerCamel}}SearchParams"></anms-{{=it.m.names.hyphen}}-table>
     </mat-sidenav-content>
 </mat-sidenav-container>

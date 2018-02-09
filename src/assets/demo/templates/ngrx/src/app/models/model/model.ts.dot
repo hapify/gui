@@ -8,8 +8,8 @@
 }
 }}import {Helpers} from '@app/shared';
 
-export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}{{? !f.private }}
-  {{=f.names.underscore}}?: {{ out += type(f); }};{{?}}{{~}}
+export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}
+  {{=f.names.underscore}}?: {{ out += type(f); }};{{~}}
 }
 
 export class {{=it.m.names.upperCamel}} {
