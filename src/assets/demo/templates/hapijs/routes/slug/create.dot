@@ -23,8 +23,8 @@ const Boom = require('boom');{{?it.m.f.r.length}}
 const MongoDB = require('mongodb');{{?}}
 
 // Validation schema for payload
-const schema = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
-    {{=f.names.underscore}}: Joi.{{ out += joiValidator(f); }}.required(),{{?}}{{~}}
+const schema = Joi.object({ {{~it.m.f.f(f => !f.internal) : f}}
+    {{=f.names.underscore}}: Joi.{{ out += joiValidator(f); }}.required(),{{~}}
 });
 
 /**

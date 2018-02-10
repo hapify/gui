@@ -19,8 +19,8 @@ const schemaParams = Joi.object({
     {{=it.m.f.p.names.underscore}}: Joi.string().length(24).hex().required()
 });
 // Validation schema for payload
-const schemaPayload = Joi.object({ {{~it.m.f.l : f}}{{?!f.internal}}
-    {{=f.names.underscore}}: Joi.{{ out += joiValidator(f); }},{{?}}{{~}}
+const schemaPayload = Joi.object({ {{~it.m.f.f(f => !f.internal) : f}}
+    {{=f.names.underscore}}: Joi.{{ out += joiValidator(f); }},{{~}}
 }).min(1);
 
 /**

@@ -11,7 +11,7 @@
                        matSortDisableClear
                        matSortActive="{{=it.o}} {{=it.m.names.lowerCamel}}SearchParams.props._sort {{=it.c}}"
                        matSortDirection="{{=it.o}} {{=it.m.names.lowerCamel}}SearchParams.props._order {{=it.c}}">
-{{~it.m.f.l : f}}{{? !f.isPrivate }}
+{{~it.m.f.f(f => !f.isPrivate) : f}}
                 <!-- {{=f.names.wordsUpper}} Column -->
                 <ng-container matColumnDef="{{=f.names.underscore}}">
                     <mat-header-cell *matHeaderCellDef{{?f.sortable}} mat-sort-header{{?}}>
@@ -25,7 +25,7 @@
                         {{?}}{{?f.primary}}</a>{{?}}
                     </mat-cell>
                 </ng-container>
-{{?}}{{~}}
+{{~}}
 
                 <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: columns;"></mat-row>

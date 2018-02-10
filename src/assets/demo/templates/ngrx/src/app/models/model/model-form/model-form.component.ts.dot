@@ -67,8 +67,8 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
     }
     // Form validator{{?it.m.f.l.find(f => f.isPrivate && !f.internal)}}
     const privateRequired = this.{{=it.m.names.lowerCamel}}.isNew() ? [Validators.required] : [];{{?}}
-    this.form = this.formBuilder.group({{{~it.m.f.l : f}}{{? !f.internal }}
-      {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate }}[].concat(privateRequired){{??}}[Validators.required]{{?}}),{{?}}{{~}}
+    this.form = this.formBuilder.group({{{~it.m.f.f(f => !f.internal) : f}}
+      {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate }}[].concat(privateRequired){{??}}[Validators.required]{{?}}),{{~}}
     });{{~it.m.f.r: r}}{{? !r.internal }}
     // Get {{=r.names.wordsLower}} list
     this.{{=r.m.names.lowerCamel}}Service.list({ _limit: 100, _page: 0 })
@@ -83,10 +83,10 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
   onSubmit(): void {
     // Create payload
     const props = this.{{=it.m.names.lowerCamel}}.toObject();
-    const payload = {{{~it.m.f.l : f}}{{? !f.internal }}{{?f.type==='datetime'}}
+    const payload = {{{~it.m.f.f(f => !f.internal) : f}}{{?f.type==='datetime'}}
       {{=f.names.underscore}}: <number>props.{{=f.names.underscore}},{{??f.type==='entity'}}
       {{=f.names.underscore}}: (<{{=f.m.names.upperCamel}}Interface>props.{{=f.names.underscore}}).{{=f.m.f.p.names.underscore}},{{??}}
-      {{=f.names.underscore}}: props.{{=f.names.underscore}},{{?}}{{?}}{{~}}
+      {{=f.names.underscore}}: props.{{=f.names.underscore}},{{?}}{{~}}
     };
     // Creation or update ?
     if (this.{{=it.m.names.lowerCamel}}.isNew()) {

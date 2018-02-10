@@ -3,7 +3,7 @@
         <div class="offset-md-1 col-md-10 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 mt-3 mb-3 mt-lg-5 mb-lg-5">
 
             <mat-card>
-{{~it.m.f.l : f}}{{? !(f.isPrivate || f.primary) }}
+{{~it.m.f.f(f => !(f.isPrivate || f.primary)) : f}}
                 <!-- {{=f.names.wordsUpper}} -->
                 <div class="mb-4">
                     <h5>{{=it.o}} '{{=it.m.names.underscore}}_title_{{=f.names.underscore}}' | translate {{=it.c}}</h5>
@@ -12,7 +12,7 @@
                     {{??}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} {{=it.c}}</div>{{?}}
                 </div>
                 <!-- /{{=f.names.wordsUpper}} -->
-{{?}}{{~}}
+{{~}}
                 <mat-divider class="mb-4"></mat-divider>
                 <div class="row">
                     <div class="col-4">
