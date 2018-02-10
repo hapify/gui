@@ -1,23 +1,25 @@
-import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
 import {MatSlideToggleChange} from '@angular/material';
 import {ErrorService} from '@app/messages';
 import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
-import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';
+import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{~it.m.ri.f(m => m.f.find(f => f.searchable)) : m}}
+import {{{=m.names.upperCamel}}SearchParams} from '../../{{=m.names.hyphen}}/{{=m.names.hyphen}}-search-params';{{~}}
+
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-details',
   templateUrl: './{{=it.m.names.hyphen}}-details.component.html',
   styleUrls: ['./{{=it.m.names.hyphen}}-details.component.scss']
 })
-export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
+export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit, OnDestroy {
 
   /**
-   * The {{=it.m.names.wordsLower}} to inject in the form
+   * The {{=it.m.names.wordsLower}} to inject view
    */
   @Input() {{=it.m.names.lowerCamel}}: {{=it.m.names.upperCamel}};
 
   /**
-   * Called the save button is clicked
+   * Called the delete button is clicked
    *
    * @type {EventEmitter<void>}
    */
@@ -28,7 +30,14 @@ export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
    *
    * @type {boolean}
    */
-  deletionUnlocked: boolean = false;
+  deletionUnlocked: boolean = false;{{~it.m.ri : m}}{{~m.f.f(f => f.searchable) : f}}
+
+  /**
+   * The filter for {{=m.names.wordsLower}} as {{=f.names.wordsLower}}
+   *
+   * @type {{{=m.names.upperCamel}}SearchParams}
+   */
+  {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams: {{=m.names.upperCamel}}SearchParams = new {{=m.names.upperCamel}}SearchParams();{{~}}{{~}}
 
   /**
    * Constructor
@@ -44,6 +53,19 @@ export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
    * Init
    */
   ngOnInit() {
+    this.{{=it.m.names.lowerCamel}}.subscribe(() => {{{~it.m.ri : m}}{{~m.f.f(f => f.searchable) : f}}
+        // Filter by {{=f.names.wordsLower}} for {{=m.names.wordsLower}}
+        const {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams = this.{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.toObject();
+        {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.{{=f.names.underscore}} = this.{{=it.m.names.lowerCamel}}.getId();
+        this.{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.fromObject({{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams);{{~}}{{~}}
+     });
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.{{=it.m.names.lowerCamel}}.unsubscribe();
   }
 
   /**

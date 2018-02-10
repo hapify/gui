@@ -375,12 +375,14 @@ export class GeneratorService {
           // Get model description (first level) and remove non referencing fields
           const explicited = await this._explicitModel(m, depth + 1);
           explicited.fields = explicited.fields.list.filter(extractReferencingFields);
+          explicited.fields.f = explicited.fields.filter;
           explicited.f = explicited.fields;
           return explicited;
         });
       // Get all results
       const referencedIn = await Promise.all(promisesIn);
       m.referencedIn = referencedIn;
+      m.referencedIn.f = m.referencedIn.filter;
       m.ri = referencedIn;
     }
 

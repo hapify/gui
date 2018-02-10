@@ -60,6 +60,25 @@ function __read(model) {
 }
 
 /**
+ * Generate the Referenced In part of a model
+ *
+ * @param model
+ * @private
+ */
+function __referenced_in(model) {
+    const output = {};
+    model.referencedIn.map((r) => {
+        r.fields
+            .filter(f => f.searchable)
+            .map((f) => {
+                const key = `${model.names.underscore}_title_${r.names.underscore}_as_${f.names.underscore}`;
+                output[key] = `${r.names.wordsUpper} As ${f.names.wordsUpper}`;
+            });
+    });
+    return output;
+}
+
+/**
  * Generate the filter of a model
  *
  * @param model
@@ -119,7 +138,8 @@ function __model(model) {
         __create(model),
         __read(model),
         __filter(model),
-        __list(model)
+        __list(model),
+        __referenced_in(model)
     )
 }
 

@@ -43,8 +43,8 @@
             <h4 class="my-3">{{=it.o}} '{{=it.m.names.underscore}}_list_nothing' | translate {{=it.c}}</h4>
         </mat-card>
     </div>
-    <div class="text-center my-4">
-        <a [routerLink]="['/{{=it.m.names.hyphen}}/create']" mat-raised-button color="primary">
+    <div *ngIf="showCreateButton" class="text-center my-4">
+        <a [routerLink]="['/{{=it.m.names.hyphen}}/create']" mat-raised-button color="secondary">
             {{=it.o}} '{{=it.m.names.underscore}}_action_create' | translate {{=it.c}}
         </a>
     </div>

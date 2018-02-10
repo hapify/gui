@@ -21,6 +21,13 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
   @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams;
 
   /**
+   * Should show the create button ?
+   *
+   * @type {boolean}
+   */
+  @Input() showCreateButton: boolean = true;
+
+  /**
    * Raised if the list in being updated
    *
    * @type {boolean}

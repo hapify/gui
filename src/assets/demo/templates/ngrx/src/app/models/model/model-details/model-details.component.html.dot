@@ -46,4 +46,16 @@
 
         </div>
     </div>
+
+    {{~it.m.ri : m}}{{~m.f.f(f => f.searchable) : f}}
+    <div class="row">
+        <div class="col-12">
+            <div class="px-2 px-md-3 px-lg-4 pt-2 pt-md-3 pt-lg-4 text-center">
+                <h4>{{=it.o}} '{{=it.m.names.underscore}}_title_{{=m.names.underscore}}_as_{{=f.names.underscore}}' | translate {{=it.c}}</h4>
+            </div>
+            <anms-{{=m.names.hyphen}}-table [{{=m.names.lowerCamel}}SearchParams]="{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams" [showCreateButton]="false"></anms-{{=m.names.hyphen}}-table>
+        </div>
+    </div>
+    {{~}}{{~}}
+
 </div>
