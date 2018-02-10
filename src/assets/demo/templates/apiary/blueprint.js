@@ -1,4 +1,6 @@
 
+const DAY = 1000 * 60 * 60 * 24;
+
 /**
  * Returns a default input value for a field
  *
@@ -96,7 +98,7 @@ function __randomId () {
  */
 function __intro(models) {
 
-    const modelsNames = models.map((m) => m.names.underscore).join('`, `');
+    const modelsNames = models.map((m) => m.names.lowerCamel).join('`, `');
 
     return `FORMAT: 1A
 HOST: http://dev.api.app-bootstrap.com/v1/
