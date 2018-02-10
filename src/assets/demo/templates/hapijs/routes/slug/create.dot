@@ -54,8 +54,8 @@ module.exports = {
         // Init internal fields{{~it.m.f.i : i}}{{?!i.primary}}
         {{=it.m.names.underscore}}.{{=i.names.underscore}} = {{ out += defaultValue(i); }};{{?}}{{~}}
 {{?}}{{?it.m.f.r.length}}
-        // Convert reference fields{{~it.m.f.r : r}}{{?!r.internal}}
-        {{=it.m.names.underscore}}.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});{{?}}{{~}}
+        // Convert reference fields{{~it.m.f.r.f(r => !r.internal) : r}}
+        {{=it.m.names.underscore}}.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});{{~}}
 {{?}}
         // Insertion options
         const options = { w: 'majority' };

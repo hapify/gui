@@ -34,14 +34,14 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
   /**
    * @type {FormGroup}
    */
-  form: FormGroup;{{~it.m.f.r: r}}{{? !r.internal }}
+  form: FormGroup;{{~it.m.f.r.f(r => !r.internal) : r}}
 
   /**
    * The list to show in the {{=r.names.wordsLower}} drop-down
    *
    * @type {{{=r.m.names.upperCamel}}[]}
    */
-  {{=r.names.lowerCamel}}List: {{=r.m.names.upperCamel}}[] = [];{{?}}{{~}}
+  {{=r.names.lowerCamel}}List: {{=r.m.names.upperCamel}}[] = [];{{~}}
 
   /**
    * Constructor
@@ -69,12 +69,12 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
     const privateRequired = this.{{=it.m.names.lowerCamel}}.isNew() ? [Validators.required] : [];{{?}}
     this.form = this.formBuilder.group({{{~it.m.f.f(f => !f.internal) : f}}
       {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate }}[].concat(privateRequired){{??}}[Validators.required]{{?}}),{{~}}
-    });{{~it.m.f.r: r}}{{? !r.internal }}
+    });{{~it.m.f.r.f(r => !r.internal) : r}}
     // Get {{=r.names.wordsLower}} list
     this.{{=r.m.names.lowerCamel}}Service.list({ _limit: 100, _page: 0 })
       .then(({{=r.m.names.lowerCamel}}List) => {
         this.{{=r.names.lowerCamel}}List = {{=r.m.names.lowerCamel}}List.items;
-      });{{?}}{{~}}
+      });{{~}}
   }
 
   /**
