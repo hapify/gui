@@ -47,7 +47,7 @@ export class {{=it.m.names.upperCamel}}TableComponent implements OnInit, OnDestr
    *
    * @type {[string]}
    */
-  columns = [{{~it.m.f.f(f => !f.isPrivate) : f}}
+  columns = [{{~it.m.f.f(f => !f.isPrivate && f.type !== 'entity') : f}}
     '{{=f.names.underscore}}',{{~}}
   ];
 
