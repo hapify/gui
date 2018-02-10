@@ -1,0 +1,47 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '@app/shared';
+import {MessagesModule} from '@app/messages';
+import {TranslateModuleLoad} from '@app/translate-import';
+
+import {ModelsRoutingModule} from './models-routing.module';{{~it.m : m}}
+import {{{=m.names.upperCamel}}Component} from './{{=m.names.hyphen}}/{{=m.names.hyphen}}/{{=m.names.hyphen}}.component';
+import {{{=m.names.upperCamel}}Service} from './{{=m.names.hyphen}}/{{=m.names.hyphen}}.service';
+import {{{=m.names.upperCamel}}FormComponent} from './{{=m.names.hyphen}}/{{=m.names.hyphen}}-form/{{=m.names.hyphen}}-form.component';
+import {{{=m.names.upperCamel}}DetailsComponent} from './{{=m.names.hyphen}}/{{=m.names.hyphen}}-details/{{=m.names.hyphen}}-details.component';
+import {{{=m.names.upperCamel}}CreateComponent} from './{{=m.names.hyphen}}/views/{{=m.names.hyphen}}-create/{{=m.names.hyphen}}-create.component';
+import {{{=m.names.upperCamel}}ReadComponent} from './{{=m.names.hyphen}}/views/{{=m.names.hyphen}}-read/{{=m.names.hyphen}}-read.component';
+import {{{=m.names.upperCamel}}EditComponent} from './{{=m.names.hyphen}}/views/{{=m.names.hyphen}}-edit/{{=m.names.hyphen}}-edit.component';
+import {{{=m.names.upperCamel}}ListComponent} from './{{=m.names.hyphen}}/views/{{=m.names.hyphen}}-list/{{=m.names.hyphen}}-list.component';
+import {{{=m.names.upperCamel}}FiltersComponent} from './{{=m.names.hyphen}}/{{=m.names.hyphen}}-filters/{{=m.names.hyphen}}-filters.component';
+import {{{=m.names.upperCamel}}TableComponent} from './{{=m.names.hyphen}}/{{=m.names.hyphen}}-table/{{=m.names.hyphen}}-table.component';{{~}}
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    SharedModule,
+    TranslateModuleLoad(),
+    MessagesModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModelsRoutingModule
+  ],
+  declarations: [{{~it.m : m}}
+    {{=m.names.upperCamel}}Component,
+    {{=m.names.upperCamel}}FormComponent,
+    {{=m.names.upperCamel}}DetailsComponent,
+    {{=m.names.upperCamel}}CreateComponent,
+    {{=m.names.upperCamel}}ReadComponent,
+    {{=m.names.upperCamel}}EditComponent,
+    {{=m.names.upperCamel}}ListComponent,
+    {{=m.names.upperCamel}}FiltersComponent,
+    {{=m.names.upperCamel}}TableComponent,{{~}}
+  ],
+  providers: [{{~it.m : m}}
+    {{=m.names.upperCamel}}Service,{{~}}
+  ]
+})
+export class ModelsModule {
+}

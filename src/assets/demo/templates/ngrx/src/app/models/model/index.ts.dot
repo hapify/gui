@@ -1,4 +1,3 @@
-export * from './{{=it.m.names.hyphen}}.module';
 export * from './{{=it.m.names.hyphen}}.service';
 export * from './{{=it.m.names.hyphen}}';
 export * from './{{=it.m.names.hyphen}}-search-params';

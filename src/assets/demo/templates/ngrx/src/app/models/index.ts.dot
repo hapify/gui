@@ -1,0 +1,2 @@
+export * from './models.module';{{~it.m : m}}
+export * from './{{=m.names.hyphen}}';{{~}}
