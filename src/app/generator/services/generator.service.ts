@@ -317,24 +317,37 @@ export class GeneratorService {
 
       // Add to object
       m.fields.references = references;
+      m.fields.references.f = m.fields.references.filter;
       m.fields.r = references;
+      m.fields.r.f = m.fields.r.filter;
 
-      // Add dependencies to the model
-      const duplicates = {};
-      const dependencies = references
-        // Remove self
-        .filter((ref: any) => ref.model.id !== model.id)
-        // Remove duplicates
-        .filter((ref: any) => {
-          if (duplicates[ref.reference] === true) return false;
-          duplicates[ref.reference] = true;
-          return true;
-        })
-        // Extract models
-        .map((ref: any) => ref.model);
+      // Create method to reduce references to dependencies
+      // A custom filter can be passed
+      const dependencies = (func = f => f) => {
+        const duplicates = {};
+        return references
+          // Apply custom filter
+          .filter(func)
+          // Remove self
+          .filter((ref: any) => ref.model.id !== model.id)
+          // Remove duplicates
+          .filter((ref: any) => {
+            if (duplicates[ref.reference] === true) return false;
+            duplicates[ref.reference] = true;
+            return true;
+          })
+          // Extract models
+          .map((ref: any) => ref.model);
+      };
 
-      m.dependencies = dependencies;
-      m.d = dependencies;
+      const allDependencies = dependencies();
+      m.dependencies = {
+        list: allDependencies,
+        l: allDependencies,
+        filter: dependencies,
+        f: dependencies
+      };
+      m.d = m.dependencies;
     }
 
     // Add short name
