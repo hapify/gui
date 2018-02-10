@@ -44,13 +44,13 @@ module.exports = {
         // Get {{=it.m.names.wordsLower}} from database
         request.server.db.collection('{{=it.m.names.underscore}}')
             .findOne({ {{=it.m.f.p.names.underscore}} }{{?it.m.f.ip.length}}, projection{{?}})
-            .then(screamIfNoResult(Boom.notFound('{{=it.m.names.wordsUpper}} not found'))){{?it.m.f.r.length}}
+            .then(screamIfNoResult(Boom.notFound('{{=it.m.names.wordsUpper}} not found'))){{?it.m.f.r.f(r => !r.isPrivate).length}}
             .then((result) => {
 
                 const {{=it.m.names.underscore}} = result;
 
                 // Convert reference fields
-                const promises = [];{{~it.m.f.r : r}}
+                const promises = [];{{~it.m.f.r.f(r => !r.isPrivate) : r}}
 
                 // Append {{=r.names.wordsLower}}{{?r.m.f.ip.length}}
                 const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
@@ -67,7 +67,7 @@ module.exports = {
                   .then(() => {
                     reply({{=it.m.names.underscore}});
                   });
-            }){{?}}{{?!it.m.f.r.length}}
+            }){{??}}
             .then(reply){{?}}
             .catch((e) => reply(Boom.boomify(e)));
     }

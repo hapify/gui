@@ -53,7 +53,7 @@ module.exports = {
 {{?it.m.f.i.length}}
         // Init internal fields{{~it.m.f.i : i}}{{?!i.primary}}
         {{=it.m.names.underscore}}.{{=i.names.underscore}} = {{ out += defaultValue(i); }};{{?}}{{~}}
-{{?}}{{?it.m.f.r.length}}
+{{?}}{{?it.m.f.r.f(r => !r.internal).length}}
         // Convert reference fields{{~it.m.f.r.f(r => !r.internal) : r}}
         {{=it.m.names.underscore}}.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});{{~}}
 {{?}}
@@ -70,9 +70,9 @@ module.exports = {
 {{?it.m.f.ip.length}}
                 // Delete private properties{{~it.m.f.ip : p}}
                 delete {{=it.m.names.underscore}}.{{=p.names.underscore}};{{~}}
-{{?}}{{?it.m.f.r.length}}
+{{?}}{{?it.m.f.r.f(r => !r.isPrivate).length}}
                 // Convert reference fields
-                const promises = [];{{~it.m.f.r : r}}
+                const promises = [];{{~it.m.f.r.f(r => !r.isPrivate) : r}}
 
                 // Append {{=r.names.wordsLower}}{{?r.m.f.ip.length}}
                 const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
@@ -89,7 +89,7 @@ module.exports = {
                   .then(() => {
                     reply({{=it.m.names.underscore}}).code(201);
                   });
-{{?}}{{?!it.m.f.r.length}}
+{{??}}
                 reply({{=it.m.names.underscore}}).code(201);
 {{?}}
             }){{?it.m.f.u.length}}
@@ -101,7 +101,7 @@ module.exports = {
 
                 // Otherwise, wrap the error
                 return reply(Boom.boomify(e));
-            });{{?}}{{?!it.m.f.u.length}}
+            });{{??}}
             .catch((e) => reply(Boom.boomify(e)));{{?}}
     }
 };

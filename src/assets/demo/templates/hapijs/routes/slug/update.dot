@@ -52,7 +52,7 @@ module.exports = {
 
         // Get {{=it.m.names.wordsLower}} {{=it.m.f.p.names.wordsLower}}
         const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
-{{?it.m.f.r.length}}
+{{?it.m.f.r.f(r => !r.internal).length}}
         // Convert reference fields{{~it.m.f.r.f(r => !r.internal) : r}}
         if (typeof request.payload.{{=r.names.underscore}} !== 'undefined') {
             updates.$set.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});
