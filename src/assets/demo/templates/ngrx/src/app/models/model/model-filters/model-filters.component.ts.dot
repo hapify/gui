@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {{{=it.m.names.upperCamel}}SearchParams} from '../{{=it.m.names.hyphen}}-search-params';
+import {{{=it.m.names.upperCamel}}SearchParams} from '../{{=it.m.names.hyphen}}-search-params';{{?it.m.d.s}}
+import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
+import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{?}}{{~it.m.d.f(f => f.searchable): d}}
+import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-filters',
@@ -13,18 +16,33 @@ export class {{=it.m.names.upperCamel}}FiltersComponent implements OnInit {
    *
    * @type {{{=it.m.names.upperCamel}}SearchParams}
    */
-  @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new {{=it.m.names.upperCamel}}SearchParams();
+  @Input() {{=it.m.names.lowerCamel}}SearchParams: {{=it.m.names.upperCamel}}SearchParams = new {{=it.m.names.upperCamel}}SearchParams();{{~it.m.f.r.f(r => r.searchable) : r}}
+
+  /**
+   * The list to show in the {{=r.names.wordsLower}} drop-down
+   *
+   * @type {{{=r.m.names.upperCamel}}[]}
+   */
+  {{=r.names.lowerCamel}}List: {{=r.m.names.upperCamel}}[] = [];{{~}}
 
   /**
    * Constructor
+   * {{~it.m.d.f(f => f.searchable, false): d}}
+   * @param {{{=d.names.upperCamel}}Service} {{=d.names.lowerCamel}}Service{{~}}
    */
-  constructor() {
+  constructor({{~it.m.d.f(f => f.searchable, false): d}}private {{=d.names.lowerCamel}}Service: {{=d.names.upperCamel}}Service,
+              {{~}}) {
   }
 
   /**
    * Init
    */
-  ngOnInit() {
+  ngOnInit() {{{~it.m.f.r.f(r => r.searchable) : r}}
+    // Get {{=r.names.wordsLower}} list
+    this.{{=r.m.names.lowerCamel}}Service.list({ _page: 0, _limit: 100 })
+      .then(({{=r.m.names.lowerCamel}}List) => {
+        this.{{=r.names.lowerCamel}}List = {{=r.m.names.lowerCamel}}List.items;
+      });{{~}}
   }
 
   /**

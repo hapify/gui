@@ -89,5 +89,16 @@
     </mat-select>
 </mat-form-field>
 <!-- /{{=f.names.wordsUpper}} -->
+{{??f.type==='entity'}}
+<!-- {{=f.names.wordsUpper}} -->
+<mat-form-field class="w-100">
+    <mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}' | translate {{=it.c}}"
+                (change)="onChange();"
+                [(ngModel)]="{{=it.m.names.lowerCamel}}SearchParams.props.{{=f.names.underscore}}">
+        <mat-option>{{=it.o}} '{{=it.m.names.underscore}}_filter_{{=f.names.underscore}}_any' | translate {{=it.c}}</mat-option>
+        <mat-option *ngFor="let {{=f.names.lowerCamel}} of {{=f.names.lowerCamel}}List" [value]="{{=f.names.lowerCamel}}.getId()">{{=it.o}} {{=f.names.lowerCamel}}.getLabel() {{=it.c}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<!-- /{{=f.names.wordsUpper}} -->
 {{?}}
 {{~}}

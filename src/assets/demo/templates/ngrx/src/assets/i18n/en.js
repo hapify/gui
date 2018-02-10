@@ -75,6 +75,9 @@ function __filter(model) {
                 p[`${modelKey}_filter_${key}__min`] = `${f.names.wordsUpper} min`;
                 p[`${modelKey}_filter_${key}__max`] = `${f.names.wordsUpper} max`;
             }
+            if (f.type === 'entity') {
+                p[`${modelKey}_filter_${key}_any`] = `Any`;
+            }
             return p;
         }, {});
 }
