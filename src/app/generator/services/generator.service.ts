@@ -264,10 +264,18 @@ export class GeneratorService {
     // Get internal fields
     const internal = fields.filter((f) => f.internal);
 
+    // Create filter function
+    const filter = (func = null) => {
+      return typeof func === 'function' ?
+        fields.filter(func) : fields;
+    };
+
     // Set fields to model
     m.fields = {
       list: fields,
       l: fields,
+      f: filter,
+      filter,
       primary,
       p: primary,
       unique,
