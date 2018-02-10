@@ -3,10 +3,11 @@
   if (f.type === "string") return "string";
   if (f.type === "number") return "number";
   if (f.type === "datetime") return "number | Date";
-  if (f.type === "entity") return "string";
+  if (f.type === "entity") return `string | ${f.m.names.upperCamel} | ${f.m.names.upperCamel}Interface`;
   return "any";
 }
-}}import {Helpers} from '@app/shared';
+}}import {Helpers} from '@app/shared';{{~it.m.d: d}}
+import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface} from '@app/models/{{=d.names.hyphen}}';{{~}}
 
 export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}
   {{=f.names.underscore}}?: {{ out += type(f); }};{{~}}
@@ -40,7 +41,7 @@ export class {{=it.m.names.upperCamel}} {
    * @return {string}
    */
   getLabel() {
-    return this.props._id;
+    return this.props.{{=it.m.f.p.names.underscore}};
   }
 
   /**
@@ -49,7 +50,7 @@ export class {{=it.m.names.upperCamel}} {
    * @return {boolean}
    */
   isNew() {
-    return !this.props._id;
+    return !this.props.{{=it.m.f.p.names.underscore}};
   }
 
   /**
@@ -59,7 +60,12 @@ export class {{=it.m.names.upperCamel}} {
    */
   fromObject(object: {{=it.m.names.upperCamel}}Interface) {
     this.props = Object.assign({}, object);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
-    this.props.{{=f.names.underscore}} = Helpers.convertToDate(this.props.{{=f.names.underscore}});{{?}}{{~}}
+    this.props.{{=f.names.underscore}} = Helpers.convertToDate(this.props.{{=f.names.underscore}});{{?}}{{~}}{{~it.m.f.r: r}}
+    if (typeof this.props.{{=r.names.underscore}} === 'object') {
+        const {{=r.names.lowerCamel}} = new {{=r.m.names.upperCamel}}();
+        {{=r.names.lowerCamel}}.fromObject(<{{=r.m.names.upperCamel}}Interface>this.props.{{=r.names.underscore}});
+        this.props.{{=r.names.underscore}} = {{=r.names.lowerCamel}}
+    }{{~}}
   }
 
   /**
@@ -69,7 +75,10 @@ export class {{=it.m.names.upperCamel}} {
    */
   toObject(): {{=it.m.names.upperCamel}}Interface {
     const props = Object.assign({}, this.props);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
-    props.{{=f.names.underscore}} = Helpers.convertToTimestamp(props.{{=f.names.underscore}});{{?}}{{~}}
+    props.{{=f.names.underscore}} = Helpers.convertToTimestamp(props.{{=f.names.underscore}});{{?}}{{~}}{{~it.m.f.r: r}}
+    if (props.{{=r.names.underscore}} instanceof {{=r.m.names.upperCamel}}) {
+        props.{{=r.names.underscore}} = props.{{=r.names.underscore}}.toObject();
+    }{{~}}
     return props;
   }
 }

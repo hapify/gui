@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ErrorService} from '@app/messages';
 import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{~it.m.d: d}}
-import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
+import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-form',
@@ -34,14 +34,14 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
   /**
    * @type {FormGroup}
    */
-  form: FormGroup;{{~it.m.f.r: r}}
+  form: FormGroup;{{~it.m.f.r: r}}{{? !r.internal }}
 
   /**
    * The list to show in the {{=r.names.wordsLower}} drop-down
    *
    * @type {{{=r.m.names.upperCamel}}[]}
    */
-  {{=r.names.lowerCamel}}List: {{=r.m.names.upperCamel}}[] = [];{{~}}
+  {{=r.names.lowerCamel}}List: {{=r.m.names.upperCamel}}[] = [];{{?}}{{~}}
 
   /**
    * Constructor
@@ -69,12 +69,12 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
     const privateRequired = this.{{=it.m.names.lowerCamel}}.isNew() ? [Validators.required] : [];{{?}}
     this.form = this.formBuilder.group({{{~it.m.f.l : f}}{{? !f.internal }}
       {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate }}[].concat(privateRequired){{??}}[Validators.required]{{?}}),{{?}}{{~}}
-    });{{~it.m.f.r: r}}
+    });{{~it.m.f.r: r}}{{? !r.internal }}
     // Get {{=r.names.wordsLower}} list
     this.{{=r.m.names.lowerCamel}}Service.list({ _limit: 100, _page: 0 })
       .then(({{=r.m.names.lowerCamel}}List) => {
         this.{{=r.names.lowerCamel}}List = {{=r.m.names.lowerCamel}}List.items;
-      });{{~}}
+      });{{?}}{{~}}
   }
 
   /**
@@ -83,8 +83,10 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
   onSubmit(): void {
     // Create payload
     const props = this.{{=it.m.names.lowerCamel}}.toObject();
-    const payload = {{{~it.m.f.l : f}}{{? !f.internal }}
-      {{=f.names.underscore}}: {{?f.type==='datetime'}}<number>{{?}}props.{{=f.names.underscore}},{{?}}{{~}}
+    const payload = {{{~it.m.f.l : f}}{{? !f.internal }}{{?f.type==='datetime'}}
+      {{=f.names.underscore}}: <number>props.{{=f.names.underscore}},{{??f.type==='entity'}}
+      {{=f.names.underscore}}: (<{{=f.m.names.upperCamel}}Interface>props.{{=f.names.underscore}}).{{=f.m.f.p.names.underscore}},{{??}}
+      {{=f.names.underscore}}: props.{{=f.names.underscore}},{{?}}{{?}}{{~}}
     };
     // Creation or update ?
     if (this.{{=it.m.names.lowerCamel}}.isNew()) {
