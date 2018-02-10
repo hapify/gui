@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DotGeneratorService} from './dot-generator.service';
 import {JavaScriptGeneratorService} from './js-generator.service';
-import {IModel} from '../../model/model.module';
+import {IModel, IField} from '../../model/model.module';
 import {ITemplate, TemplateEngine} from '../../channel/channel.module';
 import {IGeneratorResult} from '../interfaces/generator-result';
 import {StringService} from '../../services/string.service';
@@ -227,6 +227,7 @@ export class GeneratorService {
   /**
    * Convert the model to an object containing all its properties
    *
+   * @todo Use caching for this method
    * @param {IModel} model
    * @param {number} depth
    * @return {Promise<any>}
@@ -290,12 +291,15 @@ export class GeneratorService {
       i: internal
     };
 
-    // Add references on first level
+    // Add references and dependencies on first level
     if (depth === 0) {
 
+      //==========================================
+      // REFERENCES
+      //==========================================
       // Construct promises
       // Then explicit the reference. If no reference is found returns null (it will be filtered after)
-      const promises = fields.filter((f) => (f.type === FieldType.Entity) && f.reference)
+      const promisesRef = fields.filter((f) => (f.type === FieldType.Entity) && f.reference)
         .map((field) => {
           return this.modelStorageService.find(field.reference)
             .then(async (reference) => {
@@ -313,7 +317,7 @@ export class GeneratorService {
         });
 
       // Get reference fields
-      const references = (await Promise.all(promises)).filter((f) => f);
+      const references = (await Promise.all(promisesRef)).filter((f) => f);
 
       // Add to object
       m.fields.references = references;
@@ -321,6 +325,9 @@ export class GeneratorService {
       m.fields.r = references;
       m.fields.r.f = m.fields.r.filter;
 
+      //==========================================
+      // DEPENDENCIES
+      //==========================================
       // Create method to reduce references to dependencies
       // A custom filter can be passed
       // If the second argument is false, keep the self dependency
@@ -354,6 +361,27 @@ export class GeneratorService {
         s: selfDependency
       };
       m.d = m.dependencies;
+
+      //==========================================
+      // REFERENCED IN
+      //==========================================
+      // Parse all models and find where it as been referenced
+      const models = await this.modelStorageService.list();
+      // Filter referencing models
+      const extractReferencingFields = (f: IField) => f.type === FieldType.Entity && f.reference === model.id;
+      const promisesIn = models
+        .filter((m: IModel) => !!m.fields.find(extractReferencingFields))
+        .map(async (m: IModel) => {
+          // Get model description (first level) and remove non referencing fields
+          const explicited = await this._explicitModel(m, depth + 1);
+          explicited.fields = explicited.fields.list.filter(extractReferencingFields);
+          explicited.f = explicited.fields;
+          return explicited;
+        });
+      // Get all results
+      const referencedIn = await Promise.all(promisesIn);
+      m.referencedIn = referencedIn;
+      m.ri = referencedIn;
     }
 
     // Add short name
