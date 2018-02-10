@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ErrorService} from '@app/messages';
 import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
-import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{~it.m.d: d}}
+import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{~it.m.d.f(f => !f.internal): d}}
 import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
 
 @Component({
@@ -48,12 +48,12 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
    *
    * @param {FormBuilder} formBuilder
    * @param {ErrorService} errorService
-   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service{{~it.m.d: d}}
+   * @param {{{=it.m.names.upperCamel}}Service} {{=it.m.names.lowerCamel}}Service{{~it.m.d.f(f => !f.internal): d}}
    * @param {{{=d.names.upperCamel}}Service} {{=d.names.lowerCamel}}Service{{~}}
    */
   constructor(private formBuilder: FormBuilder,
               private errorService: ErrorService,
-              private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service,{{~it.m.d: d}}
+              private {{=it.m.names.lowerCamel}}Service: {{=it.m.names.upperCamel}}Service{{~it.m.d.f(f => !f.internal): d}},
               private {{=d.names.lowerCamel}}Service: {{=d.names.upperCamel}}Service{{~}}) {
   }
 

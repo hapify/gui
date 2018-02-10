@@ -6,7 +6,7 @@
   if (f.type === "entity") return `string | ${f.m.names.upperCamel} | ${f.m.names.upperCamel}Interface`;
   return "any";
 }
-}}import {Helpers} from '@app/shared';{{~it.m.d: d}}
+}}import {Helpers} from '@app/shared';{{~it.m.d.l: d}}
 import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface} from '@app/models/{{=d.names.hyphen}}';{{~}}
 
 export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}
