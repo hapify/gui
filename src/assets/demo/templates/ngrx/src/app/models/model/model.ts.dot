@@ -7,7 +7,7 @@
   return "any";
 }
 }}import {Helpers} from '@app/shared';{{~it.m.d.l: d}}
-import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface} from '@app/models/{{=d.names.hyphen}}';{{~}}
+import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface} from '../{{=d.names.hyphen}}/{{=d.names.hyphen}}';{{~}}
 
 export interface {{=it.m.names.upperCamel}}Interface {{{~it.m.f.l : f}}
   {{=f.names.underscore}}?: {{ out += type(f); }};{{~}}

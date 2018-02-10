@@ -2,7 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {{{=it.m.names.upperCamel}}SearchParams} from '../{{=it.m.names.hyphen}}-search-params';{{?it.m.d.s}}
 import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
 import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{?}}{{~it.m.d.f(f => f.searchable): d}}
-import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
+import {{{=d.names.upperCamel}}} from '../../{{=d.names.hyphen}}/{{=d.names.hyphen}}';
+import {{{=d.names.upperCamel}}Service} from '../../{{=d.names.hyphen}}/{{=d.names.hyphen}}.service';{{~}}
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-filters',

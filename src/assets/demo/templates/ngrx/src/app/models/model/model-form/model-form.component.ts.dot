@@ -4,7 +4,8 @@ import {ErrorService} from '@app/messages';
 import {Helpers} from '@app/shared';
 import {{{=it.m.names.upperCamel}}{{?it.m.d.s}}, {{=it.m.names.upperCamel}}Interface{{?}}} from '../{{=it.m.names.hyphen}}';
 import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{~it.m.d.f(f => !f.internal): d}}
-import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
+import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface} from '../../{{=d.names.hyphen}}/{{=d.names.hyphen}}';
+import {{{=d.names.upperCamel}}Service} from '../../{{=d.names.hyphen}}/{{=d.names.hyphen}}.service';{{~}}
 
 @Component({
   selector: 'anms-{{=it.m.names.hyphen}}-form',
