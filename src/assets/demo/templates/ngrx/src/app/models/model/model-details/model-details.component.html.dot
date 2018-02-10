@@ -8,6 +8,11 @@
                 <div class="mb-4">
                     <h5>{{=it.o}} '{{=it.m.names.underscore}}_title_{{=f.names.underscore}}' | translate {{=it.c}}</h5>
                     {{?f.type==='datetime'}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} | date:'medium' {{=it.c}}</div>
+                    {{??f.type==='entity'}}<div>
+                        <a [routerLink]="['/{{=f.m.names.hyphen}}', {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}.getId()]">
+                            {{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}.getLabel() {{=it.c}}
+                        </a>
+                    </div>
                     {{??f.type==='boolean'}}<div>{{=it.o}} ({{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} ? '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' : '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false') | translate {{=it.c}}</div>
                     {{??}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} {{=it.c}}</div>{{?}}
                 </div>

@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ErrorService} from '@app/messages';
-import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
+import {Helpers} from '@app/shared';
+import {{{=it.m.names.upperCamel}}{{?it.m.d.s}}, {{=it.m.names.upperCamel}}Interface{{?}}} from '../{{=it.m.names.hyphen}}';
 import {{{=it.m.names.upperCamel}}Service} from '../{{=it.m.names.hyphen}}.service';{{~it.m.d.f(f => !f.internal): d}}
 import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface, {{=d.names.upperCamel}}Service} from '@app/models/{{=d.names.hyphen}}';{{~}}
 
@@ -71,7 +72,7 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
       {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate }}[].concat(privateRequired){{??}}[Validators.required]{{?}}),{{~}}
     });{{~it.m.f.r.f(r => !r.internal) : r}}
     // Get {{=r.names.wordsLower}} list
-    this.{{=r.m.names.lowerCamel}}Service.list({ _limit: 100, _page: 0 })
+    this.{{=r.m.names.lowerCamel}}Service.list({ _page: 0, _limit: 100 })
       .then(({{=r.m.names.lowerCamel}}List) => {
         this.{{=r.names.lowerCamel}}List = {{=r.m.names.lowerCamel}}List.items;
       });{{~}}
@@ -104,6 +105,17 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
         })
         .catch((error) => this.errorService.handle(error));
     }
+  }
+
+  /**
+   * Compare two entities
+   *
+   * @param e1
+   * @param e2
+   * @return {boolean}
+   */
+  compareEntities(e1: any, e2: any): boolean {
+    return Helpers.compareEntities(e1, e2);
   }
 
 }

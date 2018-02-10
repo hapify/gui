@@ -40,8 +40,9 @@
 {{??f.type==='entity'}}
                     <mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_placeholder_{{=f.names.underscore}}' | translate {{=it.c}}"
                                 formControlName="{{=f.names.underscore}}"
-                                [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}">
-                        <mat-option *ngFor="let {{=f.m.names.lowerCamel}} of {{=f.m.names.lowerCamel}}List" [value]="{{=f.m.names.lowerCamel}}">{{=it.o}} {{=f.m.names.lowerCamel}}.getLabel() {{=it.c}}</mat-option>
+                                [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}"
+                                [compareWith]="compareEntities">
+                        <mat-option *ngFor="let {{=f.names.lowerCamel}} of {{=f.names.lowerCamel}}List" [value]="{{=f.names.lowerCamel}}">{{=it.o}} {{=f.names.lowerCamel}}.getLabel() {{=it.c}}</mat-option>
                     </mat-select>
 {{?}}
                     <mat-error
