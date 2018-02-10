@@ -340,12 +340,17 @@ export class GeneratorService {
           .map((ref: any) => ref.model);
       };
 
+      // A boolean to determine if the model has a self dependency
+      const selfDependency = !!references.find((ref: any) => ref.model.id === model.id);
+
       const allDependencies = dependencies();
       m.dependencies = {
         list: allDependencies,
         l: allDependencies,
         filter: dependencies,
-        f: dependencies
+        f: dependencies,
+        self: selfDependency,
+        s: selfDependency
       };
       m.d = m.dependencies;
     }
