@@ -323,13 +323,14 @@ export class GeneratorService {
 
       // Create method to reduce references to dependencies
       // A custom filter can be passed
-      const dependencies = (func = f => f) => {
+      // If the second argument is false, keep the self dependency
+      const dependencies = (customFilter = f => f, removeSelf: boolean = true) => {
         const duplicates = {};
         return references
           // Apply custom filter
-          .filter(func)
+          .filter(customFilter)
           // Remove self
-          .filter((ref: any) => ref.model.id !== model.id)
+          .filter((ref: any) => removeSelf ? ref.model.id !== model.id : true)
           // Remove duplicates
           .filter((ref: any) => {
             if (duplicates[ref.reference] === true) return false;
