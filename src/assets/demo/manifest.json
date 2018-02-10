@@ -471,6 +471,17 @@
           "sortable": true,
           "isPrivate": false,
           "internal": true
+        },
+        {
+          "name": "god_father",
+          "type": "entity",
+          "reference": "719d1797-7cb7-7fb0-4449-2591aeb58217",
+          "primary": false,
+          "unique": false,
+          "searchable": true,
+          "sortable": true,
+          "isPrivate": false,
+          "internal": false
         }
       ]
     },
