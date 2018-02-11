@@ -6,6 +6,11 @@
   if (f.type === "entity") return `string | ${f.m.names.upperCamel} | ${f.m.names.upperCamel}Interface`;
   return "any";
 }
+function labels(lbs) {
+    return lbs
+        .map(lb => "${this.props."+lb.names.underscore+"}")
+        .join(' ');
+}
 }}import {Helpers} from '@app/shared';
 import {Subject} from 'rxjs/Subject';{{~it.m.d.l: d}}
 import {{{=d.names.upperCamel}}, {{=d.names.upperCamel}}Interface} from '../{{=d.names.hyphen}}/{{=d.names.hyphen}}';{{~}}
@@ -42,8 +47,9 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    *
    * @return {string}
    */
-  getLabel() {
-    return this.props.{{=it.m.f.p.names.underscore}};
+  getLabel() {{{?it.m.f.lb.length}}
+    return `{{ out += labels(it.m.f.lb); }}`{{??}}
+    return this.props.{{=it.m.f.p.names.underscore}};{{?}}
   }
 
   /**

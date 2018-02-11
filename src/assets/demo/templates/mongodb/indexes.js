@@ -22,7 +22,7 @@ function __model(out, model) {
         const fieldName = field.names.underscore;
         const object = {
             fields: {
-                [fieldName]: 1
+                [fieldName]: field.label ? 'text' : 1
             }
         };
         // If the field is unique
