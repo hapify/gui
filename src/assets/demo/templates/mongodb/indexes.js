@@ -9,6 +9,8 @@
 function __model(out, model) {
 
     const modelName = model.names.underscore;
+    const labels = {};
+    let hasLabels = false;
 
     // Even if no fields have indexes, Include this collection
     // Get fields objects
@@ -20,9 +22,16 @@ function __model(out, model) {
         }
 
         const fieldName = field.names.underscore;
+
+        if (field.label) {
+            labels[fieldName] = 'text';
+            hasLabels = true;
+            return p;
+        }
+
         const object = {
             fields: {
-                [fieldName]: field.label ? 'text' : 1
+                [fieldName]: 1
             }
         };
         // If the field is unique
@@ -35,6 +44,10 @@ function __model(out, model) {
 
         return p;
     }, {});
+
+    if (hasLabels) {
+        out[modelName][`${modelName}_labels`] = labels;
+    }
 
     return out;
 }
