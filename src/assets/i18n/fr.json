@@ -61,6 +61,7 @@
   "error_input_value": "Le type d'entrée n'est pas valide.",
   "tooltip_primary": "Est une clé primaire ?",
   "tooltip_unique": "Est une clé unique ?",
+  "tooltip_label": "Est un label ?",
   "tooltip_searchable": "Est recherchable ?",
   "tooltip_sortable": "Est triable ?",
   "tooltip_private": "Est privé ?",

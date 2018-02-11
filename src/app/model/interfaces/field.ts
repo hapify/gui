@@ -32,6 +32,12 @@ export interface IFieldBase {
    */
   unique: boolean;
   /**
+   * Should be used as a label or not
+   *
+   * @type {boolean}
+   */
+  label: boolean;
+  /**
    * Indicate whether the field is searchable or not
    *
    * @type {boolean}

@@ -19,6 +19,7 @@ export interface DemoField {
   reference: string;
   primary: boolean;
   unique: boolean;
+  label: boolean;
   searchable: boolean;
   sortable: boolean;
   isPrivate: boolean;

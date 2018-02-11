@@ -96,6 +96,9 @@ export class FieldComponent implements OnInit {
       unique: new FormControl(this.field.unique, [
         Validators.required
       ]),
+      label: new FormControl(this.field.label, [
+        Validators.required
+      ]),
       searchable: new FormControl(this.field.searchable, [
         Validators.required
       ]),

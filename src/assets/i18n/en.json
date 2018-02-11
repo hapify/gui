@@ -61,6 +61,7 @@
   "error_input_value": "The input type is not valid.",
   "tooltip_primary": "Is a primary key?",
   "tooltip_unique": "Is a unique key?",
+  "tooltip_label": "Is a label?",
   "tooltip_searchable": "Is searchable?",
   "tooltip_sortable": "Is sortable?",
   "tooltip_private": "Is private ?",

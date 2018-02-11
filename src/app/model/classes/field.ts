@@ -31,6 +31,10 @@ export class Field implements IField {
   /**
    * @inheritDoc
    */
+  public label = false;
+  /**
+   * @inheritDoc
+   */
   public searchable = false;
   /**
    * @inheritDoc
@@ -54,6 +58,7 @@ export class Field implements IField {
     this.reference = object.reference;
     this.primary = object.primary;
     this.unique = object.unique;
+    this.label = object.label;
     this.searchable = object.searchable;
     this.sortable = object.sortable;
     this.isPrivate = object.isPrivate;
@@ -70,6 +75,7 @@ export class Field implements IField {
       reference: this.reference,
       primary: this.primary,
       unique: this.unique,
+      label: this.label,
       searchable: this.searchable,
       sortable: this.sortable,
       isPrivate: this.isPrivate,
