@@ -253,6 +253,9 @@ export class GeneratorService {
     // Get unique fields
     const unique = fields.filter((f) => f.unique);
 
+    // Get label fields
+    const label = fields.filter((f) => f.label);
+
     // Get searchable fields
     const searchable = fields.filter((f) => f.searchable);
 
@@ -281,6 +284,8 @@ export class GeneratorService {
       p: primary,
       unique,
       u: unique,
+      label,
+      lb: label,
       searchable,
       se: searchable,
       sortable,
