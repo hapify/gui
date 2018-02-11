@@ -46,7 +46,9 @@ function __model(out, model) {
     }, {});
 
     if (hasLabels) {
-        out[modelName][`${modelName}_labels`] = labels;
+        out[modelName][`${modelName}_labels`] = {
+            fields: labels
+        };
     }
 
     return out;
