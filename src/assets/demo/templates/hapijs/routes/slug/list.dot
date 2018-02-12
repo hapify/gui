@@ -64,10 +64,15 @@ module.exports = {
             filter.{{=f.names.underscore }}.$lte = filter.{{=f.names.underscore }}__max;
             delete filter.{{=f.names.underscore }}__max;
         }
-{{?}}{{?f.type=='entity'}}
+{{??f.type=='entity'}}
         // Convert MongoId for {{=f.names.wordsLower }}
         if (filter.{{=f.names.underscore }}) {
             filter.{{=f.names.underscore }} = new MongoDB.ObjectId(filter.{{=f.names.underscore }});
+        }
+{{??f.type=='string' && f.label}}
+        // Use regexp for {{=f.names.wordsLower }}
+        if (filter.{{=f.names.underscore }}) {
+            filter.{{=f.names.underscore }} = new RegExp(filter.{{=f.names.underscore }}, 'i');
         }
 {{?}}{{~}}{{?it.m.f.ip.length}}
         // Build projection for filtering private fields

@@ -8,7 +8,7 @@
                 <div class="mb-4">
                     <h5>{{=it.o}} '{{=it.m.names.underscore}}_title_{{=f.names.underscore}}' | translate {{=it.c}}</h5>
                     {{?f.type==='datetime'}}<div>{{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}} | date:'medium' {{=it.c}}</div>
-                    {{??f.type==='entity'}}<div>
+                    {{??f.type==='entity'}}<div *ngIf="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}.getId()">
                         <a [routerLink]="['/{{=f.m.names.hyphen}}', {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}.getId()]">
                             {{=it.o}} {{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}.getLabel() {{=it.c}}
                         </a>

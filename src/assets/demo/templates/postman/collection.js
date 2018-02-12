@@ -43,6 +43,7 @@ function __defaultSearchValue(f) {
     if (f.type === "boolean") return "true";
     if (f.type === "string") return `${f.names.wordsUpper}`;
     if (f.type === "number") return 2;
+    if (f.type === "datetime") return Date.now();
     if (f.type === "entity") return `{{${f.model.names.lowerCamel}Id}}`;
     return "null";
 }
@@ -218,7 +219,7 @@ function __list(model) {
             });
         }
     });
-    
+
     const pagination = [
         {
             key: "_page",
