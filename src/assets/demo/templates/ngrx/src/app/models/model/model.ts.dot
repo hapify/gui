@@ -38,7 +38,7 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    *
    * @return {string}
    */
-  getId() {
+  getId(): string {
     return this.props.{{=it.m.f.p.names.underscore}};
   }
 
@@ -47,7 +47,7 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    *
    * @return {string}
    */
-  getLabel() {{{?it.m.f.lb.length}}
+  getLabel(): string {{{?it.m.f.lb.length}}
     return `{{ out += labels(it.m.f.lb); }}`{{??}}
     return this.props.{{=it.m.f.p.names.underscore}};{{?}}
   }
@@ -57,8 +57,17 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    *
    * @return {boolean}
    */
-  isNew() {
-    return !this.props.{{=it.m.f.p.names.underscore}};
+  isNew(): boolean {
+    return !this.getId();
+  }
+
+  /**
+   * Denotes if the instance has been populated
+   *
+   * @return {boolean}
+   */
+  exists(): boolean {
+    return typeof this.getId(); !== 'undefined';
   }
 
   /**
@@ -66,7 +75,7 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    *
    * @param {{{=it.m.names.upperCamel}}Interface} object
    */
-  fromObject(object: {{=it.m.names.upperCamel}}Interface) {
+  fromObject(object: {{=it.m.names.upperCamel}}Interface): void {
     this.props = Object.assign({}, object);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
     this.props.{{=f.names.underscore}} = Helpers.convertToDate(this.props.{{=f.names.underscore}});{{?}}{{~}}{{~it.m.f.r: r}}
     if (typeof this.props.{{=r.names.underscore}} === 'object') {
