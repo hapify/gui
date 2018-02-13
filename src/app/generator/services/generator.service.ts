@@ -256,6 +256,9 @@ export class GeneratorService {
     // Get label fields
     const label = fields.filter((f) => f.label);
 
+    // Get nullable fields
+    const nullable = fields.filter((f) => f.nullable);
+
     // Get searchable fields
     const searchable = fields.filter((f) => f.searchable);
 
@@ -286,6 +289,8 @@ export class GeneratorService {
       u: unique,
       label,
       lb: label,
+      nullable,
+      n: nullable,
       searchable,
       se: searchable,
       sortable,

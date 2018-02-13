@@ -62,6 +62,7 @@
   "tooltip_primary": "Est une clé primaire ?",
   "tooltip_unique": "Est une clé unique ?",
   "tooltip_label": "Est un label ?",
+  "tooltip_nullable": "Peut-il être vide ?",
   "tooltip_searchable": "Est recherchable ?",
   "tooltip_sortable": "Est triable ?",
   "tooltip_private": "Est privé ?",

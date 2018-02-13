@@ -38,6 +38,12 @@ export interface IFieldBase {
    */
   label: boolean;
   /**
+   * Denotes if the field can be empty or not
+   *
+   * @type {boolean}
+   */
+  nullable: boolean;
+  /**
    * Indicate whether the field is searchable or not
    *
    * @type {boolean}
