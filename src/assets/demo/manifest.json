@@ -87,6 +87,13 @@
           "content": "templates/hapijs/routes/slug/list.dot"
         },
         {
+          "name": "Count",
+          "path": "routes/{model.hyphen}/count.js",
+          "engine": "dot",
+          "input": "one",
+          "content": "templates/hapijs/routes/slug/count.dot"
+        },
+        {
           "name": "Index",
           "path": "routes/{model.hyphen}/index.js",
           "engine": "dot",

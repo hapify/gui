@@ -169,14 +169,15 @@ function __update(model) {
         response: []
     };
 }
+
 /**
- * Generate a list
+ * Generate search query
  *
  * @param model
+ * @return {Array}
  * @private
  */
-function __list(model) {
-
+function __search_query(model) {
     const query = [];
     model.fields.searchable.forEach((f) => {
         query.push({
@@ -219,6 +220,17 @@ function __list(model) {
             });
         }
     });
+    return query;
+}
+/**
+ * Generate a list
+ *
+ * @param model
+ * @private
+ */
+function __list(model) {
+
+    const query = __search_query(model);
 
     const pagination = [
         {
@@ -278,6 +290,39 @@ function __list(model) {
 }
 
 /**
+ * Generate a counter
+ *
+ * @param model
+ * @private
+ */
+function __count(model) {
+    const query = __search_query(model);
+    return {
+        name: `Count ${model.names.lowerCamel}`,
+        request: {
+            url: {
+                raw: `{{apiUrl}}/{{apiVersion}}/${model.names.hyphen}/count`,
+                host: ["{{apiUrl}}"],
+                path: [
+                    "{{apiVersion}}",
+                    model.names.hyphen,
+                    "count"
+                ],
+                query: query,
+                variable: []
+            },
+            method: "GET",
+            header: _headers,
+            body: {
+                mode: "raw",
+                raw: ""
+            },
+            description: ""
+        },
+        response: []
+    };
+}
+/**
  * Generate a model
  *
  * @param model
@@ -292,7 +337,8 @@ function __model(model) {
             __read(model),
             __update(model),
             __delete(model),
-            __list(model)
+            __list(model),
+            __count(model)
         ]
     };
 }

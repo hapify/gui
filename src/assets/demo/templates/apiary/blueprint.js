@@ -186,7 +186,7 @@ function __output(model, deep) {
         if (f.isPrivate) return;
         output[f.names.underscore] = __defaultOutputValue(f, deep);
     });
-    
+
     return output;
 }
 /**
@@ -293,13 +293,13 @@ function __update(model) {
     return out;
 }
 /**
- * Generate a list doc
+ * Generate the query part of a search
  *
- * @param {Object} model
- * @return {String}
+ * @param model
+ * @return {Array}
  * @private
  */
-function __list(model) {
+function __search_query(model) {
 
     const query = [];
     model.fields.searchable.forEach((f) => {
@@ -338,6 +338,18 @@ function __list(model) {
             });
         }
     });
+    return query;
+}
+/**
+ * Generate a list doc
+ *
+ * @param {Object} model
+ * @return {String}
+ * @private
+ */
+function __list(model) {
+
+    const query = __search_query(model);
 
     const pagination = [
         {
@@ -395,6 +407,33 @@ function __list(model) {
 
     return out;
 }
+/**
+ * Generate a count doc
+ *
+ * @param {Object} model
+ * @return {String}
+ * @private
+ */
+function __count(model) {
+
+    const query = __search_query(model);
+    const params = query;
+    const paramsList = params.map(p => p.key).join(',');
+    const output = __objectToJson({ total: 32 }, 8);
+
+    let out = `### Count ${model.names.wordsLower} [GET /${model.names.hyphen}/count{?${paramsList}}]\n\n`;
+    out += "+ Parameters\n\n";
+    params.forEach((p) => {
+        out += `    + ${p.key} (${p.required ? '' : 'optional, '}${p.type}) - ${p.description}\n`;
+    });
+    out += "\n";
+    out += "+ Request (application/json)\n\n";
+    out += "+ Response 200 (application/json)\n\n";
+    out += `${output}\n\n`;
+    out += __error400(model);
+
+    return out;
+}
 
 /**
  * Generate a model
@@ -411,6 +450,7 @@ function __model(model) {
     out += __update(model);
     out += __delete(model);
     out += __list(model);
+    out += __count(model);
 
     return out;
 }
