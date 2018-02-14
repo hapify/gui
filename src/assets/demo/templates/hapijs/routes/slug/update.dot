@@ -1,9 +1,14 @@
 {{ function joiValidator(f) {
-    if (f.type === "boolean") return "boolean()";
-    if (f.type === "string") return "string().trim()";
-    if (f.type === "number" || f.type === "datetime") return "number()";
-    if (f.type === "entity") return "string().length(24).hex()";
-    return "null";
+    let out = "Joi.";
+
+    if (f.type === "boolean") out += "boolean()";
+    if (f.type === "string") out +=  "string().trim()";
+    if (f.type === "number" || f.type === "datetime") out +=  "number()";
+    if (f.type === "entity") out +=  "string().length(24).hex()";
+
+    if (f.nullable) out += ".allow(null)";
+
+    return out;
   }
 }}'use strict';
 /**
@@ -20,7 +25,7 @@ const schemaParams = Joi.object({
 });
 // Validation schema for payload
 const schemaPayload = Joi.object({ {{~it.m.f.f(f => !f.internal) : f}}
-    {{=f.names.underscore}}: Joi.{{ out += joiValidator(f); }},{{~}}
+    {{=f.names.underscore}}: {{ out += joiValidator(f); }},{{~}}
 }).min(1);
 
 /**
@@ -54,9 +59,8 @@ module.exports = {
         const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
 {{?it.m.f.r.f(r => !r.internal).length}}
         // Convert reference fields{{~it.m.f.r.f(r => !r.internal) : r}}
-        if (typeof request.payload.{{=r.names.underscore}} !== 'undefined') {
-            updates.$set.{{=r.names.underscore}} = new MongoDB.ObjectId(request.payload.{{=r.names.underscore}});
-        }{{~}}
+        {{=it.m.names.underscore}}.{{=r.names.underscore}} = typeof request.payload.{{=r.names.underscore}} === 'string' ?
+            new MongoDB.ObjectId(request.payload.{{=r.names.underscore}}) : null;{{~}}
 {{?}}
         // Insertion options
         const options = { w: 'majority' };

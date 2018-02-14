@@ -53,14 +53,16 @@ module.exports = {
                 const promises = [];{{~it.m.f.r.f(r => !r.isPrivate) : r}}
 
                 // Append {{=r.names.wordsLower}}{{?r.m.f.ip.length}}
-                const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
-                    {{=f.names.underscore }}: false,{{~}}
-                };{{?}}
-                promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
-                  .findOne({ {{=r.m.f.p.names.underscore}}: new MongoDB.ObjectId(result.{{=r.names.underscore}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
-                  .then((reference) => {
-                    {{=it.m.names.underscore}}.{{=r.names.underscore}} = reference;
-                  }));{{~}}
+                if (result.{{=r.names.underscore}}) {
+                  const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
+                      {{=f.names.underscore }}: false,{{~}}
+                  };{{?}}
+                  promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
+                    .findOne({ {{=r.m.f.p.names.underscore}}: new MongoDB.ObjectId(result.{{=r.names.underscore}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
+                    .then((reference) => {
+                      {{=it.m.names.underscore}}.{{=r.names.underscore}} = reference;
+                    }));
+                }{{~}}
 
                 // Run promises
                 return Promise.all(promises)
