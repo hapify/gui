@@ -48,6 +48,13 @@ export interface {{=it.m.names.upperCamel}}ListInterface {
   items: {{=it.m.names.upperCamel}}[];
 }
 
+/**
+ * Interface for count results
+ */
+interface {{=it.m.names.upperCamel}}CountInterface {
+  total: number;
+}
+
 @Injectable()
 export class {{=it.m.names.upperCamel}}Service {
 
@@ -166,6 +173,32 @@ export class {{=it.m.names.upperCamel}}Service {
             return {{=it.m.names.lowerCamel}};
           })
         };
+      });
+  }
+
+  /**
+   * Count for {{=it.m.names.wordsLower}}
+   *
+   * @param {{{=it.m.names.upperCamel}}SearchParamsInterface} searchParams
+   * @return {Promise<number>}
+   */
+  count(searchParams: {{=it.m.names.upperCamel}}SearchParamsInterface): Promise<number> {
+    // Remove unwanted properties
+    const params = Object.assign({}, searchParams);
+    delete params._page;
+    delete params._limit;
+    delete params._order;
+    delete params._sort;
+    // Start request
+    const options = {
+      withCredentials: true,
+      params: params as {}
+    };
+    return this.http
+      .get(`${this._uri}/count`, options)
+      .toPromise()
+      .then((result: {{=it.m.names.upperCamel}}CountInterface) => {
+        return result.total;
       });
   }
 
