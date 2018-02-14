@@ -52,8 +52,8 @@ module.exports = {
                 // Convert reference fields
                 const promises = [];{{~it.m.f.r.f(r => !r.isPrivate) : r}}
 
-                // Append {{=r.names.wordsLower}}{{?r.m.f.ip.length}}
-                if (result.{{=r.names.underscore}}) {
+                // Append {{=r.names.wordsLower}}
+                if (result.{{=r.names.underscore}}) {{{?r.m.f.ip.length}}
                   const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
                       {{=f.names.underscore }}: false,{{~}}
                   };{{?}}
