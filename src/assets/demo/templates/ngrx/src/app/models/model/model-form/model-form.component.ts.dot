@@ -87,7 +87,7 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
     const props = this.{{=it.m.names.lowerCamel}}.toObject();
     const payload = {{{~it.m.f.f(f => !f.internal) : f}}{{?f.type==='datetime'}}
       {{=f.names.underscore}}: <number>props.{{=f.names.underscore}},{{??f.type==='entity'}}
-      {{=f.names.underscore}}: (<{{=f.m.names.upperCamel}}Interface>props.{{=f.names.underscore}}).{{=f.m.f.p.names.underscore}},{{??}}
+      {{=f.names.underscore}}: props.{{=f.names.underscore}} ? (<{{=f.m.names.upperCamel}}Interface>props.{{=f.names.underscore}}).{{=f.m.f.p.names.underscore}} : null,{{??}}
       {{=f.names.underscore}}: props.{{=f.names.underscore}},{{?}}{{~}}
     };
     // Creation or update ?

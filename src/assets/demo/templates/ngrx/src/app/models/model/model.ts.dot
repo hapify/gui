@@ -73,8 +73,19 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    * @return {boolean}
    */
   exists(): boolean {
-    return typeof this.getId() !== 'undefined';
-  }
+    return !!this.props && typeof this.getId() !== 'undefined';
+  }{{~it.m.f.r: r}}
+
+  /**
+   * Denotes if the instance of {{=r.names.wordsLower}} has been populated
+   *
+   * @return {boolean}
+   */
+  {{=r.names.lowerCamel}}Exists(): boolean {
+    return !!this.props &&
+        this.props.{{=r.names.underscore}} instanceof {{=r.m.names.upperCamel}} &&
+        this.props.{{=r.names.underscore}}.exists();
+  }{{~}}
 
   /**
    * Populate the current instance from an object
@@ -82,9 +93,11 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    * @param {{{=it.m.names.upperCamel}}Interface} object
    */
   fromObject(object: {{=it.m.names.upperCamel}}Interface): void {
-    this.props = Object.assign({}, object);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
-    this.props.{{=f.names.underscore}} = Helpers.convertToDate(this.props.{{=f.names.underscore}});{{?}}{{~}}{{~it.m.f.r: r}}
-    if (typeof this.props.{{=r.names.underscore}} === 'object') {
+    this.props = Object.assign({}, object);{{~it.m.f.f(f => f.type === 'datetime'): f }}
+    {{?f.nullable}}if (this.props.{{=f.names.underscore}} !== null) {
+        {{?}}this.props.{{=f.names.underscore}} = Helpers.convertToDate(this.props.{{=f.names.underscore}});{{?f.nullable}}
+    }{{?}}{{~}}{{~it.m.f.r: r}}
+    if ({{?r.nullable}}this.props.{{=r.names.underscore}} !== null && {{?}}typeof this.props.{{=r.names.underscore}} === 'object') {
         const {{=r.names.lowerCamel}} = new {{=r.m.names.upperCamel}}();
         {{=r.names.lowerCamel}}.fromObject(<{{=r.m.names.upperCamel}}Interface>this.props.{{=r.names.underscore}});
         this.props.{{=r.names.underscore}} = {{=r.names.lowerCamel}}
@@ -97,9 +110,17 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    * @return {{{=it.m.names.upperCamel}}Interface}
    */
   toObject(): {{=it.m.names.upperCamel}}Interface {
-    const props = Object.assign({}, this.props);{{~it.m.f.se : f}}{{? f.type === 'datetime' }}
-    props.{{=f.names.underscore}} = Helpers.convertToTimestamp(props.{{=f.names.underscore}});{{?}}{{~}}{{~it.m.f.r: r}}
-    if (props.{{=r.names.underscore}} instanceof {{=r.m.names.upperCamel}}) {
+    const props = Object.assign({}, this.props);{{~it.m.f.f(f => f.nullable && !f.isPrivate): f }}{{?f.type === 'string'}}
+    if (typeof props.{{=f.names.underscore}} !== 'string' || props.{{=f.names.underscore}}.length === 0) {
+        props.{{=f.names.underscore}} = null;
+    }{{??}}
+    if (typeof props.{{=f.names.underscore}} === 'undefined') {
+        props.{{=f.names.underscore}} = null;
+    }{{?}}{{~}}{{~it.m.f.f(f => f.type === 'datetime'): f }}
+    {{?f.nullable}}if (props.{{=f.names.underscore}} !== null) {
+        {{?}}props.{{=f.names.underscore}} = Helpers.convertToTimestamp(props.{{=f.names.underscore}});{{?f.nullable}}
+    }{{?}}{{~}}{{~it.m.f.r: r}}
+    if ({{?r.nullable}}props.{{=r.names.underscore}} !== null && {{?}}props.{{=r.names.underscore}} instanceof {{=r.m.names.upperCamel}}) {
         props.{{=r.names.underscore}} = props.{{=r.names.underscore}}.toObject();
     }{{~}}
     return props;

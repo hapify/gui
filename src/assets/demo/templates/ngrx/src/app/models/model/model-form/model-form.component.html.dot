@@ -33,7 +33,8 @@
 {{??f.type==='boolean'}}
                     <mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_placeholder_{{=f.names.underscore}}' | translate {{=it.c}}"
                                 formControlName="{{=f.names.underscore}}"
-                                [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}">
+                                [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}">{{?f.nullable}}
+                        <mat-option [value]="null">-</mat-option>{{?}}
                         <mat-option [value]="false">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_false' | translate {{=it.c}}</mat-option>
                         <mat-option [value]="true">{{=it.o}} '{{=it.m.names.underscore}}_{{=f.names.underscore}}_true' | translate {{=it.c}}</mat-option>
                     </mat-select>
@@ -41,7 +42,8 @@
                     <mat-select placeholder="{{=it.o}} '{{=it.m.names.underscore}}_placeholder_{{=f.names.underscore}}' | translate {{=it.c}}"
                                 formControlName="{{=f.names.underscore}}"
                                 [(ngModel)]="{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}"
-                                [compareWith]="compareEntities">
+                                [compareWith]="compareEntities">{{?f.nullable}}
+                        <mat-option [value]="null">-</mat-option>{{?}}
                         <mat-option *ngFor="let {{=f.names.lowerCamel}} of {{=f.names.lowerCamel}}List" [value]="{{=f.names.lowerCamel}}">{{=it.o}} {{=f.names.lowerCamel}}.getLabel() {{=it.c}}</mat-option>
                     </mat-select>
 {{?}}
