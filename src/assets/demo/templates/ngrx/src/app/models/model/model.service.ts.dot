@@ -1,10 +1,16 @@
 {{ function type(f) {
-  if (f.type === "boolean") return "boolean";
-  if (f.type === "string") return "string";
-  if (f.type === "number") return "number";
-  if (f.type === "datetime") return "number";
-  if (f.type === "entity") return "string";
-  return "any";
+  let out = "";
+
+  if (f.type === "boolean") out += "boolean";
+  else if (f.type === "string") out += "string";
+  else if (f.type === "number") out += "number";
+  else if (f.type === "datetime") out += "number";
+  else if (f.type === "entity") out += "string";
+  else out += "any";
+
+  if (f.nullable) out += " | null";
+
+  return out;
 }
 }}import {Injectable} from '@angular/core';
 import {environment} from '@app/../environments/environment';
@@ -16,7 +22,7 @@ import {{{=it.m.names.upperCamel}}SearchParamsInterface} from './{{=it.m.names.h
  * Interface for creation
  */
 export interface {{=it.m.names.upperCamel}}Creation {{{~it.m.f.f(f => !f.internal) : f}}
-  {{=f.names.underscore}}: {{ out += type(f); }};{{~}}
+  {{=f.names.underscore}}{{?f.nullable}}?{{?}}: {{ out += type(f); }};{{~}}
 }
 
 /**

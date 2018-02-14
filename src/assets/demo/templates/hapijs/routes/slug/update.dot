@@ -59,7 +59,7 @@ module.exports = {
         const {{=it.m.f.p.names.underscore}} = new MongoDB.ObjectId(request.params.{{=it.m.f.p.names.underscore}});
 {{?it.m.f.r.f(r => !r.internal).length}}
         // Convert reference fields{{~it.m.f.r.f(r => !r.internal) : r}}
-        {{=it.m.names.underscore}}.{{=r.names.underscore}} = typeof request.payload.{{=r.names.underscore}} === 'string' ?
+        updates.$set.{{=r.names.underscore}} = typeof request.payload.{{=r.names.underscore}} === 'string' ?
             new MongoDB.ObjectId(request.payload.{{=r.names.underscore}}) : null;{{~}}
 {{?}}
         // Insertion options

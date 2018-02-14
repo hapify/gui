@@ -10,9 +10,10 @@
     let out = "Joi.";
 
     if (f.type === "boolean") out += "boolean()";
-    if (f.type === "string") out +=  "string().trim()";
-    if (f.type === "number" || f.type === "datetime") out +=  "number()";
-    if (f.type === "entity") out +=  "string().length(24).hex()";
+    else if (f.type === "string") out +=  "string().trim()";
+    else if (f.type === "number" || f.type === "datetime") out +=  "number()";
+    else if (f.type === "entity") out +=  "string().length(24).hex()";
+    else out +=  "any()";
 
     if (f.nullable) out += ".allow(null)";
     else  out += ".required()";

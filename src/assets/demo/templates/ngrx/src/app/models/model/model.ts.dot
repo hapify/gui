@@ -1,10 +1,16 @@
 {{ function type(f) {
-  if (f.type === "boolean") return "boolean";
-  if (f.type === "string") return "string";
-  if (f.type === "number") return "number";
-  if (f.type === "datetime") return "number | Date";
-  if (f.type === "entity") return `string | ${f.m.names.upperCamel} | ${f.m.names.upperCamel}Interface`;
-  return "any";
+  let out = "";
+
+  if (f.type === "boolean") out += "boolean";
+  else if (f.type === "string") out += "string";
+  else if (f.type === "number") out += "number";
+  else if (f.type === "datetime") out += "number | Date";
+  else if (f.type === "entity") out += `string | ${f.m.names.upperCamel} | ${f.m.names.upperCamel}Interface`;
+  else out += "any";
+
+  if (f.nullable) out += " | null";
+
+  return out;
 }
 function labels(lbs) {
     return lbs
@@ -67,7 +73,7 @@ export class {{=it.m.names.upperCamel}} extends Subject<void> {
    * @return {boolean}
    */
   exists(): boolean {
-    return typeof this.getId(); !== 'undefined';
+    return typeof this.getId() !== 'undefined';
   }
 
   /**

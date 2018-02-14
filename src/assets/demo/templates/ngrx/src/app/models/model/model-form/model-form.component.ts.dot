@@ -67,10 +67,10 @@ export class {{=it.m.names.upperCamel}}FormComponent implements OnInit {
     if (!this.{{=it.m.names.lowerCamel}}) {
       this.{{=it.m.names.lowerCamel}} = new {{=it.m.names.upperCamel}}();
     }
-    // Form validator{{?it.m.f.l.find(f => f.isPrivate && !f.internal)}}
+    // Form validator{{?it.m.f.l.find(f => f.isPrivate && !f.nullable && !f.internal)}}
     const privateRequired = this.{{=it.m.names.lowerCamel}}.isNew() ? [Validators.required] : [];{{?}}
     this.form = this.formBuilder.group({{{~it.m.f.f(f => !f.internal) : f}}
-      {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate }}[].concat(privateRequired){{??}}[Validators.required]{{?}}),{{~}}
+      {{=f.names.underscore}}: new FormControl(this.{{=it.m.names.lowerCamel}}.props.{{=f.names.underscore}}, {{? f.isPrivate && !f.nullable }}[].concat(privateRequired){{??}}[{{? !f.nullable }}Validators.required{{?}}]{{?}}),{{~}}
     });{{~it.m.f.r.f(r => !r.internal) : r}}
     // Get {{=r.names.wordsLower}} list
     this.{{=r.m.names.lowerCamel}}Service.list({ _page: 0, _limit: 100 })
