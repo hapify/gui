@@ -53,7 +53,6 @@ function __read(model) {
             if (f.type === 'boolean') {
                 p[`${modelKey}_${key}_true`] = 'Yes';
                 p[`${modelKey}_${key}_false`] = 'No';
-                p[`${modelKey}_${key}_any`] = 'Any';
             }
             return p;
         }, {});
@@ -94,8 +93,13 @@ function __filter(model) {
                 p[`${modelKey}_filter_${key}__min`] = `${f.names.wordsUpper} min`;
                 p[`${modelKey}_filter_${key}__max`] = `${f.names.wordsUpper} max`;
             }
-            if (f.type === 'entity') {
+            else if (f.type === 'entity') {
                 p[`${modelKey}_filter_${key}_any`] = `Any`;
+            }
+            else if (f.type === 'boolean') {
+                p[`${modelKey}_filter_${key}_true`] = 'Yes';
+                p[`${modelKey}_filter_${key}_false`] = 'No';
+                p[`${modelKey}_filter_${key}_any`] = 'Any';
             }
             return p;
         }, {});
