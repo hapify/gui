@@ -366,6 +366,19 @@
           "content": "templates/ngrx/src/app/models/model/model-table/model-table.component.ts.dot"
         }
       ]
+    },
+    {
+      "id": "9950e2fd-99d1-2fcd-2f5b-86252a407d13",
+      "name": "Populate",
+      "templates": [
+        {
+          "name": "Models",
+          "path": "cmd/populate/models.json",
+          "engine": "js",
+          "input": "all",
+          "content": "templates/populate/models.json.js"
+        }
+      ]
     }
   ],
   "models": [

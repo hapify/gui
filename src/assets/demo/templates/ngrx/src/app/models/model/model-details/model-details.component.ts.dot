@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import {MatSlideToggleChange} from '@angular/material';
 import {ErrorService} from '@app/messages';
 import {{{=it.m.names.upperCamel}}} from '../{{=it.m.names.hyphen}}';
@@ -11,7 +11,7 @@ import {{{=m.names.upperCamel}}SearchParams} from '../../{{=m.names.hyphen}}/{{=
   templateUrl: './{{=it.m.names.hyphen}}-details.component.html',
   styleUrls: ['./{{=it.m.names.hyphen}}-details.component.scss']
 })
-export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit, OnDestroy {
+export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit {
 
   /**
    * The {{=it.m.names.wordsLower}} to inject view
@@ -52,20 +52,11 @@ export class {{=it.m.names.upperCamel}}DetailsComponent implements OnInit, OnDes
   /**
    * Init
    */
-  ngOnInit() {
-    this.{{=it.m.names.lowerCamel}}.subscribe(() => {{{~it.m.ri : m}}{{~m.f.f(f => f.searchable) : f}}
-        // Filter by {{=f.names.wordsLower}} for {{=m.names.wordsLower}}
-        const {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams = this.{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.toObject();
-        {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.{{=f.names.underscore}} = this.{{=it.m.names.lowerCamel}}.getId();
-        this.{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.fromObject({{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams);{{~}}{{~}}
-     });
-  }
-
-  /**
-   * Destroy
-   */
-  ngOnDestroy() {
-    this.{{=it.m.names.lowerCamel}}.unsubscribe();
+  ngOnInit() {{{~it.m.ri : m}}{{~m.f.f(f => f.searchable) : f}}
+    // Filter by {{=f.names.wordsLower}} for {{=m.names.wordsLower}}
+    const {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams = this.{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.toObject();
+    {{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.{{=f.names.underscore}} = this.{{=it.m.names.lowerCamel}}.getId();
+    this.{{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams.fromObject({{=m.names.lowerCamel}}As{{=f.names.upperCamel}}SearchParams);{{~}}{{~}}
   }
 
   /**
