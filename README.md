@@ -11,40 +11,48 @@ The following objects will be available in the template.
 - `id` (string): an unique id
 - `name` (string): The name of the model, as the user entered it.
 - `names` (object): All names computed from the `name` property.
-  - `raw` (string): The name of the model, as the user entered it. Example `Online item`.
-  - `hyphen` (string): The name with hyphens and lower case. Example `online-item`.
-  - `underscore` (string): The name with underscores and lower case. Example `online_item`.
-  - `oneWord` (string): The name joined and lower case. Example `onlineitem`.
-  - `lowerCamel` (string): The name as lower camel case. Example `onlineItem`.
-  - `upperCamel` (string): The name as upper camel case. Example `OnlineItem`.
-  - `wordsLower` (string): The name as words in lower case. Example `online item`.
-  - `wordsUpper` (string): The name as words with upper case on first letters. Example `Online Item`.
+    - `raw` (string): The name of the model, as the user entered it. Example `Online item`.
+    - `hyphen` (string): The name with hyphens and lower case. Example `online-item`.
+    - `underscore` (string): The name with underscores and lower case. Example `online_item`.
+    - `oneWord` (string): The name joined and lower case. Example `onlineitem`.
+    - `lowerCamel` (string): The name as lower camel case. Example `onlineItem`.
+    - `upperCamel` (string): The name as upper camel case. Example `OnlineItem`.
+    - `wordsLower` (string): The name as words in lower case. Example `online item`.
+    - `wordsUpper` (string): The name as words with upper case on first letters. Example `Online Item`.
 - `fields` - alias `f` (object): An object containing all fields, grouped in different arrays.
-  - `list` - alias `l` (array): An array containing all fields of the model.
-  - `primary` - alias `p` (Field): The primary field of the model. `null` if no primary field is defined.
-  - `unique` - alias `u` (array): An array containing all fields flagged as `unique`.
-  - `label` - alias `lb` (array): An array containing all fields flagged as `label`.
-  - `nullable` - alias `n` (array): An array containing all fields flagged as `nullable`.
-  - `searchable` - alias `se` (array): An array containing all fields flagged as `searchable`.
-  - `sortable` - alias `so` (array): An array containing all fields flagged as `sortable`.
-  - `isPrivate` - alias `ip` (array): An array containing all fields flagged as `private`.
-  - `internal` - alias `i` (array): An array containing all fields flagged as `internal`.
-  - `filter` - alias `f` (Function): A function for filtering fields with a custom rule. Equivalent of `model.fields.list.filter`.
-  - `references` - alias `r` - non-deep model only (array): An array containing all fields of type `entity`.
-    - `filter` - alias `f` (function): A function for filtering the array.
-  - `dependencies` - alias `d` - non-deep model only (object): An object containing dependencies (to other models) of this model. A model has a dependency if one of this field is of type `entity`.
-    - `list` - alias `l` (array): An array containing all dependency models, but self. These models are added as "deep models".
-    - `self` - alias `s` (boolean): A boolean indicating if this model has a self-dependency.
-    - `filter` - alias `f` (function): A function to filter dependencies.
-      - First argument (function - default `(f) => f`): The filtering function receiving a model object
-      - Second argument (boolean - default `true`): A boolean indicating if we should filter the self dependency.
-  - `referencedIn` - alias `ri` - non-deep model only (array): An array containing models that refer to this one. These models are added as "deep models".
-    - `filter` - alias `f` (function): A function for filtering the array.
+    - `list` - alias `l` (array): An array containing all fields of the model.
+    - `primary` - alias `p` (Field): The primary field of the model. `null` if no primary field is defined.
+    - `unique` - alias `u` (array): An array containing all fields flagged as `unique`.
+    - `label` - alias `lb` (array): An array containing all fields flagged as `label`.
+    - `nullable` - alias `n` (array): An array containing all fields flagged as `nullable`.
+    - `searchable` - alias `se` (array): An array containing all fields flagged as `searchable`.
+    - `sortable` - alias `so` (array): An array containing all fields flagged as `sortable`.
+    - `isPrivate` - alias `ip` (array): An array containing all fields flagged as `private`.
+    - `internal` - alias `i` (array): An array containing all fields flagged as `internal`.
+    - `filter` - alias `f` (Function): A function for filtering fields with a custom rule. Equivalent of `model.fields.list.filter`.
+    - `references` - alias `r` - non-deep model only (array): An array containing all fields of type `entity`.
+        - `filter` - alias `f` (function): A function for filtering the array.
+    - `dependencies` - alias `d` - non-deep model only (object): An object containing dependencies (to other models) of this model. A model has a dependency if one of this field is of type `entity`.
+        - `list` - alias `l` (array): An array containing all dependency models, but self. These models are added as "deep models".
+        - `self` - alias `s` (boolean): A boolean indicating if this model has a self-dependency.
+        - `filter` - alias `f` (function): A function to filter dependencies.
+            - First argument (function - default `(f) => f`): The filtering function receiving a model object
+            - Second argument (boolean - default `true`): A boolean indicating if we should filter the self dependency.
+    - `referencedIn` - alias `ri` - non-deep model only (array): An array containing models that refer to this one. These models are added as "deep models".
+        - `filter` - alias `f` (function): A function for filtering the array.
             
 **Field object**
 
 - `name` (string): The name of the model, as the user entered it.
-- `names` (object): All names computed from the `name` property. As for the model object
+- `names` (object): All names computed from the `name` property. As for the model object.
+    - `raw` (string): The name of the model, as the user entered it. Example `first_name`.
+    - `hyphen` (string): The name with hyphens and lower case. Example `first-name`.
+    - `underscore` (string): The name with underscores and lower case. Example `first_name`.
+    - `oneWord` (string): The name joined and lower case. Example `firstname`.
+    - `lowerCamel` (string): The name as lower camel case. Example `firstName`.
+    - `upperCamel` (string): The name as upper camel case. Example `FirstName`.
+    - `wordsLower` (string): The name as words in lower case. Example `first name`.
+    - `wordsUpper` (string): The name as words with upper case on first letters. Example `First Name`.
 - `primary` (boolean): Indicates if the field is flagged as `primary`.
 - `unique` (boolean): Indicates if the field is flagged as `unique`.
 - `label` (boolean): Indicates if the field is flagged as `label`.
