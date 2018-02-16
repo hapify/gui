@@ -2,10 +2,9 @@
 
 ## Model injected in the templates
 
-### Single model
+### Object types
 
-The following object is injected in a template for file generation.
-Some keys have a shortened alias.
+The following objects will be available in the template.
 
 **Model object**
 
@@ -57,7 +56,20 @@ Some keys have a shortened alias.
 + `type` (string): The type of the string. Can be `string`, `number`, `boolean`, `datetime` or `entity`.
 + `reference` (string): The id of the target model if the field is of type `entity`. `null` otherwise
 
-## Angular documetation
+### Model injection
+
+#### Single model
+
+If the template requires all the models, therefore, a object `model` (alias `m`) will be available as a global variable in the template.
+In a `dot.js` template it will be available under `{{=it.model}}` or `{{=it.m}}`
+
+#### Multiple models
+
+If the template requires all the models, therefore, an array `models` (alias `m`) will be available as a global variable in the template.
+This array contains all the models defined.
+In a `dot.js` template it will be available under `{{=it.models}}` or `{{=it.m}}`
+
+## Angular documentation
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.
 
