@@ -774,7 +774,7 @@
           "reference": null,
           "primary": false,
           "unique": true,
-          "label": true,
+          "label": false,
           "nullable": false,
           "searchable": true,
           "sortable": true,
