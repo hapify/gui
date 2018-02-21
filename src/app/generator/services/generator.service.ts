@@ -111,6 +111,9 @@ export class GeneratorService {
       throw new Error('Unknown engine');
     }
 
+    // Post process
+    content = await this._postProcess(content);
+
     return {
       content,
       path
@@ -142,6 +145,9 @@ export class GeneratorService {
     } else {
       throw new Error('Unknown engine');
     }
+
+    // Post process
+    content = await this._postProcess(content);
 
     return {
       content,
@@ -411,5 +417,19 @@ export class GeneratorService {
   private async _explicitAllModels(): Promise<any[]> {
     return await Promise.all((await this.modelStorageService.list())
       .map( (mod: IModel) => this._explicitModel(mod)));
+  }
+
+  /**
+   * Cleanup code after process
+   *
+   * @param {string} code
+   * @return {Promise<string>}
+   * @private
+   */
+  private async _postProcess(code: string) {
+    code = code.replace(/\n\n/g, '\n');
+    code = code.replace(/\n\s*\n/g, '\n\n');
+
+    return code;
   }
 }
