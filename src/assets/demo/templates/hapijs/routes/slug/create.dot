@@ -27,12 +27,16 @@
  */
 
 const Joi = require('joi');
-const Boom = require('boom');{{?it.m.f.r.length}}
-const MongoDB = require('mongodb');{{?}}
+const Boom = require('boom');
+{{?it.m.f.r.length}}
+const MongoDB = require('mongodb');
+{{?}}
 
 // Validation schema for payload
-const schema = Joi.object({ {{~it.m.f.f(f => !f.internal) : f}}
-    {{=f.names.underscore}}: {{ out += joiValidator(f); }},{{~}}
+const schema = Joi.object({
+{{~it.m.f.f(f => !f.internal) : f}}
+    {{=f.names.underscore}}: {{ out += joiValidator(f); }},
+{{~}}
 });
 
 /**
@@ -58,14 +62,24 @@ module.exports = {
 
         // Get {{=it.m.names.wordsLower}} from payload
         const {{=it.m.names.underscore}} = request.payload;
+
 {{?it.m.f.i.filter(f => !f.primary).length}}
-        // Init internal fields{{~it.m.f.i.filter(f => !f.primary) : i}}
-        {{=it.m.names.underscore}}.{{=i.names.underscore}} = {{ out += defaultValue(i); }};{{~}}
-{{?}}{{?it.m.f.r.f(r => !r.internal).length}}
-        // Convert reference fields{{~it.m.f.r.f(r => !r.internal) : r}}
-        {{=it.m.names.underscore}}.{{=r.names.underscore}} = typeof request.payload.{{=r.names.underscore}} === 'string' ?
-            new MongoDB.ObjectId(request.payload.{{=r.names.underscore}}) : null;{{~}}
+
+        // Init internal fields
+{{~it.m.f.i.filter(f => !f.primary) : i}}
+        {{=it.m.names.underscore}}.{{=i.names.underscore}} = {{ out += defaultValue(i); }};
+{{~}}
 {{?}}
+
+{{?it.m.f.r.f(r => !r.internal).length}}
+
+        // Convert reference fields
+{{~it.m.f.r.f(r => !r.internal) : r}}
+        {{=it.m.names.underscore}}.{{=r.names.underscore}} = typeof request.payload.{{=r.names.underscore}} === 'string' ?
+            new MongoDB.ObjectId(request.payload.{{=r.names.underscore}}) : null;
+{{~}}
+{{?}}
+
         // Insertion options
         const options = { w: 'majority' };
 
@@ -76,24 +90,36 @@ module.exports = {
             .then((result) => {
 
                 const {{=it.m.names.underscore}} = result;
+
 {{?it.m.f.ip.length}}
-                // Delete private properties{{~it.m.f.ip : p}}
-                delete {{=it.m.names.underscore}}.{{=p.names.underscore}};{{~}}
-{{?}}{{?it.m.f.r.f(r => !r.isPrivate).length}}
+
+                // Delete private properties
+{{~it.m.f.ip : p}}
+                delete {{=it.m.names.underscore}}.{{=p.names.underscore}};
+{{~}}
+{{?}}
+
+
+{{?it.m.f.r.f(r => !r.isPrivate).length}}
+
                 // Convert reference fields
-                const promises = [];{{~it.m.f.r.f(r => !r.isPrivate) : r}}
+                const promises = [];
+{{~it.m.f.r.f(r => !r.isPrivate) : r}}
 
                 // Append {{=r.names.wordsLower}}
-                if (result.{{=r.names.underscore}}) {{{?r.m.f.ip.length}}
+                if (result.{{=r.names.underscore}}) {
+{{?r.m.f.ip.length}}
                     const projection{{=r.names.upperCamel}} = { {{~r.m.f.ip : f}}
                         {{=f.names.underscore }}: false,{{~}}
-                    };{{?}}
+                    };
+{{?}}
                     promises.push(request.server.db.collection('{{=r.m.names.underscore}}')
                       .findOne({ {{=r.m.f.p.names.underscore}}: new MongoDB.ObjectId(result.{{=r.names.underscore}}) }{{?r.m.f.ip.length}}, projection{{=r.names.upperCamel}}{{?}})
                       .then((reference) => {
                         {{=it.m.names.underscore}}.{{=r.names.underscore}} = reference;
                       }));
-                }{{~}}
+                }
+{{~}}
 
                 // Run promises
                 return Promise.all(promises)
@@ -101,9 +127,12 @@ module.exports = {
                     reply({{=it.m.names.underscore}}).code(201);
                   });
 {{??}}
+
                 reply({{=it.m.names.underscore}}).code(201);
 {{?}}
-            }){{?it.m.f.u.length}}
+            })
+
+{{?it.m.f.u.length}}
             .catch((e) => {
                 // Handle duplicated key for unique indexes
                 if (e.name === 'MongoError' && e.code === 11000) {
@@ -112,8 +141,11 @@ module.exports = {
 
                 // Otherwise, wrap the error
                 return reply(Boom.boomify(e));
-            });{{??}}
-            .catch((e) => reply(Boom.boomify(e)));{{?}}
+            });
+{{??}}
+            .catch((e) => reply(Boom.boomify(e)));
+{{?}}
+
     }
 };
 

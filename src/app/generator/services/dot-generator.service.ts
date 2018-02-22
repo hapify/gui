@@ -20,7 +20,8 @@ export class DotGeneratorService implements IGenerator {
 
     // Create template function
     const templateFunction = doT.template(template.content);
-    return templateFunction({ model, m: model, o: '{{', c: '}}' });
+    const content = templateFunction({ model, m: model, o: '{{', c: '}}' });
+    return await this._postProcess(content);
   }
 
   /**
@@ -30,6 +31,28 @@ export class DotGeneratorService implements IGenerator {
     
     // Create template function
     const templateFunction = doT.template(template.content);
-    return templateFunction({ models, m: models, o: '{{', c: '}}' });
+    const content = templateFunction({ models, m: models, o: '{{', c: '}}' });
+    return await this._postProcess(content);
+  }
+
+  /**
+   * Cleanup code after process
+   *
+   * @param {string} code
+   * @return {Promise<string>}
+   * @private
+   */
+  private async _postProcess(code: string) {
+
+    const doubleLine = /\r?\n\r?\n/g;
+    while (code.match(doubleLine)) {
+      code = code.replace(doubleLine, '\n');
+    }
+
+    const doubleLineWithSpace = /\r?\n *\r?\n/g;
+    code = code.replace(doubleLineWithSpace, '\n\n');
+    code = code.replace(doubleLineWithSpace, '\n\n');
+
+    return code;
   }
 }

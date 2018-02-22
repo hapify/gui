@@ -95,6 +95,10 @@ define("ace/mode/dotjs_highlight_rules",["require","exports","module","ace/lib/o
     var oop = require("../lib/oop");
     var JavaScriptHighlightRules = require("./javascript_highlight_rules").JavaScriptHighlightRules;
 
+    function pop(currentState, stack) {
+        stack.splice(0, 2);
+        return stack.shift() || "start";
+    }
     function pop2(currentState, stack) {
         stack.splice(0, 3);
         return stack.shift() || "start";
@@ -105,8 +109,12 @@ define("ace/mode/dotjs_highlight_rules",["require","exports","module","ace/lib/o
             regex : "(?={{)",
             push : "handlebars"
         };
+        var blank = {
+            token : "dotjs.blank",
+            regex : /^( *)$/
+        };
         for (var key in this.$rules) {
-            this.$rules[key].unshift(hbs);
+            this.$rules[key].unshift(blank, hbs);
         }
         this.$rules.handlebars = [{
             token : "dotjs.inter.start",
