@@ -42,4 +42,13 @@ export class ConfigService {
   getAceTheme(): string {
     return environment.ace.theme;
   }
+
+  /**
+   * Get the bitbucket client id
+   *
+   * @return {string}
+   */
+  getBitbucketAuthorizeUrl(): string {
+    return environment.bitbucket.authorize;
+  }
 }

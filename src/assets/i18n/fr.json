@@ -32,6 +32,8 @@
   "generator_title_error": "Une erreur est survenue",
   "generator_download": "Télécharger le ZIP",
   "loader_title": "Chargeur",
+  "loader_bitbucket_connect": "Se connecter à Bitbucket",
+  "loader_bitbucket_disconnect": "Se déconnecter de Bitbucket",
   "field_type": "Type de champ",
   "reference": "Référence",
   "template_engine": "Moteur de template",

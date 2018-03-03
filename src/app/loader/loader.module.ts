@@ -4,6 +4,7 @@ import {BitbucketComponent} from './components/bitbucket/bitbucket.component';
 import {TranslateModuleLoad} from '../translate-import';
 
 import {ChannelModule, StorageService as ChannelStorageService} from '../channel/channel.module';
+import {BitbucketService} from './services/bitbucket.service';
 
 @NgModule({
   imports: [
@@ -12,7 +13,10 @@ import {ChannelModule, StorageService as ChannelStorageService} from '../channel
     TranslateModuleLoad()
   ],
   declarations: [BitbucketComponent],
-  providers: [ChannelStorageService]
+  providers: [
+    ChannelStorageService,
+    BitbucketService
+  ]
 })
 export class LoaderModule {
 }

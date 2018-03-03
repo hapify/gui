@@ -12,5 +12,8 @@ export const environment = {
   ace: {
     baseUri: '/assets/ace-builds/src-min',
     theme: 'xcode'
+  },
+  bitbucket: {
+    authorize: 'https://bitbucket.org/site/oauth2/authorize?client_id=GXGSpAgZTeP6sH3Zxr&response_type=code'
   }
 };

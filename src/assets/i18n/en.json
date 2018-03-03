@@ -32,6 +32,8 @@
   "generator_title_error": "An error occurred",
   "generator_download": "Download ZIP",
   "loader_title": "Loader",
+  "loader_bitbucket_connect": "Connect to Bitbucket",
+  "loader_bitbucket_disconnect": "Disconnect from Bitbucket",
   "field_type": "Field's type",
   "reference": "Reference",
   "template_engine": "Template's engine",

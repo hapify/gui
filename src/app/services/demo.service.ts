@@ -40,7 +40,7 @@ export class DemoService {
 
     // Get content
     const url = `${this.configService.getDemoBaseUri()}/${template.content}`;
-    const result = await fetch(url, {cache: "no-store"});
+    const result = await fetch(url, {cache: 'no-store'});
     if (result.status !== 200) {
       throw new Error(`Error while reading template at ${result.url}. Status: ${result.status} ${result.statusText}.`);
     }
