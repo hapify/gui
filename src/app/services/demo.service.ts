@@ -95,7 +95,7 @@ export class DemoService {
 
     // Get the manifest
     const url = `${this.configService.getDemoBaseUri()}/${this.configService.getDemoManifest()}`;
-    const result = await fetch(url, {cache: "no-store"});
+    const result = await fetch(url, {cache: 'no-store'});
     if (result.status !== 200) {
       throw new Error(`Error while reading manifest at ${result.url}. Status: ${result.status} ${result.statusText}.`);
     }

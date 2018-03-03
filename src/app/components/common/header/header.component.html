@@ -16,8 +16,10 @@
         <li class="nav-item">
           <a [routerLink]="['/generator']" class="nav-link">{{ 'nav_generator' | translate }}</a>
         </li>
+        <li class="nav-item">
+          <a [routerLink]="['/loader']" class="nav-link">{{ 'nav_loader' | translate }}</a>
+        </li>
       </ul>
-      <button class="btn btn-outline-primary" [disabled]="loadingDemo" (click)="onLoadDemo();">{{ 'common_load_demo' | translate }}</button>
     </div>
   </nav>
 </header>

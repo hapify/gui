@@ -10,6 +10,9 @@ import {ChannelComponent} from './components/channel/channel.component';
 import {GeneratorModule, GENERATOR_ROUTES} from './generator/generator.module';
 import {GeneratorComponent} from './components/generator/generator.component';
 
+import {LoaderModule, LOADER_ROUTES} from './loader/loader.module';
+import {LoaderComponent} from './components/loader/loader.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -30,6 +33,11 @@ export const routes: Routes = [
     path: 'generator',
     component: GeneratorComponent,
     children: GENERATOR_ROUTES
+  },
+  {
+    path: 'loader',
+    component: LoaderComponent,
+    children: LOADER_ROUTES
   }
 ];
 
@@ -38,6 +46,7 @@ export const routes: Routes = [
     ModelModule,
     ChannelModule,
     GeneratorModule,
+    LoaderModule,
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
