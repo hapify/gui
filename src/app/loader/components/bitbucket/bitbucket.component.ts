@@ -36,12 +36,13 @@ export class BitbucketComponent implements OnInit {
   ngOnInit() {
     this.connected = this.bitbucketService.isConnected();
     // subscribe to router event
-    this.route.queryParams.subscribe((params: Params) => {
-      const code = params['code'];
-      if (code) {
-        this.bitbucketService.setToken(code);
+    this.route.fragment.subscribe((fragment: string) => {
+      const regex = /access_token=([0-9a-zA-Z-_%]+)/g;
+      const token = regex.exec(fragment);
+      if (token) {
+        this.bitbucketService.setToken(decodeURIComponent(token[1]));
         // Remove code from URL
-        this.location.replaceState(this.router.url.split('?')[0], '');
+        this.location.replaceState(this.router.url.split('#')[0], '');
         this.connected = true;
       }
     });
