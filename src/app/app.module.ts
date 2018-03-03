@@ -1,13 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app.routing';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
-
-// Translation
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {TranslateModuleLoad} from './translate-import';
 
 // Components
 import {AppComponent} from './app.component';
@@ -22,10 +19,6 @@ import {StringService} from './services/string.service';
 import {DemoService} from './services/demo.service';
 import {AceService} from './services/ace.service';
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
 
 @NgModule({
   declarations: [
@@ -39,13 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModuleLoad(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
     FormsModule

@@ -1,28 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
+import {TranslateModuleLoad} from '../translate-import';
 
 import {ModelComponent} from './components/model/model.component';
 import {ModelRowComponent} from './components/model-row/model-row.component';
 import {FieldComponent} from './components/field/field.component';
 import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
-
-// Translation
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {EditComponent} from './components/edit/edit.component';
 
 // Services
 import {StorageService} from './services/storage.service';
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
 
 @NgModule({
   imports: [
@@ -30,13 +21,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModuleLoad(),
     TooltipModule.forRoot(),
     AlertModule.forRoot()
   ],
