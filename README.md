@@ -1,4 +1,4 @@
-# CodeMyModel
+# Hapify
 
 ## Model injected in the templates
 

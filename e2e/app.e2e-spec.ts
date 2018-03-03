@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('code-my-model App', () => {
+describe('hapify App', () => {
   let page: AppPage;
 
   beforeEach(() => {
