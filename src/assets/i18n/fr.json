@@ -34,6 +34,7 @@
   "loader_title": "Chargeur",
   "loader_bitbucket_connect": "Se connecter à Bitbucket",
   "loader_bitbucket_disconnect": "Se déconnecter de Bitbucket",
+  "loader_bitbucket_connected_as": "Connecté avec",
   "field_type": "Type de champ",
   "reference": "Référence",
   "template_engine": "Moteur de template",

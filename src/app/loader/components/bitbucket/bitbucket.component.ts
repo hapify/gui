@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {BitbucketService} from '../../services/bitbucket.service';
+import {Subscription} from 'rxjs/Subscription';
+import {IBitbucketUser} from '../../interfaces/bitbucket-user';
 
 @Component({
   selector: 'app-bitbucket',
   templateUrl: './bitbucket.component.html',
   styleUrls: ['./bitbucket.component.scss']
 })
-export class BitbucketComponent implements OnInit {
+export class BitbucketComponent implements OnInit, OnDestroy {
 
   /**
-   * Denotes if the user is currently connected to Bitbucket via OAuth
+   * Current user loaded via bitbucket
    *
-   * @type {boolean}
+   * @type {IBitbucketUser}
    */
-  connected = false;
+  user: IBitbucketUser;
+
+  /**
+   * @type {Subscription[]}
+   */
+  private _subscriptions: Subscription[];
 
   /**
    * Constructor
@@ -28,23 +35,36 @@ export class BitbucketComponent implements OnInit {
   constructor(private bitbucketService: BitbucketService,
               private router: Router,
               private location: Location,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute) {
+  }
 
   /**
    * On init
    */
   ngOnInit() {
-    this.connected = this.bitbucketService.isConnected();
-    // subscribe to router event
-    this.route.fragment.subscribe((fragment: string) => {
-      const regex = /access_token=([0-9a-zA-Z-_%]+)/g;
-      const token = regex.exec(fragment);
-      if (token) {
-        this.bitbucketService.setToken(decodeURIComponent(token[1]));
-        // Remove code from URL
-        this.location.replaceState(this.router.url.split('#')[0], '');
-        this.connected = true;
-      }
+    this._subscriptions = [
+      // Subscribe to user
+      this.bitbucketService.getUser().subscribe((user: IBitbucketUser) => {
+        this.user = user;
+      }),
+      // subscribe to router event
+      this.route.fragment.subscribe((fragment: string) => {
+        const token = this.bitbucketService.extractToken(fragment);
+        if (token) {
+          this.bitbucketService.setToken(token);
+          // Remove code from URL
+          this.location.replaceState(this.router.url.split('#')[0], '');
+        }
+      })
+    ];
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy() {
+    this._subscriptions.map((subscription: Subscription) => {
+      subscription.unsubscribe();
     });
   }
 
@@ -60,7 +80,6 @@ export class BitbucketComponent implements OnInit {
    */
   onDisconnectClick() {
     this.bitbucketService.disconnect();
-    this.connected = false;
   }
 
 }

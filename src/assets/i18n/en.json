@@ -34,6 +34,7 @@
   "loader_title": "Loader",
   "loader_bitbucket_connect": "Connect to Bitbucket",
   "loader_bitbucket_disconnect": "Disconnect from Bitbucket",
+  "loader_bitbucket_connected_as": "Connected as",
   "field_type": "Field's type",
   "reference": "Reference",
   "template_engine": "Template's engine",

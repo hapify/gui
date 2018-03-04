@@ -14,6 +14,7 @@ export const environment = {
     theme: 'xcode'
   },
   bitbucket: {
+    baseUri: 'https://api.bitbucket.org/2.0',
     authorize: 'https://bitbucket.org/site/oauth2/authorize?client_id=GXGSpAgZTeP6sH3Zxr&response_type=token'
   }
 };

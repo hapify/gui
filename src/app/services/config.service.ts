@@ -44,6 +44,15 @@ export class ConfigService {
   }
 
   /**
+   * Get the bitbucket api base uri
+   *
+   * @return {string}
+   */
+  getBitbucketBaseUri(): string {
+    return environment.bitbucket.baseUri;
+  }
+
+  /**
    * Get the bitbucket client id
    *
    * @return {string}
