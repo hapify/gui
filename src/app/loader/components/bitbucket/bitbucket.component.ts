@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {BitbucketService} from '../../services/bitbucket.service';
+import {BitbucketService, GroupedBitbucketRepositories} from '../../services/bitbucket.service';
 import {Subscription} from 'rxjs/Subscription';
 import {IBitbucketUser} from '../../interfaces/bitbucket-user';
 
@@ -18,6 +18,13 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    * @type {IBitbucketUser}
    */
   user: IBitbucketUser;
+
+  /**
+   * Repositories loaded via bitbucket
+   *
+   * @type {GroupedBitbucketRepositories}
+   */
+  repositories: GroupedBitbucketRepositories;
 
   /**
    * @type {Subscription[]}
@@ -46,6 +53,10 @@ export class BitbucketComponent implements OnInit, OnDestroy {
       // Subscribe to user
       this.bitbucketService.getUser().subscribe((user: IBitbucketUser) => {
         this.user = user;
+      }),
+      // Subscribe to repositories
+      this.bitbucketService.getRepositories().subscribe((repositories: GroupedBitbucketRepositories) => {
+        this.repositories = repositories;
       }),
       // subscribe to router event
       this.route.fragment.subscribe((fragment: string) => {

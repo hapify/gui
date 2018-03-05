@@ -10,8 +10,22 @@
     </div>
   </div>
 
+  <div class="row" *ngIf="repositories">
+
+    <div class="col-lg-12" *ngIf="repositories.templates">
+      <h3 class="my-4">{{ 'loader_bitbucket_repos_templates_title' | translate}}</h3>
+      <div class="my-2" *ngFor="let repository of repositories.templates">
+        <div class="border rounded p-3">
+          <b>{{ repository.name }}</b>
+          <span class="badge badge-pill badge-primary ml-2">{{ repository.mainbranch.name }}</span>
+          <span class="badge badge-pill badge-secondary">{{ repository.updated_on | date:medium }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row" *ngIf="user">
-    <div class="col-lg-12 text-center">
+    <div class="col-lg-12 text-center mt-5">
       <div class="my-2">
         {{ 'loader_bitbucket_connected_as' | translate }} <b>{{user.display_name}}</b>
       </div>

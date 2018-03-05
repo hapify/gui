@@ -3,7 +3,14 @@ import {ConfigService} from '../../services/config.service';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {IBitbucketUser} from '../interfaces/bitbucket-user';
 import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {BitbucketRepositoriesResponse, IBitbucketRepository} from '../interfaces/bitbucket-repository';
+
+export interface GroupedBitbucketRepositories {
+  templates: IBitbucketRepository[];
+  bootstraps: IBitbucketRepository[];
+  models: IBitbucketRepository[];
+}
 
 @Injectable()
 export class BitbucketService {
@@ -35,23 +42,18 @@ export class BitbucketService {
    *
    * @private
    */
-  private _user: IBitbucketUser;
+  private _user: IBitbucketUser = null;
+  private _userSubject = new BehaviorSubject<IBitbucketUser|null>(null);
+  private _userObservable: Observable<IBitbucketUser|null> = this._userSubject.asObservable();
 
   /**
-   * Subject for the user
+   * Loaded repositories from Bitbucket
    *
-   * @type {Observable<IBitbucketUser>}
    * @private
    */
-  private _userSubject = new Subject<IBitbucketUser|void>();
-
-  /**
-   * Observable for the user
-   *
-   * @type {Observable<IBitbucketUser>}
-   * @private
-   */
-  private _userObservable: Observable<IBitbucketUser|void> = this._userSubject.asObservable();
+  private _repositories: GroupedBitbucketRepositories = null;
+  private _repositoriesSubject = new BehaviorSubject<GroupedBitbucketRepositories|null>(null);
+  private _repositoriesObservable: Observable<GroupedBitbucketRepositories|null> = this._repositoriesSubject.asObservable();
 
   /**
    * Constructor
@@ -88,7 +90,11 @@ export class BitbucketService {
    */
   disconnect() {
     this._storage.removeItem(this._tokenKey);
-    this._userSubject.next();
+
+    this._user = null;
+    this._repositories = null;
+    this._userSubject.next(null);
+    this._repositoriesSubject.next(null);
   }
 
   /**
@@ -118,6 +124,15 @@ export class BitbucketService {
    */
   getUser(): Observable<IBitbucketUser> {
     return this._userObservable;
+  }
+
+  /**
+   * Returns the repositories observable
+   *
+   * @returns {Observable<GroupedBitbucketRepositories>}
+   */
+  getRepositories(): Observable<GroupedBitbucketRepositories> {
+    return this._repositoriesObservable;
   }
 
   /**
@@ -169,15 +184,21 @@ export class BitbucketService {
   /**
    * Get the repositories current user.
    *
-   * @returns {Promise<IBitbucketUser|void>}
+   * @returns {Promise<void>}
    * @private
    */
-  private _getRepositories(): Promise<IBitbucketUser|void> {
+  private _getRepositories(): Promise<void> {
     const url = `${this.configService.getBitbucketBaseUri()}/repositories/tractrs?pagelen=100&q=project.key="HAP"`;
 
     return this.http.get(url, {headers: this._getRequestHeaders()})
       .toPromise()
-      .then((user: IBitbucketUser) => {
+      .then((response: BitbucketRepositoriesResponse) => {
+        this._repositories = {
+          templates: response.values.filter((r) => r.name.indexOf('hapify-masks') === 0),
+          bootstraps: response.values.filter((r) => r.name.indexOf('hapify-bootstrap') === 0),
+          models: response.values.filter((r) => r.name.indexOf('hapify-models') === 0)
+        };
+        this._repositoriesSubject.next(this._repositories);
       })
       .catch((error: HttpErrorResponse) => {
         console.log(error);
