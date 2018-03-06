@@ -5,7 +5,7 @@ import {IBitbucketUser} from '../interfaces/bitbucket-user';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {BitbucketRepositoriesResponse, IBitbucketRepository} from '../interfaces/bitbucket-repository';
-import {BitbucketBranchesResponse, IBitbucketBranch} from '../interfaces/bitbucket-branch';
+import {BitbucketBranchesResponse} from '../interfaces/bitbucket-branch';
 
 export interface GroupedBitbucketRepositories {
   templates: IBitbucketRepository[];
