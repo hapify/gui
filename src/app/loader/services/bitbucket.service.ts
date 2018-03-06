@@ -5,6 +5,7 @@ import {IBitbucketUser} from '../interfaces/bitbucket-user';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {BitbucketRepositoriesResponse, IBitbucketRepository} from '../interfaces/bitbucket-repository';
+import {BitbucketBranchesResponse, IBitbucketBranch} from '../interfaces/bitbucket-branch';
 
 export interface GroupedBitbucketRepositories {
   templates: IBitbucketRepository[];
@@ -136,6 +137,22 @@ export class BitbucketService {
   }
 
   /**
+   * Returns the repositories observable
+   *
+   * @returns {Observable<GroupedBitbucketRepositories>}
+   */
+  getRepositorySource(repository: IBitbucketRepository): Promise<any> {
+
+    const url = `https://bitbucket.org/tractrs/${repository.name}/get/${repository.selected_branch.target.hash}.zip`;
+
+    return this.http.get(url, {headers: this._getRequestHeaders()})
+      .toPromise()
+      .then((response) => {
+        console.log(response);
+      });
+  }
+
+  /**
    * Extract token from a fragment
    *
    * @param {string} fragment
@@ -188,10 +205,27 @@ export class BitbucketService {
    * @private
    */
   private _getRepositories(): Promise<void> {
-    const url = `${this.configService.getBitbucketBaseUri()}/repositories/tractrs?pagelen=100&q=project.key="HAP"`;
 
-    return this.http.get(url, {headers: this._getRequestHeaders()})
+    const url = `${this.configService.getBitbucketBaseUri()}/repositories/tractrs?pagelen=100&q=project.key="HAP"`;
+    const headers = this._getRequestHeaders();
+
+    return this.http.get(url, {headers})
       .toPromise()
+      .then(async (response: BitbucketRepositoriesResponse) => {
+        // Get branches for all repositories
+        response.values = await Promise.all(response.values.map(async (repo) => {
+          repo.branches = await this.http.get(`${repo.links.branches.href}/?pagelen=20`, {headers})
+            .toPromise()
+            .then((branchesResponse: BitbucketBranchesResponse) => {
+              return branchesResponse.values;
+            });
+          repo.selected_branch = repo.branches.find((branch) => {
+            return branch.name === repo.mainbranch.name;
+          });
+          return repo;
+        }));
+        return response;
+      })
       .then((response: BitbucketRepositoriesResponse) => {
         this._repositories = {
           templates: response.values.filter((r) => r.name.indexOf('hapify-masks') === 0),

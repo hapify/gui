@@ -38,6 +38,7 @@
   "loader_bitbucket_repos_templates_title": "Available templates",
   "loader_bitbucket_repos_bootstraps_title": "Available bootstraps",
   "loader_bitbucket_repos_models_title": "Available models",
+  "loader_bitbucket_load_repository": "Load from repository",
   "field_type": "Field's type",
   "reference": "Reference",
   "template_engine": "Template's engine",

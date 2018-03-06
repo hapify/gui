@@ -3,7 +3,7 @@ export interface Link {
   href: string;
 }
 
-export interface Links {
+export interface UserLinks {
   hooks: Link;
   self: Link;
   repositories: Link;
@@ -19,7 +19,7 @@ export interface IBitbucketUser {
   website: string;
   display_name: string;
   account_id: string;
-  links: Links;
+  links: UserLinks;
   created_on: Date;
   is_staff: boolean;
   location?: any;

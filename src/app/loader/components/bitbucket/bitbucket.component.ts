@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import {BitbucketService, GroupedBitbucketRepositories} from '../../services/bitbucket.service';
 import {Subscription} from 'rxjs/Subscription';
 import {IBitbucketUser} from '../../interfaces/bitbucket-user';
+import {IBitbucketRepository} from '../../interfaces/bitbucket-repository';
 
 @Component({
   selector: 'app-bitbucket',
@@ -91,6 +92,28 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    */
   onDisconnectClick() {
     this.bitbucketService.disconnect();
+  }
+
+  /**
+   * @param {IBitbucketRepository} repository
+   */
+  onLoadTemplateClick(repository: IBitbucketRepository) {
+
+  }
+
+  /**
+   * @param {IBitbucketRepository} repository
+   */
+  onLoadBootstrapClick(repository: IBitbucketRepository) {
+    console.log(repository);
+    this.bitbucketService.getRepositorySource(repository);
+  }
+
+  /**
+   * @param {IBitbucketRepository} repository
+   */
+  onLoadModelClick(repository: IBitbucketRepository) {
+
   }
 
 }

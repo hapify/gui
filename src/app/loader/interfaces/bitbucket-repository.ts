@@ -1,4 +1,5 @@
 
+import {IBitbucketBranch} from './bitbucket-branch';
 export interface Link {
   href: string;
 }
@@ -8,7 +9,7 @@ export interface LabeledLink {
   name: string;
 }
 
-export interface Links {
+export interface RepositoryLinks {
   watchers: Link;
   branches: Link;
   tags: Link;
@@ -57,7 +58,7 @@ export interface IBitbucketRepository {
   website: string;
   has_wiki: boolean;
   name: string;
-  links: Links;
+  links: RepositoryLinks;
   fork_policy: string;
   uuid: string;
   project: Project;
@@ -73,6 +74,8 @@ export interface IBitbucketRepository {
   slug: string;
   is_private: boolean;
   description: string;
+  branches?: IBitbucketBranch[];
+  selected_branch?: IBitbucketBranch;
 }
 
 export interface BitbucketRepositoriesResponse {
