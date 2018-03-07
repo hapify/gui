@@ -105,7 +105,6 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    * @param {IBitbucketRepository} repository
    */
   onLoadBootstrapClick(repository: IBitbucketRepository) {
-    console.log(repository);
     this.bitbucketService.getRepositorySource(repository);
   }
 

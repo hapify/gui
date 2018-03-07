@@ -60,4 +60,22 @@ export class ConfigService {
   getBitbucketAuthorizeUrl(): string {
     return environment.bitbucket.authorize;
   }
+
+  /**
+   * Get the bitbucket download proxy url
+   *
+   * @return {string}
+   */
+  getBitbucketProxyUrl(): string {
+    return environment.bitbucket.proxyUrl;
+  }
+
+  /**
+   * Get the bitbucket download proxy uri
+   *
+   * @return {string}
+   */
+  getBitbucketProxyToken(): string {
+    return environment.bitbucket.proxyToken;
+  }
 }

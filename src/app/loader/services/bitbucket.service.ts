@@ -143,9 +143,11 @@ export class BitbucketService {
    */
   getRepositorySource(repository: IBitbucketRepository): Promise<any> {
 
-    const url = `https://bitbucket.org/tractrs/${repository.name}/get/${repository.selected_branch.target.hash}.zip`;
+    const path = `/tractrs/${repository.name}/get/${repository.selected_branch.target.hash}`;
+    const proxy = this.configService.getBitbucketProxyUrl();
+    const url = `${proxy}?token=${this._getToken()}&path=${path}`;
 
-    return this.http.get(url, {headers: this._getRequestHeaders()})
+    return this.http.get(url, {headers: this._getProxyRequestHeaders()})
       .toPromise()
       .then((response) => {
         console.log(response);
@@ -248,6 +250,18 @@ export class BitbucketService {
    */
   private _getRequestHeaders(headers: HttpHeaders = new HttpHeaders()): HttpHeaders {
     headers = headers.append('Authorization', `Bearer ${this._getToken()}`);
+    return headers;
+  }
+
+  /**
+   * Returns the commons headers for a request to the proxy
+   *
+   * @param {HttpHeaders} headers
+   * @returns {HttpHeaders}
+   * @private
+   */
+  private _getProxyRequestHeaders(headers: HttpHeaders = new HttpHeaders()): HttpHeaders {
+    headers = headers.append('X-Hapify-Token', this.configService.getBitbucketProxyToken());
     return headers;
   }
 }
