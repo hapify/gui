@@ -8,11 +8,11 @@ import {TranslateModuleLoad} from './translate-import';
 
 // Components
 import {AppComponent} from './app.component';
-import {HeaderComponent} from './components/common/header/header.component';
 import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
 import {GeneratorComponent} from './components/generator/generator.component';
 import {LoaderComponent} from './components/loader/loader.component';
+import { SidebarComponent } from './components/common/sidebar/sidebar.component';
 
 // Services
 import {ConfigService} from './services/config.service';
@@ -24,11 +24,11 @@ import {AceService} from './services/ace.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     ModelComponent,
     ChannelComponent,
     GeneratorComponent,
-    LoaderComponent
+    LoaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

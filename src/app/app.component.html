@@ -1,5 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="pb-5">
-  <app-header></app-header>
-  <router-outlet></router-outlet>
+<div class="clearfix">
+  <div class="float-left bg-dark text-white collapse show" id="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="float-left" id="content">
+    <div class="pb-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

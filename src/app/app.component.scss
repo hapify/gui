@@ -1,0 +1,10 @@
+
+$w-lg-sidebar: 250px;
+
+#sidebar {
+  width: $w-lg-sidebar;
+  min-height: 100vh;
+}
+#content {
+  width: calc(100% - #{$w-lg-sidebar});
+}
