@@ -4,6 +4,13 @@ $w-lg-sidebar: 250px;
 #sidebar {
   width: $w-lg-sidebar;
   min-height: 100vh;
+  > .inr {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: $w-lg-sidebar;
+  }
 }
 #content {
   width: calc(100% - #{$w-lg-sidebar});
