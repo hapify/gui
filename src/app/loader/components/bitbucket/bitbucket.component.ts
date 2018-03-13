@@ -5,6 +5,7 @@ import {BitbucketService, GroupedBitbucketRepositories} from '../../services/bit
 import {Subscription} from 'rxjs/Subscription';
 import {IBitbucketUser} from '../../interfaces/bitbucket-user';
 import {IBitbucketRepository} from '../../interfaces/bitbucket-repository';
+import {MasksService} from '../../services/masks.service';
 
 @Component({
   selector: 'app-bitbucket',
@@ -36,11 +37,13 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    * Constructor
    *
    * @param {BitbucketService} bitbucketService
+   * @param {MasksService} masksService
    * @param {Router} router
    * @param {Location} location
    * @param {ActivatedRoute} route
    */
   constructor(private bitbucketService: BitbucketService,
+              private masksService: MasksService,
               private router: Router,
               private location: Location,
               private route: ActivatedRoute) {
@@ -98,14 +101,19 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    * @param {IBitbucketRepository} repository
    */
   onLoadTemplateClick(repository: IBitbucketRepository) {
-
+    repository.pending = true;
+    this.bitbucketService.getRepositorySource(repository)
+      .then((files) => this.masksService.loadFromFiles(files))
+      .then(() => repository.pending = false);
   }
 
   /**
    * @param {IBitbucketRepository} repository
    */
   onLoadBootstrapClick(repository: IBitbucketRepository) {
-    this.bitbucketService.getRepositorySource(repository);
+    repository.pending = true;
+    this.bitbucketService.downloadRepositorySource(repository)
+      .then(() => repository.pending = false);
   }
 
   /**

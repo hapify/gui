@@ -304,9 +304,9 @@ export class GeneratorService {
     // Add references and dependencies on first level
     if (depth === 0) {
 
-      //==========================================
+      // ==========================================
       // REFERENCES
-      //==========================================
+      // ==========================================
       // Construct promises
       // Then explicit the reference. If no reference is found returns null (it will be filtered after)
       const promisesRef = fields.filter((f) => (f.type === FieldType.Entity) && f.reference)
@@ -335,9 +335,9 @@ export class GeneratorService {
       m.fields.r = references;
       m.fields.r.f = m.fields.r.filter;
 
-      //==========================================
+      // ==========================================
       // DEPENDENCIES
-      //==========================================
+      // ==========================================
       // Create method to reduce references to dependencies
       // A custom filter can be passed
       // If the second argument is false, keep the self dependency
@@ -372,9 +372,9 @@ export class GeneratorService {
       };
       m.d = m.dependencies;
 
-      //==========================================
+      // ==========================================
       // REFERENCED IN
-      //==========================================
+      // ==========================================
       // Parse all models and find where it as been referenced
       const models = await this.modelStorageService.list();
       // Filter referencing models

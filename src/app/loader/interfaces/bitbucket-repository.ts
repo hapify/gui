@@ -74,8 +74,11 @@ export interface IBitbucketRepository {
   slug: string;
   is_private: boolean;
   description: string;
+
+  // Custom properties
   branches?: IBitbucketBranch[];
   selected_branch?: IBitbucketBranch;
+  pending?: boolean;
 }
 
 export interface BitbucketRepositoriesResponse {

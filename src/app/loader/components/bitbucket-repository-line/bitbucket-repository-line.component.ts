@@ -9,16 +9,16 @@ import {IBitbucketRepository} from '../../interfaces/bitbucket-repository';
 export class BitbucketRepositoryLineComponent implements OnInit {
 
   /**
-   * Repositories objects
+   * Repository objects
    */
-  @Input() repositories: IBitbucketRepository[];
+  @Input() repository: IBitbucketRepository;
 
   /**
    * Triggered when the user click on download
    *
-   * @type {EventEmitter<IBitbucketRepository>}
+   * @type {EventEmitter<void>}
    */
-  @Output() onLoad: EventEmitter<IBitbucketRepository> = new EventEmitter<IBitbucketRepository>();
+  @Output() onLoad: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * Constructor
@@ -44,11 +44,9 @@ export class BitbucketRepositoryLineComponent implements OnInit {
 
   /**
    * Called when the user click on download
-   *
-   * @param {IBitbucketRepository} repository
    */
-  onLoadClick(repository: IBitbucketRepository) {
-    this.onLoad.emit(repository);
+  onLoadClick() {
+    this.onLoad.emit();
   }
 
 }

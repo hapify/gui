@@ -7,6 +7,9 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {BitbucketRepositoriesResponse, IBitbucketRepository} from '../interfaces/bitbucket-repository';
 import {BitbucketBranchesResponse} from '../interfaces/bitbucket-branch';
 
+import JSZip from 'jszip';
+import FileSaver from 'file-saver';
+
 export interface GroupedBitbucketRepositories {
   templates: IBitbucketRepository[];
   bootstraps: IBitbucketRepository[];
@@ -137,21 +140,61 @@ export class BitbucketService {
   }
 
   /**
-   * Returns the repositories observable
+   * Returns the repositories source
    *
-   * @returns {Observable<GroupedBitbucketRepositories>}
+   * @returns {Promise<any>}
    */
   getRepositorySource(repository: IBitbucketRepository): Promise<any> {
 
-    const path = `/tractrs/${repository.name}/get/${repository.selected_branch.target.hash}`;
-    const proxy = this.configService.getBitbucketProxyUrl();
-    const url = `${proxy}?token=${this._getToken()}&path=${path}`;
+    return this._getRepositoryBinary(repository)
+      .then(async (response) => {
+        // Read ZIP content
+        const jsZip = new JSZip();
+        const zip = await jsZip.loadAsync(response);
 
-    return this.http.get(url, {headers: this._getProxyRequestHeaders()})
-      .toPromise()
-      .then((response) => {
-        console.log(response);
+        const output = {};
+        const promises = Object.keys(zip.files).map(async (filename) => {
+          const parts = filename.split('/');
+          parts.shift();
+          const relativeFilename = parts.join('/');
+          output[relativeFilename] = await zip.files[filename].async('string');
+        });
+        await Promise.all(promises);
+
+        return output;
       });
+  }
+
+  /**
+   * Returns the repositories source
+   *
+   * @returns {Promise<void>}
+   */
+  downloadRepositorySource(repository: IBitbucketRepository): Promise<void> {
+
+    return this._getRepositoryBinary(repository)
+      .then(async (response) => {
+        const filename = `${repository.name}-${repository.selected_branch.name}.zip`;
+        FileSaver.saveAs(response, filename);
+      });
+  }
+
+  /**
+   * Returns the repositories binary
+   *
+   * @returns {Promise<blob>}
+   * @private
+   */
+  private _getRepositoryBinary(repository: IBitbucketRepository): Promise<any> {
+
+    const path = `/tractrs/${repository.name}/get/${repository.selected_branch.target.hash}`;
+    const url = `${this.configService.getBitbucketProxyUrl()}?path=${path}`;
+
+    return this.http.get(url, {
+      headers: this._getProxyRequestHeaders(),
+      responseType: 'blob'
+    })
+      .toPromise();
   }
 
   /**
@@ -262,6 +305,7 @@ export class BitbucketService {
    */
   private _getProxyRequestHeaders(headers: HttpHeaders = new HttpHeaders()): HttpHeaders {
     headers = headers.append('X-Hapify-Token', this.configService.getBitbucketProxyToken());
+    headers = headers.append('X-Bitbucket-Token', this._getToken());
     return headers;
   }
 }

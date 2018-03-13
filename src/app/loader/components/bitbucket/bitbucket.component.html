@@ -14,17 +14,23 @@
 
     <div class="col-lg-12" *ngIf="repositories.templates.length">
       <h3 class="my-4">{{ 'loader_bitbucket_repos_templates_title' | translate}}</h3>
-      <app-bitbucket-repository-line [repositories]="repositories.templates"></app-bitbucket-repository-line>
+      <div class="my-2" *ngFor="let repository of repositories.templates">
+        <app-bitbucket-repository-line [repository]="repository" (onLoad)="onLoadTemplateClick(repository)"></app-bitbucket-repository-line>
+      </div>
     </div>
 
     <div class="col-lg-12" *ngIf="repositories.bootstraps.length">
       <h3 class="my-4">{{ 'loader_bitbucket_repos_bootstraps_title' | translate}}</h3>
-      <app-bitbucket-repository-line [repositories]="repositories.bootstraps" (onLoad)="onLoadBootstrapClick($event)"></app-bitbucket-repository-line>
+      <div class="my-2" *ngFor="let repository of repositories.bootstraps">
+        <app-bitbucket-repository-line [repository]="repository" (onLoad)="onLoadBootstrapClick(repository)"></app-bitbucket-repository-line>
+      </div>
     </div>
 
     <div class="col-lg-12" *ngIf="repositories.models.length">
       <h3 class="my-4">{{ 'loader_bitbucket_repos_models_title' | translate}}</h3>
-      <app-bitbucket-repository-line [repositories]="repositories.models"></app-bitbucket-repository-line>
+      <div class="my-2" *ngFor="let repository of repositories.models">
+        <app-bitbucket-repository-line [repository]="repository" (onLoad)="onLoadModelClick(repository)"></app-bitbucket-repository-line>
+      </div>
     </div>
 
   </div>
