@@ -3,7 +3,7 @@
     <div class="card-header">
       <div class="row">
         <div class="col-10 col-lg-3 mt-3 mt-lg-0">
-          <div class="input-group-lg">
+          <div class="input-group pt-1">
             <select [(ngModel)]="channel" class="form-control">
               <option [ngValue]="undefined">{{ 'generator_select_channel' | translate }}</option>
               <option *ngFor="let channel of channels" [ngValue]="channel">{{channel.name}}</option>
@@ -11,7 +11,7 @@
           </div>
         </div>
         <div *ngIf="channel && channel.templates && models" class="col-2 col-lg-1 mt-3 mt-lg-0">
-          <div class="input-group-lg">
+          <div class="input-group">
             <div class="p-1">
               <button (click)="onDownload($event)" class="btn btn-outline-primary" title="{{ 'generator_download' | translate }}">
                 <span class="oi oi-data-transfer-download"></span>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div *ngIf="channel" class="col-lg-4 mt-3 mt-lg-0">
-          <div class="input-group-lg">
+          <div class="input-group pt-1">
             <select [(ngModel)]="template" class="form-control" (ngModelChange)="onChange($event)">
               <option [ngValue]="undefined">{{ 'generator_select_template' | translate }}</option>
               <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.name}}</option>
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div *ngIf="channel && template && template.needsModel()" class="col-lg-4 mt-3 mt-lg-0">
-        <div class="input-group-lg">
+        <div class="input-group pt-1">
           <select [(ngModel)]="model" class="form-control" (ngModelChange)="onChange($event)">
             <option [ngValue]="undefined">{{ 'generator_select_model' | translate }}</option>
             <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
@@ -42,8 +42,8 @@
         <div class="mt-3">
           <div class="row">
             <div class="col-lg-12">
-              <h4>{{ 'generator_title_error' | translate }}</h4>
-              <div class="rounded alert alert-danger small">
+              <h6>{{ 'generator_title_error' | translate }}</h6>
+              <div class="mt-3 rounded alert alert-danger small">
                 <pre class="m-0 p-2">{{ error }}</pre>
               </div>
             </div>
@@ -54,8 +54,8 @@
         <div class="mt-3">
           <div class="row">
             <div class="col-lg-12">
-              <h4>{{ 'generator_title_path' | translate }}</h4>
-              <div class="p-3 rounded bg-light">
+              <h6>{{ 'generator_title_path' | translate }}</h6>
+              <div class="mt-3 p-3 rounded code bg-light">
                 <pre class="m-0"><code>{{ result.path }}</code></pre>
               </div>
             </div>
@@ -64,7 +64,7 @@
         <div class="mt-3">
           <div class="row">
             <div class="col-lg-12">
-              <h4>{{ 'generator_title_content' | translate }}</h4>
+              <h6>{{ 'generator_title_content' | translate }}</h6>
               <div class="mt-3 p-3 rounded code bg-light"
                    ace-editor
                    [(text)]="result.content"
