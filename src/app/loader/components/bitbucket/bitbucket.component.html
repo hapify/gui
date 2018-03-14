@@ -1,46 +1,66 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-10 col-lg-3 mt-3 mt-lg-0">
-    </div>
-  </div>
 
   <div class="row" *ngIf="!user">
-    <div class="col-lg-12 text-center">
-      <button class="btn btn-primary" (click)="onConnectClick()">{{ 'loader_bitbucket_connect' | translate }}</button>
+    <div class="col-12 text-center">
+      <button class="btn btn-primary" (click)="onConnectClick()">
+        {{ 'loader_bitbucket_connect' | translate }}
+      </button>
     </div>
   </div>
 
   <div class="row" *ngIf="repositories">
-
-    <div class="col-lg-12" *ngIf="repositories.templates.length">
-      <h3 class="my-4">{{ 'loader_bitbucket_repos_templates_title' | translate}}</h3>
-      <div class="my-2" *ngFor="let repository of repositories.templates">
-        <app-bitbucket-repository-line [repository]="repository" (onLoad)="onLoadTemplateClick(repository)"></app-bitbucket-repository-line>
+    <div class="col-12">
+      <div *ngIf="repositories.templates.length">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{ 'loader_bitbucket_repos_templates_title' | translate}}</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let repository of repositories.templates" class="list-group-item">
+                <app-bitbucket-repository-line [repository]="repository"
+                                               (onLoad)="onLoadTemplateClick(repository)"></app-bitbucket-repository-line>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="repositories.bootstraps.length" class="mt-5">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{ 'loader_bitbucket_repos_bootstraps_title' | translate}}</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
+              <app-bitbucket-repository-line [repository]="repository"
+                                             (onLoad)="onLoadBootstrapClick(repository)"></app-bitbucket-repository-line>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="repositories.models.length" class="mt-5">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{ 'loader_bitbucket_repos_models_title' | translate}}</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
+              <app-bitbucket-repository-line [repository]="repository"
+                                             (onLoad)="onLoadModelClick(repository)"></app-bitbucket-repository-line>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <div class="col-lg-12" *ngIf="repositories.bootstraps.length">
-      <h3 class="my-4">{{ 'loader_bitbucket_repos_bootstraps_title' | translate}}</h3>
-      <div class="my-2" *ngFor="let repository of repositories.bootstraps">
-        <app-bitbucket-repository-line [repository]="repository" (onLoad)="onLoadBootstrapClick(repository)"></app-bitbucket-repository-line>
-      </div>
-    </div>
-
-    <div class="col-lg-12" *ngIf="repositories.models.length">
-      <h3 class="my-4">{{ 'loader_bitbucket_repos_models_title' | translate}}</h3>
-      <div class="my-2" *ngFor="let repository of repositories.models">
-        <app-bitbucket-repository-line [repository]="repository" (onLoad)="onLoadModelClick(repository)"></app-bitbucket-repository-line>
-      </div>
-    </div>
-
   </div>
 
   <div class="row" *ngIf="user">
-    <div class="col-lg-12 text-center mt-5">
+    <div class="col-12 text-center mt-5">
       <div class="my-2">
         {{ 'loader_bitbucket_connected_as' | translate }} <b>{{user.display_name}}</b>
       </div>
-      <button class="btn btn-outline-primary" (click)="onDisconnectClick()">{{ 'loader_bitbucket_disconnect' | translate }}</button>
+      <button class="btn btn-outline-primary" (click)="onDisconnectClick()">
+        {{ 'loader_bitbucket_disconnect' | translate }}
+      </button>
     </div>
   </div>
+
 </div>

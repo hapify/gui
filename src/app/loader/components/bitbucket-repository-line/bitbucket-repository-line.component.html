@@ -1,20 +1,18 @@
-<div class="border rounded p-3">
-  <div class="row">
-    <div class="col-12 col-lg-6">
-      <b>{{ repository.name }}</b>
-      <span class="badge badge-pill badge-secondary">{{ repository.updated_on | date:'medium' }}</span>
-    </div>
-    <div class="col-12 col-lg-6 text-lg-right">
-      <select [(ngModel)]="repository.selected_branch" [compareWith]="byName" class="form-control d-inline-block w-25">
-        <option *ngFor="let branch of repository.branches" [ngValue]="branch">{{branch.name}}</option>
-      </select>
-      <button
-              [disabled]="repository.pending"
-              (click)="onLoadClick(repository)"
-              class="btn btn-outline-primary ml-4"
-              title="{{ 'loader_bitbucket_load_repository' | translate }}">
-        <span class="oi oi-data-transfer-download"></span>
-      </button>
-    </div>
+<div class="row">
+  <div class="col-12 col-lg-6 pt-2">
+    <b>{{ repository.name }}</b>
+    <span class="badge badge-pill badge-secondary">{{ repository.updated_on | date:'medium' }}</span>
+  </div>
+  <div class="col-12 col-lg-6 text-lg-right">
+    <select [(ngModel)]="repository.selected_branch" [compareWith]="byName" class="form-control d-inline-block w-25">
+      <option *ngFor="let branch of repository.branches" [ngValue]="branch">{{branch.name}}</option>
+    </select>
+    <button
+            [disabled]="repository.pending"
+            (click)="onLoadClick(repository)"
+            class="btn btn-outline-primary ml-4"
+            title="{{ 'loader_bitbucket_load_repository' | translate }}">
+      <span class="oi oi-data-transfer-download"></span>
+    </button>
   </div>
 </div>
