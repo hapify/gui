@@ -19,6 +19,7 @@ import {ConfigService} from './services/config.service';
 import {StringService} from './services/string.service';
 import {DemoService} from './services/demo.service';
 import {AceService} from './services/ace.service';
+import { HeaderComponent } from './components/common/header/header.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {AceService} from './services/ace.service';
     ChannelComponent,
     GeneratorComponent,
     LoaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

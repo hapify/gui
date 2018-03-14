@@ -4,6 +4,7 @@ $w-lg-sidebar: 250px;
 #sidebar {
   width: $w-lg-sidebar;
   min-height: 100vh;
+  z-index: 20;
   > .inr {
     position: fixed;
     top: 0;
