@@ -1,6 +1,9 @@
-
 <div class="bg-primary" id="brand">
-  <a class="px-3 py-4 text-white nav-link" [routerLink]="['/']">{{ 'app_name' | translate }}</a>
+  <a class="px-3 py-4 text-white nav-link" [routerLink]="['/']">
+    <div class="text-center" id="logo">
+      <span class="oi oi-layers mr-2"></span><b class="text-uppercase">{{ 'app_name' | translate }}</b>
+    </div>
+  </a>
 </div>
 <div class="py-3 menu">
   <nav class="nav flex-column">
