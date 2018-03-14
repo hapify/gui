@@ -6,16 +6,19 @@
           <div class="clearfix">
             <div class="float-left py-2">{{ 'channels_subtitle' | translate }}</div>
             <div class="float-right">
-              <a [routerLink]="['/channel/new']" class="btn btn-outline-primary">{{ 'common_new_channel' | translate }}</a>
+              <a [routerLink]="['/channel/new']" class="btn btn-outline-primary">
+                {{ 'common_new_channel' | translate }}
+              </a>
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <div *ngIf="channels && channels.length">
-            <div *ngFor="let channel of channels;" class="my-3">
-              <app-channel-channel-row [channel]="channel" (onDelete)="deleteChannel(channel)"></app-channel-channel-row>
-            </div>
-          </div>
+        <div *ngIf="channels && channels.length">
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let channel of channels;" class="list-group-item">
+              <app-channel-channel-row [channel]="channel"
+                                       (onDelete)="deleteChannel(channel)"></app-channel-channel-row>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@
       <div *ngIf="repositories.templates.length">
         <div class="card">
           <div class="card-header">
-            <h4>{{ 'loader_bitbucket_repos_templates_title' | translate}}</h4>
+            <div class="py-2">{{ 'loader_bitbucket_repos_templates_title' | translate}}</div>
           </div>
           <ul class="list-group list-group-flush">
             <li *ngFor="let repository of repositories.templates" class="list-group-item">
@@ -26,7 +26,7 @@
       <div *ngIf="repositories.bootstraps.length" class="mt-5">
         <div class="card">
           <div class="card-header">
-            <h4>{{ 'loader_bitbucket_repos_bootstraps_title' | translate}}</h4>
+            <div class="py-2">{{ 'loader_bitbucket_repos_bootstraps_title' | translate}}</div>
           </div>
           <ul class="list-group list-group-flush">
             <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
@@ -39,7 +39,7 @@
       <div *ngIf="repositories.models.length" class="mt-5">
         <div class="card">
           <div class="card-header">
-            <h4>{{ 'loader_bitbucket_repos_models_title' | translate}}</h4>
+            <div class="py-2">{{ 'loader_bitbucket_repos_models_title' | translate}}</div>
           </div>
           <ul class="list-group list-group-flush">
             <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
