@@ -1,24 +1,22 @@
-<div class="border rounded p-3">
-  <div class="row">
-    <div class="col-lg-7">
-      <h4 class="my-0 py-1">{{ model.name }}</h4>
-    </div>
-    <div class="col-lg-5 text-lg-right">
-      <a class="btn btn-secondary" [routerLink]="['/model', 'edit', model.id]">
-        <span class="oi oi-pencil"></span>
-      </a>
-      <span class="delete">
-      <button *ngIf="!deleteSwitch" type="button" class="btn btn-outline-secondary"
-              (click)="deleteSwitch=!deleteSwitch">
-        <span class="oi oi-circle-x"></span>
-      </button>
-      <button *ngIf="deleteSwitch" type="button" class="btn btn-outline-danger" (click)="didClickDelete()">
-        {{ 'models_delete_confirm' | translate }}
-      </button>
-      <button *ngIf="deleteSwitch" type="button" class="btn btn-outline-secondary" (click)="deleteSwitch=false">
-        {{ 'models_delete_cancel' | translate }}
-      </button>
-    </span>
-    </div>
+<div class="row">
+  <div class="col-lg-7 pt-2">
+    <b>{{ model.name }}</b>
+  </div>
+  <div class="col-lg-5 text-lg-right">
+    <a class="btn btn-secondary" [routerLink]="['/model', 'edit', model.id]">
+      <span class="oi oi-pencil"></span>
+    </a>
+    <span class="delete">
+    <button *ngIf="!deleteSwitch" type="button" class="btn btn-outline-secondary"
+            (click)="deleteSwitch=!deleteSwitch">
+      <span class="oi oi-circle-x"></span>
+    </button>
+    <button *ngIf="deleteSwitch" type="button" class="btn btn-outline-danger" (click)="didClickDelete()">
+      {{ 'models_delete_confirm' | translate }}
+    </button>
+    <button *ngIf="deleteSwitch" type="button" class="btn btn-outline-secondary" (click)="deleteSwitch=false">
+      {{ 'models_delete_cancel' | translate }}
+    </button>
+  </span>
   </div>
 </div>

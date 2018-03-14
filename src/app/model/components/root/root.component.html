@@ -10,12 +10,12 @@
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <div *ngIf="models && models.length">
-            <div *ngFor="let model of models;" class="my-3">
+        <div *ngIf="models && models.length">
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let model of models;" class="list-group-item">
               <app-model-model-row [model]="model" (onDelete)="deleteModel(model)"></app-model-model-row>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
