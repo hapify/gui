@@ -4,9 +4,17 @@
 </div>
 <div class="py-3 menu">
   <nav class="nav flex-column">
-    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/model']">{{ 'nav_model' | translate }}</a>
-    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/channel']">{{ 'nav_channel' | translate }}</a>
-    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/generator']">{{ 'nav_generator' | translate }}</a>
-    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/loader']">{{ 'nav_loader' | translate }}</a>
+    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/model']">
+      <span class="oi oi-spreadsheet mr-2"></span>{{ 'nav_model' | translate }}
+    </a>
+    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/channel']">
+      <span class="oi oi-file mr-2"></span>{{ 'nav_channel' | translate }}
+    </a>
+    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/generator']">
+      <span class="oi oi-beaker mr-2"></span>{{ 'nav_generator' | translate }}
+    </a>
+    <a class="p-3 text-muted nav-link" [routerLinkActive]="['active']" [routerLink]="['/loader']">
+      <span class="oi oi-data-transfer-download mr-2"></span>{{ 'nav_loader' | translate }}
+    </a>
   </nav>
 </div>

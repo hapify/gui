@@ -33,7 +33,8 @@
     <div class="card-footer">
       <div class="row">
         <div class="col-sm-8 my-2">
-          <button type="button" class="btn btn-secondary" (click)="addField()">{{ 'models_add_field' | translate }}
+          <button type="button" class="btn btn-secondary" (click)="addField()">
+            <span class="oi oi-plus small"></span> {{ 'models_add_field' | translate }}
           </button>
           <button type="button" class="btn btn-outline-secondary" (click)="cleanFields()">
             {{ 'models_clean_fields' | translate }}

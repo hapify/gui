@@ -6,7 +6,9 @@
           <div class="clearfix">
             <div class="float-left py-2">{{ 'models_subtitle' | translate }}</div>
             <div class="float-right">
-              <a [routerLink]="['/model/new']" class="btn btn-outline-primary">{{ 'common_new_model' | translate }}</a>
+              <a [routerLink]="['/model/new']" class="btn btn-outline-primary">
+                <span class="oi oi-plus small"></span> {{ 'common_new_model' | translate }}
+              </a>
             </div>
           </div>
         </div>
