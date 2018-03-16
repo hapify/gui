@@ -57,8 +57,8 @@
       </div>
       <div class="col-md-3 mt-2 mt-md-0">
         <select formControlName="engine" class="form-control" [(ngModel)]="template.engine">
-          <option disabled value="">{{ 'template_engine' | translate }}</option>
-          <option *ngFor="let engine of engines" value="{{engine.value}}">{{engine.name}}</option>
+          <option disabled>{{ 'template_engine' | translate }}</option>
+          <option *ngFor="let engine of engines" [ngValue]="engine.value">{{engine.name}}</option>
         </select>
         <div
                 *ngIf="form.controls['engine'].invalid && (form.controls['engine'].dirty || form.controls['engine'].touched)"
@@ -73,8 +73,8 @@
       </div>
       <div class="col-md-3 mt-2 mt-md-0">
         <select formControlName="input" class="form-control" [(ngModel)]="template.input">
-          <option disabled value="">{{ 'template_input' | translate }}</option>
-          <option *ngFor="let input of inputs" value="{{input.value}}">{{input.name | translate}}</option>
+          <option disabled>{{ 'template_input' | translate }}</option>
+          <option *ngFor="let input of inputs" [ngValue]="input.value">{{input.name | translate}}</option>
         </select>
         <div
             *ngIf="form.controls['input'].invalid && (form.controls['input'].dirty || form.controls['input'].touched)"
