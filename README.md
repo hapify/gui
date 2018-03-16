@@ -63,7 +63,13 @@ The following objects will be available in the template.
 - `sortable` (boolean): Indicates if the field is flagged as `sortable`.
 - `isPrivate` (boolean): Indicates if the field is flagged as `private`.
 - `internal` (boolean): Indicates if the field is flagged as `internal`.
-- `type` (string): The type of the string. Can be `string`, `number`, `boolean`, `datetime` or `entity`.
+- `type` (string): The type of the field. Can be `string`, `number`, `boolean`, `datetime` or `entity`.
+- `subtype` (string): The subtype of the field. The available values depend on the `type`:
+    - `string`: Can be `null`, `email`, `password` or `text`.
+    - `number`: Can be `null`, `integer`, `float`, `latitude` or `longitude`.
+    - `boolean`: Is `null`.
+    - `datetime`: Can be `null`, `date` or `time`.
+    - `entity`: Is `null`.
 - `reference` (string): The id of the target model if the field is of type `entity`. `null` otherwise
 
 ### Model injection
