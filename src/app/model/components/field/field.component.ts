@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {StorageService} from '../../services/storage.service';
 import {IField} from '../../interfaces/field';
-import {FieldType} from '../../interfaces/field-type.enum';
+import {FieldType} from '../../interfaces/field-type';
 import {IModel} from '../../interfaces/model';
 
 @Component({
@@ -48,22 +48,13 @@ export class FieldComponent implements OnInit {
     maxLength: this.maxLength,
   };
   /**
-   * Availables types
-   */
-  types: [{
-    value: string;
-    name: string;
-  }] = [
-    {name: 'String', value: FieldType.String},
-    {name: 'Number', value: FieldType.Number},
-    {name: 'Boolean', value: FieldType.Boolean},
-    {name: 'DateTime', value: FieldType.DateTime},
-    {name: 'Entity', value: FieldType.Entity}
-  ];
-  /**
    * Link to FieldType class
    */
   fieldType = FieldType;
+  /**
+   * Availables types
+   */
+  types = this.fieldType.list();
   /**
    * Available models
    */

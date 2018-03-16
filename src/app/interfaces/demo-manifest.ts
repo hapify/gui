@@ -16,6 +16,7 @@ export interface DemoChannel {
 export interface DemoField {
   name: string;
   type: string;
+  subtype: string;
   reference: string;
   primary: boolean;
   unique: boolean;

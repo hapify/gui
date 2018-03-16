@@ -13,6 +13,12 @@ export interface IFieldBase {
    */
   type: string;
   /**
+   * The field's subtype
+   *
+   * @type {string}
+   */
+  subtype: string|null;
+  /**
    * The field's reference if the type is entity
    * Is the GUID string of the targeted model
    *
@@ -95,4 +101,9 @@ export interface IField extends IFieldBase {
    * @returns {boolean}
    */
   isEmpty(): boolean;
+  /**
+   * Get the available subtypes corresponding to the type
+   *
+   * @returns {
+   */
 }

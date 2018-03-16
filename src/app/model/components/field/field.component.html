@@ -23,7 +23,10 @@
     </div>
     <div class="col-lg-4 my-1 my-lg-0">
       <div class="row">
-        <div [ngClass]="{'col-lg-6': field.type === 'entity', 'col-lg-12': field.type !== 'entity'}">
+        <div [ngClass]="{
+            'col-lg-6': field.type === fieldType.Entity,
+            'col-lg-12': field.type !== fieldType.Entity
+        }">
           <select formControlName="type" class="form-control" [(ngModel)]="field.type">
             <option disabled value="">{{ 'field_type' | translate }}</option>
             <option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option>

@@ -19,6 +19,10 @@ export class Field implements IField {
   /**
    * @inheritDoc
    */
+  public subtype = null;
+  /**
+   * @inheritDoc
+   */
   public reference = null;
   /**
    * @inheritDoc
@@ -63,6 +67,7 @@ export class Field implements IField {
   public fromObject(object: IFieldBase): void {
     this.name = object.name;
     this.type = object.type;
+    this.subtype = object.subtype;
     this.reference = object.reference;
     this.primary = object.primary;
     this.unique = object.unique;
@@ -82,6 +87,7 @@ export class Field implements IField {
     return {
       name: this.name,
       type: this.type,
+      subtype: this.subtype,
       reference: this.reference,
       primary: this.primary,
       unique: this.unique,
