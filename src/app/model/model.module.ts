@@ -14,6 +14,7 @@ import {EditComponent} from './components/edit/edit.component';
 
 // Services
 import {StorageService} from './services/storage.service';
+import {ModelsService} from '../loader/services/models.service';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {StorageService} from './services/storage.service';
     ModelRowComponent
   ],
   providers: [
-    StorageService
+    StorageService,
+    ModelsService
   ],
 })
 export class ModelModule {

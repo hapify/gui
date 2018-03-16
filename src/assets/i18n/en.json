@@ -16,6 +16,7 @@
   "models_clean_fields": "Cleanup",
   "models_delete_confirm": "Really?",
   "models_delete_cancel": "Nope",
+  "models_download": "Download models",
   "channels_title": "Channels",
   "channels_subtitle": "Available channels: {{count}}",
   "channels_not_found": "Unable to find this channel.",

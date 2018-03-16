@@ -16,6 +16,7 @@
   "models_clean_fields": "Nettoyer",
   "models_delete_confirm": "Vraiment ?",
   "models_delete_cancel": "Non",
+  "models_download": "Télécharger les modèles",
   "channels_title": "Terminaisons",
   "channels_subtitle": "Terminaisons existantes: {{count}}",
   "channels_not_found": "Le masque n'existe pas.",

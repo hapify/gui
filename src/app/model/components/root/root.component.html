@@ -1,7 +1,7 @@
 <div id="root-model">
   <div class="container-fluid">
     <div class="models-list">
-      <div class="card">
+      <div class="card" *ngIf="models && models.length">
         <div class="card-header">
           <div class="clearfix">
             <div class="float-left py-2">{{ 'models_subtitle' | translate:{count: models.length} }}</div>
@@ -12,13 +12,16 @@
             </div>
           </div>
         </div>
-        <div *ngIf="models && models.length">
-          <ul class="list-group list-group-flush">
-            <li *ngFor="let model of models;" class="list-group-item">
-              <app-model-model-row [model]="model" (onDelete)="deleteModel(model)"></app-model-model-row>
-            </li>
-          </ul>
-        </div>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let model of models;" class="list-group-item">
+            <app-model-model-row [model]="model" (onDelete)="deleteModel(model)"></app-model-model-row>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="models && models.length" class="text-center mt-5">
+        <button class="btn btn-outline-secondary" (click)="onDownload()">
+          <span class="oi oi-data-transfer-download"></span> {{ 'models_download' | translate }}
+        </button>
       </div>
     </div>
   </div>
