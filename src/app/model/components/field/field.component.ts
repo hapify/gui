@@ -102,6 +102,9 @@ export class FieldComponent implements OnInit {
       nullable: new FormControl(this.field.nullable, [
         Validators.required
       ]),
+      multiple: new FormControl(this.field.multiple, [
+        Validators.required
+      ]),
       searchable: new FormControl(this.field.searchable, [
         Validators.required
       ]),

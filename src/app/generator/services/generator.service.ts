@@ -259,6 +259,9 @@ export class GeneratorService {
     // Get nullable fields
     const nullable = fields.filter((f) => f.nullable);
 
+    // Get multiple fields
+    const multiple = fields.filter((f) => f.multiple);
+
     // Get searchable fields
     const searchable = fields.filter((f) => f.searchable);
 
@@ -291,6 +294,8 @@ export class GeneratorService {
       lb: label,
       nullable,
       n: nullable,
+      multiple,
+      m: multiple,
       searchable,
       se: searchable,
       sortable,

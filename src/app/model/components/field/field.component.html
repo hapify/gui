@@ -79,6 +79,11 @@
           <input formControlName="nullable" type="checkbox" autocomplete="off" [(ngModel)]="field.nullable">
           <span class="oi oi-ban"></span>
         </label>
+        <label class="btn" title="{{ 'tooltip_multiple' | translate }}"
+               [ngClass]="{ 'btn-primary': field.multiple, 'btn-outline-secondary': !field.multiple }">
+          <input formControlName="multiple" type="checkbox" autocomplete="off" [(ngModel)]="field.multiple">
+          <span class="oi oi-list"></span>
+        </label>
         <label class="btn" title="{{ 'tooltip_searchable' | translate }}"
                [ngClass]="{ 'btn-primary': field.searchable, 'btn-outline-secondary': !field.searchable }">
           <input formControlName="searchable" type="checkbox" autocomplete="off" [(ngModel)]="field.searchable">

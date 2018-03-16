@@ -20,6 +20,7 @@ export interface DemoField {
   primary: boolean;
   unique: boolean;
   nullable: boolean;
+  multiple: boolean;
   label: boolean;
   searchable: boolean;
   sortable: boolean;

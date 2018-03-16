@@ -25,6 +25,7 @@ The following objects will be available in the template.
     - `unique` - alias `u` (array): An array containing all fields flagged as `unique`.
     - `label` - alias `lb` (array): An array containing all fields flagged as `label`.
     - `nullable` - alias `n` (array): An array containing all fields flagged as `nullable`.
+    - `multiple` - alias `m` (array): An array containing all fields flagged as `multiple`.
     - `searchable` - alias `se` (array): An array containing all fields flagged as `searchable`.
     - `sortable` - alias `so` (array): An array containing all fields flagged as `sortable`.
     - `isPrivate` - alias `ip` (array): An array containing all fields flagged as `private`.
@@ -57,6 +58,7 @@ The following objects will be available in the template.
 - `unique` (boolean): Indicates if the field is flagged as `unique`.
 - `label` (boolean): Indicates if the field is flagged as `label`.
 - `nullable` (boolean): Indicates if the field is flagged as `nullable`.
+- `multiple` (boolean): Indicates if the field is flagged as `multiple`.
 - `searchable` (boolean): Indicates if the field is flagged as `searchable`.
 - `sortable` (boolean): Indicates if the field is flagged as `sortable`.
 - `isPrivate` (boolean): Indicates if the field is flagged as `private`.

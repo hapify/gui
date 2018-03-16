@@ -74,6 +74,7 @@
   "tooltip_unique": "Est une clé unique ?",
   "tooltip_label": "Est un label ?",
   "tooltip_nullable": "Peut-il être vide ?",
+  "tooltip_multiple": "Est-une liste de valeurs",
   "tooltip_searchable": "Est recherchable ?",
   "tooltip_sortable": "Est triable ?",
   "tooltip_private": "Est privé ?",

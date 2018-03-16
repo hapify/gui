@@ -44,6 +44,12 @@ export interface IFieldBase {
    */
   nullable: boolean;
   /**
+   * Denotes if the field is an array of values
+   *
+   * @type {boolean}
+   */
+  multiple: boolean;
+  /**
    * Indicate whether the field is searchable or not
    *
    * @type {boolean}
