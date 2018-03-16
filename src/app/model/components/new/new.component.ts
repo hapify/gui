@@ -36,8 +36,8 @@ export class NewComponent implements OnInit {
     this.model = new Model();
     // Default field
     const field = this.model.newField();
-    field.name = 'id';
-    field.type = FieldType.Number;
+    field.name = '_id';
+    field.type = FieldType.String;
     field.primary = true;
     field.internal = true;
     this.model.addField(field);

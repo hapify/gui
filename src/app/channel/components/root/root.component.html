@@ -1,19 +1,26 @@
 <div id="root-channel">
-  <div class="container">
+  <div class="container-fluid">
     <div class="channels-list">
-
-      <div *ngIf="channels && channels.length" class="mb-5">
-        <div *ngFor="let channel of channels;" class="my-3">
-          <app-channel-channel-row [channel]="channel" (onDelete)="deleteChannel(channel)"></app-channel-channel-row>
+      <div class="card">
+        <div class="card-header">
+          <div class="clearfix">
+            <div class="float-left py-2">{{ 'channels_subtitle' | translate:{count: channels.length} }}</div>
+            <div class="float-right">
+              <a [routerLink]="['/channel/new']" class="btn btn-outline-primary">
+                <span class="oi oi-plus small"></span> {{ 'common_new_channel' | translate }}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="channels && channels.length">
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let channel of channels;" class="list-group-item">
+              <app-channel-channel-row [channel]="channel"
+                                       (onDelete)="deleteChannel(channel)"></app-channel-channel-row>
+            </li>
+          </ul>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <a [routerLink]="['/channel/new']" class="btn btn-primary">{{ 'common_new_channel' | translate }}</a>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>

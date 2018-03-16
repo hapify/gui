@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {IModel} from '../../interfaces/model';
+import {ModelsService} from '../../../loader/services/models.service';
 
 @Component({
   selector: 'app-model-root',
@@ -11,8 +12,12 @@ export class RootComponent implements OnInit {
 
   /**
    * Constructor
+   *
+   * @param {StorageService} storageService
+   * @param {ModelsService} modelsService
    */
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService,
+              private modelsService: ModelsService) {
   }
 
   /**
@@ -48,6 +53,13 @@ export class RootComponent implements OnInit {
       .then((models) => {
         this.models = models.reverse();
       });
+  }
+
+  /**
+   * Call zhen user click on download
+   */
+  onDownload() {
+    this.modelsService.dowloadAsJson();
   }
 
 }
