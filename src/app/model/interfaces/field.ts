@@ -1,3 +1,4 @@
+import {ILabelledValue} from './labelled-value';
 
 export interface IFieldBase {
   /**
@@ -104,6 +105,7 @@ export interface IField extends IFieldBase {
   /**
    * Get the available subtypes corresponding to the type
    *
-   * @returns {
+   * @returns {ILabelledValue[]}
    */
+  getAvailableSubTypes(): ILabelledValue[];
 }

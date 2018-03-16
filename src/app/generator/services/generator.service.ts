@@ -6,7 +6,7 @@ import {ITemplate, TemplateEngine} from '../../channel/channel.module';
 import {IGeneratorResult} from '../interfaces/generator-result';
 import {StringService} from '../../services/string.service';
 import {SentenceFormat} from '../../interfaces/sentence-format.enum';
-import {FieldType} from '../../model/interfaces/field-type.enum';
+import {FieldType} from '../../model/classes/field-type';
 import {StorageService as ModelStorageService} from '../../model/services/storage.service';
 import {IChannel} from '../../channel/interfaces/channel';
 

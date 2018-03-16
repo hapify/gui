@@ -1,3 +1,5 @@
+import {ILabelledValue} from '../interfaces/labelled-value';
+
 export class FieldType {
   static Boolean = 'boolean';
   static Number = 'number';
@@ -6,11 +8,11 @@ export class FieldType {
   static Entity = 'entity';
 
   /**
-   * Get the list of available types zith names
+   * Get the list of available types with names
    *
-   * @returns {{ name: string; value: string }[]}
+   * @returns {ILabelledValue[]}
    */
-  static list() {
+  static list(): ILabelledValue[] {
     return [
       {name: 'String', value: FieldType.String},
       {name: 'Number', value: FieldType.Number},

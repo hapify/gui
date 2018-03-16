@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Model} from '../../classes/model';
-import {FieldType} from '../../interfaces/field-type.enum';
 import {StorageService} from '../../services/storage.service';
 
 @Component({
@@ -37,7 +36,6 @@ export class NewComponent implements OnInit {
     // Default field
     const field = this.model.newField();
     field.name = '_id';
-    field.type = FieldType.String;
     field.primary = true;
     field.internal = true;
     this.model.addField(field);

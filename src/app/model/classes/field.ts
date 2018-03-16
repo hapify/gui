@@ -1,5 +1,7 @@
 import {IField, IFieldBase} from '../interfaces/field';
-import {FieldType} from '../interfaces/field-type.enum';
+import {ILabelledValue} from '../interfaces/labelled-value';
+import {FieldType} from './field-type';
+import {FieldSubType} from './field-subtype';
 
 export class Field implements IField {
   /**
@@ -19,7 +21,7 @@ export class Field implements IField {
   /**
    * @inheritDoc
    */
-  public subtype = null;
+  public subtype = FieldSubType.String.Default;
   /**
    * @inheritDoc
    */
@@ -108,5 +110,29 @@ export class Field implements IField {
     return typeof this.name !== 'string'
       || this.name === null
       || this.name.length === 0;
+  }
+
+  /**
+   * Get the available sub types for the current type
+   *
+   * @return {ILabelledValue[]}
+   */
+  public getAvailableSubTypes(): ILabelledValue[] {
+    if (this.type === FieldType.String) {
+      return FieldSubType.string();
+    }
+    if (this.type === FieldType.Number) {
+      return FieldSubType.number();
+    }
+    if (this.type === FieldType.Boolean) {
+      return FieldSubType.boolean();
+    }
+    if (this.type === FieldType.DateTime) {
+      return FieldSubType.datetime();
+    }
+    if (this.type === FieldType.Entity) {
+      return FieldSubType.entity();
+    }
+    return [];
   }
 }

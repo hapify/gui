@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {StorageService} from '../../services/storage.service';
 import {IField} from '../../interfaces/field';
-import {FieldType} from '../../interfaces/field-type';
+import {FieldType} from '../../classes/field-type';
 import {IModel} from '../../interfaces/model';
 
 @Component({
@@ -78,6 +78,7 @@ export class FieldComponent implements OnInit {
       type: new FormControl(this.field.type, [
         Validators.required
       ]),
+      subtype: new FormControl(this.field.subtype, []),
       reference: new FormControl(this.field.reference, [
         Validators.required
       ]),
