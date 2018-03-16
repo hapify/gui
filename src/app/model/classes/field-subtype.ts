@@ -15,7 +15,7 @@ export class FieldSubType {
     Default: null,
     Email: 'email',
     Password: 'password',
-    LongText: 'long'
+    Text: 'text'
   };
   static DateTime = {
     Default: null,
@@ -62,7 +62,7 @@ export class FieldSubType {
       {name: '-', value: FieldSubType.String.Default},
       {name: 'Email', value: FieldSubType.String.Email},
       {name: 'Password', value: FieldSubType.String.Password},
-      {name: 'Long Text', value: FieldSubType.String.LongText}
+      {name: 'Text', value: FieldSubType.String.Text}
     ];
   }
 
