@@ -12,11 +12,12 @@ import {TemplateComponent} from './components/template/template.component';
 import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
 import {EditComponent} from './components/edit/edit.component';
+import { EditorComponent } from './components/editor/editor.component';
 
 
 // Services
 import {StorageService} from './services/storage.service';
-import { EditorComponent } from './components/editor/editor.component';
+import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
@@ -43,7 +44,8 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     ContentEditableModelDirective
   ],
   providers: [
-    StorageService
+    StorageService,
+    MasksDownloaderService
   ],
 })
 export class ChannelModule {

@@ -4,7 +4,7 @@ import {StorageService} from '../../model/services/storage.service';
 import FileSaver from 'file-saver';
 
 @Injectable()
-export class ModelsService {
+export class ModelsDownloaderService {
 
   /**
    * Constructor

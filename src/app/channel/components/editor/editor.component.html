@@ -52,7 +52,7 @@
       <div class="mt-3 p-3 rounded code grow bg-light input-editor"
            ace-editor
            [(text)]="wip.content"
-           [mode]="aceService.mode(wip.extension(), false)"
+           [mode]="aceService.mode(wip.aceMode(), false)"
            [theme]="aceService.theme()"
            [options]="{}"
            [readOnly]="false"

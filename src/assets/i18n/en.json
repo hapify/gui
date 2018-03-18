@@ -26,6 +26,7 @@
   "channels_delete_cancel": "Nope",
   "channels_tooltip_autogenerate": "Auto-refresh",
   "channels_tooltip_dump": "Dump inputs in console",
+  "channels_download": "Download channel",
   "generator_title": "Generator",
   "generator_select_model": "Model",
   "generator_select_channel": "Channel",

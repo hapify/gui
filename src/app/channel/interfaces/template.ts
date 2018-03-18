@@ -59,6 +59,12 @@ export interface ITemplate extends ITemplateBase {
    */
   extension(): string;
   /**
+   * Get the Ace Editor's mode of the input file
+   *
+   * @returns {string}
+   */
+  aceMode(): string;
+  /**
    * Denotes if the template should be considered as empty
    *
    * @returns {boolean}

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {IModel} from '../../interfaces/model';
-import {ModelsService} from '../../../loader/services/models.service';
+import {ModelsDownloaderService} from '../../../loader/services/models-downloader.service';
 
 @Component({
   selector: 'app-model-root',
@@ -14,10 +14,10 @@ export class RootComponent implements OnInit {
    * Constructor
    *
    * @param {StorageService} storageService
-   * @param {ModelsService} modelsService
+   * @param {ModelsDownloaderService} modelsDownloaderService
    */
   constructor(private storageService: StorageService,
-              private modelsService: ModelsService) {
+              private modelsDownloaderService: ModelsDownloaderService) {
   }
 
   /**
@@ -59,7 +59,7 @@ export class RootComponent implements OnInit {
    * Call zhen user click on download
    */
   onDownload() {
-    this.modelsService.dowloadAsJson();
+    this.modelsDownloaderService.dowloadAsJson();
   }
 
 }

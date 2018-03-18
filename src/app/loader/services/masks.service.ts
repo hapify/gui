@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {StorageService as ChannelStorageService, Channel, ITemplateBase} from '../../channel/channel.module';
 import {IChannelManifest, IMasksManifest, ITemplateManifest} from '../interfaces/masks-manifest';
 
@@ -13,9 +13,10 @@ export class MasksService {
   /**
    * Constructor
    *
-   * @param {ChannelStorageService} channelStorageService
+   * @param {StorageService} channelStorageService
    */
-  constructor(private channelStorageService: ChannelStorageService) { }
+  constructor(private channelStorageService: ChannelStorageService) {
+  }
 
   /**
    * Load from parsed zip file

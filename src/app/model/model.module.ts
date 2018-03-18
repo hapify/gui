@@ -14,7 +14,7 @@ import {EditComponent} from './components/edit/edit.component';
 
 // Services
 import {StorageService} from './services/storage.service';
-import {ModelsService} from '../loader/services/models.service';
+import {ModelsDownloaderService} from '../loader/services/models-downloader.service';
 
 @NgModule({
   imports: [
@@ -36,7 +36,7 @@ import {ModelsService} from '../loader/services/models.service';
   ],
   providers: [
     StorageService,
-    ModelsService
+    ModelsDownloaderService
   ],
 })
 export class ModelModule {

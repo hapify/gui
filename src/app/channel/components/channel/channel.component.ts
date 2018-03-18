@@ -1,7 +1,9 @@
 import {Component, OnInit, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 import {IChannel} from '../../interfaces/channel';
+import {MasksDownloaderService} from '../../../loader/services/masks-downloader.service';
 
 @Component({
   selector: 'app-channel-channel',
@@ -12,8 +14,12 @@ export class ChannelComponent implements OnInit {
 
   /**
    * Constructor
+   * 
+   * @param {FormBuilder} formBuilder
+   * @param {MasksDownloaderService} masksDownloaderService
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private masksDownloaderService: MasksDownloaderService) {
   }
 
   /**
@@ -86,5 +92,12 @@ export class ChannelComponent implements OnInit {
    */
   cleanTemplates() {
     this.channel.filter();
+  }
+
+  /**
+   * Call zhen user click on download
+   */
+  onDownload() {
+    this.masksDownloaderService.downloadAsZip(this.channel);
   }
 }
