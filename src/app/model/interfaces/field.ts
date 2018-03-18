@@ -18,7 +18,7 @@ export interface IFieldBase {
    *
    * @type {string}
    */
-  subtype: string|null;
+  subtype: string | null;
   /**
    * The field's reference if the type is entity
    * Is the GUID string of the targeted model
@@ -89,6 +89,7 @@ export interface IField extends IFieldBase {
    * @returns {IFieldBase}
    */
   toObject(): IFieldBase;
+
   /**
    * Bind properties from the base object to this object
    *
@@ -96,12 +97,14 @@ export interface IField extends IFieldBase {
    * @returns {void}
    */
   fromObject(object: IFieldBase): void;
+
   /**
    * Denotes if the field should be considered as empty
    *
    * @returns {boolean}
    */
   isEmpty(): boolean;
+
   /**
    * Get the available subtypes corresponding to the type
    *

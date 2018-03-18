@@ -39,7 +39,7 @@ export class GeneratorService {
    * @throws {Error}
    *  If the template needs a model and no model is passed
    */
-  run(template: ITemplate, model: IModel|null): Promise<IGeneratorResult> {
+  run(template: ITemplate, model: IModel | null): Promise<IGeneratorResult> {
     if (template.needsModel()) {
       if (!model) {
         throw new Error('Model should be defined for this template');
@@ -59,7 +59,7 @@ export class GeneratorService {
    * @throws {Error}
    *  If the template needs a model and no model is passed
    */
-  path(template: ITemplate, model: IModel|null): string {
+  path(template: ITemplate, model: IModel | null): string {
     if (template.needsModel()) {
       if (!model) {
         throw new Error('Model should be defined for this template');
@@ -76,7 +76,7 @@ export class GeneratorService {
    * @param {IModel|null} model
    * @returns {Promise<any|any[]>}
    */
-  inputs(model: IModel|null = null): Promise<any|any[]> {
+  inputs(model: IModel | null = null): Promise<any | any[]> {
     if (model) {
       return this._explicitModel(model);
     } else {
@@ -184,7 +184,7 @@ export class GeneratorService {
       zip.file(content.path, content.content);
     });
     // Generate ZIP
-    const blob = await zip.generateAsync({ type: 'blob' });
+    const blob = await zip.generateAsync({type: 'blob'});
     // Force download
     const fileName = this.stringService.format(channel.name, SentenceFormat.SlugHyphen);
     FileSaver.saveAs(blob, `${fileName}.zip`);
@@ -349,7 +349,7 @@ export class GeneratorService {
       const dependencies = (customFilter = f => f, removeSelf: boolean = true) => {
         const duplicates = {};
         return references
-          // Apply custom filter
+        // Apply custom filter
           .filter(customFilter)
           // Remove self
           .filter((ref: any) => removeSelf ? ref.model.id !== model.id : true)
@@ -415,6 +415,6 @@ export class GeneratorService {
    */
   private async _explicitAllModels(): Promise<any[]> {
     return await Promise.all((await this.modelStorageService.list())
-      .map( (mod: IModel) => this._explicitModel(mod)));
+      .map((mod: IModel) => this._explicitModel(mod)));
   }
 }

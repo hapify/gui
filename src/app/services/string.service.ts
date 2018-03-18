@@ -380,7 +380,7 @@ export class StringService {
     // If no ., returns null
     if (parts.length < 2) return null;
     // Returns last part
-    return parts[parts.length-1].toLowerCase();
+    return parts[parts.length - 1].toLowerCase();
   }
 
 }

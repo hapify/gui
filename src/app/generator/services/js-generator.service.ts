@@ -8,7 +8,8 @@ export class JavaScriptGeneratorService implements IGenerator {
   /**
    * Constructor
    */
-  constructor() {}
+  constructor() {
+  }
 
   /**
    * @inheritDoc
@@ -24,7 +25,7 @@ export class JavaScriptGeneratorService implements IGenerator {
    * @inheritDoc
    */
   async all(models: any[], template: ITemplate): Promise<string> {
-    
+
     // Create template function
     const m = models;
     return eval(template.content);

@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * On init

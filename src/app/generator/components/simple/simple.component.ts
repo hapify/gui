@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {StorageService as ChannelStorageService, IChannel, ITemplate} from '../../../channel/channel.module';
 import {GeneratorService} from '../../services/generator.service';

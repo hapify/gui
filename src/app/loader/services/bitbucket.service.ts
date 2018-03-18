@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {IBitbucketUser} from '../interfaces/bitbucket-user';
@@ -47,8 +47,8 @@ export class BitbucketService {
    * @private
    */
   private _user: IBitbucketUser = null;
-  private _userSubject = new BehaviorSubject<IBitbucketUser|null>(null);
-  private _userObservable: Observable<IBitbucketUser|null> = this._userSubject.asObservable();
+  private _userSubject = new BehaviorSubject<IBitbucketUser | null>(null);
+  private _userObservable: Observable<IBitbucketUser | null> = this._userSubject.asObservable();
 
   /**
    * Loaded repositories from Bitbucket
@@ -56,8 +56,8 @@ export class BitbucketService {
    * @private
    */
   private _repositories: GroupedBitbucketRepositories = null;
-  private _repositoriesSubject = new BehaviorSubject<GroupedBitbucketRepositories|null>(null);
-  private _repositoriesObservable: Observable<GroupedBitbucketRepositories|null> = this._repositoriesSubject.asObservable();
+  private _repositoriesSubject = new BehaviorSubject<GroupedBitbucketRepositories | null>(null);
+  private _repositoriesObservable: Observable<GroupedBitbucketRepositories | null> = this._repositoriesSubject.asObservable();
 
   /**
    * Constructor

@@ -20,7 +20,7 @@ export class DotGeneratorService implements IGenerator {
 
     // Create template function
     const templateFunction = doT.template(template.content);
-    const content = templateFunction({ model, m: model, o: '{{', c: '}}' });
+    const content = templateFunction({model, m: model, o: '{{', c: '}}'});
     return await this._postProcess(content);
   }
 
@@ -28,10 +28,10 @@ export class DotGeneratorService implements IGenerator {
    * @inheritDoc
    */
   async all(models: any[], template: ITemplate): Promise<string> {
-    
+
     // Create template function
     const templateFunction = doT.template(template.content);
-    const content = templateFunction({ models, m: models, o: '{{', c: '}}' });
+    const content = templateFunction({models, m: models, o: '{{', c: '}}'});
     return await this._postProcess(content);
   }
 

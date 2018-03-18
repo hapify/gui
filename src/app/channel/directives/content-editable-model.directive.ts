@@ -73,5 +73,5 @@ export class ContentEditableModelDirective implements OnInit {
   private _getValue() {
     return this.elRef.nativeElement.innerText;
   }
-  
+
 }

@@ -23,18 +23,21 @@ export interface IModel extends IModelBase, IStorable {
    * @type {IField[]}
    */
   fields: IField[];
+
   /**
    * Denotes if the field should be considered as empty
    *
    * @returns {boolean}
    */
   isEmpty(): boolean;
+
   /**
    * Returns a new field instance
    *
    * @returns {IField}
    */
   newField(): IField;
+
   /**
    * Push a new field
    *
@@ -42,12 +45,14 @@ export interface IModel extends IModelBase, IStorable {
    * @returns {void}
    */
   addField(field: IField): void;
+
   /**
    * Remove empty fields
    *
    * @returns {void}
    */
   filter(): void;
+
   /**
    * Convert the instance to an object
    *

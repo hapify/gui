@@ -1,4 +1,3 @@
-
 $w-lg-sidebar: 250px;
 
 #sidebar {
@@ -13,6 +12,7 @@ $w-lg-sidebar: 250px;
     width: $w-lg-sidebar;
   }
 }
+
 #content {
   width: calc(100% - #{$w-lg-sidebar});
 }

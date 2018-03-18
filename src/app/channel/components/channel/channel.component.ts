@@ -14,7 +14,7 @@ export class ChannelComponent implements OnInit {
 
   /**
    * Constructor
-   * 
+   *
    * @param {FormBuilder} formBuilder
    * @param {MasksDownloaderService} masksDownloaderService
    */

@@ -12,14 +12,14 @@ import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
 import {GeneratorComponent} from './components/generator/generator.component';
 import {LoaderComponent} from './components/loader/loader.component';
-import { SidebarComponent } from './components/common/sidebar/sidebar.component';
+import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 
 // Services
 import {ConfigService} from './services/config.service';
 import {StringService} from './services/string.service';
 import {DemoService} from './services/demo.service';
 import {AceService} from './services/ace.service';
-import { HeaderComponent } from './components/common/header/header.component';
+import {HeaderComponent} from './components/common/header/header.component';
 
 
 @NgModule({

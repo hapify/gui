@@ -43,5 +43,6 @@ import {JavaScriptGeneratorService} from './services/js-generator.service';
 })
 export class GeneratorModule {
 }
+
 export {GENERATOR_ROUTES} from './generator.routing';
 export {GeneratorService} from './services/generator.service';

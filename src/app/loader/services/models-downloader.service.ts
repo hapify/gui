@@ -11,7 +11,8 @@ export class ModelsDownloaderService {
    *
    * @param {StorageService} storageService
    */
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService) {
+  }
 
   /**
    * Download all models as JSON

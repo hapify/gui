@@ -1,5 +1,5 @@
-
 import {IBitbucketBranch} from './bitbucket-branch';
+
 export interface Link {
   href: string;
 }

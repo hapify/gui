@@ -41,6 +41,7 @@ import {ModelsDownloaderService} from '../loader/services/models-downloader.serv
 })
 export class ModelModule {
 }
+
 export {MODEL_ROUTES} from './model.routing';
 export {Model} from './classes/model';
 export {Field} from './classes/field';

@@ -53,7 +53,7 @@ export class MasksDownloaderService {
     // Add JSON to ZIP
     zip.file(this.manifestPath, JSON.stringify(masksManifest, null, 4));
 
-    const blob = await zip.generateAsync({ type: 'blob' });
+    const blob = await zip.generateAsync({type: 'blob'});
     const filename = `${channel.name}.zip`;
     FileSaver.saveAs(blob, filename);
   }
@@ -78,7 +78,7 @@ export class MasksDownloaderService {
     path = path.replace(/{model\.oneWord}/g, this.stringService.format(folderName, SentenceFormat.SlugOneWord));
     path = path.replace(/{model\.upperCamel}/g, this.stringService.format(folderName, SentenceFormat.UpperCamelCase));
     path = path.replace(/{model\.lowerCamel}/g, this.stringService.format(folderName, SentenceFormat.LowerCamelCase));
-    
+
     return `${path}.${template.extension()}`;
   }
 

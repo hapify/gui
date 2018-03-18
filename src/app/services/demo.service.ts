@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ConfigService} from './config.service';
 import {StorageService as ModelStorageService, Model} from '../model/model.module';
 import {StorageService as ChannelStorageService, Channel, ITemplateBase} from '../channel/channel.module';
@@ -12,7 +12,8 @@ export class DemoService {
    */
   constructor(private configService: ConfigService,
               private modelStorageService: ModelStorageService,
-              private channelStorageService: ChannelStorageService) { }
+              private channelStorageService: ChannelStorageService) {
+  }
 
   /**
    * Clean all models and channels

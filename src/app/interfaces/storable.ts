@@ -1,4 +1,3 @@
-
 export interface IStorableBase {
   /**
    * The object's unique id
@@ -15,6 +14,7 @@ export interface IStorable extends IStorableBase {
    * @returns {IStorableBase}
    */
   toObject(): IStorableBase;
+
   /**
    * Bind properties from the base object to this object
    *

@@ -23,7 +23,8 @@ export class BitbucketRepositoryLineComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * On init

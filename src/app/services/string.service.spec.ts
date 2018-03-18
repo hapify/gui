@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 
-import { StringService } from './string.service';
+import {StringService} from './string.service';
 import {SentenceFormat} from '../interfaces/sentence-format.enum';
 
 describe('StringService', () => {

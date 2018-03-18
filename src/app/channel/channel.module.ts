@@ -12,7 +12,7 @@ import {TemplateComponent} from './components/template/template.component';
 import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
 import {EditComponent} from './components/edit/edit.component';
-import { EditorComponent } from './components/editor/editor.component';
+import {EditorComponent} from './components/editor/editor.component';
 
 
 // Services
@@ -50,6 +50,7 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
 })
 export class ChannelModule {
 }
+
 export {CHANNEL_ROUTES} from './channel.routing';
 export {Channel} from './classes/channel';
 export {Template} from './classes/template';

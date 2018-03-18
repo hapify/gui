@@ -1,12 +1,12 @@
 <div class="row">
-  <div class="col-lg-7 pt-2">
-    <b>{{ channel.name }}</b>
-  </div>
-  <div class="col-lg-5 text-lg-right">
-    <a class="btn btn-secondary" [routerLink]="['/channel', 'edit', channel.id]">
-      <span class="oi oi-pencil"></span>
-    </a>
-    <span class="delete">
+    <div class="col-lg-7 pt-2">
+        <b>{{ channel.name }}</b>
+    </div>
+    <div class="col-lg-5 text-lg-right">
+        <a class="btn btn-secondary" [routerLink]="['/channel', 'edit', channel.id]">
+            <span class="oi oi-pencil"></span>
+        </a>
+        <span class="delete">
     <button *ngIf="!deleteSwitch" type="button" class="btn btn-outline-secondary"
             (click)="deleteSwitch=!deleteSwitch">
       <span class="oi oi-circle-x"></span>
@@ -18,5 +18,5 @@
       {{ 'channels_delete_cancel' | translate }}
     </button>
   </span>
-  </div>
+    </div>
 </div>

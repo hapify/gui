@@ -23,18 +23,21 @@ export interface IChannel extends IChannelBase, IStorable {
    * @type {ITemplate[]}
    */
   templates: ITemplate[];
+
   /**
    * Denotes if the template should be considered as empty
    *
    * @returns {boolean}
    */
   isEmpty(): boolean;
+
   /**
    * Returns a new template instance
    *
    * @returns {ITemplate}
    */
   newTemplate(): ITemplate;
+
   /**
    * Push a new template
    *
@@ -42,12 +45,14 @@ export interface IChannel extends IChannelBase, IStorable {
    * @returns {void}
    */
   addTemplate(template: ITemplate): void;
+
   /**
    * Remove empty templates
    *
    * @returns {void}
    */
   filter(): void;
+
   /**
    * Convert the instance to an object
    *
