@@ -15,6 +15,11 @@ export class MasksDownloaderService {
    * @type {string}
    */
   private manifestPath = 'masks.json';
+  
+  /**
+   * @type {string}
+   */
+  private pathPrefix = 'src/';
 
   /**
    * Constructor
@@ -51,7 +56,7 @@ export class MasksDownloaderService {
       channels: [channelManifest]
     };
     // Add JSON to ZIP
-    zip.file(this.manifestPath, JSON.stringify(masksManifest, null, 4));
+    zip.file(this.manifestPath, JSON.stringify(masksManifest, null, 2));
 
     const blob = await zip.generateAsync({type: 'blob'});
     const filename = `${channel.name}.zip`;
@@ -79,7 +84,7 @@ export class MasksDownloaderService {
     path = path.replace(/{model\.upperCamel}/g, this.stringService.format(folderName, SentenceFormat.UpperCamelCase));
     path = path.replace(/{model\.lowerCamel}/g, this.stringService.format(folderName, SentenceFormat.LowerCamelCase));
 
-    return `${path}.${template.extension()}`;
+    return `${this.pathPrefix}${path}.${template.extension()}`;
   }
 
 }
