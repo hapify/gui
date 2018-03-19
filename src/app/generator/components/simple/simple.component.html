@@ -1,38 +1,43 @@
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <p class="text-secondary mb-5">
+                {{ 'generator_intro' | translate }}
+            </p>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-10 col-lg-3 mt-3 mt-lg-0">
-                    <div class="input-group pt-1">
-                        <select [(ngModel)]="channel" class="form-control">
-                            <option [ngValue]="undefined">{{ 'generator_select_channel' | translate }}</option>
+                    <div class="input-group">
+                        <select [(ngModel)]="channel" class="form-control" (ngModelChange)="onChannelChange($event)">
+                            <option [ngValue]="null">{{ 'generator_select_channel' | translate }}</option>
                             <option *ngFor="let channel of channels" [ngValue]="channel">{{channel.name}}</option>
                         </select>
                     </div>
                 </div>
                 <div *ngIf="channel && channel.templates && models" class="col-2 col-lg-1 mt-3 mt-lg-0">
                     <div class="input-group">
-                        <div class="p-1">
-                            <button (click)="onDownload($event)" class="btn btn-outline-primary"
-                                    title="{{ 'generator_download' | translate }}">
-                                <span class="oi oi-data-transfer-download"></span>
-                            </button>
-                        </div>
+                        <button (click)="onDownload($event)" class="btn btn-outline-primary"
+                                title="{{ 'generator_download' | translate }}">
+                            <span class="oi oi-data-transfer-download"></span>
+                        </button>
                     </div>
                 </div>
                 <div *ngIf="channel" class="col-lg-4 mt-3 mt-lg-0">
-                    <div class="input-group pt-1">
+                    <div class="input-group">
                         <select [(ngModel)]="template" class="form-control" (ngModelChange)="onChange($event)">
-                            <option [ngValue]="undefined">{{ 'generator_select_template' | translate }}</option>
+                            <option [ngValue]="null">{{ 'generator_select_template' | translate }}</option>
                             <option *ngFor="let template of channel.templates" [ngValue]="template">{{template.name}}
                             </option>
                         </select>
                     </div>
                 </div>
                 <div *ngIf="channel && template && template.needsModel()" class="col-lg-4 mt-3 mt-lg-0">
-                    <div class="input-group pt-1">
+                    <div class="input-group">
                         <select [(ngModel)]="model" class="form-control" (ngModelChange)="onChange($event)">
-                            <option [ngValue]="undefined">{{ 'generator_select_model' | translate }}</option>
+                            <option [ngValue]="null">{{ 'generator_select_model' | translate }}</option>
                             <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
                         </select>
                     </div>
@@ -40,6 +45,11 @@
             </div>
         </div>
         <div class="card-body">
+            <div *ngIf="!error && !result">
+                <i class="text-secondary my-2">
+                    {{ 'generator_help' | translate }}
+                </i>
+            </div>
             <div *ngIf="error">
                 <div class="mt-3">
                     <div class="row">

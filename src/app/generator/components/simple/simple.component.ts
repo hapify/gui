@@ -43,19 +43,19 @@ export class SimpleComponent implements OnInit {
    *
    * @type {IModel}
    */
-  model: IModel;
+  model: IModel = null;
   /**
    * Selected channel
    *
    * @type {IChannel}
    */
-  channel: IChannel;
+  channel: IChannel = null;
   /**
    * Selected template
    *
    * @type {ITemplate}
    */
-  template: ITemplate;
+  template: ITemplate = null;
 
   /**
    * Generation results
@@ -82,18 +82,31 @@ export class SimpleComponent implements OnInit {
   }
 
   /**
+   * Called when the use select a channel
+   *
+   * @param $event
+   */
+  onChannelChange($event) {
+    // Clean results and error
+    this.result = null;
+    this.error = null;
+    this.template = null;
+    this.model = null;
+  }
+
+  /**
    * Called when the use select a model or a template
    *
    * @param $event
    */
   onChange($event) {
-    // Leave if not possible
-    if (this.template.needsModel() && !this.model) {
-      return;
-    }
     // Clean results and error
     this.result = null;
     this.error = null;
+    // Leave if not possible
+    if (!this.template || (this.template.needsModel() && !this.model)) {
+      return;
+    }
     // Run generation
     this.generatorService.run(this.template, this.model)
       .then((result) => {

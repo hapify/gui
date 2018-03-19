@@ -1,5 +1,12 @@
 <div id="root-model">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-secondary mb-5">
+                    {{ 'models_intro' | translate }}
+                </p>
+            </div>
+        </div>
         <div class="models-list">
             <div class="card" *ngIf="models && models.length">
                 <div class="card-header">

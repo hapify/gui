@@ -1,11 +1,18 @@
 <div id="root-channel">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-secondary mb-5">
+                    {{ 'channels_intro' | translate }}
+                </p>
+            </div>
+        </div>
         <div class="channels-list">
             <div class="card">
                 <div class="card-header">
                     <div class="clearfix">
-                        <div class="float-left py-2">{{ 'channels_subtitle' | translate:{count: channels ?
-                            channels.length : 0} }}
+                        <div class="float-left py-2">
+                            {{ 'channels_subtitle' | translate:{count: channels ? channels.length : 0} }}
                         </div>
                         <div class="float-right">
                             <a [routerLink]="['/channel/new']" class="btn btn-outline-primary">
