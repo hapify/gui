@@ -51,7 +51,8 @@ export class RootComponent implements OnInit {
   protected updateModels(): Promise<void> {
     return this.storageService.list()
       .then((models) => {
-        this.models = models.reverse();
+        models.sort((a, b) => a.name.localeCompare(b.name));
+        this.models = models;
       });
   }
 

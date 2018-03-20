@@ -46,7 +46,8 @@ export class RootComponent implements OnInit {
   protected updateChannels(): Promise<void> {
     return this.storageService.list()
       .then((channels) => {
-        this.channels = channels.reverse();
+        channels.sort((a, b) => a.name.localeCompare(b.name));
+        this.channels = channels;
       });
   }
 
