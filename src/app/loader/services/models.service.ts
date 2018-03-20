@@ -6,6 +6,11 @@ import {IModelManifest} from '../interfaces/models-manifest';
 export class ModelsService {
 
   /**
+   * @type {string}
+   */
+  private manifestPath = 'models.json';
+
+  /**
    * Constructor
    *
    * @param {StorageService} modelStorageService
@@ -30,6 +35,20 @@ export class ModelsService {
       // Save new
       await this.modelStorageService.add(model);
     }).reduce((p, fn) => p.then(fn), Promise.resolve());
+  }
+
+  /**
+   * Load from parsed zip file
+   *
+   * @param {any} files
+   * @returns {Promise<void>}
+   */
+  async loadFromFiles(files: any): Promise<void> {
+    // Get manifest
+    if (typeof files[this.manifestPath] === 'undefined') {
+      throw new Error(`Manifest file not found in ${this.manifestPath}`);
+    }
+    return this.loadFromContent(files[this.manifestPath]);
   }
 
   /**

@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {IBitbucketUser} from '../../interfaces/bitbucket-user';
 import {IBitbucketRepository} from '../../interfaces/bitbucket-repository';
 import {MasksService} from '../../services/masks.service';
+import {ModelsService} from '../../services/models.service';
 
 @Component({
   selector: 'app-loader-bitbucket',
@@ -38,12 +39,14 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    *
    * @param {BitbucketService} bitbucketService
    * @param {MasksService} masksService
+   * @param {ModelsService} modelsService
    * @param {Router} router
    * @param {Location} location
    * @param {ActivatedRoute} route
    */
   constructor(private bitbucketService: BitbucketService,
               private masksService: MasksService,
+              private modelsService: ModelsService,
               private router: Router,
               private location: Location,
               private route: ActivatedRoute) {
@@ -120,7 +123,10 @@ export class BitbucketComponent implements OnInit, OnDestroy {
    * @param {IBitbucketRepository} repository
    */
   onLoadModelClick(repository: IBitbucketRepository) {
-
+    repository.pending = true;
+    this.bitbucketService.getRepositorySource(repository)
+      .then((files) => this.modelsService.loadFromFiles(files))
+      .then(() => repository.pending = false);
   }
 
 }

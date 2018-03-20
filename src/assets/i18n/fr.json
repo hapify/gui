@@ -45,7 +45,7 @@
   "loader_bitbucket_connected_as": "Connecté avec",
   "loader_bitbucket_repos_templates_title": "Masques disponibles",
   "loader_bitbucket_repos_bootstraps_title": "Amorces disponibles",
-  "loader_bitbucket_repos_models_title": "Modèles dispnnibles",
+  "loader_bitbucket_repos_models_title": "Modèles disponibles",
   "loader_bitbucket_load_repository": "Charger à partir dépôt",
   "loader_bitbucket_intro": "Charger la dernière version des masques ou télécharger une amorce depuis Bitbucket.",
   "loader_file_intro": "Charger les modèles à partir d'un fichier JSON. Les modèles existants seront remplacés.",

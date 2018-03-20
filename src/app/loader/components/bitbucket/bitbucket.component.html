@@ -50,7 +50,7 @@
                         <div class="py-2">{{ 'loader_bitbucket_repos_models_title' | translate}}</div>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
+                        <li *ngFor="let repository of repositories.models" class="list-group-item">
                             <app-loader-bitbucket-repository-line [repository]="repository"
                                                                   (onLoad)="onLoadModelClick(repository)"></app-loader-bitbucket-repository-line>
                         </li>
