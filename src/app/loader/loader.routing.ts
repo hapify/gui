@@ -1,12 +1,12 @@
 import {Routes} from '@angular/router';
 
 // Components
-import {BitbucketComponent} from './components/bitbucket/bitbucket.component';
+import {RootComponent} from './components/root/root.component';
 
 export const LOADER_ROUTES: Routes = [
   {
     path: '',
-    component: BitbucketComponent
+    component: RootComponent
   }
 ];
 

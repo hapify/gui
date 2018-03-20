@@ -48,6 +48,7 @@
   "loader_bitbucket_repos_models_title": "Modèles dispnnibles",
   "loader_bitbucket_load_repository": "Charger à partir dépôt",
   "loader_bitbucket_intro": "Charger la dernière version des masques ou télécharger une amorce depuis Bitbucket.",
+  "loader_file_intro": "Charger les modèles à partir d'un fichier JSON. Les modèles existants seront remplacés.",
   "field_type": "Type de champ",
   "field_subtype": "Sous-type de champ",
   "reference": "Référence",

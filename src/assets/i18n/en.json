@@ -48,6 +48,7 @@
   "loader_bitbucket_repos_models_title": "Available models",
   "loader_bitbucket_load_repository": "Load from repository",
   "loader_bitbucket_intro": "Get the last version of the templates or download the bootstraps from Bitbucket.",
+  "loader_file_intro": "Load models from JSON file. Existing models will be overridden.",
   "field_type": "Field's type",
   "field_subtype": "Field's subtype",
   "reference": "Reference",

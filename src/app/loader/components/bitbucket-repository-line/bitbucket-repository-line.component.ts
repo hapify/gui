@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IBitbucketRepository} from '../../interfaces/bitbucket-repository';
 
 @Component({
-  selector: 'app-bitbucket-repository-line',
+  selector: 'app-loader-bitbucket-repository-line',
   templateUrl: './bitbucket-repository-line.component.html',
   styleUrls: ['./bitbucket-repository-line.component.scss']
 })

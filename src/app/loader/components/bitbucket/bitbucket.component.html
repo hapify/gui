@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-12">
             <p class="text-secondary mb-5">
-              {{ 'loader_bitbucket_intro' | translate }}
+                {{ 'loader_bitbucket_intro' | translate }}
             </p>
         </div>
     </div>
@@ -25,8 +25,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li *ngFor="let repository of repositories.templates" class="list-group-item">
-                            <app-bitbucket-repository-line [repository]="repository"
-                                                           (onLoad)="onLoadTemplateClick(repository)"></app-bitbucket-repository-line>
+                            <app-loader-bitbucket-repository-line [repository]="repository"
+                                                                  (onLoad)="onLoadTemplateClick(repository)"></app-loader-bitbucket-repository-line>
                         </li>
                     </ul>
                 </div>
@@ -38,8 +38,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
-                            <app-bitbucket-repository-line [repository]="repository"
-                                                           (onLoad)="onLoadBootstrapClick(repository)"></app-bitbucket-repository-line>
+                            <app-loader-bitbucket-repository-line [repository]="repository"
+                                                                  (onLoad)="onLoadBootstrapClick(repository)"></app-loader-bitbucket-repository-line>
                         </li>
                     </ul>
                 </div>
@@ -51,8 +51,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li *ngFor="let repository of repositories.bootstraps" class="list-group-item">
-                            <app-bitbucket-repository-line [repository]="repository"
-                                                           (onLoad)="onLoadModelClick(repository)"></app-bitbucket-repository-line>
+                            <app-loader-bitbucket-repository-line [repository]="repository"
+                                                                  (onLoad)="onLoadModelClick(repository)"></app-loader-bitbucket-repository-line>
                         </li>
                     </ul>
                 </div>

@@ -15,7 +15,7 @@ export class MasksDownloaderService {
    * @type {string}
    */
   private manifestPath = 'masks.json';
-  
+
   /**
    * @type {string}
    */

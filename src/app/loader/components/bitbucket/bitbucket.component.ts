@@ -8,7 +8,7 @@ import {IBitbucketRepository} from '../../interfaces/bitbucket-repository';
 import {MasksService} from '../../services/masks.service';
 
 @Component({
-  selector: 'app-bitbucket',
+  selector: 'app-loader-bitbucket',
   templateUrl: './bitbucket.component.html',
   styleUrls: ['./bitbucket.component.scss']
 })

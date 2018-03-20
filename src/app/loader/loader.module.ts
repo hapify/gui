@@ -8,6 +8,9 @@ import {ChannelModule, StorageService as ChannelStorageService} from '../channel
 import {BitbucketService} from './services/bitbucket.service';
 import {MasksService} from './services/masks.service';
 import {BitbucketRepositoryLineComponent} from './components/bitbucket-repository-line/bitbucket-repository-line.component';
+import {RootComponent} from './components/root/root.component';
+import {FileComponent} from './components/file/file.component';
+import {ModelsService} from './services/models.service';
 
 @NgModule({
   imports: [
@@ -16,11 +19,12 @@ import {BitbucketRepositoryLineComponent} from './components/bitbucket-repositor
     FormsModule,
     TranslateModuleLoad()
   ],
-  declarations: [BitbucketComponent, BitbucketRepositoryLineComponent],
+  declarations: [BitbucketComponent, BitbucketRepositoryLineComponent, RootComponent, FileComponent],
   providers: [
     ChannelStorageService,
     BitbucketService,
-    MasksService
+    MasksService,
+    ModelsService
   ]
 })
 export class LoaderModule {
