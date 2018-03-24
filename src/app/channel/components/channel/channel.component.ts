@@ -1,7 +1,5 @@
-import {Component, OnInit, Input, Output} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
 import {IChannel} from '../../interfaces/channel';
 import {MasksDownloaderService} from '../../../loader/services/masks-downloader.service';
 
@@ -29,16 +27,11 @@ export class ChannelComponent implements OnInit {
    */
   @Input() channel: IChannel;
   /**
-   * @type {Subject<void>}
-   * @private
-   */
-  private _onSave = new Subject<void>();
-  /**
-   * On save event (Observable)
+   * On save event
    *
-   * @type {Observable<void>}
+   * @type {EventEmitter<void>}
    */
-  @Output() onSave: Observable<void> = this._onSave.asObservable();
+  @Output() onSave = new EventEmitter<void>();
   /**
    * @type {FormGroup}
    */
@@ -77,7 +70,7 @@ export class ChannelComponent implements OnInit {
    * Called when the user click on "save"
    */
   onSubmit() {
-    this._onSave.next();
+    this.onSave.emit();
   }
 
   /**

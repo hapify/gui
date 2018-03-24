@@ -1,6 +1,5 @@
-import {Component, OnInit, Input, Output} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
 import {IModel} from '../../interfaces/model';
 
 @Component({
@@ -23,16 +22,11 @@ export class ModelComponent implements OnInit {
    */
   @Input() model: IModel;
   /**
-   * @type {Subject<void>}
-   * @private
-   */
-  private _onSave = new Subject<void>();
-  /**
-   * On save event (Observable)
+   * On save event
    *
-   * @type {Observable<void>}
+   * @type {EventEmitter<void>}
    */
-  @Output() onSave: Observable<void> = this._onSave.asObservable();
+  @Output() onSave = new EventEmitter<void>();
   /**
    * @type {FormGroup}
    */
@@ -71,7 +65,7 @@ export class ModelComponent implements OnInit {
    * Called when the user click on "save"
    */
   onSubmit() {
-    this._onSave.next();
+    this.onSave.emit();
   }
 
   /**

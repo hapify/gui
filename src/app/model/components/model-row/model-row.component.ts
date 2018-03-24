@@ -1,5 +1,4 @@
-import {Component, OnInit, Input, Output} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IModel} from '../../interfaces/model';
 
 @Component({
@@ -22,16 +21,11 @@ export class ModelRowComponent implements OnInit {
    */
   @Input() model: IModel;
   /**
-   * @type {Subject<void>}
-   * @private
-   */
-  private _onDelete = new Subject<void>();
-  /**
-   * On delete event (Observable)
+   * On delete event
    *
-   * @type {Observable<void>}
+   * @type {EventEmitter<void>}
    */
-  @Output() onDelete: Observable<void> = this._onDelete.asObservable();
+  @Output() onDelete = new EventEmitter<void>();
   /**
    * @type {boolean}
    */
@@ -47,6 +41,6 @@ export class ModelRowComponent implements OnInit {
    * Called when the user click on "delete"
    */
   didClickDelete() {
-    this._onDelete.next();
+    this.onDelete.emit();
   }
 }

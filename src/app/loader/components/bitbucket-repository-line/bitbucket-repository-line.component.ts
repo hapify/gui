@@ -18,7 +18,7 @@ export class BitbucketRepositoryLineComponent implements OnInit {
    *
    * @type {EventEmitter<void>}
    */
-  @Output() onLoad: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onLoad = new EventEmitter<void>();
 
   /**
    * Constructor
