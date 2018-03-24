@@ -22,11 +22,11 @@
                         title="{{ 'channels_tooltip_dump' | translate }}">
                     <span class="oi oi-code"></span>
                 </button>
-                <button type="button" class="btn btn-outline-light ml-4" (click)="didClickCancel();">{{ 'common_cancel'
-                    | translate }}
+                <button type="button" class="btn btn-outline-light ml-4" (click)="didClickClose();">
+                    {{ 'common_close' | translate }}
                 </button>
-                <button type="button" class="btn btn-light ml-2" [disabled]="form.invalid" (click)="didClickSave();">{{
-                    'common_save' | translate }}
+                <button type="button" class="btn btn-light ml-2" [disabled]="form.invalid" (click)="didClickSave();">
+                    {{ 'common_save' | translate }}
                 </button>
             </div>
         </nav>

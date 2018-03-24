@@ -1,12 +1,11 @@
-import {Component, Injector, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Injector, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
 import {ITemplate} from '../../interfaces/template';
 import {GeneratorService} from '../../../generator/services/generator.service';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
 import {AceService} from '../../../services/ace.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-channel-editor',
@@ -41,14 +40,14 @@ export class EditorComponent implements OnInit {
    *
    * @type {number}
    */
-  @Input() pathMinLength: number = 1;
+  @Input() pathMinLength = 1;
 
   /**
    * Min length allowed for the path
    *
    * @type {number}
    */
-  @Input() pathMaxLength: number = 64;
+  @Input() pathMaxLength = 64;
 
   /**
    * @type {FormGroup}
@@ -63,28 +62,18 @@ export class EditorComponent implements OnInit {
   };
 
   /**
-   * @type {Subject<string>}
-   * @private
-   */
-  private _onSave = new Subject<string>();
-  /**
-   * On save event (Observable)
+   * On save event
    *
-   * @type {Observable<string>}
+   * @type {EventEmitter<void>}
    */
-  @Output() onSave: Observable<string> = this._onSave.asObservable();
+  @Output() onSave = new EventEmitter<void>();
 
   /**
-   * @type {Subject<void>}
-   * @private
-   */
-  private _onCancel = new Subject<void>();
-  /**
-   * On save event (Observable)
+   * On save event
    *
-   * @type {Observable<void>}
+   * @type {EventEmitter<void>}
    */
-  @Output() onCancel: Observable<void> = this._onCancel.asObservable();
+  @Output() onClose = new EventEmitter<void>();
 
   /**
    * The edited template
@@ -116,13 +105,26 @@ export class EditorComponent implements OnInit {
   /**
    * Denotes if should re-generate on change
    */
-  autoGenerate: boolean = true;
+  autoGenerate = true;
+
+  /**
+   * Text display to prevent reloading
+   */
+  beforeUnloadWarning: string;
+
+  /**
+   * Denotes if the user has unsaved changes (to prevent reload)
+   *
+   * @type {boolean}
+   */
+  unsavedChanges = false;
 
   /**
    * Constructor
    */
   constructor(private formBuilder: FormBuilder,
               private injector: Injector,
+              private translateService: TranslateService,
               public aceService: AceService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
@@ -137,6 +139,9 @@ export class EditorComponent implements OnInit {
     // Update translateParams
     this.translateParams.minLength = this.pathMinLength;
     this.translateParams.maxLength = this.pathMaxLength;
+
+    this.translateService.get('common_unload_warning')
+      .subscribe((value) => this.beforeUnloadWarning = value);
 
     // Clone input template
     this.wip = this.template.clone();
@@ -167,14 +172,15 @@ export class EditorComponent implements OnInit {
   didClickSave() {
     this.template.content = this.wip.content;
     this.template.path = this.wip.path;
-    this._onSave.next();
+    this.unsavedChanges = false;
+    this.onSave.emit();
   }
 
   /**
-   * Called when the user click on cancel
+   * Called when the user click on close
    */
-  didClickCancel() {
-    this._onCancel.next();
+  didClickClose() {
+    this.onClose.emit();
   }
 
   /**
@@ -220,6 +226,7 @@ export class EditorComponent implements OnInit {
    */
   onChange(content: string) {
     this.wip.content = content;
+    this.unsavedChanges = true;
     if (this.autoGenerate) {
       this._generate();
     }
@@ -227,11 +234,24 @@ export class EditorComponent implements OnInit {
 
   /**
    * Call when the user click on "dump"
-   *
-   * @param {string} content
    */
-  async didClickDump(content: string) {
+  async didClickDump() {
     console.log(await this.generatorService.inputs(this.model));
+  }
+
+  /**
+   * Prevent reloading
+   *
+   * @param event
+   * @return {string|null}
+   */
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event: any): string {
+    if (!this.unsavedChanges) {
+      return;
+    }
+    event.returnValue = this.beforeUnloadWarning;
+    return this.beforeUnloadWarning;
   }
 
 }

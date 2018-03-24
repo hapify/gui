@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ITemplate} from '../../interfaces/template';
 import {TemplateEngine} from '../../interfaces/template-engine.enum';
@@ -23,6 +23,12 @@ export class TemplateComponent implements OnInit {
    * @type {ITemplate}
    */
   @Input() template: ITemplate;
+  /**
+   * On save event
+   *
+   * @type {EventEmitter<void>}
+   */
+  @Output() onSave = new EventEmitter<void>();
   /**
    * @type {FormGroup}
    */
@@ -106,13 +112,13 @@ export class TemplateComponent implements OnInit {
    * Called when the editor is saved
    */
   onEditorSave() {
-    this.showEditor = false;
+    this.onSave.emit();
   }
 
   /**
    * Called when the editor is saved
    */
-  onEditorCancel() {
+  onEditorClose() {
     this.showEditor = false;
   }
 }
