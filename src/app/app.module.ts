@@ -20,6 +20,7 @@ import {StringService} from './services/string.service';
 import {DemoService} from './services/demo.service';
 import {AceService} from './services/ace.service';
 import {HeaderComponent} from './components/common/header/header.component';
+import {HotkeyModule} from 'angular2-hotkeys';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {HeaderComponent} from './components/common/header/header.component';
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
-    FormsModule
+    FormsModule,
+    HotkeyModule.forRoot()
   ],
   providers: [
     ConfigService,

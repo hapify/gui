@@ -14,10 +14,10 @@ import {RootComponent} from './components/root/root.component';
 import {EditComponent} from './components/edit/edit.component';
 import {EditorComponent} from './components/editor/editor.component';
 
-
 // Services
 import {StorageService} from './services/storage.service';
 import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
+import {HotkeyModule} from 'angular2-hotkeys';
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
@@ -31,7 +31,8 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     AceEditorModule,
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    HotkeyModule
   ],
   declarations: [
     ChannelComponent,

@@ -1,4 +1,8 @@
-import {Component, EventEmitter, HostListener, Injector, Input, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit,
+  Component, EventEmitter, HostListener, Injector, Input, OnDestroy, OnInit, Output,
+  ViewChild
+} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ITemplate} from '../../interfaces/template';
 import {GeneratorService} from '../../../generator/services/generator.service';
@@ -6,13 +10,14 @@ import {StorageService as ModelStorageService, IModel} from '../../../model/mode
 import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
+import {Hotkey, HotkeysService} from 'angular2-hotkeys';
 
 @Component({
   selector: 'app-channel-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /**
    * The generator service
@@ -110,7 +115,7 @@ export class EditorComponent implements OnInit {
   /**
    * Text display to prevent reloading
    */
-  beforeUnloadWarning: string;
+  private beforeUnloadWarning: string;
 
   /**
    * Denotes if the user has unsaved changes (to prevent reload)
@@ -120,11 +125,28 @@ export class EditorComponent implements OnInit {
   unsavedChanges = false;
 
   /**
+   * Hotkeys to unbind
+   */
+  private saveHotKeys: Hotkey | Hotkey[];
+
+  /**
+   * Left editor
+   */
+  @ViewChild('editorInput') editorInput;
+
+  /**
    * Constructor
+   *
+   * @param {FormBuilder} formBuilder
+   * @param {Injector} injector
+   * @param {TranslateService} translateService
+   * @param {HotkeysService} hotKeysService
+   * @param {AceService} aceService
    */
   constructor(private formBuilder: FormBuilder,
               private injector: Injector,
               private translateService: TranslateService,
+              private hotKeysService: HotkeysService,
               public aceService: AceService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
@@ -142,6 +164,12 @@ export class EditorComponent implements OnInit {
 
     this.translateService.get('common_unload_warning')
       .subscribe((value) => this.beforeUnloadWarning = value);
+
+    // Save on Ctrl+S
+    this.saveHotKeys = this.hotKeysService.add(new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+      this.didClickSave();
+      return false;
+    }));
 
     // Clone input template
     this.wip = this.template.clone();
@@ -167,6 +195,32 @@ export class EditorComponent implements OnInit {
   }
 
   /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.hotKeysService.remove(this.saveHotKeys);
+  }
+
+  /**
+   * After init
+   * Bind Ctrl-S inside the editors
+   */
+  ngAfterViewInit() {
+    const command = {
+      name: 'saveCommand',
+      bindKey: {
+        win: 'Ctrl-S',
+        mac: 'Command-S',
+        sender: 'editor|cli'
+      },
+      exec: () => {
+        this.didClickSave();
+      }
+    };
+    this.editorInput.getEditor().commands.addCommand(command);
+  }
+
+  /**
    * Called when the user click on save
    */
   didClickSave() {
@@ -174,6 +228,7 @@ export class EditorComponent implements OnInit {
     this.template.path = this.wip.path;
     this.unsavedChanges = false;
     this.onSave.emit();
+    console.log('save');
   }
 
   /**
