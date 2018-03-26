@@ -2,11 +2,17 @@
 
 ## Short-term
 
-- Docker: Replace Nginx proxy by Traefik.
-- Scripts: Add default values to scripts that require an argument.
-- Docker: Make Redis persistent.
-- Session: Add possibility to choose session duration while login ("Keep me login").
+- Add "dot" to properties names (Example: first.name).
+- Add "underscore uppercase" to properties names (Example: FIRST_NAME).
+- Add a customizable sub-type "Enum".
 
 ## Medium-term
 
+- Add script to detect fields properties combinations not supported by a channel.
+- Add middleware script(s) called before each template within a channel.
+- Code formatter/Linter after build.
+- Groups models by project.
+
 ## Long-term
+
+- Can define "actions" required by a models to avoid unused generated code.
