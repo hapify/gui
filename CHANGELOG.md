@@ -27,6 +27,7 @@
 - Use EventEmitter for button callback rather than Observable.
 
 ### Removed
+- Remove demo service and demo templates
 
 ## [0.1.0] - 2018-03-02
 
