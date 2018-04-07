@@ -1,1 +1,0 @@
-<anms-{{=it.m.names.hyphen}}-form (onCreate)="on{{=it.m.names.upperCamel}}Save($event)"></anms-{{=it.m.names.hyphen}}-form>

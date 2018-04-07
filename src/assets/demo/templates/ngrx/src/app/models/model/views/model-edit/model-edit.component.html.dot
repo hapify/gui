@@ -1,7 +1,0 @@
-<anms-{{=it.m.names.hyphen}}-form
-        *ngIf="{{=it.m.names.lowerCamel}}"
-        [{{=it.m.names.lowerCamel}}]="{{=it.m.names.lowerCamel}}"
-        (onUpdate)="on{{=it.m.names.upperCamel}}Save($event)"></anms-{{=it.m.names.hyphen}}-form>
-<div *ngIf="!{{=it.m.names.lowerCamel}}" class="my-5">
-    <mat-spinner class="mx-auto"></mat-spinner>
-</div>

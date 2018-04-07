@@ -1,4 +1,0 @@
-<anms-{{=it.m.names.hyphen}}-details *ngIf="{{=it.m.names.lowerCamel}}" [{{=it.m.names.lowerCamel}}]="{{=it.m.names.lowerCamel}}" (onDelete)="on{{=it.m.names.upperCamel}}Delete()"></anms-{{=it.m.names.hyphen}}-details>
-<div *ngIf="!{{=it.m.names.lowerCamel}}" class="my-5">
-    <mat-spinner class="mx-auto"></mat-spinner>
-</div>
