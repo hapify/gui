@@ -88,12 +88,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   wip: ITemplate;
 
   /**
-   * Demo models
+   * Preview models
    */
   models: IModel[];
 
   /**
-   * Demo model
+   * Preview model
    */
   model: IModel;
 

@@ -54,7 +54,7 @@ export class ModelsService {
   /**
    * Load a single channel
    *
-   * @param {DemoModel} model
+   * @param {IModelManifest} model
    * @return {Promise<Model>}
    * @private
    */

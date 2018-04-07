@@ -17,7 +17,6 @@ import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 // Services
 import {ConfigService} from './services/config.service';
 import {StringService} from './services/string.service';
-import {DemoService} from './services/demo.service';
 import {AceService} from './services/ace.service';
 import {HeaderComponent} from './components/common/header/header.component';
 import {HotkeyModule} from 'angular2-hotkeys';
@@ -46,7 +45,6 @@ import {HotkeyModule} from 'angular2-hotkeys';
   providers: [
     ConfigService,
     StringService,
-    DemoService,
     AceService
   ],
   bootstrap: [AppComponent]

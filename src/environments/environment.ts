@@ -5,10 +5,6 @@
 
 export const environment = {
   production: false,
-  demo: {
-    baseUri: '/assets/demo',
-    manifest: 'manifest.json',
-  },
   ace: {
     baseUri: '/assets/ace-builds/src-min',
     theme: 'xcode'

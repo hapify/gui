@@ -8,24 +8,6 @@ export class ConfigService {
   }
 
   /**
-   * Get the demo base path
-   *
-   * @return {string}
-   */
-  getDemoBaseUri(): string {
-    return environment.demo.baseUri;
-  }
-
-  /**
-   * Get the name of the manifest file (relative to demo.baseUri)
-   *
-   * @return {string}
-   */
-  getDemoManifest(): string {
-    return environment.demo.manifest;
-  }
-
-  /**
    * Get the base path for ace
    *
    * @return {string}
