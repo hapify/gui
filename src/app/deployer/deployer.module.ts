@@ -6,6 +6,8 @@ import {TranslateModuleLoad} from '../translate-import';
 import {RootComponent} from './components/root/root.component';
 import { ConsoleComponent } from './components/console/console.component';
 
+import {DeployerService} from './services/deployer.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { ConsoleComponent } from './components/console/console.component';
     ConsoleComponent
   ],
   providers: [
+    DeployerService
   ]
 })
 export class DeployerModule {

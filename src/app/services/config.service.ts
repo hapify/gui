@@ -60,4 +60,41 @@ export class ConfigService {
   getBitbucketProxyToken(): string {
     return environment.bitbucket.proxyToken;
   }
+
+  /**
+   * Get the deployer session url
+   *
+   * @return {string}
+   */
+  getDeployerSessionUrl(): string {
+    return environment.deployer.session.url;
+  }
+
+  /**
+   * Get the deployer session id
+   *
+   * @return {string}
+   */
+  getDeployerSessionId(): string {
+    return environment.deployer.session.id;
+  }
+
+  /**
+   * Get the deployer session key
+   *
+   * @return {string}
+   */
+  getDeployerSessionKey(): string {
+    return environment.deployer.session.key;
+  }
+
+  /**
+   * Build and returns the deployer websocket url
+   *
+   * @param {string} token
+   * @return {string}
+   */
+  getDeployerWebsocketUrl(token): string {
+    return `${environment.deployer.wsUrl}?token=${encodeURIComponent(token)}`;
+  }
 }

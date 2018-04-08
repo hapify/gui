@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {IDeployerMessage} from '../../interfaces/deployer-message';
+import {DeployerService} from '../../services/deployer.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-deployer-console',
   templateUrl: './console.component.html',
   styleUrls: ['./console.component.scss']
 })
-export class ConsoleComponent implements OnInit {
+export class ConsoleComponent implements OnInit, OnDestroy {
 
   /**
    * @type {string}
    */
   branch = 'develop';
-
   /**
    * @type {[string]}
    */
@@ -20,12 +22,10 @@ export class ConsoleComponent implements OnInit {
     'master',
     'develop'
   ];
-
   /**
    * @type {string}
    */
   name = '';
-
   /**
    *
    * @type {boolean}
@@ -50,13 +50,28 @@ export class ConsoleComponent implements OnInit {
     minLength: this.minLength,
     maxLength: this.maxLength,
   };
-  
+  /**
+   * Received mesaages list
+   *
+   * @type {IDeployerMessage[]}
+   */
+  messages: IDeployerMessage[];
+  /**
+   * Observables subscriptions
+   *
+   * @type {Subscription[]}
+   */
+  private subs: Subscription[] = [];
+
   /**
    * Constructor
    *
    * @param {FormBuilder} formBuilder
+   * @param {DeployerService} deployerService
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private deployerService: DeployerService) {
+    this.messages = [];
   }
 
   /**
@@ -74,12 +89,31 @@ export class ConsoleComponent implements OnInit {
         Validators.required,
       ]),
     });
+    // New message from server
+    this.subs.push(this.deployerService.messages().subscribe((message: IDeployerMessage) => {
+      if (message) {
+        this.messages.unshift(message);
+      }
+    }));
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy() {
+    this.subs.map((s) => s.unsubscribe());
   }
 
   /**
    * Called when the user click on "save"
    */
-  onSubmit() {
+  async onSubmit() {
+    // Clear message queue
+    this.messages = [];
+    // Set pending
+    this.pending = true;
+    // Connect to server and start process
+    await this.deployerService.handshake();
   }
 
 
