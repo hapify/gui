@@ -13,6 +13,9 @@ import {GeneratorComponent} from './components/generator/generator.component';
 import {LoaderModule, LOADER_ROUTES} from './loader/loader.module';
 import {LoaderComponent} from './components/loader/loader.component';
 
+import {DeployerModule, DEPLOYER_ROUTES} from './deployer/deployer.module';
+import {DeployerComponent} from './components/deployer/deployer.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -38,6 +41,11 @@ export const routes: Routes = [
     path: 'loader',
     component: LoaderComponent,
     children: LOADER_ROUTES
+  },
+  {
+    path: 'deployer',
+    component: DeployerComponent,
+    children: DEPLOYER_ROUTES
   }
 ];
 
@@ -47,6 +55,7 @@ export const routes: Routes = [
     ChannelModule,
     GeneratorModule,
     LoaderModule,
+    DeployerModule,
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
