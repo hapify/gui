@@ -61,9 +61,10 @@
                     <div *ngFor="let message of messages">
                         <pre class="m-0" 
                                 [ngClass]="{
-                                'text-info': message.type === 'order',
+                                'text-secondary': message.type === 'order',
                                 'text-danger': message.type === 'error',
-                                'text-success': message.type === 'info' }"
+                                'text-info': message.type === 'info',
+                                'text-success': message.type === 'success' }"
                         >[{{ message.date | date:'mediumTime' }}] {{ message.type.toUpperCase() }}: {{ message.id }}</pre>
                     </div>
                 </div>

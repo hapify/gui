@@ -93,6 +93,14 @@ export class ConsoleComponent implements OnInit, OnDestroy {
     this.subs.push(this.deployerService.messages().subscribe((message: IDeployerMessage) => {
       if (message) {
         this.messages.unshift(message);
+        // In case of error the server stop doing anything for us
+        if (message.type === 'error') {
+          this.pending = false;
+        }
+        // In case of success
+        if (message.type === 'success') {
+          this.pending = false;
+        }
       }
     }));
   }
@@ -113,7 +121,11 @@ export class ConsoleComponent implements OnInit, OnDestroy {
     // Set pending
     this.pending = true;
     // Connect to server and start process
-    await this.deployerService.handshake();
+    await this.deployerService.run({
+      name: this.name,
+      branch: this.branch,
+      populate: true,
+    });
   }
 
 

@@ -4,7 +4,8 @@ import {ConfigService} from '../../services/config.service';
 import {IDeployerSession} from '../interfaces/deployer-session';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {IDeployerMessage} from '../interfaces/deployer-message';
+import {IDeployerMessage, DeployerMessages} from '../interfaces/deployer-message';
+import {IDeployerRequest} from '../interfaces/deployer-request';
 
 @Injectable()
 export class DeployerService {
@@ -13,14 +14,14 @@ export class DeployerService {
    * @type {WebSocket} The current websocket
    */
   private ws: WebSocket;
-  
+
   /**
    * Incoming messages/orders from server
    *
    * @private
    */
-  private _messageSubject = new BehaviorSubject<IDeployerMessage|null>(null);
-  private _messageObservable: Observable<IDeployerMessage|null> = this._messageSubject.asObservable();
+  private _messageSubject = new BehaviorSubject<IDeployerMessage | null>(null);
+  private _messageObservable: Observable<IDeployerMessage | null> = this._messageSubject.asObservable();
 
   /**
    * Constructor
@@ -33,54 +34,90 @@ export class DeployerService {
   }
 
   /**
+   * Start the deployment process
+   *
+   * @param {IDeployerRequest} request
+   * @return {Promise<void|Error>}
+   */
+  async run(request: IDeployerRequest) {
+    // Connect to the server
+    await this.handshake();
+    // Send the request
+    await this.send(DeployerMessages.REQUEST, request);
+  }
+
+  /**
    * If the websocket connection in not running,
    * get a new JWT token and open a new connection
    *
    * @return {Promise<void>}
    */
-  async handshake() {
-    // Leave early
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      return;
-    }
-    // Get JWT
-    const sessionUrl = this.configService.getDeployerSessionUrl();
-    let sessionHeaders = new HttpHeaders();
-    sessionHeaders = sessionHeaders.append('X-Hapify-Id', this.configService.getDeployerSessionId());
-    sessionHeaders = sessionHeaders.append('X-Hapify-Key', this.configService.getDeployerSessionKey());
-    return this.http.post(sessionUrl, {}, {headers: sessionHeaders})
-      .toPromise()
-      .then((response: IDeployerSession) => {
-        const token = response.token;
-        this.ws = new WebSocket(this.configService.getDeployerWebsocketUrl(token));
-        // Bind events
-        this.ws.onmessage = (event: MessageEvent) => {
-          try {
-            const decoded = <IDeployerMessage>JSON.parse(event.data);
-            // Add received date
-            decoded.date = new Date();
-            this._messageSubject.next(decoded);
-          } catch (error) {
-            console.error(error);
-          }
-        };
-        this.ws.onclose = (event: CloseEvent) => {};
-        this.ws.onerror = (event: ErrorEvent) => {
-          console.error(event);
-        };
-      })
-      .catch((error: HttpErrorResponse) => {
-        console.error(error);
-        return error;
-      });
-  }
+  private handshake() {
+    return new Promise((resolve, reject) => {
+      // Leave early
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        resolve();
+        return;
+      }
+      // Get JWT
+      const sessionUrl = this.configService.getDeployerSessionUrl();
+      let sessionHeaders = new HttpHeaders();
+      sessionHeaders = sessionHeaders.append('X-Hapify-Id', this.configService.getDeployerSessionId());
+      sessionHeaders = sessionHeaders.append('X-Hapify-Key', this.configService.getDeployerSessionKey());
+      // Start the handshake
+      return this.http.post(sessionUrl, {}, {headers: sessionHeaders})
+        .toPromise()
+        .then((response: IDeployerSession) => {
+          const token = response.token;
+          this.ws = new WebSocket(this.configService.getDeployerWebsocketUrl(token));
+          // Bind events
+          this.ws.onmessage = (event: MessageEvent) => {
+            try {
+              const decoded = <IDeployerMessage>JSON.parse(event.data);
+              // Add received date
+              decoded.date = new Date();
+              this._messageSubject.next(decoded);
+            } catch (error) {
+              console.error(error);
+            }
+          };
+          this.ws.onclose = (event: CloseEvent) => {
+
+          };
+          this.ws.onerror = (event: ErrorEvent) => {
+            console.error(event);
+          };
+          this.ws.onopen = (event: Event) => {
+            resolve();
+          };
+        })
+        .catch((error: HttpErrorResponse) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  };
 
   /**
    * Get the observable for messages
-   * 
+   *
    * @return {Observable<IDeployerMessage|null>}
    */
-  messages(): Observable<IDeployerMessage|null> {
+  messages(): Observable<IDeployerMessage | null> {
     return this._messageObservable;
+  }
+
+  /**
+   * Send a message to the server
+   *
+   * @param {string} id
+   * @param {{}} data
+   * @return {Promise<void>}
+   */
+  private async send(id: string, data = {}) {
+    this.ws.send(JSON.stringify({
+      id,
+      data
+    }));
   }
 }

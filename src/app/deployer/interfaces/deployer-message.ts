@@ -4,3 +4,7 @@ export interface IDeployerMessage {
   date?: Date;
   data: any;
 }
+
+export class DeployerMessages {
+  static REQUEST = 'clientRequest';
+}
