@@ -6,6 +6,9 @@ import {Observable} from 'rxjs/Observable';
 import {IDeployerMessage, DeployerMessages, DeployerOrders} from '../interfaces/deployer-message';
 import {IDeployerRequest} from '../interfaces/deployer-request';
 import {Subject} from 'rxjs/Subject';
+import {StorageService as ModelStorageService} from '../../model/model.module';
+import {StorageService as ChannelStorageService} from '../../channel/channel.module';
+import {GeneratorService} from '../../generator/services/generator.service';
 
 @Injectable()
 export class DeployerService {
@@ -35,23 +38,45 @@ export class DeployerService {
    *
    * @param {ConfigService} configService
    * @param {HttpClient} http
+   * @param {ModelStorageService} modelStorageService
+   * @param {ChannelStorageService} channelStorageService
+   * @param {} generatorService
    */
   constructor(private configService: ConfigService,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private modelStorageService: ModelStorageService,
+              private channelStorageService: ChannelStorageService,
+              private generatorService: GeneratorService) {
     // Respond to server orders
-    this._messageObservable.subscribe((message: IDeployerMessage) => {
-      // Request order
-      // if (message.id === DeployerOrders.SEND_REQUEST) {
-      //   this.send(DeployerMessages.REQUEST, this.request);
-      // }
+    this._messageObservable.subscribe(async (message: IDeployerMessage) => {
       // Next file order
       if (message.id === DeployerOrders.NEXT_CHANNEL) {
-        const requiredChannel = message.data.channel;
-        this.send(DeployerMessages.CHANNEL, {
-          name: this.request.name,
-          channel: requiredChannel,
-          content: requiredChannel
-        });
+        try {
+          // Get the required channel
+          const requiredChannel = message.data.channel;
+          const channel = await this.channelStorageService.find(requiredChannel);
+          // If no channel, break the process
+          if (!channel) {
+            return await this.internalError('Channel not found');
+          }
+          // Get all the models
+          const models = await this.modelStorageService.list();
+          // If no models, break the process
+          if (!models) {
+            return await this.internalError('No model found');
+          }
+          // Generate the content
+          const b64 = await this.generatorService.zip(models, channel, 'base64');
+
+          await this.send(DeployerMessages.CHANNEL, {
+            name: this.request.name,
+            channel: requiredChannel,
+            content: b64
+          });
+
+        } catch (error) {
+          this.internalError(error.toString());
+        }
       }
     });
   }
@@ -121,7 +146,7 @@ export class DeployerService {
           reject(error);
         });
     });
-  };
+  }
 
   /**
    * Get the observable for messages
@@ -140,9 +165,25 @@ export class DeployerService {
    * @return {Promise<void>}
    */
   private async send(id: string, data = {}) {
-    this.ws.send(JSON.stringify({
-      id,
-      data
-    }));
+    this.ws.send(JSON.stringify({id, data}));
+  }
+
+  /**
+   * Push an error
+   *
+   * @param {string} error
+   * @return {Promise<void>}
+   */
+  private async internalError(error) {
+    // Build message to propagate
+    const message: IDeployerMessage = {
+      id: 'internalError',
+      type: 'error',
+      date: new Date(),
+      data: {error},
+    };
+    this._messageSubject.next(message);
+    // Cancel the current deployment
+    await this.send(DeployerMessages.CANCEL, {name: this.request.name});
   }
 }
