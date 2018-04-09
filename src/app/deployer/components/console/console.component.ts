@@ -122,8 +122,8 @@ export class ConsoleComponent implements OnInit, OnDestroy {
     this.pending = true;
     // Connect to server and start process
     await this.deployerService.run({
-      name: this.name,
-      branch: this.branch,
+      name: this.name.trim(),
+      branch: this.branch.trim(),
       populate: true,
     });
   }
