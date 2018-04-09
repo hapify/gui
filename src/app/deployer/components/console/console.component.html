@@ -16,7 +16,7 @@
                         <div class="input-group">
                             <input id="name" class="form-control" formControlName="name"
                                    placeholder="{{ 'deployer_name_placeholder' | translate }}"
-                                   [(ngModel)]="name" [disabled]="pending" type="text">
+                                   [(ngModel)]="name" type="text">
                             <!--
                             <div
                                     *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-12 col-lg-4 mt-2 mt-lg-0">
                         <div class="input-group">
-                            <select [(ngModel)]="branch" formControlName="branch" class="form-control" [disabled]="pending">
+                            <select [(ngModel)]="branch" formControlName="branch" class="form-control">
                                 <option *ngFor="let b of branches" [ngValue]="b">{{b}}</option>
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                                 'text-danger': message.type === 'error',
                                 'text-info': message.type === 'info',
                                 'text-success': message.type === 'success' }"
-                        >[{{ message.date | date:'mediumTime' }}] {{ message.type.toUpperCase() }}: {{ message.id }}</pre>
+                        >[{{ message.date | date:'mediumTime' }}] {{ message.type.toUpperCase() }}: {{ message.id }} - {{ message.data | json }}</pre>
                     </div>
                 </div>
             </div>

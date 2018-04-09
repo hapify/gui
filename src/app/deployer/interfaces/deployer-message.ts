@@ -7,4 +7,10 @@ export interface IDeployerMessage {
 
 export class DeployerMessages {
   static REQUEST = 'clientRequest';
+  static CHANNEL = 'clientChannel';
+}
+
+export class DeployerOrders {
+  static SEND_REQUEST = 'sendRequest';
+  static NEXT_CHANNEL = 'nextChannel';
 }

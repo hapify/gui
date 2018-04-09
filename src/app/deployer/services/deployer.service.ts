@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from '../../services/config.service';
 import {IDeployerSession} from '../interfaces/deployer-session';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {IDeployerMessage, DeployerMessages} from '../interfaces/deployer-message';
+import {IDeployerMessage, DeployerMessages, DeployerOrders} from '../interfaces/deployer-message';
 import {IDeployerRequest} from '../interfaces/deployer-request';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class DeployerService {
@@ -16,12 +16,19 @@ export class DeployerService {
   private ws: WebSocket;
 
   /**
+   * Current request
+   *
+   * @type {IDeployerRequest}
+   */
+  private request: IDeployerRequest;
+
+  /**
    * Incoming messages/orders from server
    *
    * @private
    */
-  private _messageSubject = new BehaviorSubject<IDeployerMessage | null>(null);
-  private _messageObservable: Observable<IDeployerMessage | null> = this._messageSubject.asObservable();
+  private _messageSubject = new Subject<IDeployerMessage>();
+  private _messageObservable: Observable<IDeployerMessage> = this._messageSubject.asObservable();
 
   /**
    * Constructor
@@ -31,6 +38,22 @@ export class DeployerService {
    */
   constructor(private configService: ConfigService,
               private http: HttpClient) {
+    // Respond to server orders
+    this._messageObservable.subscribe((message: IDeployerMessage) => {
+      // Request order
+      // if (message.id === DeployerOrders.SEND_REQUEST) {
+      //   this.send(DeployerMessages.REQUEST, this.request);
+      // }
+      // Next file order
+      if (message.id === DeployerOrders.NEXT_CHANNEL) {
+        const requiredChannel = message.data.channel;
+        this.send(DeployerMessages.CHANNEL, {
+          name: this.request.name,
+          channel: requiredChannel,
+          content: requiredChannel
+        });
+      }
+    });
   }
 
   /**
@@ -40,10 +63,12 @@ export class DeployerService {
    * @return {Promise<void|Error>}
    */
   async run(request: IDeployerRequest) {
+    // Set the request
+    this.request = request;
     // Connect to the server
     await this.handshake();
-    // Send the request
-    await this.send(DeployerMessages.REQUEST, request);
+    // Force send the request
+    await this.send(DeployerMessages.REQUEST, this.request);
   }
 
   /**
@@ -101,9 +126,9 @@ export class DeployerService {
   /**
    * Get the observable for messages
    *
-   * @return {Observable<IDeployerMessage|null>}
+   * @return {Observable<IDeployerMessage>}
    */
-  messages(): Observable<IDeployerMessage | null> {
+  messages(): Observable<IDeployerMessage> {
     return this._messageObservable;
   }
 

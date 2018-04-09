@@ -91,16 +91,14 @@ export class ConsoleComponent implements OnInit, OnDestroy {
     });
     // New message from server
     this.subs.push(this.deployerService.messages().subscribe((message: IDeployerMessage) => {
-      if (message) {
-        this.messages.unshift(message);
-        // In case of error the server stop doing anything for us
-        if (message.type === 'error') {
-          this.pending = false;
-        }
-        // In case of success
-        if (message.type === 'success') {
-          this.pending = false;
-        }
+      this.messages.unshift(message);
+      // In case of error the server stop doing anything for us
+      if (message.type === 'error') {
+        this.pending = false;
+      }
+      // In case of success
+      if (message.type === 'success') {
+        this.pending = false;
       }
     }));
   }
@@ -125,6 +123,7 @@ export class ConsoleComponent implements OnInit, OnDestroy {
       name: this.name.trim(),
       branch: this.branch.trim(),
       populate: true,
+      stack: 'mean'
     });
   }
 
