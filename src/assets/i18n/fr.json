@@ -57,7 +57,7 @@
   "deployer_console_help": "La progression du déploiement sera affichée ici.",
   "deployer_name_placeholder": "project-name",
   "deployer_action_run": "Déployer",
-  "deployer_machines_intro": "Gérer les instances de tests",
+  "deployer_machines_intro": "Gérer les instances de test",
   "deployer_machines_subtitle": "Instances actives: {{count}}",
   "field_type": "Type de champ",
   "field_subtype": "Sous-type de champ",
