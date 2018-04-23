@@ -1,0 +1,30 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-12">
+      <p class="text-secondary mb-5">
+        {{ 'deployer_machines_intro' | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="machines-list">
+    <div class="card">
+      <div class="card-header">
+        <div class="clearfix">
+          <div class="float-left py-2">
+            {{ 'deployer_machines_subtitle' | translate:{count: machines ? machines.length : 0} }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="machines && machines.length">
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let machine of machines;" class="list-group-item">
+            {{ machine.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+

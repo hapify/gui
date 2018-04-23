@@ -7,6 +7,8 @@ import {RootComponent} from './components/root/root.component';
 import { ConsoleComponent } from './components/console/console.component';
 
 import {DeployerService} from './services/deployer.service';
+import {MachinesService} from './services/machines.service';
+import { MachinesComponent } from './components/machines/machines.component';
 
 @NgModule({
   imports: [
@@ -17,10 +19,12 @@ import {DeployerService} from './services/deployer.service';
   ],
   declarations: [
     RootComponent,
-    ConsoleComponent
+    ConsoleComponent,
+    MachinesComponent
   ],
   providers: [
-    DeployerService
+    DeployerService,
+    MachinesService
   ]
 })
 export class DeployerModule {

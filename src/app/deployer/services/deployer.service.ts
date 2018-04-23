@@ -40,7 +40,7 @@ export class DeployerService {
    * @param {HttpClient} http
    * @param {ModelStorageService} modelStorageService
    * @param {ChannelStorageService} channelStorageService
-   * @param {} generatorService
+   * @param {GeneratorService} generatorService
    */
   constructor(private configService: ConfigService,
               private http: HttpClient,

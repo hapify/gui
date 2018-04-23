@@ -11,8 +11,8 @@ export const environment = {
     proxyToken: 'VVmufSBsHyJcNAehytJDn3WZXsVHBa767W5tsezAKVhLXefpBpsSc8Z8NjdJy9JAn6Z43cxQzqsabR27FbwfujTe74vDXGBH'
   },
   deployer: {
+    apiUrl: 'http://localhost:9000',
     session: {
-      url: 'http://localhost:9000/session',
       id: '4YDMFEK98B09Z0OVGVLJC5GMAXG14NJ5',
       key: 'Y9[NYnwdy7{Q{8!V:+JQJ:FwZ>~>hDR2[C}um?E#PcUY?aS_zUF$j57a\\?Eh-Y5K^}~4[k):zsb~Q/yrJXDf>n(gE~uB]d$~eC#Fpq]7)DtDh7]A<+AkB)v7F?ApjU\\='
     },

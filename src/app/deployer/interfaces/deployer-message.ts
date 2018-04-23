@@ -12,6 +12,11 @@ export class DeployerMessages {
 }
 
 export class DeployerOrders {
-  static SEND_REQUEST = 'sendRequest';
   static NEXT_CHANNEL = 'nextChannel';
 }
+
+export class DeployerInfo {
+  static ACCEPTED = 'requestAccepted';
+  static SUCCESS = 'deploymentFinished';
+}
+

@@ -67,7 +67,16 @@ export class ConfigService {
    * @return {string}
    */
   getDeployerSessionUrl(): string {
-    return environment.deployer.session.url;
+    return `${environment.deployer.apiUrl}/session`;
+  }
+
+  /**
+   * Get the deployer machines' endpoints url
+   *
+   * @return {string}
+   */
+  getDeployerMachinesUrl(): string {
+    return `${environment.deployer.apiUrl}/machine`;
   }
 
   /**
