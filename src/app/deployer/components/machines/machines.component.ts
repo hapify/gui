@@ -47,4 +47,13 @@ export class MachinesComponent implements OnInit, OnDestroy {
     this.subs.forEach((s) => s.unsubscribe());
   }
 
+  /**
+   * Called when the user click on remove
+   *
+   * @param {IDeployerMachine} machine
+   */
+  didClickDelete(machine: IDeployerMachine) {
+    this.machinesService.remove(machine.name);
+  }
+
 }

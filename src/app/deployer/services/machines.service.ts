@@ -53,7 +53,7 @@ export class MachinesService {
    *
    * @return {Promise<void>}
    */
-  private remove(name): Promise<void> {
+  remove(name): Promise<void> {
     const url = `${this.configService.getDeployerMachinesUrl()}/${name}`;
     return this.http.delete(url, {headers: this.getApiHeaders()})
       .toPromise()

@@ -3,7 +3,8 @@ export interface IDeployerMachine {
   branch: string;
   stack: string;
   populate: boolean;
-  subDomains?: string[];
+  pending?: boolean;
+  urls?: any;
   creation?: number;
   ip?: string;
 }
