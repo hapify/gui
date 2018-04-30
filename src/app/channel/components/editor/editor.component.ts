@@ -11,6 +11,7 @@ import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
+import {SyncService} from '../../services/sync.service';
 
 @Component({
   selector: 'app-channel-editor',
@@ -142,12 +143,14 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param {TranslateService} translateService
    * @param {HotkeysService} hotKeysService
    * @param {AceService} aceService
+   * @param {SyncService} syncService
    */
   constructor(private formBuilder: FormBuilder,
               private injector: Injector,
               private translateService: TranslateService,
               private hotKeysService: HotkeysService,
-              public aceService: AceService) {
+              public aceService: AceService,
+              public syncService: SyncService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
     this.modelStorageService = this.injector.get(ModelStorageService);
@@ -234,6 +237,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     this.template.path = this.wip.path;
     this.unsavedChanges = false;
     this.onSave.emit();
+    // Auto-sync
+    if (this.syncService.userEnabled) {
+      this.syncService.run(this.template)
+        .catch(console.error);
+    }
   }
 
   /**

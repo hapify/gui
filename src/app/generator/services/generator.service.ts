@@ -31,6 +31,29 @@ export class GeneratorService {
   }
 
   /**
+   * Compile a template to multiple files.
+   * One per model, if applicable.
+   *
+   * @param {ITemplate} template
+   * @returns {Promise<IGeneratorResult[]>}
+   */
+  async compile(template: ITemplate): Promise<IGeneratorResult[]> {
+    // Create results stack
+    const promises: Promise<IGeneratorResult>[] = [];
+    // For each template, build each models
+    if (template.needsModel()) {
+      const models = await this.modelStorageService.list();
+      models.forEach((model: IModel) => {
+        promises.push(this._one(template, model));
+      });
+    } else {
+      promises.push(this._all(template));
+    }
+    // Wait results
+    return await Promise.all(promises);
+  }
+
+  /**
    * Run generation process
    *
    * @param {ITemplate} template

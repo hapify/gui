@@ -106,4 +106,22 @@ export class ConfigService {
   getDeployerWebsocketUrl(token): string {
     return `${environment.deployer.wsUrl}?token=${encodeURIComponent(token)}`;
   }
+
+  /**
+   * Returns the sync URL if exists
+   *
+   * @return {string|null}
+   */
+  getSyncUrl(): string {
+    return environment.sync ? `${environment.sync.apiUrl}` : null;
+  }
+  
+  /**
+   * Returns the sync token if exists
+   *
+   * @return {string|null}
+   */
+  getSyncToken(): string {
+    return environment.sync ? `${environment.sync.token}` : null;
+  }
 }

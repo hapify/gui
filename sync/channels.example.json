@@ -1,0 +1,24 @@
+{
+  "channels": {
+    "4173ebef-4bcd-8843-ab7c-57b1f45a510e": {
+      "name": "Ngx - Admin",
+      "path": "/path/to/bootstrap-ngx-material"
+    },
+    "2824fcf3-cdc3-ac52-a66e-2df4e0cbdc0f": {
+      "name": "Api - Routes",
+      "path": "/path/to/bootstrap-hapijs/src"
+    },
+    "6a524bd3-ddd3-46df-fe51-ff61d5fe8691": {
+      "name": "Api - Tests",
+      "path": "/path/to/bootstrap-hapijs/src"
+    },
+    "f9cf6346-362b-f4fb-b455-50e51710a9ab": {
+      "name": "Api - Mongo",
+      "path": "/path/to/bootstrap-hapijs/src"
+    },
+    "9950e2fd-99d1-2fcd-2f5b-86252a407d13": {
+      "name": "Api - Populator",
+      "path": "/path/to/bootstrap-hapijs/src"
+    }
+  }
+}

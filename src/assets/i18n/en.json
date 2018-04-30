@@ -29,6 +29,7 @@
   "channels_delete_confirm": "Really?",
   "channels_delete_cancel": "Nope",
   "channels_tooltip_autogenerate": "Auto-refresh",
+  "channels_tooltip_autosync": "Auto-sync",
   "channels_tooltip_dump": "Dump inputs in console",
   "channels_download": "Download channel",
   "channels_intro": "Create a new channel or edit its templates.",

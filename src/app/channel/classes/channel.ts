@@ -43,7 +43,7 @@ export class Channel implements IChannel {
    * @inheritDoc
    */
   public newTemplate(): ITemplate {
-    return new Template();
+    return new Template(this);
   }
 
   /**
