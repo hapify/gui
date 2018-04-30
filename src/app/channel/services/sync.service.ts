@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
-import {IChannel} from '../interfaces/channel';
 import {ITemplate} from '../interfaces/template';
 import {GeneratorService} from '../../generator/services/generator.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -30,10 +29,9 @@ export class SyncService {
   /**
    * Sync template
    *
-   * @param {IChannel} channel
    * @param {ITemplate} template
    */
-  async run(channel: IChannel, template: ITemplate) {
+  async run(template: ITemplate) {
     // If not available, leave
     if (!this.enabled()) {
       return;
@@ -41,7 +39,7 @@ export class SyncService {
     // Build paylaod
     const files = await this.generatorService.compile(template);
     const payload = {
-      channel: channel.id,
+      channel: template.channel().id,
       files
     };
     // Send the files
@@ -67,6 +65,6 @@ export class SyncService {
    * @returns {boolean}
    */
   enabled(): boolean {
-    return !!this.configService.getSyncUrl();
+    return this.userEnabled && !!this.configService.getSyncUrl();
   }
 }

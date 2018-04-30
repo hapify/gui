@@ -85,6 +85,13 @@ If the template requires all the models, therefore, an array `models` (alias `m`
 This array contains all the models defined.
 In a `dot.js` template it will be available under `{{=it.models}}` or `{{=it.m}}`
 
+## Auto-Sync compiled files
+
+On development, when editing templates via the editor, you can automatically sync the compiled files to your bootstraps.
+To run the web-app with this auto-sync mode, run `npm run start-sync`.
+
+For more information, go to `sync/README.md`.
+
 ## Angular documentation
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.

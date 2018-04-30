@@ -18,6 +18,7 @@ import {EditorComponent} from './components/editor/editor.component';
 import {StorageService} from './services/storage.service';
 import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
 import {HotkeyModule} from 'angular2-hotkeys';
+import {SyncService} from './services/sync.service';
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
@@ -46,7 +47,8 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
   ],
   providers: [
     StorageService,
-    MasksDownloaderService
+    MasksDownloaderService,
+    SyncService
   ],
 })
 export class ChannelModule {

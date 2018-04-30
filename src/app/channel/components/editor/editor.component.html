@@ -17,6 +17,13 @@
                             <span class="oi oi-reload"></span>
                         </label>
                     </div>
+                    <div class="btn-group ml-2" data-toggle="buttons">
+                        <label class="btn" title="{{ 'channels_tooltip_autosync' | translate }}"
+                               [ngClass]="{ 'btn-light': syncService.userEnabled, 'btn-outline-light': !syncService.userEnabled }">
+                            <input type="checkbox" autocomplete="off" [(ngModel)]="syncService.userEnabled">
+                            <span class="oi oi-cloud-download"></span>
+                        </label>
+                    </div>
                 </div>
                 <button type="button" class="btn btn-outline-light" (click)="didClickDump();"
                         title="{{ 'channels_tooltip_dump' | translate }}">
@@ -58,16 +65,16 @@
                     </div>
                 </div>
             </div>
-            <ace-editor 
-                    class="mt-3 p-3 rounded code grow bg-light input-editor" 
+            <ace-editor
+                    class="mt-3 p-3 rounded code grow bg-light input-editor"
                     #editorInput
-                    [(text)]="wip.content" 
-                    [mode]="aceService.mode(wip.aceMode(), false)" 
-                    [theme]="aceService.theme()" 
+                    [(text)]="wip.content"
+                    [mode]="aceService.mode(wip.aceMode(), false)"
+                    [theme]="aceService.theme()"
                     [options]="{}"
-                    [readOnly]="false" 
-                    [autoUpdateContent]="true" 
-                    [durationBeforeCallback]="1000" 
+                    [readOnly]="false"
+                    [autoUpdateContent]="true"
+                    [durationBeforeCallback]="1000"
                     (textChanged)="onChange($event)"></ace-editor>
         </div>
         <div class="col-lg-6 output d-flex flex-column p-3">
@@ -76,14 +83,14 @@
                    readonly
                    [value]="generatorService.path(wip, model)"
                    type="text">
-            <ace-editor 
+            <ace-editor
                     *ngIf="result"
-                    class="mt-3 p-3 rounded code grow bg-light" 
-                    [(text)]="result.content" 
-                    [mode]="aceService.mode(wip.path)" 
-                    [theme]="aceService.theme()" 
-                    [options]="{printMargin: false}" 
-                    [readOnly]="true" 
+                    class="mt-3 p-3 rounded code grow bg-light"
+                    [(text)]="result.content"
+                    [mode]="aceService.mode(wip.path)"
+                    [theme]="aceService.theme()"
+                    [options]="{printMargin: false}"
+                    [readOnly]="true"
                     [autoUpdateContent]="true"></ace-editor>
             <div *ngIf="error">
                 <div class="mt-3 rounded alert alert-danger small">

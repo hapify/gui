@@ -1,3 +1,4 @@
+import {IChannel} from './channel';
 export interface ITemplateBase {
   /**
    * The template's name
@@ -32,6 +33,7 @@ export interface ITemplateBase {
 }
 
 export interface ITemplate extends ITemplateBase {
+
   /**
    * Convert the instance to an object
    *
@@ -81,4 +83,9 @@ export interface ITemplate extends ITemplateBase {
    * @returns {boolean}
    */
   needsModel(): boolean;
+
+  /**
+   * Returns the containing channel
+   */
+  channel(): IChannel;
 }
