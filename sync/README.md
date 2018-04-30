@@ -2,6 +2,8 @@
 
 This server is started only in local development and reachable only through localhost.
 It's purpose is to save the fresh compiled files to the bootstraps when working via the editor.
+It does not copy all files exported by the channel.
+On the first run, you need to export the whole channel via the projector.
 
 To start the web-app with this sync server, run `npm run start-sync`.
 
