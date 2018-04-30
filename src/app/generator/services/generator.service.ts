@@ -159,6 +159,24 @@ export class GeneratorService {
    * @returns {Promise<void>}
    */
   async download(models: IModel[], channel: IChannel): Promise<void> {
+    // Generate ZIP
+    const blob = await this.zip(models, channel);
+    // Force download
+    const fileName = this.stringService.format(channel.name, SentenceFormat.SlugHyphen);
+    FileSaver.saveAs(blob, `${fileName}.zip`);
+  }
+
+  /**
+   * Get all models through all templates within a Blob
+   *
+   * @param {IModel} models
+   * @param {IChannel} channel
+   * @param {string} outputType
+   * @throws {Error}
+   *  If no content was generated
+   * @returns {Promise<Blob|String>}
+   */
+  async zip(models: IModel[], channel: IChannel, outputType = 'blob'): Promise<Blob|String> {
     // Create results stack
     const promises: Promise<IGeneratorResult>[] = [];
     // For each template, build each models
@@ -184,10 +202,7 @@ export class GeneratorService {
       zip.file(content.path, content.content);
     });
     // Generate ZIP
-    const blob = await zip.generateAsync({type: 'blob'});
-    // Force download
-    const fileName = this.stringService.format(channel.name, SentenceFormat.SlugHyphen);
-    FileSaver.saveAs(blob, `${fileName}.zip`);
+    return await zip.generateAsync({type: outputType});
   }
 
   /**

@@ -12,6 +12,7 @@ import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
 import {GeneratorComponent} from './components/generator/generator.component';
 import {LoaderComponent} from './components/loader/loader.component';
+import {DeployerComponent} from './components/deployer/deployer.component';
 import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 
 // Services
@@ -29,6 +30,7 @@ import {HotkeyModule} from 'angular2-hotkeys';
     ChannelComponent,
     GeneratorComponent,
     LoaderComponent,
+    DeployerComponent,
     SidebarComponent,
     HeaderComponent
   ],

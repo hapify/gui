@@ -1,0 +1,76 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12">
+            <p class="text-secondary mb-5">
+                {{ 'deployer_intro' | translate }}
+            </p>
+        </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12 col-lg-4 mt-0">
+                        <div class="input-group">
+                            <input id="name" class="form-control" formControlName="name"
+                                   placeholder="{{ 'deployer_name_placeholder' | translate }}"
+                                   [(ngModel)]="name" type="text">
+                            <!--
+                            <div
+                                    *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
+                                    class="alert alert-danger mt-2">
+                                <div *ngIf="form.controls['name'].errors.required">
+                                    {{ 'error_name_required' | translate }}
+                                </div>
+                                <div *ngIf="form.controls['name'].errors.pattern && !form.controls['name'].errors.required">
+                                    {{ 'error_name_format' | translate }}
+                                </div>
+                                <div *ngIf="form.controls['name'].errors.minlength">
+                                    {{ 'error_name_min_length' | translate:translateParams }}
+                                </div>
+                                <div *ngIf="form.controls['name'].errors.maxlength">
+                                    {{ 'error_name_max_length' | translate:translateParams }}
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mt-2 mt-lg-0">
+                        <div class="input-group">
+                            <select [(ngModel)]="branch" formControlName="branch" class="form-control">
+                                <option *ngFor="let b of branches" [ngValue]="b">{{b}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mt-2 mt-lg-0 text-lg-right">
+                        <button type="submit" class="btn btn-primary" [disabled]="pending || !form.valid">
+                            <span class="oi oi-data-transfer-upload"></span> {{ 'deployer_action_run' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div *ngIf="!messages.length">
+                    <i class="text-secondary my-2">
+                        {{ 'deployer_console_help' | translate }}
+                    </i>
+                </div>
+                <div *ngIf="messages.length">
+                    <div *ngFor="let message of messages">
+                        <pre class="m-0" 
+                                [ngClass]="{
+                                'text-secondary': message.type === 'order',
+                                'text-danger': message.type === 'error',
+                                'text-info': message.type === 'info',
+                                'text-success': message.type === 'success' }"
+                        >[{{ message.date | date:'mediumTime' }}] {{ message.type.toUpperCase() }}: {{ message.id }} - {{ message.data | json }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+

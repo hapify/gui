@@ -2,6 +2,8 @@
 
 ## Short-term
 
+- ~~Implement deployer interface~~
+- Add `important` field property to load linked entity in listings.
 - Add "dot" to properties names (Example: first.name).
 - Add "underscore uppercase" to properties names (Example: FIRST_NAME).
 - Add a customizable sub-type "Enum".

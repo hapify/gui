@@ -15,9 +15,10 @@ export class SimpleComponent implements OnInit {
   /**
    * Constructor
    *
-   * @param modelStorageService
-   * @param channelStorageService
-   * @param generatorService
+   * @param {AceService} aceService
+   * @param {StorageService} modelStorageService
+   * @param {StorageService} channelStorageService
+   * @param {GeneratorService} generatorService
    */
   constructor(public aceService: AceService,
               private modelStorageService: ModelStorageService,
