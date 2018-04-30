@@ -44,7 +44,7 @@ export class TemplateComponent implements OnInit {
   /**
    * @type {boolean}
    */
-  showCode = true;
+  showCode = false;
   /**
    * @type {boolean}
    */

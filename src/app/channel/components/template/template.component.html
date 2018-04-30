@@ -23,6 +23,9 @@
                 </div>
             </div>
             <div class="col-md-4 text-md-right mt-1 mt-md-0">
+                <button type="button" class="btn btn-outline-secondary" (click)="onShowEditor();">
+                    {{ 'template_open_editor' | translate }}
+                </button>
                 <button *ngIf="!showCode" type="button" class="btn btn-outline-secondary" (click)="showCode=true">
                     {{ 'template_show' | translate }}
                 </button>
