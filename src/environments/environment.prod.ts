@@ -17,5 +17,6 @@ export const environment = {
       key: 'Y9[NYnwdy7{Q{8!V:+JQJ:FwZ>~>hDR2[C}um?E#PcUY?aS_zUF$j57a\\?Eh-Y5K^}~4[k):zsb~Q/yrJXDf>n(gE~uB]d$~eC#Fpq]7)DtDh7]A<+AkB)v7F?ApjU\\='
     },
     wsUrl: 'ws://localhost:9000/websocket',
-  }
+  },
+  sync: false
 };
