@@ -3,6 +3,8 @@
 This server is started only in local development and reachable only through localhost.
 It's purpose is to save the fresh compiled files to the bootstraps when working via the editor.
 
+To start the web-app with this sync server, run `npm run start-sync`.
+
 ## Config
 
 This server runs on the port `9080`.
