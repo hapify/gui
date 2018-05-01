@@ -32,6 +32,7 @@
   "channels_tooltip_autosync": "Auto-synchronisation",
   "channels_tooltip_dump": "Afficher les entrées dans la console",
   "channels_download": "Télécharger la terminaison",
+  "channels_sync": "Synchroniser",
   "channels_intro": "Créer un nouvelle terminaison ou éditer ses masques.",
   "generator_title": "Projecteur",
   "generator_select_model": "Modèle",

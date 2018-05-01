@@ -19,8 +19,8 @@
                     </div>
                     <div class="btn-group ml-2" data-toggle="buttons">
                         <label class="btn" title="{{ 'channels_tooltip_autosync' | translate }}"
-                               [ngClass]="{ 'btn-light': syncService.userEnabled, 'btn-outline-light': !syncService.userEnabled }">
-                            <input type="checkbox" autocomplete="off" [(ngModel)]="syncService.userEnabled">
+                               [ngClass]="{ 'btn-light': syncService.autoSyncEnabled, 'btn-outline-light': !syncService.autoSyncEnabled }">
+                            <input type="checkbox" autocomplete="off" [(ngModel)]="syncService.autoSyncEnabled">
                             <span class="oi oi-cloud-download"></span>
                         </label>
                     </div>

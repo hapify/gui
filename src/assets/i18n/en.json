@@ -32,6 +32,7 @@
   "channels_tooltip_autosync": "Auto-sync",
   "channels_tooltip_dump": "Dump inputs in console",
   "channels_download": "Download channel",
+  "channels_sync": "Sync channel",
   "channels_intro": "Create a new channel or edit its templates.",
   "generator_title": "Generator",
   "generator_select_model": "Model",

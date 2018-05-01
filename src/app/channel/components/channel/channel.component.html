@@ -25,6 +25,9 @@
                     </div>
                 </div>
                 <div class="col-sm-4 text-sm-right d-none d-sm-block">
+                    <button type="button" class="btn btn-outline-secondary" [disabled]="channel.isEmpty() || syncing" (click)="onSync()">
+                        {{ 'channels_sync' | translate }}
+                    </button>
                     <button type="submit" class="btn btn-primary" [disabled]="channel.isEmpty()">
                         {{ 'common_save' | translate }}
                     </button>

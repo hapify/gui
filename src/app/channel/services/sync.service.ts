@@ -12,7 +12,7 @@ export class SyncService {
    *
    * @type {boolean}
    */
-  public userEnabled = false;
+  public autoSyncEnabled = false;
 
   /**
    * Constructor
@@ -65,6 +65,6 @@ export class SyncService {
    * @returns {boolean}
    */
   enabled(): boolean {
-    return this.userEnabled && !!this.configService.getSyncUrl();
+    return !!this.configService.getSyncUrl();
   }
 }

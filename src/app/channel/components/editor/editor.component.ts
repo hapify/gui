@@ -238,7 +238,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     this.unsavedChanges = false;
     this.onSave.emit();
     // Auto-sync
-    if (this.syncService.userEnabled) {
+    if (this.syncService.autoSyncEnabled) {
       this.syncService.run(this.template)
         .catch(console.error);
     }

@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {IChannel} from '../../interfaces/channel';
 import {MasksDownloaderService} from '../../../loader/services/masks-downloader.service';
+import {SyncService} from '../../services/sync.service';
 
 @Component({
   selector: 'app-channel-channel',
@@ -15,9 +16,11 @@ export class ChannelComponent implements OnInit {
    *
    * @param {FormBuilder} formBuilder
    * @param {MasksDownloaderService} masksDownloaderService
+   * @param {SyncService} syncService
    */
   constructor(private formBuilder: FormBuilder,
-              private masksDownloaderService: MasksDownloaderService) {
+              private masksDownloaderService: MasksDownloaderService,
+              private syncService: SyncService) {
   }
 
   /**
@@ -45,6 +48,10 @@ export class ChannelComponent implements OnInit {
    */
   maxLength = 32;
   /**
+   * @type {boolean}
+   */
+  syncing = false;
+  /**
    * @type {{minLength: number; maxLength: number}}
    */
   translateParams = {
@@ -71,6 +78,18 @@ export class ChannelComponent implements OnInit {
    */
   onSubmit() {
     this.onSave.emit();
+  }
+
+  /**
+   * Will sync all templates of the channel
+   */
+  async onSync() {
+    this.syncing = true;
+    for (let i = 0; i < this.channel.templates.length; i++) {
+      await this.syncService.run(this.channel.templates[i])
+        .catch(console.error);
+    }
+    this.syncing = false;
   }
 
   /**
