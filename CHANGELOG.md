@@ -16,7 +16,10 @@
 - Prevent page closing/reloading when the editor is opened and unsaved.
 - "Save" button within the editor is highlighted on unsaved changes.
 - "Ctrl+S"/"Cmd+S" saves the content when editor is opened (Unless the right editor is focused. To be fixed).
-- Develop deployment interface
+- Develop deployment interface.
+- Added sync server and auto-sync functionality.
+- Added computed "Searchable label" fields in model description.
+- Added pre-computed properties in model description.
 
 ### Changed
 - Enhance translation module initialization.

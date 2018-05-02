@@ -294,6 +294,9 @@ export class GeneratorService {
     // Get label fields
     const label = fields.filter((f) => f.label);
 
+    // Get label and searchable fields
+    const searchableLabel = fields.filter((f) => f.label && f.searchable);
+
     // Get nullable fields
     const nullable = fields.filter((f) => f.nullable);
 
@@ -341,7 +344,24 @@ export class GeneratorService {
       isPrivate,
       ip: isPrivate,
       internal,
-      i: internal
+      i: internal,
+      searchableLabel,
+      sl: searchableLabel
+    };
+
+    // Pre-compute properties
+    m.properties = {
+      fieldsCount: fields.length,
+      hasPrimary: !!primary,
+      hasUnique: unique.length > 0,
+      hasLabel: label.length > 0,
+      hasNullable: nullable.length > 0,
+      hasMultiple: multiple.length > 0,
+      hasSearchable: searchable.length > 0,
+      hasSortable: sortable.length > 0,
+      hasPrivate: isPrivate.length > 0,
+      hasInternal: internal.length > 0,
+      hasSearchableLabel: searchableLabel.length > 0
     };
 
     // Add references and dependencies on first level
@@ -393,7 +413,9 @@ export class GeneratorService {
           .filter((ref: any) => removeSelf ? ref.model.id !== model.id : true)
           // Remove duplicates
           .filter((ref: any) => {
-            if (duplicates[ref.reference] === true) return false;
+            if (duplicates[ref.reference] === true) {
+              return false;
+            }
             duplicates[ref.reference] = true;
             return true;
           })
@@ -414,6 +436,7 @@ export class GeneratorService {
         s: selfDependency
       };
       m.d = m.dependencies;
+      m.properties.hasDependencies = allDependencies.length > 0;
 
       // ==========================================
       // REFERENCED IN
@@ -437,10 +460,12 @@ export class GeneratorService {
       m.referencedIn = referencedIn;
       m.referencedIn.f = m.referencedIn.filter;
       m.ri = referencedIn;
+      m.properties.isReferenced = referencedIn.length > 0;
     }
 
     // Add short name
     m.f = m.fields;
+    m.p = m.properties;
 
     return m;
   }

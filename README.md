@@ -30,6 +30,7 @@ The following objects will be available in the template.
     - `sortable` - alias `so` (array): An array containing all fields flagged as `sortable`.
     - `isPrivate` - alias `ip` (array): An array containing all fields flagged as `private`.
     - `internal` - alias `i` (array): An array containing all fields flagged as `internal`.
+    - `searchableLabel` - alias `sl` (array): An array containing all fields flagged as `label` and `searchable`. Useful for quick-search by label.
     - `filter` - alias `f` (Function): A function for filtering fields with a custom rule. Equivalent of `model.fields.list.filter`.
     - `references` - alias `r` - non-deep model only (array): An array containing all fields of type `entity`.
         - `filter` - alias `f` (function): A function for filtering the array.
@@ -41,6 +42,20 @@ The following objects will be available in the template.
             - Second argument (boolean - default `true`): A boolean indicating if we should filter the self dependency.
     - `referencedIn` - alias `ri` - non-deep model only (array): An array containing models that refer to this one. These models are added as "deep models".
         - `filter` - alias `f` (function): A function for filtering the array.
+- `properties` - alias `p` (object): An array containing pre-computed properties from fields.
+    - `fieldsCount` (number): The number of fields contained in the model.
+    - `hasPrimary` (boolean): Denotes if the model has a primary field.
+    - `hasUnique` (boolean): Denotes if the model has at least one unique field.
+    - `hasLabel` (boolean): Denotes if the model has at least one label field.
+    - `hasNullable` (boolean): Denotes if the model has at least one nullable field.
+    - `hasMultiple` (boolean): Denotes if the model has at least one multiple field.
+    - `hasSearchable` (boolean): Denotes if the model has at least one searchable field.
+    - `hasSortable` (boolean): Denotes if the model has at least one sortable field.
+    - `hasPrivate` (boolean): Denotes if the model has at least one private field.
+    - `hasInternal` (boolean): Denotes if the model has at least one internal field.
+    - `hasSearchableLabel` (boolean): Denotes if the model has at least one field marked as label and also searchable.
+    - `hasDependencies` - non-deep model only (boolean): Denotes if the model has dependencies to other models or itself (through an `entity` field).
+    - `isReferenced` - non-deep model only (boolean): Denotes if the model is referenced by other models.
             
 **Field object**
 
