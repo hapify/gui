@@ -13,7 +13,7 @@ const Joi = require('joi');
 const SchemaPayload = Joi.object({
     channel: Joi.string().regex(/^([a-f0-9-]+)$/i).required(),
     files: Joi.array().items(Joi.object({
-        path: Joi.string().required(),
+        path: Joi.string().regex(/(\.\.)/, { invert: true }).required(),
         content: Joi.string().required()
     })).required()
 });
