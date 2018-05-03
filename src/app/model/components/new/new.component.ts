@@ -33,12 +33,18 @@ export class NewComponent implements OnInit {
   ngOnInit() {
     // New model
     this.model = new Model();
-    // Default field
-    const field = this.model.newField();
-    field.name = '_id';
-    field.primary = true;
-    field.internal = true;
-    this.model.addField(field);
+    // Default field(s)
+    const primary = this.model.newField();
+    primary.name = '_id';
+    primary.primary = true;
+    primary.internal = true;
+    this.model.addField(primary);
+    const creation = this.model.newField();
+    creation.name = 'creation';
+    creation.type = 'datetime';
+    creation.internal = true;
+    creation.sortable = true;
+    this.model.addField(creation);
     // Get default name
     this.translateService.get('new_model_name').subscribe((text) => {
       this.model.name = text;
