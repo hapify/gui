@@ -361,7 +361,9 @@ export class GeneratorService {
       hasSortable: sortable.length > 0,
       hasPrivate: isPrivate.length > 0,
       hasInternal: internal.length > 0,
-      hasSearchableLabel: searchableLabel.length > 0
+      hasSearchableLabel: searchableLabel.length > 0,
+      mainlyPrivate: fields.length < 2 * isPrivate.length,
+      mainlyInternal: fields.length < 2 * internal.length
     };
 
     // Add references and dependencies on first level
