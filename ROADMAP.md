@@ -12,9 +12,11 @@
 
 - Add script to detect fields properties combinations not supported by a channel.
 - Add middleware script(s) called before each template within a channel.
+- Create new templating language
 - Code formatter/Linter after build.
 - Groups models by project.
 
 ## Long-term
 
 - Can define "actions" required by a models to avoid unused generated code.
+ d
