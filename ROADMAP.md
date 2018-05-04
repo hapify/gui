@@ -19,4 +19,3 @@
 ## Long-term
 
 - Can define "actions" required by a models to avoid unused generated code.
- d
