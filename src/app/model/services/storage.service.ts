@@ -29,8 +29,10 @@ export class StorageService extends BaseStorageService {
   /**
    * @inheritDoc
    */
-  list(): Promise<IModel[]> {
-    return super.list();
+  async list(): Promise<IModel[]> {
+    const list = <IModel[]>(await super.list());
+    list.sort((a: IModel, b: IModel) => a.name.localeCompare(b.name));
+    return list;
   }
 
   /**
