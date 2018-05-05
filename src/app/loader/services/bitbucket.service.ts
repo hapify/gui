@@ -228,7 +228,6 @@ export class BitbucketService {
    */
   private _getUser(): Promise<void> {
     const url = `${this.configService.getBitbucketBaseUri()}/user`;
-
     return this.http.get(url, {headers: this._getRequestHeaders()})
       .toPromise()
       .then((user: IBitbucketUser) => {

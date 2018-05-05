@@ -34,14 +34,14 @@ The following objects will be available in the template.
     - `filter` - alias `f` (Function): A function for filtering fields with a custom rule. Equivalent of `model.fields.list.filter`.
     - `references` - alias `r` - non-deep model only (array): An array containing all fields of type `entity`.
         - `filter` - alias `f` (function): A function for filtering the array.
-    - `dependencies` - alias `d` - non-deep model only (object): An object containing dependencies (to other models) of this model. A model has a dependency if one of this field is of type `entity`.
-        - `list` - alias `l` (array): An array containing all dependency models, but self. These models are added as "deep models".
-        - `self` - alias `s` (boolean): A boolean indicating if this model has a self-dependency.
-        - `filter` - alias `f` (function): A function to filter dependencies.
-            - First argument (function - default `(f) => f`): The filtering function receiving a model object
-            - Second argument (boolean - default `true`): A boolean indicating if we should filter the self dependency.
-    - `referencedIn` - alias `ri` - non-deep model only (array): An array containing models that refer to this one. These models are added as "deep models".
-        - `filter` - alias `f` (function): A function for filtering the array.
+- `dependencies` - alias `d` - non-deep model only (object): An object containing dependencies (to other models) of this model. A model has a dependency if one of this field is of type `entity`.
+    - `list` - alias `l` (array): An array containing all dependency models, but self. These models are added as "deep models".
+    - `self` - alias `s` (boolean): A boolean indicating if this model has a self-dependency.
+    - `filter` - alias `f` (function): A function to filter dependencies.
+        - First argument (function - default `(f) => f`): The filtering function receiving a model object
+        - Second argument (boolean - default `true`): A boolean indicating if we should filter the self dependency.
+- `referencedIn` - alias `ri` - non-deep model only (array): An array containing models that refer to this one. These models are added as "deep models".
+    - `filter` - alias `f` (function): A function for filtering the array.
 - `properties` - alias `p` (object): An array containing pre-computed properties from fields.
     - `fieldsCount` (number): The number of fields contained in the model.
     - `hasPrimary` (boolean): Denotes if the model has a primary field.
