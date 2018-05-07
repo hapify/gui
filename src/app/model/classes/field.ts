@@ -90,7 +90,7 @@ export class Field implements IField {
       name: this.name,
       type: this.type,
       subtype: this.subtype,
-      reference: this.reference,
+      reference: this.type === FieldType.Entity ? this.reference : null,
       primary: this.primary,
       unique: this.unique,
       label: this.label,
