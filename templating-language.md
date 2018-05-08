@@ -38,8 +38,8 @@ Explanations:
 We use lower case for an object (ie a specific field or a model)
 We use upper case for an array of object (ie a field list or a model list)
 
-If the variable is missing, we assume we assume we refer to the root variable:
-The model in a single model template, the models list in a multiple model template.
+To refer to the root variable, we use `_`.
+This will refer to the model in a single model template and to the models list in a multiple model template.
 
 By default, in a case of a single model template:
 - `F` refers to the fields list: `model.fields.list`
@@ -89,7 +89,7 @@ This will loop over all fields.
 In a multiple models template, to loop over all models (root variable), the syntax will be:
 
 ```
-<<@ m>>
+<<@ _ m>>
     .....
 <<@>>
 ```
