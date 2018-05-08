@@ -6,7 +6,7 @@ export const environment = {
   },
   bitbucket: {
     baseUri: 'https://api.bitbucket.org/2.0',
-    authorize: 'https://bitbucket.org/site/oauth2/authorize?client_id=xxx&response_type=token',
+    authorize: 'https://bitbucket.org/site/oauth2/authorize?client_id=qs5WQ6GMpaFMxUc5fe&response_type=token',
     proxyUrl: 'https://repositories.hapify.io/bitbucket/php/index.php',
     proxyToken: 'VVmufSBsHyJcNAehytJDn3WZXsVHBa767W5tsezAKVhLXefpBpsSc8Z8NjdJy9JAn6Z43cxQzqsabR27FbwfujTe74vDXGBH'
   },
