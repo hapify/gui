@@ -1,4 +1,4 @@
-<div class="row">
+<div *ngIf="!!repository" class="row">
     <div class="col-12 col-lg-6 pt-2">
         <b>{{ repository.name }}</b>
         <span class="badge badge-pill badge-secondary">{{ repository.updated_on | date:'medium' }}</span>

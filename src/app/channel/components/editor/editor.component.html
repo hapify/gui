@@ -17,7 +17,7 @@
                             <span class="oi oi-reload"></span>
                         </label>
                     </div>
-                    <div class="btn-group ml-2" data-toggle="buttons">
+                    <div *ngIf="syncService.enabled()" class="btn-group ml-2" data-toggle="buttons">
                         <label class="btn" title="{{ 'channels_tooltip_autosync' | translate }}"
                                [ngClass]="{ 'btn-light': syncService.autoSyncEnabled, 'btn-outline-light': !syncService.autoSyncEnabled }">
                             <input type="checkbox" autocomplete="off" [(ngModel)]="syncService.autoSyncEnabled">
@@ -78,7 +78,7 @@
                     (textChanged)="onChange($event)"></ace-editor>
         </div>
         <div class="col-lg-6 output d-flex flex-column p-3">
-            <input *ngIf="!template.needsModel() || model"
+            <input *ngIf="!template.needsModel() || !!model"
                    class="form-control"
                    readonly
                    [value]="generatorService.path(wip, model)"

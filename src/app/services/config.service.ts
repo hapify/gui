@@ -113,15 +113,17 @@ export class ConfigService {
    * @return {string|null}
    */
   getSyncUrl(): string {
-    return environment.sync ? `${environment.sync.apiUrl}` : null;
+    return typeof environment.sync === 'object' ?
+      `${(<any>environment.sync).apiUrl}` : null;
   }
-  
+
   /**
    * Returns the sync token if exists
    *
    * @return {string|null}
    */
   getSyncToken(): string {
-    return environment.sync ? `${environment.sync.token}` : null;
+    return typeof environment.sync === 'object' ?
+      `${(<any>environment.sync).token}` : null;
   }
 }

@@ -20,7 +20,7 @@ export class ChannelComponent implements OnInit {
    */
   constructor(private formBuilder: FormBuilder,
               private masksDownloaderService: MasksDownloaderService,
-              private syncService: SyncService) {
+              public syncService: SyncService) {
   }
 
   /**
