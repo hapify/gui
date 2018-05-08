@@ -13,8 +13,8 @@ export const environment = {
   deployer: {
     apiUrl: 'http://local.deployer.hapify.ca',
     session: {
-      id: '4YDMFEK98B09Z0OVGVLJC5GMAXG14NJ5',
-      key: 'Y9[NYnwdy7{Q{8!V:+JQJ:FwZ>~>hDR2[C}um?E#PcUY?aS_zUF$j57a\\?Eh-Y5K^}~4[k):zsb~Q/yrJXDf>n(gE~uB]d$~eC#Fpq]7)DtDh7]A<+AkB)v7F?ApjU\\='
+      id: 'KCQX5RCAQ9BN89RAXNZKEGT77YYRZZB2',
+      key: '2bFCJV@BUCRa=QFWaKQt&+WWL9WxR5fy9Zj7U?kwQn2*R*U-rbPH-h*yc$^6aTa7^PNczfTuz3nfB?BD?g@HAbZ4z%Cnt=UjvqsnVKU$qC3A9NFJ$5fZ#Kyn%-f%Jvev'
     },
     wsUrl: 'ws://local.deployer.hapify.ca/websocket',
   },
