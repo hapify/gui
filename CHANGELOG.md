@@ -3,6 +3,14 @@
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Removed
+
+## [0.2.0] - 2018-05-09
+
+### Added
 - Link app to Bitbucket account (Loader module).
 - Load masks from Bitbucket (Loader module).
 - Load models from Bitbucket (Loader module).

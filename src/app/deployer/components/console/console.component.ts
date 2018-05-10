@@ -14,7 +14,7 @@ export class ConsoleComponent implements OnInit, OnDestroy {
   /**
    * @type {string}
    */
-  branch = 'develop';
+  branch = 'master';
   /**
    * @type {[string]}
    */

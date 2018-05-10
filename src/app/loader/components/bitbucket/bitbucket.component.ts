@@ -107,7 +107,11 @@ export class BitbucketComponent implements OnInit, OnDestroy {
     repository.pending = true;
     this.bitbucketService.getRepositorySource(repository)
       .then((files) => this.masksService.loadFromFiles(files))
-      .then(() => repository.pending = false);
+      .then(() => repository.pending = false)
+      .catch((error: Error) => {
+        console.error(error);
+        repository.pending = false;
+      });
   }
 
   /**
@@ -116,7 +120,11 @@ export class BitbucketComponent implements OnInit, OnDestroy {
   onLoadBootstrapClick(repository: IBitbucketRepository) {
     repository.pending = true;
     this.bitbucketService.downloadRepositorySource(repository)
-      .then(() => repository.pending = false);
+      .then(() => repository.pending = false)
+      .catch((error: Error) => {
+        console.error(error);
+        repository.pending = false;
+      });
   }
 
   /**
@@ -126,7 +134,11 @@ export class BitbucketComponent implements OnInit, OnDestroy {
     repository.pending = true;
     this.bitbucketService.getRepositorySource(repository)
       .then((files) => this.modelsService.loadFromFiles(files))
-      .then(() => repository.pending = false);
+      .then(() => repository.pending = false)
+      .catch((error: Error) => {
+        console.error(error);
+        repository.pending = false;
+      });
   }
 
 }
