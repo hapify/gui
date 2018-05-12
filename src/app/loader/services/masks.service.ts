@@ -64,6 +64,24 @@ export class MasksService {
   }
 
   /**
+   * Load the validator script
+   *
+   * @param {string} validator
+   * @param {any} files
+   * @return {Promise<string>}
+   * @private
+   */
+  private async _loadValidator(validator: string, files: any): Promise<string> {
+
+    // Get content
+    if (typeof files[validator] === 'undefined') {
+      throw new Error(`Manifest file not found in ${this.manifestPath}`);
+    }
+
+    return files[validator];
+  }
+
+  /**
    * Load a single channel
    *
    * @param {IChannelManifest} channel
@@ -75,13 +93,16 @@ export class MasksService {
 
     // Get templates contents
     const templates = await Promise.all(channel.masks.map((t) => this._loadTemplate(t, files)));
+    // Get the validator content
+    const validator = channel.validator ? await this._loadValidator(channel.validator, files): '';
 
     // Create and populate channel
     const output = new Channel();
     output.fromObject({
       id: channel.id,
       name: channel.name,
-      templates
+      templates,
+      validator
     });
 
     return output;

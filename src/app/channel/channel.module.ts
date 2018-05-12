@@ -22,6 +22,7 @@ import {SyncService} from './services/sync.service';
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
+import { ValidatorEditorComponent } from './components/validator-editor/validator-editor.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     EditComponent,
     ChannelRowComponent,
     EditorComponent,
-    ContentEditableModelDirective
+    ContentEditableModelDirective,
+    ValidatorEditorComponent
   ],
   providers: [
     StorageService,

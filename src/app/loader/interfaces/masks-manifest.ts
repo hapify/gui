@@ -10,6 +10,7 @@ export interface IChannelManifest {
   id: string;
   name: string;
   masks: ITemplateManifest[];
+  validator: string;
 }
 
 export interface IMasksManifest {

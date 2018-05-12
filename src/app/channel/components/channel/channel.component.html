@@ -52,6 +52,9 @@
                     <button type="button" class="btn btn-outline-secondary" (click)="cleanTemplates()">
                         {{ 'channels_clean_templates' | translate }}
                     </button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="onShowValidatorEditor()">
+                        {{ 'channels_open_validator_editor' | translate }}
+                    </button>
                 </div>
                 <div class="col-sm-4 text-sm-right">
                     <button type="submit" class="btn btn-primary" [disabled]="channel.isEmpty()">
@@ -67,3 +70,10 @@
         </button>
     </div>
 </form>
+<div *ngIf="showValidatorEditor">
+    <app-channel-validator-editor
+            [channel]="channel"
+            (onSave)="onValidatorEditorSave()"
+            (onClose)="onValidatorEditorClose()">
+    </app-channel-validator-editor>
+</div>
