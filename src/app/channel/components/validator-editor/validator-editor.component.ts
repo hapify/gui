@@ -7,8 +7,9 @@ import {StorageService as ModelStorageService, IModel} from '../../../model/mode
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
-import {SyncService} from '../../services/sync.service';
 import {IChannel} from '../../interfaces/channel';
+import {IValidatorResult} from '../../interfaces/validator-result';
+import {ValidatorService} from '../../services/validator.service';
 
 @Component({
   selector: 'app-channel-validator-editor',
@@ -35,8 +36,13 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
   models: IModel[];
   /** @type {IModel} Checked model */
   model: IModel;
-  /** @type {string[]} Generation error */
-  errors: string[];
+  /** @type {IValidatorResult} Validation results */
+  results: IValidatorResult = {
+    errors: [],
+    warnings: []
+  };
+  /** @type {Error} Validation error */
+  error: Error;
   /** @type {boolean} Denotes if should auto-check on change */
   autoValidate = true;
   /** @type {string} Text display to prevent reloading */
@@ -55,13 +61,13 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
    * @param {TranslateService} translateService
    * @param {HotkeysService} hotKeysService
    * @param {AceService} aceService
-   * @param {SyncService} syncService
+   * @param {ValidatorService} validatorService
    */
   constructor(private injector: Injector,
               private translateService: TranslateService,
               private hotKeysService: HotkeysService,
               public aceService: AceService,
-              public syncService: SyncService) {
+              private validatorService: ValidatorService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
     this.modelStorageService = this.injector.get(ModelStorageService);
@@ -148,10 +154,14 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
    * @private
    */
   private validate() {
-    // Clean results and error
-    this.errors = [];
+    // Clean error
+    this.error = null;
     // Run validation
-
+    try {
+      this.results = this.validatorService.run(this.content, this.model);
+    } catch (error) {
+      this.error = error;
+    }
   }
 
   /**

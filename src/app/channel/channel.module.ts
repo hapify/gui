@@ -19,6 +19,7 @@ import {StorageService} from './services/storage.service';
 import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {SyncService} from './services/sync.service';
+import {ValidatorService} from './services/validator.service';
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
@@ -50,7 +51,8 @@ import { ValidatorEditorComponent } from './components/validator-editor/validato
   providers: [
     StorageService,
     MasksDownloaderService,
-    SyncService
+    SyncService,
+    ValidatorService
   ],
 })
 export class ChannelModule {

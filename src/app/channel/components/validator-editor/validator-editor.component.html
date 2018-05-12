@@ -46,7 +46,8 @@
               (textChanged)="onChange($event)"></ace-editor>
     </div>
     <div class="col-lg-4 output d-flex flex-column p-3">
-      <pre class="m-0 p-2 rounded code grow bg-light">This will show generation results</pre>
+      <pre *ngIf="!error" class="m-0 p-2 rounded code grow bg-light">{{ results.errors.join('\n') + '\n\n' + results.warnings.join('\n') }}</pre>
+      <pre *ngIf="error" class="m-0 p-2 rounded code grow alert alert-danger">{{ error.message + '\n\n' + error.stack }}</pre>
     </div>
   </div>
 </div>
