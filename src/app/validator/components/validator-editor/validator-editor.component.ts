@@ -7,12 +7,12 @@ import {StorageService as ModelStorageService, IModel} from '../../../model/mode
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
-import {IChannel} from '../../interfaces/channel';
 import {IValidatorResult} from '../../interfaces/validator-result';
 import {ValidatorService} from '../../services/validator.service';
+import {IChannel} from '../../../channel/interfaces/channel';
 
 @Component({
-  selector: 'app-channel-validator-editor',
+  selector: 'app-validator-editor',
   templateUrl: './validator-editor.component.html',
   styleUrls: ['./validator-editor.component.scss']
 })

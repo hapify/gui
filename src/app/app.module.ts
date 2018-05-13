@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app.routing';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {TranslateModuleLoad} from './translate-import';
+import {ValidatorModule} from './validator/validator.module';
 
 // Components
 import {AppComponent} from './app.component';
@@ -42,7 +43,8 @@ import {HotkeyModule} from 'angular2-hotkeys';
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
     FormsModule,
-    HotkeyModule.forRoot()
+    HotkeyModule.forRoot(),
+    ValidatorModule
   ],
   providers: [
     ConfigService,

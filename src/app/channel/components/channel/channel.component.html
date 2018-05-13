@@ -71,9 +71,9 @@
     </div>
 </form>
 <div *ngIf="showValidatorEditor">
-    <app-channel-validator-editor
+    <app-validator-editor
             [channel]="channel"
             (onSave)="onValidatorEditorSave()"
             (onClose)="onValidatorEditorClose()">
-    </app-channel-validator-editor>
+    </app-validator-editor>
 </div>

@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {AceEditorModule} from 'ng2-ace-editor';
 import {TranslateModuleLoad} from '../translate-import';
+import {ValidatorModule} from '../validator/validator.module';
 
 import {ChannelComponent} from './components/channel/channel.component';
 import {ChannelRowComponent} from './components/channel-row/channel-row.component';
@@ -19,11 +20,9 @@ import {StorageService} from './services/storage.service';
 import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {SyncService} from './services/sync.service';
-import {ValidatorService} from './services/validator.service';
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
-import { ValidatorEditorComponent } from './components/validator-editor/validator-editor.component';
 
 @NgModule({
   imports: [
@@ -35,7 +34,8 @@ import { ValidatorEditorComponent } from './components/validator-editor/validato
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
-    HotkeyModule
+    HotkeyModule,
+    ValidatorModule
   ],
   declarations: [
     ChannelComponent,
@@ -45,14 +45,12 @@ import { ValidatorEditorComponent } from './components/validator-editor/validato
     EditComponent,
     ChannelRowComponent,
     EditorComponent,
-    ContentEditableModelDirective,
-    ValidatorEditorComponent
+    ContentEditableModelDirective
   ],
   providers: [
     StorageService,
     MasksDownloaderService,
-    SyncService,
-    ValidatorService
+    SyncService
   ],
 })
 export class ChannelModule {
