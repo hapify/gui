@@ -9,8 +9,9 @@ import {TranslateModuleLoad} from '../translate-import';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {ValidatorService} from './services/validator.service';
 
-// Directives
+// Components
 import {ValidatorEditorComponent} from './components/validator-editor/validator-editor.component';
+import {ValidatorModelDetailsComponent} from './components/validator-model-details/validator-model-details.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {ValidatorEditorComponent} from './components/validator-editor/validator-
     HotkeyModule
   ],
   declarations: [
-    ValidatorEditorComponent
+    ValidatorEditorComponent,
+    ValidatorModelDetailsComponent
   ],
   providers: [
     ValidatorService
