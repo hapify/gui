@@ -32,7 +32,7 @@
     </nav>
   </header>
   <div class="d-flex grow">
-    <div class="col-lg-8 input d-flex flex-column p-3">
+    <div class="col-lg-7 input d-flex flex-column p-3">
       <ace-editor
               class="m-0 p-3 rounded code grow bg-light input-editor"
               #editorInput
@@ -45,8 +45,8 @@
               [durationBeforeCallback]="1000"
               (textChanged)="onChange($event)"></ace-editor>
     </div>
-    <div class="col-lg-4 output d-flex flex-column p-3">
-      <pre *ngIf="!error" class="m-0 p-2 rounded code grow bg-light">{{ results.errors.join('\n') + '\n\n' + results.warnings.join('\n') }}</pre>
+    <div class="col-lg-5 output d-flex flex-column p-3 small">
+      <pre *ngIf="!error" class="m-0 p-2 rounded code grow bg-light">{{ summary }}</pre>
       <pre *ngIf="error" class="m-0 p-2 rounded code grow alert alert-danger">{{ error.message + '\n\n' + error.stack }}</pre>
     </div>
   </div>

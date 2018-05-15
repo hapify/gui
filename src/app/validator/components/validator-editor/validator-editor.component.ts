@@ -36,13 +36,12 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
   models: IModel[];
   /** @type {IModel} Checked model */
   model: IModel;
-  /** @type {IValidatorResult} Validation results */
-  results: IValidatorResult = {
-    errors: [],
-    warnings: []
-  };
+  /** @type {IValidatorResult} Validation result */
+  result: IValidatorResult;
   /** @type {Error} Validation error */
   error: Error;
+  /** @type {string} Result summary */
+  summary = '';
   /** @type {boolean} Denotes if should auto-check on change */
   autoValidate = true;
   /** @type {string} Text display to prevent reloading */
@@ -153,12 +152,20 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
    *
    * @private
    */
-  private validate() {
+  private async validate() {
     // Clean error
     this.error = null;
     // Run validation
     try {
-      this.results = this.validatorService.run(this.content, this.model);
+      this.result = await this.validatorService.run(this.content, this.model);
+
+      const {errors, warnings} = this.result;
+
+      this.summary = `${errors.length} error${errors.length > 1 ? 's' : ''}`;
+      this.summary = `${this.summary}\n${errors.join('\n')}${errors.length ? '\n' : ''}`;
+      this.summary = `${this.summary}\n${warnings.length} warning${warnings.length > 1 ? 's' : ''}`;
+      this.summary = `${this.summary}\n${warnings.join('\n')}`;
+
     } catch (error) {
       this.error = error;
     }
