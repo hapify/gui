@@ -1,5 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs/Subscription';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime} from 'rxjs/operators';
 import {IModel} from '../../interfaces/model';
 
 @Component({
@@ -7,7 +10,7 @@ import {IModel} from '../../interfaces/model';
   templateUrl: './model.component.html',
   styleUrls: ['./model.component.scss']
 })
-export class ModelComponent implements OnInit {
+export class ModelComponent implements OnInit, OnDestroy {
 
   /**
    * Constructor
@@ -15,42 +18,42 @@ export class ModelComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
   }
 
-  /**
-   * Model instance
-   *
-   * @type {IModel}
-   */
+  /** @type {IModel} Model instance */
   @Input() model: IModel;
-  /**
-   * On save event
-   *
-   * @type {EventEmitter<void>}
-   */
+  /** @type {EventEmitter<void>} On save event */
   @Output() onSave = new EventEmitter<void>();
-  /**
-   * @type {FormGroup}
-   */
+  /** @type {EventEmitter<void>} Notify changes */
+  @Output() onChange = new EventEmitter<void>();
+  /** @type {FormGroup} */
   form: FormGroup;
-  /**
-   * @type {number}
-   */
+  /** @type {number} */
   minLength = 2;
-  /**
-   * @type {number}
-   */
+  /** @type {number} */
   maxLength = 32;
-  /**
-   * @type {{minLength: number; maxLength: number}}
-   */
+  /** @type {{minLength: number; maxLength: number}} */
   translateParams = {
     minLength: this.minLength,
     maxLength: this.maxLength,
   };
+  /** @type {number} The debounce delay before triggering the event */
+  private debounceTimeDelay = 300;
+  /** @type {Subject<void>} Subject for debounced keyup event */
+  private keyupSubject = new Subject<void>();
+  /** @type {Subscription[]} Subscription of the component */
+  private subscriptions: Subscription[] = [];
 
   /**
    * @inheritDoc
    */
   ngOnInit() {
+    // Subscriptions
+    this.subscriptions = [
+      this.keyupSubject
+        .pipe(debounceTime<void>(this.debounceTimeDelay))
+        .subscribe(() => {
+          this.onModelChange();
+        })
+    ];
     // Form validator
     this.form = this.formBuilder.group({
       name: new FormControl(this.model.name, [
@@ -59,6 +62,13 @@ export class ModelComponent implements OnInit {
         Validators.maxLength(this.maxLength),
       ]),
     });
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.subscriptions.map((s) => s.unsubscribe());
   }
 
   /**
@@ -73,6 +83,7 @@ export class ModelComponent implements OnInit {
    */
   addField() {
     this.model.addField(this.model.newField());
+    this.onModelChange();
   }
 
   /**
@@ -80,5 +91,20 @@ export class ModelComponent implements OnInit {
    */
   cleanFields() {
     this.model.filter();
+    this.onModelChange();
+  }
+
+  /**
+   * Called when a field change
+   */
+  onModelChange() {
+    this.onChange.emit();
+  }
+
+  /**
+   * Called when a value change and should be debounced
+   */
+  onDebouncedChange(): void {
+    this.keyupSubject.next();
   }
 }

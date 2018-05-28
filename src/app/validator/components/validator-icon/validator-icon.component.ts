@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Injector} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input, Injector, EventEmitter} from '@angular/core';
 import {ValidatorService} from '../../services/validator.service';
 import {StorageService as ChannelStorageService} from '../../../channel/services/storage.service';
 import {StorageService as ModelStorageService} from '../../../model/services/storage.service';
@@ -10,7 +10,7 @@ import {IChannel} from '../../../channel/interfaces/channel';
   templateUrl: './validator-icon.component.html',
   styleUrls: ['./validator-icon.component.scss']
 })
-export class ValidatorIconComponent implements OnInit {
+export class ValidatorIconComponent implements OnInit, OnDestroy {
 
   /** @type {ChannelStorageService} The channel storage service */
   private channelStorageService: ChannelStorageService;
@@ -26,33 +26,43 @@ export class ValidatorIconComponent implements OnInit {
   private channelValue: IChannel;
   /** @type {IChannel[]} */
   private channels: IChannel[] = [];
+  /** @type {Subscription<void>} Notify changes */
+  private signalSubscription: EventEmitter<void>;
   /** @type {boolean} Denotes if the process can be ran */
   private initialized = false;
   /** @type {string} Pre-computed error level */
   level = 'undefined';
 
   /** Model getter */
-  @Input()
   get model() {
     return this.modelValue;
   }
 
   /** @param val Model setter */
-  set model(val) {
+  @Input()
+  set model(val: IModel) {
     this.modelValue = val;
     this.run();
   }
 
   /** Channel getter */
-  @Input()
   get channel() {
     return this.channelValue;
   }
 
   /** @param val Channel setter */
-  set channel(val) {
+  @Input()
+  set channel(val: IChannel) {
     this.channelValue = val;
     this.run();
+  }
+
+  /** @param val Set signal */
+  @Input()
+  set signal(val: EventEmitter<void>) {
+    this.signalSubscription = val.subscribe(() => {
+      this.run();
+    });
   }
 
   /**
@@ -85,6 +95,13 @@ export class ValidatorIconComponent implements OnInit {
         this.initialized = true;
         this.run();
       });
+  }
+
+  /**
+   * Destroy
+   */
+  ngOnDestroy() {
+    this.signalSubscription.unsubscribe();
   }
 
   /**

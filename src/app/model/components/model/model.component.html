@@ -4,8 +4,13 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input id="name" formControlName="name" class="form-control" [(ngModel)]="model.name"
-                               type="text">
+                        <input
+                                (keyup)="onDebouncedChange()"
+                                id="name"
+                                formControlName="name"
+                                class="form-control"
+                                [(ngModel)]="model.name"
+                                type="text">
                         <div
                                 *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
                                 class="alert alert-danger mt-2">
@@ -33,7 +38,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li *ngFor="let field of model.fields" class="list-group-item">
-                <app-model-field [field]="field"></app-model-field>
+                <app-model-field [field]="field" (onChange)="onModelChange()"></app-model-field>
             </li>
         </ul>
         <div class="card-footer">
@@ -55,6 +60,8 @@
         </div>
     </div>
     <div class="my-3">
-        <app-validator-details [model]="model"></app-validator-details>
+        <app-validator-details
+                [signal]="onChange"
+                [model]="model"></app-validator-details>
     </div>
 </form>

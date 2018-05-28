@@ -2,7 +2,12 @@
     <div class="row">
         <div class="col-lg-4 my-1 my-lg-0">
             <div class="input-cnt">
-                <input formControlName="name" class="form-control" [(ngModel)]="field.name" type="text">
+                <input
+                        (keyup)="onDebouncedChange()"
+                        formControlName="name"
+                        class="form-control"
+                        [(ngModel)]="field.name"
+                        type="text">
                 <div
                         *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
                         class="alert alert-danger mt-2">
@@ -22,7 +27,10 @@
             </div>
         </div>
         <div class="col-lg-2 my-1 my-lg-0">
-            <select formControlName="type" class="form-control" [(ngModel)]="field.type">
+            <select (change)="onInputChange()"
+                    formControlName="type"
+                    class="form-control"
+                    [(ngModel)]="field.type">
                 <option disabled>{{ 'field_type' | translate }}</option>
                 <option *ngFor="let type of types" [ngValue]="type.value">{{type.name}}</option>
             </select>
@@ -39,7 +47,10 @@
         </div>
         <div class="col-lg-2 my-1 my-lg-0">
             <div *ngIf="models && field.type === fieldType.Entity">
-                <select formControlName="reference" class="form-control" [(ngModel)]="field.reference">
+                <select (change)="onInputChange()"
+                        formControlName="reference"
+                        class="form-control"
+                        [(ngModel)]="field.reference">
                     <option disabled>{{ 'reference' | translate }}</option>
                     <option *ngFor="let model of models" [ngValue]="model.id">{{model.name}}</option>
                 </select>
@@ -55,7 +66,10 @@
                 </div>
             </div>
             <div *ngIf="field.type !== fieldType.Entity">
-                <select formControlName="subtype" class="form-control" [(ngModel)]="field.subtype">
+                <select (change)="onInputChange()"
+                        formControlName="subtype"
+                        class="form-control"
+                        [(ngModel)]="field.subtype">
                     <option disabled>{{ 'field_subtype' | translate }}</option>
                     <option *ngFor="let subtype of field.getAvailableSubTypes()" [ngValue]="subtype.value">
                         {{subtype.name}}
@@ -77,48 +91,84 @@
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn" title="{{ 'tooltip_primary' | translate }}"
                        [ngClass]="{ 'btn-primary': field.primary, 'btn-outline-secondary': !field.primary }">
-                    <input formControlName="primary" type="checkbox" autocomplete="off" [(ngModel)]="field.primary">
+                    <input (change)="onInputChange()"
+                           formControlName="primary"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.primary">
                     <span class="oi oi-key"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_unique' | translate }}"
                        [ngClass]="{ 'btn-primary': field.unique, 'btn-outline-secondary': !field.unique }">
-                    <input formControlName="unique" type="checkbox" autocomplete="off" [(ngModel)]="field.unique">
+                    <input
+                            (change)="onInputChange()"
+                            formControlName="unique"
+                            type="checkbox"
+                            autocomplete="off"
+                            [(ngModel)]="field.unique">
                     <span class="oi oi-star"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_label' | translate }}"
                        [ngClass]="{ 'btn-primary': field.label, 'btn-outline-secondary': !field.label }">
-                    <input formControlName="label" type="checkbox" autocomplete="off" [(ngModel)]="field.label">
+                    <input (change)="onInputChange()"
+                           formControlName="label"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.label">
                     <span class="oi oi-text"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_nullable' | translate }}"
                        [ngClass]="{ 'btn-primary': field.nullable, 'btn-outline-secondary': !field.nullable }">
-                    <input formControlName="nullable" type="checkbox" autocomplete="off" [(ngModel)]="field.nullable">
+                    <input (change)="onInputChange()"
+                           formControlName="nullable"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.nullable">
                     <span class="oi oi-ban"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_multiple' | translate }}"
                        [ngClass]="{ 'btn-primary': field.multiple, 'btn-outline-secondary': !field.multiple }">
-                    <input formControlName="multiple" type="checkbox" autocomplete="off" [(ngModel)]="field.multiple">
+                    <input (change)="onInputChange()"
+                           formControlName="multiple"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.multiple">
                     <span class="oi oi-list"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_searchable' | translate }}"
                        [ngClass]="{ 'btn-primary': field.searchable, 'btn-outline-secondary': !field.searchable }">
-                    <input formControlName="searchable" type="checkbox" autocomplete="off"
+                    <input (change)="onInputChange()"
+                           formControlName="searchable"
+                           type="checkbox"
+                           autocomplete="off"
                            [(ngModel)]="field.searchable">
                     <span class="oi oi-magnifying-glass"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_sortable' | translate }}"
                        [ngClass]="{ 'btn-primary': field.sortable, 'btn-outline-secondary': !field.sortable }">
-                    <input formControlName="sortable" type="checkbox" autocomplete="off" [(ngModel)]="field.sortable">
+                    <input (change)="onInputChange()"
+                           formControlName="sortable"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.sortable">
                     <span class="oi oi-arrow-thick-bottom"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_private' | translate }}"
                        [ngClass]="{ 'btn-primary': field.isPrivate, 'btn-outline-secondary': !field.isPrivate }">
-                    <input formControlName="isPrivate" type="checkbox" autocomplete="off" [(ngModel)]="field.isPrivate">
+                    <input (change)="onInputChange()"
+                           formControlName="isPrivate"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.isPrivate">
                     <span class="oi oi-shield"></span>
                 </label>
                 <label class="btn" title="{{ 'tooltip_internal' | translate }}"
                        [ngClass]="{ 'btn-primary': field.internal, 'btn-outline-secondary': !field.internal }">
-                    <input formControlName="internal" type="checkbox" autocomplete="off" [(ngModel)]="field.internal">
+                    <input (change)="onInputChange()"
+                           formControlName="internal"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.internal">
                     <span class="oi oi-code"></span>
                 </label>
             </div>
