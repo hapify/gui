@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {TranslateModuleLoad} from '../translate-import';
 import {ValidatorIconComponent} from '../validator/components/validator-icon/validator-icon.component';
+import {ValidatorDetailsComponent} from '../validator/components/validator-details/validator-details.component';
 
 import {ModelComponent} from './components/model/model.component';
 import {ModelRowComponent} from './components/model-row/model-row.component';
@@ -34,7 +35,8 @@ import {ModelsDownloaderService} from '../loader/services/models-downloader.serv
     RootComponent,
     EditComponent,
     ModelRowComponent,
-    ValidatorIconComponent
+    ValidatorIconComponent,
+    ValidatorDetailsComponent
   ],
   providers: [
     StorageService,
