@@ -2,7 +2,6 @@ import {
   AfterViewInit, Component, EventEmitter, HostListener,
   Injector, Input, OnDestroy, OnInit, Output, ViewChild
 } from '@angular/core';
-import {GeneratorService} from '../../../generator/services/generator.service';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -18,8 +17,6 @@ import {IChannel} from '../../../channel/interfaces/channel';
 })
 export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  /** @type {GeneratorService} The generator service */
-  generatorService: GeneratorService;
   /** @type {ModelStorageService} The model storage service */
   modelStorageService: ModelStorageService;
   /** @type {ValidatorService} The validator service */
@@ -74,7 +71,6 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
    */
   ngOnInit() {
     // Avoid circular dependency
-    this.generatorService = this.injector.get(GeneratorService);
     this.modelStorageService = this.injector.get(ModelStorageService);
     this.validatorService = this.injector.get(ValidatorService);
 
@@ -206,7 +202,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
    * Call when the user click on "dump"
    */
   async didClickDump() {
-    console.log(await this.generatorService.inputs(this.model));
+    console.log(await this.model.toObject());
   }
 
   /**
