@@ -1,53 +1,53 @@
 <div class="validator-editor d-flex flex-column align-items-stretch">
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="collapse navbar-collapse">
-        <div class="navbar-nav mr-auto">
-          <div class="navbar-brand name">{{ 'validator_editor_title' | translate:{name: channel.name} }}</div>
-          <select [(ngModel)]="model" (change)="onModelChange();" class="form-control">
-            <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
-          </select>
-          <div class="btn-group ml-2" data-toggle="buttons">
-            <label class="btn" title="{{ 'validator_tooltip_autovalidate' | translate }}"
-                   [ngClass]="{ 'btn-light': autoValidate, 'btn-outline-light': !autoValidate }">
-              <input type="checkbox" autocomplete="off" [(ngModel)]="autoValidate">
-              <span class="oi oi-reload"></span>
-            </label>
-          </div>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav mr-auto">
+                    <div class="navbar-brand name">{{ 'validator_editor_title' | translate:{name: channel.name} }}</div>
+                    <select [(ngModel)]="model" (change)="onModelChange();" class="form-control">
+                        <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
+                    </select>
+                    <div class="btn-group ml-2" data-toggle="buttons">
+                        <label class="btn" title="{{ 'validator_tooltip_autovalidate' | translate }}"
+                               [ngClass]="{ 'btn-light': autoValidate, 'btn-outline-light': !autoValidate }">
+                            <input type="checkbox" autocomplete="off" [(ngModel)]="autoValidate">
+                            <span class="oi oi-reload"></span>
+                        </label>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-light" (click)="didClickDump();"
+                        title="{{ 'channels_tooltip_dump' | translate }}">
+                    <span class="oi oi-code"></span>
+                </button>
+                <button type="button" class="btn btn-outline-light ml-4" (click)="didClickClose();">
+                    {{ 'common_close' | translate }}
+                </button>
+                <button type="button"
+                        class="btn ml-2"
+                        [ngClass]="{'btn-outline-light': !unsavedChanges, 'btn-light': unsavedChanges}"
+                        (click)="didClickSave();">
+                    {{ 'common_save' | translate }}
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="d-flex grow">
+        <div class="col-lg-7 input d-flex flex-column p-3">
+            <ace-editor
+                    class="m-0 p-3 rounded code grow bg-light input-editor"
+                    #editorInput
+                    [(text)]="content"
+                    [mode]="aceService.mode(aceMode, false)"
+                    [theme]="aceService.theme()"
+                    [options]="{}"
+                    [readOnly]="false"
+                    [autoUpdateContent]="true"
+                    [durationBeforeCallback]="1000"
+                    (textChanged)="onChange($event)"></ace-editor>
         </div>
-        <button type="button" class="btn btn-outline-light" (click)="didClickDump();"
-                title="{{ 'channels_tooltip_dump' | translate }}">
-          <span class="oi oi-code"></span>
-        </button>
-        <button type="button" class="btn btn-outline-light ml-4" (click)="didClickClose();">
-          {{ 'common_close' | translate }}
-        </button>
-        <button type="button"
-                class="btn ml-2"
-                [ngClass]="{'btn-outline-light': !unsavedChanges, 'btn-light': unsavedChanges}"
-                (click)="didClickSave();">
-          {{ 'common_save' | translate }}
-        </button>
-      </div>
-    </nav>
-  </header>
-  <div class="d-flex grow">
-    <div class="col-lg-7 input d-flex flex-column p-3">
-      <ace-editor
-              class="m-0 p-3 rounded code grow bg-light input-editor"
-              #editorInput
-              [(text)]="content"
-              [mode]="aceService.mode(aceMode, false)"
-              [theme]="aceService.theme()"
-              [options]="{}"
-              [readOnly]="false"
-              [autoUpdateContent]="true"
-              [durationBeforeCallback]="1000"
-              (textChanged)="onChange($event)"></ace-editor>
+        <div class="col-lg-5 output d-flex flex-column p-3 small">
+            <pre *ngIf="!error" class="m-0 p-2 rounded code grow bg-light">{{ summary }}</pre>
+            <pre *ngIf="error" class="m-0 p-2 rounded code grow alert alert-danger">{{ error.message + '\n\n' + error.stack }}</pre>
+        </div>
     </div>
-    <div class="col-lg-5 output d-flex flex-column p-3 small">
-      <pre *ngIf="!error" class="m-0 p-2 rounded code grow bg-light">{{ summary }}</pre>
-      <pre *ngIf="error" class="m-0 p-2 rounded code grow alert alert-danger">{{ error.message + '\n\n' + error.stack }}</pre>
-    </div>
-  </div>
 </div>

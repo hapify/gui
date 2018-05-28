@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {GeneratorService} from '../../generator/services/generator.service';
 import {IValidatorResult} from '../interfaces/validator-result';
 import {IModel} from '../../model/interfaces/model';
@@ -6,12 +6,17 @@ import {IModel} from '../../model/interfaces/model';
 @Injectable()
 export class ValidatorService {
 
+  /** @type {GeneratorService} The generator service */
+  private generatorService: GeneratorService;
+
   /**
    * Constructor
    *
-   * @param {GeneratorService} generatorService
+   * @param {Injector} injector
    */
-  constructor(private generatorService: GeneratorService) {
+  constructor(private injector: Injector) {
+    // Avoid circular dependency
+    this.generatorService = this.injector.get(GeneratorService);
   }
 
   /**

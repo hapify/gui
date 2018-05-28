@@ -5,7 +5,8 @@ import {AppRoutingModule} from './app.routing';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {TranslateModuleLoad} from './translate-import';
-import {ValidatorModule} from './validator/validator.module';
+import {AceEditorModule} from 'ng2-ace-editor';
+import {ValidatorService} from './validator/services/validator.service';
 
 // Components
 import {AppComponent} from './app.component';
@@ -22,7 +23,11 @@ import {StringService} from './services/string.service';
 import {AceService} from './services/ace.service';
 import {HeaderComponent} from './components/common/header/header.component';
 import {HotkeyModule} from 'angular2-hotkeys';
-
+import {ChannelModule} from './channel/channel.module';
+import {ModelModule} from './model/model.module';
+import {GeneratorModule} from './generator/generator.module';
+import {DeployerModule} from './deployer/deployer.module';
+import {LoaderModule} from './loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -42,14 +47,20 @@ import {HotkeyModule} from 'angular2-hotkeys';
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
+    AceEditorModule,
     FormsModule,
     HotkeyModule.forRoot(),
-    ValidatorModule
+    ChannelModule,
+    ModelModule,
+    GeneratorModule,
+    DeployerModule,
+    LoaderModule
   ],
   providers: [
     ConfigService,
     StringService,
-    AceService
+    AceService,
+    ValidatorService
   ],
   bootstrap: [AppComponent]
 })

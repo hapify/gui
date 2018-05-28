@@ -20,8 +20,10 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 
   /** @type {GeneratorService} The generator service */
   generatorService: GeneratorService;
-  /** @type {ModelStorageService} The generator service */
+  /** @type {ModelStorageService} The model storage service */
   modelStorageService: ModelStorageService;
+  /** @type {ValidatorService} The validator service */
+  validatorService: ValidatorService;
   /** @type {IChannel} The calling channel */
   @Input() channel: IChannel;
   /** @type {EventEmitter<void>} On save event */
@@ -60,22 +62,21 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
    * @param {TranslateService} translateService
    * @param {HotkeysService} hotKeysService
    * @param {AceService} aceService
-   * @param {ValidatorService} validatorService
    */
   constructor(private injector: Injector,
               private translateService: TranslateService,
               private hotKeysService: HotkeysService,
-              public aceService: AceService,
-              private validatorService: ValidatorService) {
-    // Avoid circular dependency
-    this.generatorService = this.injector.get(GeneratorService);
-    this.modelStorageService = this.injector.get(ModelStorageService);
+              public aceService: AceService) {
   }
 
   /**
    * On init
    */
   ngOnInit() {
+    // Avoid circular dependency
+    this.generatorService = this.injector.get(GeneratorService);
+    this.modelStorageService = this.injector.get(ModelStorageService);
+    this.validatorService = this.injector.get(ValidatorService);
 
     this.translateService.get('common_unload_warning')
       .subscribe((value) => this.beforeUnloadWarning = value);

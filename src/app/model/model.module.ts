@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {TranslateModuleLoad} from '../translate-import';
-import {ValidatorModule} from '../validator/validator.module';
+import {ValidatorIconComponent} from '../validator/components/validator-icon/validator-icon.component';
 
 import {ModelComponent} from './components/model/model.component';
 import {ModelRowComponent} from './components/model-row/model-row.component';
@@ -25,8 +25,7 @@ import {ModelsDownloaderService} from '../loader/services/models-downloader.serv
     ReactiveFormsModule,
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
-    AlertModule.forRoot(),
-    ValidatorModule
+    AlertModule.forRoot()
   ],
   declarations: [
     ModelComponent,
@@ -34,12 +33,13 @@ import {ModelsDownloaderService} from '../loader/services/models-downloader.serv
     NewComponent,
     RootComponent,
     EditComponent,
-    ModelRowComponent
+    ModelRowComponent,
+    ValidatorIconComponent
   ],
   providers: [
     StorageService,
     ModelsDownloaderService
-  ],
+  ]
 })
 export class ModelModule {
 }

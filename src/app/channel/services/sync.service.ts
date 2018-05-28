@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {ConfigService} from '../../services/config.service';
 import {ITemplate} from '../interfaces/template';
 import {GeneratorService} from '../../generator/services/generator.service';
@@ -7,23 +7,22 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Injectable()
 export class SyncService {
 
-  /**
-   * Used to keep activation across multiple editors
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Used to keep activation across multiple editors */
   public autoSyncEnabled = false;
+  /** @type {GeneratorService} Injected in the constructor */
+  private generatorService: GeneratorService;
 
   /**
    * Constructor
    *
    * @param {ConfigService} configService
    * @param {HttpClient} http
-   * @param {GeneratorService} generatorService
+   * @param {Injector} injector
    */
   constructor(private configService: ConfigService,
               private http: HttpClient,
-              private generatorService: GeneratorService) {
+              private injector: Injector) {
+    this.generatorService = this.injector.get(GeneratorService);
   }
 
   /**
