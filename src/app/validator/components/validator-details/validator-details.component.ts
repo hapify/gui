@@ -102,7 +102,9 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
    * Destroy
    */
   ngOnDestroy() {
-    this.signalSubscription.unsubscribe();
+    if (this.signalSubscription) {
+      this.signalSubscription.unsubscribe();
+    }
   }
 
   /**
