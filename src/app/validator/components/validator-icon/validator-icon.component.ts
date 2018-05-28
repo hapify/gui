@@ -114,8 +114,8 @@ export class ValidatorIconComponent implements OnInit {
           break;
         }
         const result = await this.validatorService.run(channel.validator, model);
-        hasError = result.errors.length > 0;
-        hasWarning = result.warnings.length > 0;
+        hasError = hasError || result.errors.length > 0;
+        hasWarning = hasWarning || result.warnings.length > 0;
       }
     }
 
