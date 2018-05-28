@@ -9,9 +9,13 @@ import {TranslateModuleLoad} from '../translate-import';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {ValidatorService} from './services/validator.service';
 
+import {ModelModule, StorageService as ModelStorageService} from '../model/model.module';
+import {ChannelModule, StorageService as ChannelStorageService} from '../channel/channel.module';
+
 // Components
 import {ValidatorEditorComponent} from './components/validator-editor/validator-editor.component';
 import {ValidatorModelDetailsComponent} from './components/validator-model-details/validator-model-details.component';
+import { ValidatorIconComponent } from './components/validator-icon/validator-icon.component';
 
 @NgModule({
   imports: [
@@ -20,17 +24,23 @@ import {ValidatorModelDetailsComponent} from './components/validator-model-detai
     AceEditorModule,
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
-    HotkeyModule
+    HotkeyModule,
+    ModelModule,
+    ChannelModule
   ],
   declarations: [
     ValidatorEditorComponent,
-    ValidatorModelDetailsComponent
+    ValidatorModelDetailsComponent,
+    ValidatorIconComponent
   ],
   providers: [
+    ModelStorageService,
+    ChannelStorageService,
     ValidatorService
   ],
   exports: [
-    ValidatorEditorComponent
+    ValidatorEditorComponent,
+    ValidatorIconComponent
   ]
 })
 export class ValidatorModule {

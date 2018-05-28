@@ -23,6 +23,14 @@ export class ValidatorService {
    */
   async run(script: string, _model: IModel): Promise<IValidatorResult> {
 
+    // No script, no error
+    if (typeof script === 'undefined' || script.length === 0) {
+      return {
+        errors: [],
+        warnings: []
+      };
+    }
+
     const model = await this.generatorService.inputs(_model);
     const result = <IValidatorResult>eval(script);
 
