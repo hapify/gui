@@ -10,7 +10,7 @@
 
 ## Medium-term
 
-- Add script to detect fields properties combinations not supported by a channel.
+- ~~Add script to detect fields properties combinations not supported by a channel.~~
 - Add middleware script(s) called before each template within a channel.
 - Create new templating language
 - Code formatter/Linter after build.
