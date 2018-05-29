@@ -94,8 +94,7 @@ export class MasksService {
     // Get templates contents
     const templates = await Promise.all(channel.masks.map((t) => this._loadTemplate(t, files)));
     // Get the validator content
-    const validator = channel.validator ? await this._loadValidator(channel.validator, files): '';
-
+    const validator = channel.validator ? await this._loadValidator(channel.validator, files) : '';
     // Create and populate channel
     const output = new Channel();
     output.fromObject({
