@@ -19,6 +19,11 @@ export class MasksDownloaderService {
   /**
    * @type {string}
    */
+  private validatorPath = 'validator.js';
+
+  /**
+   * @type {string}
+   */
   private pathPrefix = 'src/';
 
   /**
@@ -41,6 +46,7 @@ export class MasksDownloaderService {
     const channelManifest: IChannelManifest = {
       id: channel.id,
       name: channel.name,
+      validator: this.validatorPath,
       masks: []
     };
     channel.templates.forEach((template: ITemplate) => {
@@ -57,6 +63,8 @@ export class MasksDownloaderService {
     };
     // Add JSON to ZIP
     zip.file(this.manifestPath, JSON.stringify(masksManifest, null, 2));
+    // Add Validator to ZIP
+    zip.file(this.validatorPath, channel.validator);
 
     const blob = await zip.generateAsync({type: 'blob'});
     const filename = `${channel.name}.zip`;

@@ -57,7 +57,7 @@ export class RootComponent implements OnInit {
   }
 
   /**
-   * Call zhen user click on download
+   * Call when user click on download
    */
   onDownload() {
     this.modelsDownloaderService.dowloadAsJson();

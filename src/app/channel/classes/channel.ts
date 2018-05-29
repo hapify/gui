@@ -22,6 +22,10 @@ export class Channel implements IChannel {
   /**
    * @inheritDoc
    */
+  public validator = '';
+  /**
+   * @inheritDoc
+   */
   public templates: ITemplate[] = [];
 
   /**
@@ -64,6 +68,7 @@ export class Channel implements IChannel {
       template.fromObject(templateBase);
       return template;
     });
+    this.validator = object.validator;
   }
 
   /**
@@ -75,7 +80,8 @@ export class Channel implements IChannel {
       name: this.name,
       templates: this.templates
         .filter((template: ITemplate): boolean => !template.isEmpty())
-        .map((template: ITemplate): ITemplateBase => template.toObject())
+        .map((template: ITemplate): ITemplateBase => template.toObject()),
+      validator: this.validator
     };
   }
 

@@ -11,6 +11,26 @@ import {SyncService} from '../../services/sync.service';
 })
 export class ChannelComponent implements OnInit {
 
+  /** @type {IChannel} Channel instance */
+  @Input() channel: IChannel;
+  /** @type {EventEmitter<void>} On save event */
+  @Output() onSave = new EventEmitter<void>();
+  /** @type {FormGroup} */
+  form: FormGroup;
+  /** @type {number} */
+  minLength = 2;
+  /** @type {number} */
+  maxLength = 32;
+  /** @type {boolean} */
+  syncing = false;
+  /** @type {{minLength: number; maxLength: number}} */
+  translateParams = {
+    minLength: this.minLength,
+    maxLength: this.maxLength,
+  };
+  /** @type {boolean} */
+  showValidatorEditor = false;
+
   /**
    * Constructor
    *
@@ -22,42 +42,6 @@ export class ChannelComponent implements OnInit {
               private masksDownloaderService: MasksDownloaderService,
               public syncService: SyncService) {
   }
-
-  /**
-   * Channel instance
-   *
-   * @type {IChannel}
-   */
-  @Input() channel: IChannel;
-  /**
-   * On save event
-   *
-   * @type {EventEmitter<void>}
-   */
-  @Output() onSave = new EventEmitter<void>();
-  /**
-   * @type {FormGroup}
-   */
-  form: FormGroup;
-  /**
-   * @type {number}
-   */
-  minLength = 2;
-  /**
-   * @type {number}
-   */
-  maxLength = 32;
-  /**
-   * @type {boolean}
-   */
-  syncing = false;
-  /**
-   * @type {{minLength: number; maxLength: number}}
-   */
-  translateParams = {
-    minLength: this.minLength,
-    maxLength: this.maxLength,
-  };
 
   /**
    * @inheritDoc
@@ -107,9 +91,30 @@ export class ChannelComponent implements OnInit {
   }
 
   /**
-   * Call zhen user click on download
+   * Call when user click on download
    */
   onDownload() {
     this.masksDownloaderService.downloadAsZip(this.channel);
+  }
+
+  /**
+   * Called when the user click on "Open Validator Editor" button
+   */
+  onShowValidatorEditor() {
+    this.showValidatorEditor = true;
+  }
+
+  /**
+   * Called when the ValidatorEditor is saved
+   */
+  onValidatorEditorSave() {
+    this.onSave.emit();
+  }
+
+  /**
+   * Called when the ValidatorEditor is saved
+   */
+  onValidatorEditorClose() {
+    this.showValidatorEditor = false;
   }
 }

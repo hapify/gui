@@ -13,12 +13,14 @@ import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
 import {EditComponent} from './components/edit/edit.component';
 import {EditorComponent} from './components/editor/editor.component';
+import {ValidatorEditorComponent} from '../validator/components/validator-editor/validator-editor.component';
 
 // Services
 import {StorageService} from './services/storage.service';
 import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {SyncService} from './services/sync.service';
+
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
@@ -43,7 +45,8 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     EditComponent,
     ChannelRowComponent,
     EditorComponent,
-    ContentEditableModelDirective
+    ContentEditableModelDirective,
+    ValidatorEditorComponent
   ],
   providers: [
     StorageService,

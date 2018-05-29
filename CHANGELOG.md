@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Add script to detect fields properties combinations not supported by a channel.
 
 ### Changed
 
