@@ -39,7 +39,8 @@
     "open-iconic": "^1.1.1",
     "rxjs": "^5.4.2",
     "time-ago-pipe": "^1.2.1",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "hapify-syntax": "file:./packages/hapify-syntax"
   },
   "devDependencies": {
     "@angular/cli": "1.4.9",
