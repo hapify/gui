@@ -17,7 +17,8 @@ export class HpfGeneratorService implements IGenerator {
   async one(model: any, template: ITemplate): Promise<string> {
 
     // Create template function
-    const content = HapifySyntax.run(template.content, model);
+    const cleanedContent = await this._preProcess(template.content);
+    const content = HapifySyntax.run(cleanedContent, model);
     return await this._postProcess(content);
   }
 
@@ -27,8 +28,21 @@ export class HpfGeneratorService implements IGenerator {
   async all(models: any[], template: ITemplate): Promise<string> {
 
     // Create template function
-    const content = HapifySyntax.run(template.content, models);
+    const cleanedContent = await this._preProcess(template.content);
+    const content = HapifySyntax.run(cleanedContent, models);
     return await this._postProcess(content);
+  }
+
+  /**
+   * Cleanup code before process
+   *
+   * @param {string} template
+   * @return {Promise<string>}
+   * @private
+   */
+  private async _preProcess(template: string) {
+    const indentConditions = / +<<(\?|@)([\s\S]*?)>>/g;
+    return template.replace(indentConditions, '<<$1$2>>');
   }
 
   /**
