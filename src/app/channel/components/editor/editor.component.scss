@@ -20,7 +20,8 @@ $op-meta: 0.4;
   }
 
   ::ng-deep {
-    .ace_dotjs {
+    .ace_dotjs,
+    .ace_hpf {
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
       &.ace_inter {
         background-color: rgba(220, 153, 153, 0.3);
@@ -58,6 +59,15 @@ $op-meta: 0.4;
           }
         }
       }
+      + .ace_hpf.ace_inter {
+        color: $c-comment;
+        + .ace_hpf.ace_inter {
+          color: $c-comment;
+          + .ace_hpf.ace_inter {
+            color: $c-comment;
+          }
+        }
+      }
     }
     // Force string color on interpolations
     .ace_string {
@@ -66,6 +76,15 @@ $op-meta: 0.4;
         + .ace_dotjs.ace_inter {
           color: $c-string;
           + .ace_dotjs.ace_inter {
+            color: $c-string;
+          }
+        }
+      }
+      + .ace_hpf.ace_inter {
+        color: $c-string;
+        + .ace_hpf.ace_inter {
+          color: $c-string;
+          + .ace_hpf.ace_inter {
             color: $c-string;
           }
         }

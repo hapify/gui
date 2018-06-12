@@ -75,7 +75,7 @@ export class Template implements ITemplate {
    */
   public aceMode(): string {
     if (this.engine === TemplateEngine.Hpf) {
-      return 'dotjs';
+      return 'hpf';
     } else if (this.engine === TemplateEngine.doT) {
       return 'dotjs';
     }
