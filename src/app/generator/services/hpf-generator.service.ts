@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IGenerator} from '../interfaces/generator';
 import {ITemplate} from '../../channel/channel.module';
-import {HapifySyntax} from 'hapify-syntax';
+import HapifySyntax from 'hapify-syntax';
 
 @Injectable()
 export class HpfGeneratorService implements IGenerator {
