@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DotGeneratorService} from './dot-generator.service';
 import {JavaScriptGeneratorService} from './js-generator.service';
+import {HpfGeneratorService} from './hpf-generator.service';
 import {IModel, IField} from '../../model/model.module';
 import {ITemplate, TemplateEngine} from '../../channel/channel.module';
 import {IGeneratorResult} from '../interfaces/generator-result';
@@ -21,11 +22,13 @@ export class GeneratorService {
    *
    * @param modelStorageService
    * @param stringService
+   * @param hpfGeneratorService
    * @param dotGeneratorService
    * @param javaScriptGeneratorService
    */
   constructor(private modelStorageService: ModelStorageService,
               private stringService: StringService,
+              private hpfGeneratorService: HpfGeneratorService,
               private dotGeneratorService: DotGeneratorService,
               private javaScriptGeneratorService: JavaScriptGeneratorService) {
   }
@@ -126,7 +129,9 @@ export class GeneratorService {
 
     // Compute content
     let content;
-    if (template.engine === TemplateEngine.doT) {
+    if (template.engine === TemplateEngine.Hpf) {
+      content = await this.hpfGeneratorService.one(input, template);
+    } else if (template.engine === TemplateEngine.doT) {
       content = await this.dotGeneratorService.one(input, template);
     } else if (template.engine === TemplateEngine.JavaScript) {
       content = await this.javaScriptGeneratorService.one(input, template);
@@ -158,7 +163,9 @@ export class GeneratorService {
 
     // Compute content
     let content;
-    if (template.engine === TemplateEngine.doT) {
+    if (template.engine === TemplateEngine.Hpf) {
+      content = await this.hpfGeneratorService.all(input, template);
+    } else if (template.engine === TemplateEngine.doT) {
       content = await this.dotGeneratorService.all(input, template);
     } else if (template.engine === TemplateEngine.JavaScript) {
       content = await this.javaScriptGeneratorService.all(input, template);

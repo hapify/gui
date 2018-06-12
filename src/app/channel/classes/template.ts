@@ -62,7 +62,9 @@ export class Template implements ITemplate {
    * @inheritDoc
    */
   public extension(): string {
-    if (this.engine === TemplateEngine.doT) {
+    if (this.engine === TemplateEngine.Hpf) {
+      return 'hpf';
+    } else if (this.engine === TemplateEngine.doT) {
       return 'dot';
     }
     return 'js';
@@ -72,7 +74,9 @@ export class Template implements ITemplate {
    * @inheritDoc
    */
   public aceMode(): string {
-    if (this.engine === TemplateEngine.doT) {
+    if (this.engine === TemplateEngine.Hpf) {
+      return 'dotjs';
+    } else if (this.engine === TemplateEngine.doT) {
       return 'dotjs';
     }
     return 'js';

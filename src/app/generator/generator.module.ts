@@ -16,6 +16,7 @@ import {SimpleComponent} from './components/simple/simple.component';
 import {GeneratorService} from './services/generator.service';
 import {DotGeneratorService} from './services/dot-generator.service';
 import {JavaScriptGeneratorService} from './services/js-generator.service';
+import {HpfGeneratorService} from './services/hpf-generator.service';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import {JavaScriptGeneratorService} from './services/js-generator.service';
     ChannelStorageService,
     GeneratorService,
     DotGeneratorService,
-    JavaScriptGeneratorService
+    JavaScriptGeneratorService,
+    HpfGeneratorService
   ],
 })
 export class GeneratorModule {
