@@ -89,6 +89,7 @@ The following objects will be available in the template.
     - `datetime`: Can be `null`, `date` or `time`.
     - `entity`: Is `null`.
 - `reference` (string): The id of the target model if the field is of type `entity`. `null` otherwise
+- `model` - alias `m` (object): The target model object if the field is of type `entity`. `null` otherwise
 
 ### Model injection
 
