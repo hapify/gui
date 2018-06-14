@@ -24,7 +24,7 @@ export class Template implements ITemplate {
   /**
    * @inheritDoc
    */
-  public engine = TemplateEngine.doT;
+  public engine = TemplateEngine.Hpf;
   /**
    * @inheritDoc
    */
