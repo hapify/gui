@@ -370,7 +370,9 @@ export class GeneratorService {
       hasInternal: internal.length > 0,
       hasSearchableLabel: searchableLabel.length > 0,
       mainlyPrivate: fields.length < 2 * isPrivate.length,
-      mainlyInternal: fields.length < 2 * internal.length
+      mainlyInternal: fields.length < 2 * internal.length,
+      isGeolocated: fields.filter((f) => f.type === 'number' && f.subtype === 'latitude').length > 0 &&
+                    fields.filter((f) => f.type === 'number' && f.subtype === 'longitude').length > 0
     };
 
     // Add references and dependencies on first level
