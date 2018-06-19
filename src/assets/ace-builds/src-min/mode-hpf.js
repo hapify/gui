@@ -127,6 +127,16 @@ define("ace/mode/hpf_highlight_rules",["require","exports","module","ace/lib/oop
                 defaultToken : "hpf.eval"
             }]
         }, {
+            token : "hpf.cmt.start",
+            regex : /\<\<\#([\s\S]+?)/,
+            push : [{
+                token : "hpf.cmt.end",
+                regex : ">>",
+                next : pop2
+            }, {
+                defaultToken : "hpf.cmt"
+            }]
+        }, {
             token : "hpf.cond.start",
             regex : /\<\<\?(\?)?\s*([\s\S]*?)\s*/,
             push : [{
@@ -148,13 +158,23 @@ define("ace/mode/hpf_highlight_rules",["require","exports","module","ace/lib/oop
             }]
         }, {
             token : "hpf.inter.start",
-            regex : /\<\<[^\<]([\s\S]*?)\s*/,
+            regex : /\<\<\=([\s\S]*?)\s*/,
             push : [{
                 token : "hpf.inter.end",
                 regex : ">>",
                 next : pop2
             }, {
                 defaultToken : "hpf.inter"
+            }]
+        }, {
+            token : "hpf.inter.start.name",
+            regex : /\<\<[^\<]([\s\S]*?)\s*/,
+            push : [{
+                token : "hpf.inter.end.name",
+                regex : ">>",
+                next : pop2
+            }, {
+                defaultToken : "hpf.inter.name"
             }]
         }];
         
