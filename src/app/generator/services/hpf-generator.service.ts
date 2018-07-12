@@ -41,7 +41,7 @@ export class HpfGeneratorService implements IGenerator {
    * @private
    */
   private async _preProcess(template: string) {
-    const indentConditions = / +<<(\?|@|#)([\s\S]*?)>>/g;
+    const indentConditions = /^ +<<(\?|@|#)([\s\S]*?)>>/gm;
     return template.replace(indentConditions, '<<$1$2>>');
   }
 
