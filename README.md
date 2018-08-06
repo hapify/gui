@@ -38,7 +38,7 @@ The following objects will be available in the template.
     - `list` - alias `l` (array): An array containing all dependency models, but self. These models are added as "deep models".
     - `self` - alias `s` (boolean): A boolean indicating if this model has a self-dependency.
     - `filter` - alias `f` (function): A function to filter dependencies.
-        - First argument (function - default `(f) => f`): The filtering function receiving a model object
+        - First argument (function - default `(f) => f`): The filtering function receiving the referencer field (the entity field).
         - Second argument (boolean - default `true`): A boolean indicating if we should filter the self dependency.
 - `referencedIn` - alias `ri` - non-deep model only (array): An array containing models that refer to this one. These models are added as "deep models".
     - `filter` - alias `f` (function): A function for filtering the array.
