@@ -72,6 +72,13 @@ describe('StringService', () => {
     expect(service.format('Une phrase-commeCa ', SentenceFormat.SlugHyphen)).toBe('une-phrase-comme-ca');
   }));
 
+  it('tests format SlugHyphenUpperCase', inject([StringService], (service: StringService) => {
+    expect(service.format('$Une Phrase Comme Ça ?', SentenceFormat.SlugHyphenUpperCase)).toBe('UNE-PHRASE-COMME-CA');
+    expect(service.format('UnePhraseComme$Ca', SentenceFormat.SlugHyphenUpperCase)).toBe('UNE-PHRASE-COMME-CA');
+    expect(service.format('UnePhrase_CommeCa ', SentenceFormat.SlugHyphenUpperCase)).toBe('UNE-PHRASE-COMME-CA');
+    expect(service.format('Une phrase-commeCa ', SentenceFormat.SlugHyphenUpperCase)).toBe('UNE-PHRASE-COMME-CA');
+  }));
+
   it('tests format SlugUnderscore', inject([StringService], (service: StringService) => {
     expect(service.format('_id', SentenceFormat.SlugUnderscore)).toBe('_id');
     expect(service.format(' _id', SentenceFormat.SlugUnderscore)).toBe('_id');
@@ -79,6 +86,15 @@ describe('StringService', () => {
     expect(service.format(' _id- ', SentenceFormat.SlugUnderscore)).toBe('_id');
     expect(service.format(' UnePhraseBelle', SentenceFormat.SlugUnderscore)).toBe('une_phrase_belle');
     expect(service.format(' $UnePhraseBelle', SentenceFormat.SlugUnderscore)).toBe('une_phrase_belle');
+  }));
+
+  it('tests format SlugUnderscoreUpperCase', inject([StringService], (service: StringService) => {
+    expect(service.format('_id', SentenceFormat.SlugUnderscoreUpperCase)).toBe('_ID');
+    expect(service.format(' _id', SentenceFormat.SlugUnderscoreUpperCase)).toBe('_ID');
+    expect(service.format(' __id ', SentenceFormat.SlugUnderscoreUpperCase)).toBe('__ID');
+    expect(service.format(' _id- ', SentenceFormat.SlugUnderscoreUpperCase)).toBe('_ID');
+    expect(service.format(' UnePhraseBelle', SentenceFormat.SlugUnderscoreUpperCase)).toBe('UNE_PHRASE_BELLE');
+    expect(service.format(' $UnePhraseBelle', SentenceFormat.SlugUnderscoreUpperCase)).toBe('UNE_PHRASE_BELLE');
   }));
 
   it('tests format SlugOneWord', inject([StringService], (service: StringService) => {

@@ -13,11 +13,23 @@ export interface IFormattedSentences {
    */
   hyphen: string;
   /**
+   * The sentence as SlugHyphenUpperCase
+   *
+   * @type {string}
+   */
+  hyphenUpper: string;
+  /**
    * The sentence as SlugUnderscore
    *
    * @type {string}
    */
   underscore: string;
+  /**
+   * The sentence as SlugUnderscoreUpperCase
+   *
+   * @type {string}
+   */
+  underscoreUpper: string;
   /**
    * The sentence as SlugOneWord
    *

@@ -250,7 +250,9 @@ export class GeneratorService {
 
     // Apply replacements
     path = path.replace(/{model\.hyphen}/g, this.stringService.format(model.name, SentenceFormat.SlugHyphen));
+    path = path.replace(/{model\.hyphenUpper}/g, this.stringService.format(model.name, SentenceFormat.SlugHyphenUpperCase));
     path = path.replace(/{model\.underscore}/g, this.stringService.format(model.name, SentenceFormat.SlugUnderscore));
+    path = path.replace(/{model\.underscoreUpper}/g, this.stringService.format(model.name, SentenceFormat.SlugUnderscoreUpperCase));
     path = path.replace(/{model\.oneWord}/g, this.stringService.format(model.name, SentenceFormat.SlugOneWord));
     path = path.replace(/{model\.upperCamel}/g, this.stringService.format(model.name, SentenceFormat.UpperCamelCase));
     path = path.replace(/{model\.lowerCamel}/g, this.stringService.format(model.name, SentenceFormat.LowerCamelCase));

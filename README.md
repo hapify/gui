@@ -13,7 +13,9 @@ The following objects will be available in the template.
 - `names` (object): All names computed from the `name` property.
     - `raw` (string): The name of the model, as the user entered it. Example `Online item`.
     - `hyphen` (string): The name with hyphens and lower case. Example `online-item`.
+    - `hyphenUpper` (string): The name with hyphens and upper case. Example `ONLINE-ITEM`.
     - `underscore` (string): The name with underscores and lower case. Example `online_item`.
+    - `underscoreUpper` (string): The name with underscores and upper case. Example `ONLINE_ITEM`.
     - `oneWord` (string): The name joined and lower case. Example `onlineitem`.
     - `lowerCamel` (string): The name as lower camel case. Example `onlineItem`.
     - `upperCamel` (string): The name as upper camel case. Example `OnlineItem`.
@@ -67,7 +69,9 @@ The following objects will be available in the template.
 - `names` (object): All names computed from the `name` property. As for the field object.
     - `raw` (string): The name of the field, as the user entered it. Example `first_name`.
     - `hyphen` (string): The name with hyphens and lower case. Example `first-name`.
+    - `hyphenUpper` (string): The name with hyphens and upper case. Example `FIRST-NAME`.
     - `underscore` (string): The name with underscores and lower case. Example `first_name`.
+    - `underscoreUpper` (string): The name with underscores and upper case. Example `FIRST_NAME`.
     - `oneWord` (string): The name joined and lower case. Example `firstname`.
     - `lowerCamel` (string): The name as lower camel case. Example `firstName`.
     - `upperCamel` (string): The name as upper camel case. Example `FirstName`.

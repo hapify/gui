@@ -87,7 +87,9 @@ export class MasksDownloaderService {
 
     // Apply replacements
     path = path.replace(/{model\.hyphen}/g, this.stringService.format(folderName, SentenceFormat.SlugHyphen));
+    path = path.replace(/{model\.hyphenUpper}/g, this.stringService.format(folderName, SentenceFormat.SlugHyphenUpperCase));
     path = path.replace(/{model\.underscore}/g, this.stringService.format(folderName, SentenceFormat.SlugUnderscore));
+    path = path.replace(/{model\.underscoreUpper}/g, this.stringService.format(folderName, SentenceFormat.SlugUnderscoreUpperCase));
     path = path.replace(/{model\.oneWord}/g, this.stringService.format(folderName, SentenceFormat.SlugOneWord));
     path = path.replace(/{model\.upperCamel}/g, this.stringService.format(folderName, SentenceFormat.UpperCamelCase));
     path = path.replace(/{model\.lowerCamel}/g, this.stringService.format(folderName, SentenceFormat.LowerCamelCase));

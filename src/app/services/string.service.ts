@@ -296,13 +296,15 @@ export class StringService {
     // Split camel cases
     value = this.splitCamelCase(value);
 
-    if (format === SentenceFormat.SlugUnderscore) {
+    if (format === SentenceFormat.SlugUnderscore || format === SentenceFormat.SlugUnderscoreUpperCase) {
       // Use only spaces
       value = this.replaceNonAlphaNumericCharsButUnderscore(value);
       // Replace double spaces
       value = this.removeMultipleSpaces(value).trim().toLowerCase();
 
-      return value.split(' ').join('_');
+      return format === SentenceFormat.SlugUnderscore ?
+        value.split(' ').join('_') :
+        value.split(' ').join('_').toUpperCase();
     }
 
     // Use only spaces
@@ -339,6 +341,10 @@ export class StringService {
       return lower.split(' ').join('-');
     }
 
+    if (format === SentenceFormat.SlugHyphenUpperCase) {
+      return lower.split(' ').join('-').toUpperCase();
+    }
+
     if (format === SentenceFormat.SlugOneWord) {
       return lower.split(' ').join('');
     }
@@ -357,7 +363,9 @@ export class StringService {
     return {
       raw: this.format(value, SentenceFormat.Original),
       hyphen: this.format(value, SentenceFormat.SlugHyphen),
+      hyphenUpper: this.format(value, SentenceFormat.SlugHyphenUpperCase),
       underscore: this.format(value, SentenceFormat.SlugUnderscore),
+      underscoreUpper: this.format(value, SentenceFormat.SlugUnderscoreUpperCase),
       oneWord: this.format(value, SentenceFormat.SlugOneWord),
       wordsUpper: this.format(value, SentenceFormat.WordsUpperCase),
       wordsLower: this.format(value, SentenceFormat.WordsLowerCase),
