@@ -85,7 +85,7 @@ The following objects will be available in the template.
 - `important` (boolean): Indicates if the field is flagged as `important`.
 - `type` (string): The type of the field. Can be `string`, `number`, `boolean`, `datetime` or `entity`.
 - `subtype` (string): The subtype of the field. The available values depend on the `type`:
-    - `string`: Can be `null`, `email`, `password` or `text`.
+    - `string`: Can be `null`, `email`, `password` `text` or `rich`.
     - `number`: Can be `null`, `integer`, `float`, `latitude` or `longitude`.
     - `boolean`: Is `null`.
     - `datetime`: Can be `null`, `date` or `time`.
