@@ -47,7 +47,7 @@
         </div>
         <div class="col-lg-2 my-1 my-lg-0">
             <div *ngIf="models && field.type === fieldType.Entity">
-                <select (change)="onInputChange()"
+                <select (change)="onDebouncedChange()"
                         formControlName="reference"
                         class="form-control"
                         [(ngModel)]="field.reference">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div *ngIf="field.type !== fieldType.Entity">
-                <select (change)="onInputChange()"
+                <select (change)="onDebouncedChange()"
                         formControlName="subtype"
                         class="form-control"
                         [(ngModel)]="field.subtype">
