@@ -99,4 +99,15 @@ export class Model implements IModel {
       return !field.isEmpty();
     });
   }
+
+  /**
+   * @inheritDoc
+   */
+  public clone(): IModel {
+    const model = new Model();
+    const id = model.id;
+    model.fromObject(this.toObject());
+    model.id = id;
+    return model;
+  }
 }

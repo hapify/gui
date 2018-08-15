@@ -8,7 +8,8 @@
 - Add `underscoreUpper` to properties names (Example: FIRST_NAME).
 - Add `hyphenUpper` to properties names (Example: FIRST-NAME).
 - Add subtype `rich` to type `string` for rich text editors.
-- Implement Hapify Syntax
+- Implement Hapify Syntax.
+- Add ability to clone models.
 
 ### Changed
 

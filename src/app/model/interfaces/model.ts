@@ -59,4 +59,11 @@ export interface IModel extends IModelBase, IStorable {
    * @returns {IModelBase}
    */
   toObject(): IModelBase;
+
+  /**
+   * Clone the model with a new id
+   *
+   * @returns {IModel}
+   */
+  clone(): IModel;
 }

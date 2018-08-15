@@ -1,13 +1,17 @@
 <div class="row">
-    <div class="col-lg-7 pt-2">
-        <b class="mr-2">{{ model.name }}</b>
-        <app-validator-icon [model]="model"></app-validator-icon>
-    </div>
-    <div class="col-lg-5 text-lg-right">
-        <a class="btn btn-secondary" [routerLink]="['/model', 'edit', model.id]">
-            <span class="oi oi-pencil"></span>
-        </a>
-        <span class="delete">
+  <div class="col-lg-7 pt-2">
+    <b class="mr-2">{{ model.name }}</b>
+    <app-validator-icon [model]="model"></app-validator-icon>
+  </div>
+  <div class="col-lg-5 text-lg-right">
+    <a class="btn btn-secondary" [routerLink]="['/model', 'edit', model.id]">
+      <span class="oi oi-pencil"></span>
+    </a>
+    <button type="button" class="btn btn-outline-secondary"
+            (click)="didClickClone()">
+      <span class="oi oi-layers"></span>
+    </button>
+    <span class="delete">
     <button *ngIf="!deleteSwitch" type="button" class="btn btn-outline-secondary"
             (click)="deleteSwitch=!deleteSwitch">
       <span class="oi oi-circle-x"></span>
@@ -19,5 +23,5 @@
       {{ 'models_delete_cancel' | translate }}
     </button>
   </span>
-    </div>
+  </div>
 </div>

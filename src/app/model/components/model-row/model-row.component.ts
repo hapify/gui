@@ -27,6 +27,12 @@ export class ModelRowComponent implements OnInit {
    */
   @Output() onDelete = new EventEmitter<void>();
   /**
+   * On clone event
+   *
+   * @type {EventEmitter<void>}
+   */
+  @Output() onClone = new EventEmitter<void>();
+  /**
    * @type {boolean}
    */
   deleteSwitch = false;
@@ -42,5 +48,12 @@ export class ModelRowComponent implements OnInit {
    */
   didClickDelete() {
     this.onDelete.emit();
+  }
+
+  /**
+   * Called when the user click on "clone"
+   */
+  didClickClone() {
+    this.onClone.emit();
   }
 }

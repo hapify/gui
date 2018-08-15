@@ -44,6 +44,15 @@ export class RootComponent implements OnInit {
   }
 
   /**
+   * Called when the user update the model
+   */
+  cloneModel(model: IModel): void {
+    // Store the model
+    this.storageService.add(model.clone())
+      .then(() => this.updateModels());
+  }
+
+  /**
    * Update models with storage
    *
    * @returns {Promise<void>}
