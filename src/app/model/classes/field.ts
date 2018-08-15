@@ -75,16 +75,16 @@ export class Field implements IField {
     this.type = object.type;
     this.subtype = object.subtype;
     this.reference = object.reference;
-    this.primary = object.primary;
-    this.unique = object.unique;
-    this.label = object.label;
-    this.nullable = object.nullable;
-    this.multiple = object.multiple;
-    this.searchable = object.searchable;
-    this.sortable = object.sortable;
-    this.isPrivate = object.isPrivate;
-    this.internal = object.internal;
-    this.important = object.important;
+    this.primary = !!<any>object.primary;
+    this.unique = !!<any>object.unique;
+    this.label = !!<any>object.label;
+    this.nullable = !!<any>object.nullable;
+    this.multiple = !!<any>object.multiple;
+    this.searchable = !!<any>object.searchable;
+    this.sortable = !!<any>object.sortable;
+    this.isPrivate = !!<any>object.isPrivate;
+    this.internal = !!<any>object.internal;
+    this.important = !!<any>object.important;
   }
 
   /**
