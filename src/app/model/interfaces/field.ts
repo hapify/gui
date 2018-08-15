@@ -80,6 +80,12 @@ export interface IFieldBase {
    * @type {boolean}
    */
   internal: boolean;
+  /**
+   * Indicate whether the field is important (should be always exposed explicitly)
+   *
+   * @type {boolean}
+   */
+  important: boolean;
 }
 
 export interface IField extends IFieldBase {

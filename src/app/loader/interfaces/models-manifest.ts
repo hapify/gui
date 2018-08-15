@@ -12,6 +12,7 @@ export interface IFieldManifest {
   sortable: boolean;
   isPrivate: boolean;
   internal: boolean;
+  important: boolean;
 }
 
 export interface IModelManifest {

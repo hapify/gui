@@ -322,6 +322,9 @@ export class GeneratorService {
     // Get internal fields
     const internal = fields.filter((f) => f.internal);
 
+    // Get important fields
+    const important = fields.filter((f) => f.important);
+
     // Create filter function
     const filter = (func = null) => {
       return typeof func === 'function' ?
@@ -352,6 +355,8 @@ export class GeneratorService {
       ip: isPrivate,
       internal,
       i: internal,
+      important,
+      im: important,
       searchableLabel,
       sl: searchableLabel
     };
@@ -368,6 +373,7 @@ export class GeneratorService {
       hasSortable: sortable.length > 0,
       hasPrivate: isPrivate.length > 0,
       hasInternal: internal.length > 0,
+      hasImportant: important.length > 0,
       hasSearchableLabel: searchableLabel.length > 0,
       mainlyPrivate: fields.length < 2 * isPrivate.length,
       mainlyInternal: fields.length < 2 * internal.length,

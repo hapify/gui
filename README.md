@@ -53,6 +53,7 @@ The following objects will be available in the template.
     - `hasSortable` (boolean): Denotes if the model has at least one sortable field.
     - `hasPrivate` (boolean): Denotes if the model has at least one private field.
     - `hasInternal` (boolean): Denotes if the model has at least one internal field.
+    - `hasImportant` (boolean): Denotes if the model has at least one important field.
     - `hasSearchableLabel` (boolean): Denotes if the model has at least one field marked as label and also searchable.
     - `hasDependencies` - non-deep model only (boolean): Denotes if the model has dependencies to other models or itself (through an `entity` field).
     - `isReferenced` - non-deep model only (boolean): Denotes if the model is referenced by other models.
@@ -81,6 +82,7 @@ The following objects will be available in the template.
 - `sortable` (boolean): Indicates if the field is flagged as `sortable`.
 - `isPrivate` (boolean): Indicates if the field is flagged as `private`.
 - `internal` (boolean): Indicates if the field is flagged as `internal`.
+- `important` (boolean): Indicates if the field is flagged as `important`.
 - `type` (string): The type of the field. Can be `string`, `number`, `boolean`, `datetime` or `entity`.
 - `subtype` (string): The subtype of the field. The available values depend on the `type`:
     - `string`: Can be `null`, `email`, `password` or `text`.
