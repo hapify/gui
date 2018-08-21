@@ -10,6 +10,8 @@
 - Add subtype `rich` to type `string` for rich text editors.
 - Implement Hapify Syntax.
 - Add ability to clone models.
+- Add unsaved states indicator in models.
+- Add `Ctrl+S` shortcut to save a model.
 
 ### Changed
 

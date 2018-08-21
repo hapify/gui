@@ -30,8 +30,10 @@
                     </div>
                 </div>
                 <div class="col-sm-4 text-sm-right d-none d-sm-block">
-                    <button type="submit" class="btn btn-primary" [disabled]="model.isEmpty()">{{ 'common_save' |
-                        translate }}
+                    <button type="submit" class="btn"
+                            [class.btn-primary]="unsavedChanges"
+                            [class.btn-outline-secondary]="!unsavedChanges"
+                            [disabled]="model.isEmpty()">{{ 'common_save' | translate }}
                     </button>
                 </div>
             </div>
@@ -52,8 +54,10 @@
                     </button>
                 </div>
                 <div class="col-sm-4 text-sm-right">
-                    <button type="submit" class="btn btn-primary" [disabled]="model.isEmpty()">{{ 'common_save' |
-                        translate }}
+                    <button type="submit" class="btn"
+                          [class.btn-primary]="unsavedChanges"
+                          [class.btn-outline-secondary]="!unsavedChanges"
+                          [disabled]="model.isEmpty()">{{ 'common_save' | translate }}
                     </button>
                 </div>
             </div>

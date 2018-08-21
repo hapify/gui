@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime} from 'rxjs/operators';
 import {IModel} from '../../interfaces/model';
+import {Hotkey, HotkeysService} from 'angular2-hotkeys';
 
 @Component({
   selector: 'app-model-model',
@@ -15,7 +16,8 @@ export class ModelComponent implements OnInit, OnDestroy {
   /**
    * Constructor
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private hotKeysService: HotkeysService) {
   }
 
   /** @type {IModel} Model instance */
@@ -41,6 +43,10 @@ export class ModelComponent implements OnInit, OnDestroy {
   private keyupSubject = new Subject<void>();
   /** @type {Subscription[]} Subscription of the component */
   private subscriptions: Subscription[] = [];
+  /** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+  unsavedChanges = false;
+  /** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
+  private saveHotKeys: Hotkey|Hotkey[];
 
   /**
    * @inheritDoc
@@ -62,12 +68,18 @@ export class ModelComponent implements OnInit, OnDestroy {
         Validators.maxLength(this.maxLength),
       ]),
     });
+    // Save on Ctrl+S
+    this.saveHotKeys = this.hotKeysService.add(new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+      this.onSubmit();
+      return false;
+    }));
   }
 
   /**
    * Destroy
    */
   ngOnDestroy() {
+    this.hotKeysService.remove(this.saveHotKeys);
     this.subscriptions.map((s) => s.unsubscribe());
   }
 
@@ -76,6 +88,7 @@ export class ModelComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     this.onSave.emit();
+    this.unsavedChanges = false;
   }
 
   /**
@@ -99,6 +112,7 @@ export class ModelComponent implements OnInit, OnDestroy {
    */
   onModelChange() {
     this.onChange.emit();
+    this.unsavedChanges = true;
   }
 
   /**
