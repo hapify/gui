@@ -21,6 +21,7 @@
   "models_delete_cancel": "Non",
   "models_download": "Télécharger les modèles",
   "models_intro": "Créer un nouveau modèle ou éditer ses propriétés.",
+  "models_2d_intro": "Visualiser tous les modèles et cliquer pour les editer",
   "channels_title": "Terminaisons",
   "channels_subtitle": "Terminaisons existantes: {{count}}",
   "channels_not_found": "Le masque n'existe pas.",
