@@ -5,15 +5,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-sync": "node sync/index.js & ng serve",
-    "build": "ng build",
-    "build:local": "ng build --prod --env=local",
-    "build:staging": "ng build --prod --env=staging",
-    "build:prod": "ng build --prod --env=prod",
+    "build": "ng build --prod --env=prod --output-path=../../html",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "sync": "node sync/index.js"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
