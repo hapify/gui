@@ -1,12 +1,11 @@
-export interface IWebsocketMessage {
+export interface IWebSocketMessage {
   id: string;
-  type: string;
-  date?: Date;
+  type?: string;
+  tag?: string;
   data: any;
 }
 
-export class WebsocketMessages {
-  static REQUEST = 'clientRequest';
-  static CHANNEL = 'clientChannel';
-  static CANCEL = 'clientCancel';
+export class WebSocketMessages {
+  static GET_MODELS = 'get:models';
+  static GET_CHANNELS = 'get:channels';
 }

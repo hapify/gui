@@ -28,7 +28,7 @@ import {ModelModule} from './model/model.module';
 import {GeneratorModule} from './generator/generator.module';
 import {DeployerModule} from './deployer/deployer.module';
 import {LoaderModule} from './loader/loader.module';
-import {WebsocketService} from './services/websocket.service';
+import {WebSocketService} from './services/websocket.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,7 @@ import {WebsocketService} from './services/websocket.service';
     StringService,
     AceService,
     ValidatorService,
-    WebsocketService
+    WebSocketService
   ],
   bootstrap: [AppComponent]
 })

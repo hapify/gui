@@ -118,6 +118,16 @@ export class ConfigService {
   }
 
   /**
+   * Returns the ws info url
+   *
+   * @return {string}
+   */
+  getWebSocketInfoUrl(): string {
+    const uri = <string>environment.cli.wsInfoUri;
+    return uri.startsWith('http') ? uri : `${location.protocol}//${location.host}${uri}`;
+  }
+
+  /**
    * Returns the sync token if exists
    *
    * @return {string|null}

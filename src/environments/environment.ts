@@ -9,6 +9,9 @@ export const environment = {
     baseUri: '/assets/ace-builds/src-min',
     theme: 'xcode'
   },
+  cli: {
+    wsInfoUri: 'http://localhost:4800/ws.json'
+  },
   bitbucket: {
     baseUri: 'https://api.bitbucket.org/2.0',
     authorize: 'https://bitbucket.org/site/oauth2/authorize?client_id=GXGSpAgZTeP6sH3Zxr&response_type=token',
