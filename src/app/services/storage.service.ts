@@ -47,6 +47,8 @@ export abstract class StorageService {
    * @returns {Promise<void>}
    */
   protected async save(instances: IStorable[]): Promise<void> {
+    // Sort the instances
+    this.sort(instances);
     // Convert instances
     const objects = instances.map((instance) => instance.toObject());
     // Store
@@ -86,7 +88,7 @@ export abstract class StorageService {
    * @returns {Promise<void>}
    */
   async remove(instance: IStorable): Promise<void> {
-    // Add the instance to the list
+    // Remove the instance from the list
     const instances = (await this.list())
       .filter((m) => m.id !== instance.id);
     // Find instance
@@ -107,10 +109,13 @@ export abstract class StorageService {
    * @returns {Promise<void>}
    */
   async update(instance: IStorable): Promise<void> {
-    // Remove instance
-    await this.remove(instance);
-    // Push new version
-    await this.add(instance);
+    // Remove the instance from the list
+    const instances = (await this.list())
+      .filter((m) => m.id !== instance.id);
+    // Add the instance to the list
+    instances.push(instance);
+    // Save the instances
+    await this.save(instances);
   }
 
   /**
@@ -154,5 +159,13 @@ export abstract class StorageService {
    * @returns {string}
    */
   protected abstract getMessageId(): string;
+
+  /**
+   * Sort the instances
+   * @protected
+   * @param {IStorable[]} instances
+   * @returns {string}
+   */
+  protected abstract sort(instances: IStorable[]): void;
 
 }

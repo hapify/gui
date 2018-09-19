@@ -57,13 +57,8 @@ export class View2dComponent implements OnInit {
    *
    * @returns {Promise<void>}
    */
-  protected updateModels(): Promise<void> {
-    return this.storageService.list()
-      .then((models) => {
-        // Biggest model first
-        models.sort((a, b) => b.fields.length - a.fields.length);
-        this.models = models;
-      });
+  protected async updateModels(): Promise<void> {
+    this.models = await this.storageService.list();
   }
 
   /**

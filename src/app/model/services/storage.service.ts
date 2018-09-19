@@ -20,14 +20,15 @@ export class StorageService extends BaseStorageService {
     return WebSocketMessages.SET_MODELS;
   }
   /** @inheritDoc */
-  async list(): Promise<IModel[]> {
-    const list = <IModel[]>(await super.list());
-    list.sort((a: IModel, b: IModel) => a.name.localeCompare(b.name));
-    return list;
+  list(): Promise<IModel[]> {
+    return super.list();
   }
   /** @inheritDoc */
   find(id: string): Promise<IModel> {
     return super.find(id);
   }
-
+  /** @inheritDoc */
+  sort(instances: IModel[]): void {
+    instances.sort((a, b) => a.name.localeCompare(b.name));
+  }
 }

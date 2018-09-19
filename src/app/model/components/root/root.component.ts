@@ -57,12 +57,8 @@ export class RootComponent implements OnInit {
    *
    * @returns {Promise<void>}
    */
-  protected updateModels(): Promise<void> {
-    return this.storageService.list()
-      .then((models) => {
-        models.sort((a, b) => a.name.localeCompare(b.name));
-        this.models = models;
-      });
+  protected async updateModels(): Promise<void> {
+    this.models = await this.storageService.list();
   }
 
   /**

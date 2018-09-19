@@ -27,5 +27,12 @@ export class StorageService extends BaseStorageService {
   find(id: string): Promise<IChannel> {
     return super.find(id);
   }
+  /** @inheritDoc */
+  sort(instances: IChannel[]): void {
+    instances.sort((a, b) => a.name.localeCompare(b.name));
+    for (const instance of instances) {
+      instance.templates.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  }
 
 }
