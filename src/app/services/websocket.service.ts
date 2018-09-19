@@ -6,14 +6,17 @@ import {IWebSocketInfo} from '../interfaces/websocket-info';
 import {IWebSocketMessage} from '../interfaces/websocket-message';
 import {ConfigService} from './config.service';
 
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+
 @Injectable()
 export class WebSocketService {
 
   /** @type {WebSocket} The current websocket */
   private ws: WebSocket;
   /** Incoming messages/orders from server */
-  private _messageSubject = new Subject<IWebSocketMessage>();
-  private _messageObservable: Observable<IWebSocketMessage> = this._messageSubject.asObservable();
+  private messageSubject = new Subject<IWebSocketMessage>();
+  private messageObservable: Observable<IWebSocketMessage> = this.messageSubject.asObservable();
 
   /**
    * Constructor
@@ -42,16 +45,16 @@ export class WebSocketService {
     this.ws.onmessage = (event: MessageEvent) => {
       try {
         const decoded = <IWebSocketMessage>JSON.parse(event.data);
-        this._messageSubject.next(decoded);
+        this.messageSubject.next(decoded);
       } catch (error) {
-        console.error(error);
+        this.logError(error);
       }
     };
     this.ws.onclose = (event: CloseEvent) => {
-
+      this.logError(new Error(`Connection lost: ${event.reason}`));
     };
     this.ws.onerror = (event: ErrorEvent) => {
-      console.error(event);
+      this.logError(new Error(event.message));
     };
     // Wait for opening
     await new Promise((resolve) => {
@@ -67,19 +70,7 @@ export class WebSocketService {
    * @return {Observable<IWebSocketMessage>}
    */
   messages(): Observable<IWebSocketMessage> {
-    return this._messageObservable;
-  }
-
-  /**
-   * Send a message to the server
-   *
-   * @param {string} id
-   * @param {{}} data
-   * @return {Promise<void>}
-   */
-  async push(id: string, data = {}) {
-    await this.waitOpened();
-    this.ws.send(JSON.stringify({id, data}));
+    return this.messageObservable;
   }
 
   /**
@@ -90,12 +81,12 @@ export class WebSocketService {
    * @param {number} timeout
    * @return {Promise<void>}
    */
-  async pull(id: string, data = {}, timeout = 60000): Promise<any> {
+  async send(id: string, data = {}, timeout = MINUTE): Promise<any> {
     await this.waitOpened();
     return await new Promise((resolve, reject) => {
       // Declare subs
       let subscription: Subscription;
-      let timeoutSub: number;
+      let timeoutSub: any;
       // Create message
       const message: IWebSocketMessage = {
         id,
@@ -103,7 +94,7 @@ export class WebSocketService {
         tag: this.makeTag()
       };
       // Create listener
-      subscription = this._messageObservable.subscribe((response: IWebSocketMessage) => {
+      subscription = this.messageObservable.subscribe((response: IWebSocketMessage) => {
         // Wait for the same response
         if (response.tag !== message.tag) {
           return;
@@ -113,7 +104,9 @@ export class WebSocketService {
         clearTimeout(timeoutSub);
         // On error
         if (response.type === 'error') {
-          reject(new Error(`Error from WebSocket server: ${response.data ? response.data.error : 'No data'}`));
+          const error = new Error(`Error from WebSocket server: ${response.data ? response.data.error : 'No data'}`);
+          this.logError(error);
+          reject(error);
           return;
         }
         // On success
@@ -122,7 +115,9 @@ export class WebSocketService {
       // Set timeout
       timeoutSub = setTimeout(() => {
         subscription.unsubscribe();
-        reject(new Error('No response from WebSocket server'));
+        const error = new Error('No response from WebSocket server');
+        this.logError(error);
+        reject(error);
       }, timeout);
       // Start request
       this.ws.send(JSON.stringify(message));
@@ -142,8 +137,8 @@ export class WebSocketService {
       type: 'error',
       data: {error},
     };
-    this._messageSubject.next(message);
-    console.error(error);
+    this.messageSubject.next(message);
+    this.logError(error);
   }
 
   /**
@@ -192,6 +187,11 @@ export class WebSocketService {
     await new Promise((resolve => {
       setTimeout(() => resolve(this.waitOpened()), 500);
     }));
+  }
+
+  /** Log an error */
+  private logError(error: Error) {
+    console.error(event);
   }
 
 }
