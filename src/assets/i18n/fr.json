@@ -34,7 +34,7 @@
   "channels_tooltip_dump": "Afficher les entrées dans la console",
   "channels_download": "Télécharger la terminaison",
   "channels_sync": "Synchroniser",
-  "channels_intro": "Créer un nouvelle terminaison ou éditer ses masques.",
+  "channels_intro": "Gérer une terminaison et éditer ses masques.",
   "channels_open_validator_editor": "Validateur",
   "validator_editor_title": "Validateur {{name}}",
   "validator_tooltip_autovalidate": "Auto-validation",

@@ -34,7 +34,7 @@
   "channels_tooltip_dump": "Dump inputs in console",
   "channels_download": "Download channel",
   "channels_sync": "Sync channel",
-  "channels_intro": "Create a new channel or edit its templates.",
+  "channels_intro": "Manage a channel and edit its templates.",
   "channels_open_validator_editor": "Validator",
   "validator_tooltip_autovalidate": "Auto-validate",
   "validator_editor_title": "Validator for {{name}}",
