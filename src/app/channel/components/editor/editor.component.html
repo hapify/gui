@@ -46,7 +46,8 @@
         <div class="col-lg-6 input d-flex flex-column p-3">
             <div [formGroup]="form">
                 <div class="input-cnt">
-                    <input formControlName="path" class="form-control" [(ngModel)]="wip.path" type="text">
+                    <input formControlName="path" class="form-control"
+                           [(ngModel)]="wip.path" type="text" (keyup)="onPathChange();">
                     <div
                             *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
                             class="alert alert-danger mt-2">
@@ -81,7 +82,7 @@
             <input *ngIf="!template.needsModel() || !!model"
                    class="form-control"
                    readonly
-                   [value]="generatorService.path(wip, model)"
+                   [value]="pathResult"
                    type="text">
             <ace-editor
                     *ngIf="result"

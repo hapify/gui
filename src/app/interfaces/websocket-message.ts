@@ -10,4 +10,6 @@ export class WebSocketMessages {
   static SET_MODELS = 'set:models';
   static GET_CHANNELS = 'get:channels';
   static SET_CHANNELS = 'set:channels';
+  static PREVIEW_PATH = 'prv:path';
+  static PREVIEW_TEMPLATE = 'prv:template';
 }

@@ -13,6 +13,8 @@ import {IChannel} from '../../channel/interfaces/channel';
 
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
+import {WebSocketService} from '../../services/websocket.service';
+import {WebSocketMessages} from '../../interfaces/websocket-message';
 
 @Injectable()
 export class GeneratorService {
@@ -20,13 +22,15 @@ export class GeneratorService {
   /**
    * Constructor
    *
-   * @param modelStorageService
-   * @param stringService
-   * @param hpfGeneratorService
-   * @param dotGeneratorService
-   * @param javaScriptGeneratorService
+   * @param {WebSocketService} webSocketService
+   * @param {StorageService} modelStorageService
+   * @param {StringService} stringService
+   * @param {HpfGeneratorService} hpfGeneratorService
+   * @param {DotGeneratorService} dotGeneratorService
+   * @param {JavaScriptGeneratorService} javaScriptGeneratorService
    */
-  constructor(private modelStorageService: ModelStorageService,
+  constructor(private webSocketService: WebSocketService,
+              private modelStorageService: ModelStorageService,
               private stringService: StringService,
               private hpfGeneratorService: HpfGeneratorService,
               private dotGeneratorService: DotGeneratorService,
@@ -85,15 +89,15 @@ export class GeneratorService {
    * @throws {Error}
    *  If the template needs a model and no model is passed
    */
-  path(template: ITemplate, model: IModel | null): string {
+  async path(template: ITemplate, model: IModel | null): Promise<string> {
+    const data: any = { path: template.path };
     if (template.needsModel()) {
       if (!model) {
         throw new Error('Model should be defined for this template');
       }
-      return this._path(model, template);
-    } else {
-      return this._pathForAll(template);
+      data.model = model.id;
     }
+    return await this.webSocketService.send(WebSocketMessages.PREVIEW_PATH, data);
   }
 
   /**
