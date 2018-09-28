@@ -22,11 +22,7 @@
         "scss/styles.scss"
       ],
       "scripts": [
-        "../node_modules/dot/doT.js",
-        "../node_modules/jszip/dist/jszip.js",
-        "../node_modules/file-saver/FileSaver.js",
-        "../node_modules/ace-builds/src-min/ace.js",
-        "../node_modules/hapify-syntax/dist/index.js"
+        "../node_modules/ace-builds/src-min/ace.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
