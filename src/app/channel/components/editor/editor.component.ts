@@ -11,7 +11,6 @@ import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
-import {SyncService} from '../../services/sync.service';
 
 @Component({
   selector: 'app-channel-editor',
@@ -37,8 +36,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     minLength: this.pathMinLength,
     maxLength: this.pathMaxLength,
   };
-  /** @type {EventEmitter<void>} On save event */
-  @Output() onSave = new EventEmitter<void>();
+  /** @type {EventEmitter<ITemplate|null>} On save event */
+  @Output() onSave = new EventEmitter<ITemplate|null>();
   /** @type {EventEmitter<void>} On save event */
   @Output() onClose = new EventEmitter<void>();
   /** @type {ITemplate} The edited template */
@@ -70,14 +69,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param {TranslateService} translateService
    * @param {HotkeysService} hotKeysService
    * @param {AceService} aceService
-   * @param {SyncService} syncService
    */
   constructor(private formBuilder: FormBuilder,
               private injector: Injector,
               private translateService: TranslateService,
               private hotKeysService: HotkeysService,
-              public aceService: AceService,
-              public syncService: SyncService) {
+              public aceService: AceService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
     this.modelStorageService = this.injector.get(ModelStorageService);
@@ -150,12 +147,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     this.template.content = this.wip.content;
     this.template.path = this.wip.path;
     this.unsavedChanges = false;
-    this.onSave.emit();
-    // Auto-sync
-    if (this.syncService.autoSyncEnabled) {
-      this.syncService.run(this.template)
-        .catch(console.error);
-    }
+    this.onSave.emit(this.generatorService.autoSyncEnabled ? this.wip : null);
   }
   /** Called when the user click on close */
   didClickClose() {

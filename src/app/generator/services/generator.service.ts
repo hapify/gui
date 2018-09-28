@@ -20,6 +20,12 @@ import FileSaver from 'file-saver';
 export class GeneratorService {
 
   /**
+   * Used to keep activation across multiple editors
+   * @type {boolean}
+   */
+  public autoSyncEnabled = false;
+
+  /**
    * Constructor
    *
    * @param {WebSocketService} webSocketService
@@ -40,24 +46,25 @@ export class GeneratorService {
   /**
    * Compile a template to multiple files.
    * One per model, if applicable.
-   *
    * @param {ITemplate} template
-   * @returns {Promise<IGeneratorResult[]>}
+   * @returns {Promise<void>}
    */
-  async compile(template: ITemplate): Promise<IGeneratorResult[]> {
-    // Create results stack
-    const promises: Promise<IGeneratorResult>[] = [];
-    // For each template, build each models
-    if (template.needsModel()) {
-      const models = await this.modelStorageService.list();
-      models.forEach((model: IModel) => {
-        promises.push(this._one(template, model));
-      });
-    } else {
-      promises.push(this._all(template));
-    }
-    // Wait results
-    return await Promise.all(promises);
+  async compileTempate(template: ITemplate): Promise<void> {
+    await this.webSocketService.send(WebSocketMessages.GENERATE_TEMPLATE, {
+      channel: template.channel().id,
+      template: template.path
+    });
+  }
+
+  /**
+   * Compile a whole channel to multiple files.
+   * @param {IChannel} channel
+   * @returns {Promise<void>}
+   */
+  async compileChannel(channel: IChannel): Promise<void> {
+    await this.webSocketService.send(WebSocketMessages.GENERATE_CHANNEL, {
+      channel: channel.id
+    });
   }
 
   /**

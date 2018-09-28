@@ -1,7 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, Injector} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {IChannel} from '../../interfaces/channel';
-import {SyncService} from '../../services/sync.service';
+import {GeneratorService} from '../../../generator/services/generator.service';
+import {ITemplate} from '../../interfaces/template';
 
 @Component({
   selector: 'app-channel-channel',
@@ -10,10 +11,12 @@ import {SyncService} from '../../services/sync.service';
 })
 export class ChannelComponent implements OnInit {
 
+  /** @type {GeneratorService} The generator service */
+  generatorService: GeneratorService;
   /** @type {IChannel} Channel instance */
   @Input() channel: IChannel;
-  /** @type {EventEmitter<void>} On save event */
-  @Output() onSave = new EventEmitter<void>();
+  /** @type {EventEmitter<ITemplate|null>} On save event */
+  @Output() onSave = new EventEmitter<ITemplate|null>();
   /** @type {FormGroup} */
   form: FormGroup;
   /** @type {number} */
@@ -32,12 +35,13 @@ export class ChannelComponent implements OnInit {
 
   /**
    * Constructor
-   *
    * @param {FormBuilder} formBuilder
-   * @param {SyncService} syncService
+   * @param {Injector} injector
    */
   constructor(private formBuilder: FormBuilder,
-              public syncService: SyncService) {
+              private injector: Injector) {
+    // Avoid circular dependency
+    this.generatorService = this.injector.get(GeneratorService);
   }
 
   /**
@@ -56,9 +60,10 @@ export class ChannelComponent implements OnInit {
 
   /**
    * Called when the user click on "save"
+   * @param {ITemplate|null} toGenerate
    */
-  onSubmit() {
-    this.onSave.emit();
+  onSubmit(toGenerate: ITemplate|null) {
+    this.onSave.emit(toGenerate);
   }
 
   /**
@@ -66,10 +71,7 @@ export class ChannelComponent implements OnInit {
    */
   async onSync() {
     this.syncing = true;
-    for (let i = 0; i < this.channel.templates.length; i++) {
-      await this.syncService.run(this.channel.templates[i])
-        .catch(console.error);
-    }
+    await this.generatorService.compileChannel(this.channel);
     this.syncing = false;
   }
 

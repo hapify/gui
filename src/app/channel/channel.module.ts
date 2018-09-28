@@ -10,7 +10,6 @@ import {ChannelComponent} from './components/channel/channel.component';
 import {ChannelRowComponent} from './components/channel-row/channel-row.component';
 import {ChannelCardComponent} from './components/channel-card/channel-card.component';
 import {TemplateComponent} from './components/template/template.component';
-import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
 import {EditComponent} from './components/edit/edit.component';
 import {EditorComponent} from './components/editor/editor.component';
@@ -19,7 +18,6 @@ import {ValidatorEditorComponent} from '../validator/components/validator-editor
 // Services
 import {StorageService} from './services/storage.service';
 import {HotkeyModule} from 'angular2-hotkeys';
-import {SyncService} from './services/sync.service';
 
 
 // Directives
@@ -40,7 +38,6 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
   declarations: [
     ChannelComponent,
     TemplateComponent,
-    NewComponent,
     RootComponent,
     EditComponent,
     ChannelRowComponent,
@@ -50,8 +47,7 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     ValidatorEditorComponent
   ],
   providers: [
-    StorageService,
-    SyncService
+    StorageService
   ],
 })
 export class ChannelModule {

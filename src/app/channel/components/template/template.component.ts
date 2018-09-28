@@ -26,9 +26,9 @@ export class TemplateComponent implements OnInit {
   /**
    * On save event
    *
-   * @type {EventEmitter<void>}
+   * @type {EventEmitter<ITemplate|null>}
    */
-  @Output() onSave = new EventEmitter<void>();
+  @Output() onSave = new EventEmitter<ITemplate|null>();
   /**
    * @type {FormGroup}
    */
@@ -111,9 +111,10 @@ export class TemplateComponent implements OnInit {
 
   /**
    * Called when the editor is saved
+   * @param {ITemplate|null} toGenerate
    */
-  onEditorSave() {
-    this.onSave.emit();
+  onEditorSave(toGenerate: ITemplate|null) {
+    this.onSave.emit(toGenerate);
   }
 
   /**

@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit(null)">
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -11,8 +11,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 text-sm-right d-none d-sm-block">
-                    <button *ngIf="syncService.enabled()"
-                            type="button"
+                    <button type="button"
                             class="btn btn-outline-secondary"
                             [disabled]="channel.isEmpty() || syncing"
                             (click)="onSync()">
@@ -26,7 +25,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li *ngFor="let template of channel.templates" class="list-group-item">
-                <app-channel-template [template]="template" (onSave)="onSubmit()"></app-channel-template>
+                <app-channel-template [template]="template" (onSave)="onSubmit($event)"></app-channel-template>
             </li>
         </ul>
         <div class="card-footer">

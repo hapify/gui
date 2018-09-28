@@ -17,10 +17,10 @@
                             <span class="oi oi-reload"></span>
                         </label>
                     </div>
-                    <div *ngIf="syncService.enabled()" class="btn-group ml-2" data-toggle="buttons">
+                    <div class="btn-group ml-2" data-toggle="buttons">
                         <label class="btn" title="{{ 'channels_tooltip_autosync' | translate }}"
-                               [ngClass]="{ 'btn-light': syncService.autoSyncEnabled, 'btn-outline-light': !syncService.autoSyncEnabled }">
-                            <input type="checkbox" autocomplete="off" [(ngModel)]="syncService.autoSyncEnabled">
+                               [ngClass]="{ 'btn-light': generatorService.autoSyncEnabled, 'btn-outline-light': !generatorService.autoSyncEnabled }">
+                            <input type="checkbox" autocomplete="off" [(ngModel)]="generatorService.autoSyncEnabled">
                             <span class="oi oi-cloud-download"></span>
                         </label>
                     </div>
