@@ -14,8 +14,8 @@
                     <button type="button"
                             class="btn btn-outline-secondary"
                             [disabled]="channel.isEmpty() || syncing"
-                            (click)="onSync()">
-                        {{ 'channels_sync' | translate }}
+                            (click)="onGenerate()">
+                        {{ 'channels_generate' | translate }}
                     </button>
                     <button type="submit" class="btn btn-primary" [disabled]="channel.isEmpty()">
                         {{ 'common_save' | translate }}

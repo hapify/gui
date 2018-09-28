@@ -11,14 +11,14 @@
                         <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
                     </select>
                     <div class="btn-group ml-2" data-toggle="buttons">
-                        <label class="btn" title="{{ 'channels_tooltip_autogenerate' | translate }}"
+                        <label class="btn" title="{{ 'channels_tooltip_autorefresh' | translate }}"
                                [ngClass]="{ 'btn-light': autoGenerate, 'btn-outline-light': !autoGenerate }">
                             <input type="checkbox" autocomplete="off" [(ngModel)]="autoGenerate">
                             <span class="oi oi-reload"></span>
                         </label>
                     </div>
                     <div class="btn-group ml-2" data-toggle="buttons">
-                        <label class="btn" title="{{ 'channels_tooltip_autosync' | translate }}"
+                        <label class="btn" title="{{ 'channels_tooltip_autogenerate' | translate }}"
                                [ngClass]="{ 'btn-light': generatorService.autoSyncEnabled, 'btn-outline-light': !generatorService.autoSyncEnabled }">
                             <input type="checkbox" autocomplete="off" [(ngModel)]="generatorService.autoSyncEnabled">
                             <span class="oi oi-cloud-download"></span>

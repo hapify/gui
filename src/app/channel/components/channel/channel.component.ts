@@ -69,7 +69,7 @@ export class ChannelComponent implements OnInit {
   /**
    * Will sync all templates of the channel
    */
-  async onSync() {
+  async onGenerate() {
     this.syncing = true;
     await this.generatorService.compileChannel(this.channel);
     this.syncing = false;
