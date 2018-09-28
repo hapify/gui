@@ -50,11 +50,6 @@
             </div>
         </div>
     </div>
-    <div *ngIf="channel.templates.length" class="text-center mt-5">
-        <button class="btn btn-outline-secondary" (click)="onDownload()">
-            <span class="oi oi-data-transfer-download"></span> {{ 'channels_download' | translate }}
-        </button>
-    </div>
 </form>
 <div *ngIf="showValidatorEditor">
     <app-validator-editor

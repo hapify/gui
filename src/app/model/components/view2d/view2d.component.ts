@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {IModel} from '../../interfaces/model';
-import {ModelsDownloaderService} from '../../../loader/services/models-downloader.service';
 
 @Component({
   selector: 'app-model-view2d',
@@ -14,10 +13,8 @@ export class View2dComponent implements OnInit {
    * Constructor
    *
    * @param {StorageService} storageService
-   * @param {ModelsDownloaderService} modelsDownloaderService
    */
-  constructor(private storageService: StorageService,
-              private modelsDownloaderService: ModelsDownloaderService) {
+  constructor(private storageService: StorageService) {
   }
 
   /**
@@ -59,13 +56,6 @@ export class View2dComponent implements OnInit {
    */
   protected async updateModels(): Promise<void> {
     this.models = await this.storageService.list();
-  }
-
-  /**
-   * Call when user click on download
-   */
-  onDownload() {
-    this.modelsDownloaderService.dowloadAsJson();
   }
 
 }

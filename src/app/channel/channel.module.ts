@@ -18,7 +18,6 @@ import {ValidatorEditorComponent} from '../validator/components/validator-editor
 
 // Services
 import {StorageService} from './services/storage.service';
-import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {SyncService} from './services/sync.service';
 
@@ -52,7 +51,6 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
   ],
   providers: [
     StorageService,
-    MasksDownloaderService,
     SyncService
   ],
 })

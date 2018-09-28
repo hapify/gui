@@ -13,8 +13,6 @@ import {AppComponent} from './app.component';
 import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
 import {GeneratorComponent} from './components/generator/generator.component';
-import {LoaderComponent} from './components/loader/loader.component';
-import {DeployerComponent} from './components/deployer/deployer.component';
 import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 
 // Services
@@ -26,8 +24,6 @@ import {HotkeyModule} from 'angular2-hotkeys';
 import {ChannelModule} from './channel/channel.module';
 import {ModelModule} from './model/model.module';
 import {GeneratorModule} from './generator/generator.module';
-import {DeployerModule} from './deployer/deployer.module';
-import {LoaderModule} from './loader/loader.module';
 import {WebSocketService} from './services/websocket.service';
 
 @NgModule({
@@ -36,8 +32,6 @@ import {WebSocketService} from './services/websocket.service';
     ModelComponent,
     ChannelComponent,
     GeneratorComponent,
-    LoaderComponent,
-    DeployerComponent,
     SidebarComponent,
     HeaderComponent
   ],
@@ -54,8 +48,6 @@ import {WebSocketService} from './services/websocket.service';
     ChannelModule,
     ModelModule,
     GeneratorModule,
-    DeployerModule,
-    LoaderModule
   ],
   providers: [
     ConfigService,

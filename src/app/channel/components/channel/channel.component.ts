@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {IChannel} from '../../interfaces/channel';
-import {MasksDownloaderService} from '../../../loader/services/masks-downloader.service';
 import {SyncService} from '../../services/sync.service';
 
 @Component({
@@ -35,11 +34,9 @@ export class ChannelComponent implements OnInit {
    * Constructor
    *
    * @param {FormBuilder} formBuilder
-   * @param {MasksDownloaderService} masksDownloaderService
    * @param {SyncService} syncService
    */
   constructor(private formBuilder: FormBuilder,
-              private masksDownloaderService: MasksDownloaderService,
               public syncService: SyncService) {
   }
 
@@ -88,13 +85,6 @@ export class ChannelComponent implements OnInit {
    */
   cleanTemplates() {
     this.channel.filter();
-  }
-
-  /**
-   * Call when user click on download
-   */
-  onDownload() {
-    this.masksDownloaderService.downloadAsZip(this.channel);
   }
 
   /**

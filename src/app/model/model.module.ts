@@ -17,7 +17,6 @@ import {EditComponent} from './components/edit/edit.component';
 
 // Services
 import {StorageService} from './services/storage.service';
-import {ModelsDownloaderService} from '../loader/services/models-downloader.service';
 import {ModelUmlBoxComponent} from './components/model-uml-box/model-uml-box.component';
 
 @NgModule({
@@ -43,8 +42,7 @@ import {ModelUmlBoxComponent} from './components/model-uml-box/model-uml-box.com
     ValidatorDetailsComponent
   ],
   providers: [
-    StorageService,
-    ModelsDownloaderService
+    StorageService
   ]
 })
 export class ModelModule {
