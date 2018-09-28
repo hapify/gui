@@ -25,7 +25,7 @@ export interface IFieldBase {
    *
    * @type {string}
    */
-  reference: string;
+  reference: string | null;
   /**
    * Should be used as a primary key or not
    *

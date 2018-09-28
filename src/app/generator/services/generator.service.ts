@@ -10,11 +10,11 @@ import {SentenceFormat} from '../../interfaces/sentence-format.enum';
 import {FieldType} from '../../model/classes/field-type';
 import {StorageService as ModelStorageService} from '../../model/services/storage.service';
 import {IChannel} from '../../channel/interfaces/channel';
+import {WebSocketService} from '../../services/websocket.service';
+import {WebSocketMessages} from '../../interfaces/websocket-message';
 
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
-import {WebSocketService} from '../../services/websocket.service';
-import {WebSocketMessages} from '../../interfaces/websocket-message';
 
 @Injectable()
 export class GeneratorService {
