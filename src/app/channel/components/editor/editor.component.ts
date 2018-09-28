@@ -214,7 +214,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   /** Call when the user click on "dump" */
   async didClickDump() {
-    console.log(await this.generatorService.inputs(this.model));
+    // @todo Dump in bash
+    console.log('To be implemented');
   }
   /**
    * Prevent reloading
