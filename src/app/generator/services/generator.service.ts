@@ -69,15 +69,18 @@ export class GeneratorService {
    * @throws {Error}
    *  If the template needs a model and no model is passed
    */
-  run(template: ITemplate, model: IModel | null): Promise<IGeneratorResult> {
+  async run(template: ITemplate, model: IModel | null): Promise<IGeneratorResult> {
+    const data: any = {
+      template: template.toObject(),
+      channel: template.channel().id
+    };
     if (template.needsModel()) {
       if (!model) {
         throw new Error('Model should be defined for this template');
       }
-      return this._one(template, model);
-    } else {
-      return this._all(template);
+      data.model = model.id;
     }
+    return await this.webSocketService.send(WebSocketMessages.PREVIEW_TEMPLATE, data);
   }
 
   /**
