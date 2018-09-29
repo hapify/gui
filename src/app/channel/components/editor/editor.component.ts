@@ -159,15 +159,15 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   private _generate() {
     // Clean results and error
-    this.result = null;
-    this.error = null;
     // Run generation
     this.generatorService.run(this.wip, this.model)
       .then((result) => {
         this.result = result;
+        this.error = null;
         this.pathResult = result.path;
       })
       .catch((e) => {
+        this.result = null;
         this.error = `${e.message}\n\n${e.stack}`;
       });
   }
