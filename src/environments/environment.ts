@@ -10,6 +10,6 @@ export const environment = {
     theme: 'xcode'
   },
   cli: {
-    wsInfoUri: 'http://localhost:4800/ws.json'
+    wsInfoUri: '/ws.json'
   }
 };

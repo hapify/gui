@@ -14,18 +14,18 @@
                         <label class="btn" title="{{ 'channels_tooltip_autorefresh' | translate }}"
                                [ngClass]="{ 'btn-light': autoGenerate, 'btn-outline-light': !autoGenerate }">
                             <input type="checkbox" autocomplete="off" [(ngModel)]="autoGenerate">
-                            <span class="oi oi-reload"></span>
+                            <span class="oi oi-eye"></span>
                         </label>
                     </div>
                     <div class="btn-group ml-2" data-toggle="buttons">
                         <label class="btn" title="{{ 'channels_tooltip_autogenerate' | translate }}"
                                [ngClass]="{ 'btn-light': generatorService.autoSyncEnabled, 'btn-outline-light': !generatorService.autoSyncEnabled }">
                             <input type="checkbox" autocomplete="off" [(ngModel)]="generatorService.autoSyncEnabled">
-                            <span class="oi oi-cloud-download"></span>
+                            <span class="oi oi-reload"></span>
                         </label>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-light" (click)="didClickDump();"
+                <button type="button" class="btn btn-outline-light d-none" (click)="didClickDump();"
                         title="{{ 'channels_tooltip_dump' | translate }}">
                     <span class="oi oi-code"></span>
                 </button>

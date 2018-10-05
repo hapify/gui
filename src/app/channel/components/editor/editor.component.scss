@@ -20,7 +20,6 @@ $op-meta: 0.4;
   }
 
   ::ng-deep {
-    .ace_dotjs,
     .ace_hpf {
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
       &.ace_inter {
@@ -54,15 +53,6 @@ $op-meta: 0.4;
 
     // Force comment color on interpolations
     .ace_comment {
-      + .ace_dotjs.ace_inter {
-        color: $c-comment;
-        + .ace_dotjs.ace_inter {
-          color: $c-comment;
-          + .ace_dotjs.ace_inter {
-            color: $c-comment;
-          }
-        }
-      }
       + .ace_hpf.ace_inter {
         color: $c-comment;
         + .ace_hpf.ace_inter {
@@ -75,15 +65,6 @@ $op-meta: 0.4;
     }
     // Force string color on interpolations
     .ace_string {
-      + .ace_dotjs.ace_inter {
-        color: $c-string;
-        + .ace_dotjs.ace_inter {
-          color: $c-string;
-          + .ace_dotjs.ace_inter {
-            color: $c-string;
-          }
-        }
-      }
       + .ace_hpf.ace_inter {
         color: $c-string;
         + .ace_hpf.ace_inter {
