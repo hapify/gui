@@ -7,7 +7,6 @@ import {AceEditorModule} from 'ng2-ace-editor';
 import {TranslateModuleLoad} from '../translate-import';
 
 import {ChannelComponent} from './components/channel/channel.component';
-import {ChannelRowComponent} from './components/channel-row/channel-row.component';
 import {ChannelCardComponent} from './components/channel-card/channel-card.component';
 import {TemplateComponent} from './components/template/template.component';
 import {RootComponent} from './components/root/root.component';
@@ -40,7 +39,6 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     TemplateComponent,
     RootComponent,
     EditComponent,
-    ChannelRowComponent,
     ChannelCardComponent,
     EditorComponent,
     ContentEditableModelDirective,

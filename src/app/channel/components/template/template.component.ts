@@ -63,8 +63,7 @@ export class TemplateComponent implements OnInit {
     value: string;
     name: string;
   }] = [
-    {name: 'Hpf', value: TemplateEngine.Hpf},
-    {name: 'doT', value: TemplateEngine.doT},
+    {name: 'Hapify', value: TemplateEngine.Hpf},
     {name: 'JavaScript', value: TemplateEngine.JavaScript}
   ];
   /**

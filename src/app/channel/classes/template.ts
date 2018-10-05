@@ -64,8 +64,6 @@ export class Template implements ITemplate {
   public extension(): string {
     if (this.engine === TemplateEngine.Hpf) {
       return 'hpf';
-    } else if (this.engine === TemplateEngine.doT) {
-      return 'dot';
     }
     return 'js';
   }
@@ -76,8 +74,6 @@ export class Template implements ITemplate {
   public aceMode(): string {
     if (this.engine === TemplateEngine.Hpf) {
       return 'hpf';
-    } else if (this.engine === TemplateEngine.doT) {
-      return 'dotjs';
     }
     return 'js';
   }

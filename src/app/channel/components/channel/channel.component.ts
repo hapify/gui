@@ -23,6 +23,10 @@ export class ChannelComponent implements OnInit {
   minLength = 2;
   /** @type {number} */
   maxLength = 32;
+  /** @type {string} */
+  defaultTemplateName = 'New template';
+  /** @type {string} */
+  defaultTemplatePath = '/path/to/{model.hyphen}';
   /** @type {boolean} */
   syncing = false;
   /** @type {{minLength: number; maxLength: number}} */
@@ -79,7 +83,10 @@ export class ChannelComponent implements OnInit {
    * Called when the user click on "add template"
    */
   addTemplate() {
-    this.channel.addTemplate(this.channel.newTemplate());
+    const template = this.channel.newTemplate();
+    template.name = this.defaultTemplateName;
+    template.path = this.defaultTemplatePath;
+    this.channel.addTemplate(template);
   }
 
   /**
