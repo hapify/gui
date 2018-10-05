@@ -28,7 +28,7 @@ export class ValidatorService {
       };
     }
 
-    const result = <IValidatorResult>eval(script);
+    const result = <IValidatorResult>(new Function('model', script))(model);
 
     if (!(result && result.errors instanceof Array && result.warnings instanceof Array)) {
       throw new Error('Invalid validator return. Must returns { errors: string[], warnings: string[] }');
