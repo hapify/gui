@@ -55,9 +55,9 @@
                 </div>
                 <div class="col-sm-4 text-sm-right">
                     <button type="submit" class="btn"
-                          [class.btn-primary]="unsavedChanges"
-                          [class.btn-outline-secondary]="!unsavedChanges"
-                          [disabled]="model.isEmpty()">{{ 'common_save' | translate }}
+                            [class.btn-primary]="unsavedChanges"
+                            [class.btn-outline-secondary]="!unsavedChanges"
+                            [disabled]="model.isEmpty()">{{ 'common_save' | translate }}
                     </button>
                 </div>
             </div>
@@ -67,5 +67,36 @@
         <app-validator-details
                 [signal]="onChange"
                 [model]="model"></app-validator-details>
+    </div>
+
+    <div class="my-3">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12">
+                        <span>{{ 'access_context_title' | translate }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-body">
+                        <div *ngFor="let action of getActions();" class="btn-toolbar mb-3">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-secondary action-label" disabled>
+                                    {{action}}
+                                </button>
+                                <button *ngFor="let context of contexts;" type="button" class="btn"
+                                        [class.btn-outline-secondary]="!isContextSelected(action, context)"
+                                        [class.btn-secondary]="isContextSelected(action, context)"
+                                        (click)="onContextChange(action, context)">
+                                    {{context.name}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </form>

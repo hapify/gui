@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime} from 'rxjs/operators';
 import {IModel} from '../../interfaces/model';
+import {Context} from '../../interfaces/context';
+import {ILabelledValue} from '../../interfaces/labelled-value';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
 
 @Component({
@@ -47,7 +49,14 @@ export class ModelComponent implements OnInit, OnDestroy {
   unsavedChanges = false;
   /** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
   private saveHotKeys: Hotkey|Hotkey[];
-
+  /** @type {ILabelledValue[]} Available contexts */
+  contexts: ILabelledValue[] = [
+    {name: 'Admin', value: Context.ADMIN},
+    {name: 'Owner', value: Context.OWNER},
+    {name: 'Authenticated', value: Context.AUTHENTICATED},
+    {name: 'Guest', value: Context.GUEST},
+  ];
+  
   /**
    * @inheritDoc
    */
@@ -120,5 +129,39 @@ export class ModelComponent implements OnInit, OnDestroy {
    */
   onDebouncedChange(): void {
     this.keyupSubject.next();
+  }
+
+  /**
+   * Called when the user changes a context
+   */
+  onContextChange(action: string, context: ILabelledValue): void {
+    this.model.contexts[action] = context.value;
+  }
+  /**
+   * Get available actions for this model
+   * @return {string[]}
+   */
+  getActions(): string[] {
+    return Object.keys(this.model.contexts);
+  }
+  /**
+   * Denotes if the context should be highlighted
+   * @return {boolean}
+   */
+  isContextSelected(action: string, context: ILabelledValue): boolean {
+    return this.contextPosition(this.model.contexts[action]) >= this.contextPosition(context.value);
+  }
+
+  /**
+   * Get the position in importance
+   * @param name
+   * @return {number}
+   */
+  contextPosition(name): number {
+    if (name === Context.ADMIN) { return 0; }
+    if (name === Context.OWNER) { return 1; }
+    if (name === Context.AUTHENTICATED) { return 2; }
+    if (name === Context.GUEST) { return 3; }
+    return -1;
   }
 }

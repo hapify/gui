@@ -1,5 +1,6 @@
 import {IField, IFieldBase} from './field';
 import {IStorableBase, IStorable} from '../../interfaces/storable';
+import {IContexts} from './context';
 
 export interface IModelBase extends IStorableBase {
   /**
@@ -14,6 +15,12 @@ export interface IModelBase extends IStorableBase {
    * @type {IFieldBase[]}
    */
   fields: IFieldBase[];
+  /**
+   * The model privacy context
+   *
+   * @type IContexts
+   */
+  contexts: IContexts;
 }
 
 export interface IModel extends IModelBase, IStorable {

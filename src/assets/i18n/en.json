@@ -89,5 +89,6 @@
   "tooltip_sortable": "Is sortable?",
   "tooltip_private": "Is private ?",
   "tooltip_internal": "Is for internal use ?",
-  "tooltip_important": "Is it an important field ?"
+  "tooltip_important": "Is it an important field ?",
+  "access_context_title": "Access contexts"
 }

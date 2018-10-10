@@ -89,5 +89,6 @@
   "tooltip_sortable": "Est triable ?",
   "tooltip_private": "Est privé ?",
   "tooltip_internal": "Pour une utilisation interne ?",
-  "tooltip_important": "Est-ce un champ important ?"
+  "tooltip_important": "Est-ce un champ important ?",
+  "access_context_title": "Contextes d'accès"
 }
