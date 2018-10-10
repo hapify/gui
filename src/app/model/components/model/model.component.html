@@ -88,7 +88,8 @@
                                 </button>
                                 <button *ngFor="let context of contexts;" type="button" class="btn"
                                         [class.btn-outline-secondary]="!isContextSelected(action, context)"
-                                        [class.btn-secondary]="isContextSelected(action, context)"
+                                        [class.btn-outline-primary]="isContextSelected(action, context) && model.contexts[action] !== context.value"
+                                        [class.btn-primary]="isContextSelected(action, context) && model.contexts[action] === context.value"
                                         (click)="onContextChange(action, context)">
                                     {{context.name}}
                                 </button>
