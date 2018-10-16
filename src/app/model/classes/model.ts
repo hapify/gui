@@ -76,9 +76,7 @@ export class Model implements IModel {
       field.fromObject(fieldBase);
       return field;
     });
-    if (object.contexts) {
-      this.contexts = object.contexts;
-    }
+    this.contexts = object.contexts;
   }
 
   /**
