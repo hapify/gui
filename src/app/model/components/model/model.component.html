@@ -40,7 +40,10 @@
         </div>
         <ul class="list-group list-group-flush">
             <li *ngFor="let field of model.fields" class="list-group-item">
-                <app-model-field [field]="field" (onChange)="onModelChange()"></app-model-field>
+                <app-model-field [field]="field"
+                                 (onChange)="onModelChange()"
+                                 (onMoveUp)="onFieldUp(field)"
+                                 (onMoveDown)="onFieldDown(field)"></app-model-field>
             </li>
         </ul>
         <div class="card-footer">

@@ -29,6 +29,10 @@ export class FieldComponent implements OnInit, OnDestroy {
   @Input() field: IField;
   /** @type {EventEmitter<void>} Notify changes */
   @Output() onChange = new EventEmitter<void>();
+  /** @type {EventEmitter<void>} Request for move up */
+  @Output() onMoveUp = new EventEmitter<void>();
+  /** @type {EventEmitter<void>} Request for move down */
+  @Output() onMoveDown = new EventEmitter<void>();
   /** @type {FormGroup} */
   form: FormGroup;
   /** @type {number} */
@@ -104,6 +108,20 @@ export class FieldComponent implements OnInit, OnDestroy {
    */
   onInputChange() {
     this.onChange.emit();
+  }
+
+  /**
+   * Called when the user clicks on up
+   */
+  onUp() {
+    this.onMoveUp.emit();
+  }
+
+  /**
+   * Called when the user clicks on up
+   */
+  onDown() {
+    this.onMoveDown.emit();
   }
 
   /**

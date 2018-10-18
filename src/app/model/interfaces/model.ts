@@ -47,6 +47,15 @@ export interface IModel extends IModelBase, IStorable {
   addField(field: IField): void;
 
   /**
+   * Push a new field
+   *
+   * @param {IField} field
+   * @param {number} indexDelta
+   * @returns {void}
+   */
+  moveField(field: IField, indexDelta: number): void;
+
+  /**
    * Remove empty fields
    *
    * @returns {void}

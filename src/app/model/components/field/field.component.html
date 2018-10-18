@@ -1,7 +1,13 @@
 <div [formGroup]="form">
     <div class="row">
         <div class="col-lg-4 my-1 my-lg-0">
-            <div class="input-cnt">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="oi oi-caret-top" (click)="onUp()"></span>
+                </span>
+                <span class="input-group-addon">
+                    <span class="oi oi-caret-bottom" (click)="onDown()"></span>
+                </span>
                 <input
                         (keyup)="onDebouncedChange()"
                         formControlName="name"
@@ -10,7 +16,7 @@
                         type="text">
                 <div
                         *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
-                        class="alert alert-danger mt-2">
+                        class="alert alert'-danger mt-2">
                     <div *ngIf="form.controls['name'].errors.required">
                         {{ 'error_name_required' | translate }}
                     </div>

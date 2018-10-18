@@ -5,6 +5,7 @@ import {Subject} from 'rxjs/Subject';
 import {debounceTime} from 'rxjs/operators';
 import {IModel} from '../../interfaces/model';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
+import {Field} from '../../classes/field';
 
 @Component({
   selector: 'app-model-model',
@@ -96,6 +97,22 @@ export class ModelComponent implements OnInit, OnDestroy {
    */
   addField() {
     this.model.addField(this.model.newField());
+    this.onModelChange();
+  }
+
+  /**
+   * Called when the user clicks on up
+   */
+  onFieldUp(field: Field) {
+    this.model.moveField(field, -1);
+    this.onModelChange();
+  }
+
+  /**
+   * Called when the user clicks on up
+   */
+  onFieldDown(field: Field) {
+    this.model.moveField(field, 1);
     this.onModelChange();
   }
 

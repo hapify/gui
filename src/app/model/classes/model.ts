@@ -52,6 +52,15 @@ export class Model implements IModel {
   public addField(field: IField): void {
     this.fields.push(field);
   }
+  
+  /**
+   * @inheritDoc
+   */
+  public moveField(field: IField, indexDelta: number): void {
+    const index = this.fields.indexOf(field);
+    const newIndex = Math.max(0, Math.min(this.fields.length, index + indexDelta));
+    this.fields.splice(newIndex, 0, this.fields.splice(index, 1)[0]);
+  }
 
   /**
    * @inheritDoc
