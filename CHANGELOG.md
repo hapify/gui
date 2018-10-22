@@ -14,6 +14,7 @@
 - Add `Ctrl+S` shortcut to save a model.
 
 ### Changed
+- Moved documentation to `hapify-cli` repository.
 
 ### Removed
 
