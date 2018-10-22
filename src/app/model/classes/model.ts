@@ -1,5 +1,6 @@
 import {IModel, IModelBase} from '../interfaces/model';
 import {IField, IFieldBase} from '../interfaces/field';
+import {Access, IAccesses} from '../interfaces/access';
 import {Field} from './field';
 
 export class Model implements IModel {
@@ -23,6 +24,17 @@ export class Model implements IModel {
    * @inheritDoc
    */
   public fields: IField[] = [];
+  /**
+   * @inheritDoc
+   */
+  public accesses: IAccesses = {
+    create: Access.GUEST,
+    read: Access.GUEST,
+    update: Access.GUEST,
+    remove: Access.GUEST,
+    search: Access.GUEST,
+    count: Access.GUEST,
+  };
 
   /**
    * Randomly generate id
@@ -73,6 +85,7 @@ export class Model implements IModel {
       field.fromObject(fieldBase);
       return field;
     });
+    this.accesses = object.accesses;
   }
 
   /**
@@ -84,7 +97,8 @@ export class Model implements IModel {
       name: this.name,
       fields: this.fields
         .filter((field: IField): boolean => !field.isEmpty())
-        .map((field: IField): IFieldBase => field.toObject())
+        .map((field: IField): IFieldBase => field.toObject()),
+      accesses: this.accesses
     };
   }
 

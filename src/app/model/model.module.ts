@@ -53,4 +53,5 @@ export {Model} from './classes/model';
 export {Field} from './classes/field';
 export {IModel, IModelBase} from './interfaces/model';
 export {IField, IFieldBase} from './interfaces/field';
+export {IAccesses, Access} from './interfaces/access';
 export {StorageService} from './services/storage.service';

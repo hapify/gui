@@ -1,91 +1,38 @@
 import {ILabelledValue} from './labelled-value';
 
 export interface IFieldBase {
-  /**
-   * The field's name
-   *
-   * @type {string}
-   */
+  /** @type {string} The field's name */
   name: string;
-  /**
-   * The field's type
-   *
-   * @type {string}
-   */
+  /** @type {string} The field's type */
   type: string;
-  /**
-   * The field's subtype
-   *
-   * @type {string}
-   */
+  /** @type {string} The field's subtype */
   subtype: string | null;
-  /**
-   * The field's reference if the type is entity
-   * Is the GUID string of the targeted model
-   *
-   * @type {string}
-   */
+  /** @type {string} The field's reference if the type is entity. The GUID string of the targeted model */
   reference: string | null;
-  /**
-   * Should be used as a primary key or not
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Should be used as a primary key or not */
   primary: boolean;
-  /**
-   * Should be used as a unique key or not
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Should be used as a unique key or not */
   unique: boolean;
-  /**
-   * Should be used as a label or not
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Should be used as a label or not */
   label: boolean;
-  /**
-   * Denotes if the field can be empty or not
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Denotes if the field can be empty or not */
   nullable: boolean;
-  /**
-   * Denotes if the field is an array of values
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Denotes if the field is an array of values */
   multiple: boolean;
-  /**
-   * Indicate whether the field is searchable or not
-   *
-   * @type {boolean}
-   */
-  searchable: boolean;
-  /**
-   * Indicate whether the field is sortable or not
-   *
-   * @type {boolean}
-   */
-  sortable: boolean;
-  /**
-   * Indicate whether the field is private (should not be exposed)
-   *
-   * @type {boolean}
-   */
-  isPrivate: boolean;
-  /**
-   * Indicate whether the field is for an internal use only (should not be defined by an user)
-   *
-   * @type {boolean}
-   */
-  internal: boolean;
-  /**
-   * Indicate whether the field is important (should be always exposed explicitly)
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Indicate whether the field is important (should be always exposed explicitly) */
   important: boolean;
+  /** @type {boolean} Indicate whether the field is searchable or not */
+  searchable: boolean;
+  /** @type {boolean} Indicate whether the field is sortable or not */
+  sortable: boolean;
+  /** @type {boolean} Indicate whether the field is private (should not be exposed) */
+  isPrivate: boolean;
+  /** @type {boolean} Indicate whether the field is for an internal use only (should not be defined by an user) */
+  internal: boolean;
+  /** @type {boolean} Indicate whether the field is restricted to authorized roles (should only be defined by an admin) */
+  restricted: boolean;
+  /** @type {boolean} Indicate that this field defines the owner of the entity */
+  ownership: boolean;
 }
 
 export interface IField extends IFieldBase {

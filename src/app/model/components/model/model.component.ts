@@ -4,6 +4,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime} from 'rxjs/operators';
 import {IModel} from '../../interfaces/model';
+import {Access} from '../../interfaces/access';
+import {ILabelledValue} from '../../interfaces/labelled-value';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
 import {Field} from '../../classes/field';
 
@@ -48,7 +50,14 @@ export class ModelComponent implements OnInit, OnDestroy {
   unsavedChanges = false;
   /** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
   private saveHotKeys: Hotkey|Hotkey[];
-
+  /** @type {ILabelledValue[]} Available accesses */
+  accesses: ILabelledValue[] = [
+    {name: 'Admin', value: Access.ADMIN},
+    {name: 'Owner', value: Access.OWNER},
+    {name: 'Authenticated', value: Access.AUTHENTICATED},
+    {name: 'Guest', value: Access.GUEST},
+  ];
+  
   /**
    * @inheritDoc
    */
@@ -137,5 +146,40 @@ export class ModelComponent implements OnInit, OnDestroy {
    */
   onDebouncedChange(): void {
     this.keyupSubject.next();
+  }
+
+  /**
+   * Called when the user changes a access
+   */
+  onAccessChange(action: string, access: ILabelledValue): void {
+    this.model.accesses[action] = access.value;
+    this.onModelChange();
+  }
+  /**
+   * Get available actions for this model
+   * @return {string[]}
+   */
+  getActions(): string[] {
+    return Object.keys(this.model.accesses);
+  }
+  /**
+   * Denotes if the access should be highlighted
+   * @return {boolean}
+   */
+  isAccesseselected(action: string, access: ILabelledValue): boolean {
+    return this.accessPosition(this.model.accesses[action]) >= this.accessPosition(access.value);
+  }
+
+  /**
+   * Get the position in importance
+   * @param name
+   * @return {number}
+   */
+  accessPosition(name): number {
+    if (name === Access.ADMIN) { return 0; }
+    if (name === Access.OWNER) { return 1; }
+    if (name === Access.AUTHENTICATED) { return 2; }
+    if (name === Access.GUEST) { return 3; }
+    return -1;
   }
 }
