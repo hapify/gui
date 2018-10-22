@@ -1,6 +1,6 @@
 import {IModel, IModelBase} from '../interfaces/model';
 import {IField, IFieldBase} from '../interfaces/field';
-import {Context, IContexts} from '../interfaces/context';
+import {Access, IAccesses} from '../interfaces/access';
 import {Field} from './field';
 
 export class Model implements IModel {
@@ -27,13 +27,13 @@ export class Model implements IModel {
   /**
    * @inheritDoc
    */
-  public contexts: IContexts = {
-    create: Context.GUEST,
-    read: Context.GUEST,
-    update: Context.GUEST,
-    remove: Context.GUEST,
-    search: Context.GUEST,
-    count: Context.GUEST,
+  public accesses: IAccesses = {
+    create: Access.GUEST,
+    read: Access.GUEST,
+    update: Access.GUEST,
+    remove: Access.GUEST,
+    search: Access.GUEST,
+    count: Access.GUEST,
   };
 
   /**
@@ -76,7 +76,7 @@ export class Model implements IModel {
       field.fromObject(fieldBase);
       return field;
     });
-    this.contexts = object.contexts;
+    this.accesses = object.accesses;
   }
 
   /**
@@ -89,7 +89,7 @@ export class Model implements IModel {
       fields: this.fields
         .filter((field: IField): boolean => !field.isEmpty())
         .map((field: IField): IFieldBase => field.toObject()),
-      contexts: this.contexts
+      accesses: this.accesses
     };
   }
 

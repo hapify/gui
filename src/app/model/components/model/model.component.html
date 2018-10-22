@@ -74,7 +74,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-12">
-                        <span>{{ 'access_context_title' | translate }}</span>
+                        <span>{{ 'access_title' | translate }}</span>
                     </div>
                 </div>
             </div>
@@ -86,15 +86,26 @@
                                 <button type="button" class="btn btn-secondary action-label" disabled>
                                     {{action}}
                                 </button>
-                                <button *ngFor="let context of contexts;" type="button" class="btn"
-                                        [class.btn-outline-secondary]="!isContextSelected(action, context)"
-                                        [class.btn-outline-primary]="isContextSelected(action, context) && model.contexts[action] !== context.value"
-                                        [class.btn-primary]="isContextSelected(action, context) && model.contexts[action] === context.value"
-                                        (click)="onContextChange(action, context)">
-                                    {{context.name}}
+                                <button *ngFor="let access of accesses;" type="button" class="btn"
+                                        [class.btn-outline-secondary]="!isAccesseselected(action, access)"
+                                        [class.btn-outline-primary]="isAccesseselected(action, access) && model.accesses[action] !== access.value"
+                                        [class.btn-primary]="isAccesseselected(action, access) && model.accesses[action] === access.value"
+                                        (click)="onAccessChange(action, access)">
+                                    {{access.name}}
                                 </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn"
+                                [class.btn-primary]="unsavedChanges"
+                                [class.btn-outline-secondary]="!unsavedChanges"
+                                [disabled]="model.isEmpty()">{{ 'common_save' | translate }}
+                        </button>
                     </div>
                 </div>
             </div>

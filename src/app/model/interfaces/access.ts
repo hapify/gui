@@ -5,14 +5,14 @@
  *  - authenticated (Denotes if the access is restricted to authenticated users)
  *  - guest (Denotes if the access is not restricted)
  */
-export class Context {
+export class Access {
   static GUEST = 'guest';
   static AUTHENTICATED = 'auth';
   static OWNER = 'owner';
   static ADMIN = 'admin';
 }
 
-export interface IContexts {
+export interface IAccesses {
   create: string;
   read: string;
   update: string;

@@ -90,5 +90,5 @@
   "tooltip_private": "Est privé ?",
   "tooltip_internal": "Pour une utilisation interne ?",
   "tooltip_important": "Est-ce un champ important ?",
-  "access_context_title": "Contextes d'accès"
+  "access_title": "Restrictions d'accès"
 }
