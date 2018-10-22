@@ -16,12 +16,14 @@
           <span *ngIf="field.unique"><span class="text-primary">*</span></span>
           <span *ngIf="field.label"><span class="text-success">L</span></span>
           <span *ngIf="field.nullable"><span class="text-warning">&Oslash;</span></span>
-          <span *ngIf="field.multiple"><span class="text-warning">[]</span></span>
+          <span *ngIf="field.multiple"><span class="text-warning">&equiv;</span></span>
+          <span *ngIf="field.important"><span class="text-warning">!</span></span>
           <span *ngIf="field.searchable"><span class="text-info">S</span></span>
           <span *ngIf="field.sortable"><span class="text-info">&darr;</span></span>
-          <span *ngIf="field.important"><span class="text-info">!</span></span>
-          <span *ngIf="field.isPrivate"><span class="text-danger">/</span></span>
-          <span *ngIf="field.internal"><span class="text-danger">-</span></span>
+          <span *ngIf="field.isPrivate"><span class="text-danger">&otimes;</span></span>
+          <span *ngIf="field.internal"><span class="text-danger">&para;</span></span>
+          <span *ngIf="field.restricted"><span class="text-danger">&reg;</span></span>
+          <span *ngIf="field.ownership"><span class="text-danger">&copy;</span></span>
         </div>
         <div class="col-4 type">
           <div class="small">

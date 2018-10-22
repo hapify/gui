@@ -84,11 +84,13 @@ export class FieldComponent implements OnInit, OnDestroy {
       label: new FormControl(this.field.label, [Validators.required]),
       nullable: new FormControl(this.field.nullable, [Validators.required]),
       multiple: new FormControl(this.field.multiple, [Validators.required]),
+      important: new FormControl(this.field.important, [Validators.required]),
       searchable: new FormControl(this.field.searchable, [Validators.required]),
       sortable: new FormControl(this.field.sortable, [Validators.required]),
       isPrivate: new FormControl(this.field.isPrivate, [Validators.required]),
       internal: new FormControl(this.field.internal, [Validators.required]),
-      important: new FormControl(this.field.important, [Validators.required]),
+      restricted: new FormControl(this.field.restricted, [Validators.required]),
+      ownership: new FormControl(this.field.ownership, [Validators.required]),
     });
   }
 

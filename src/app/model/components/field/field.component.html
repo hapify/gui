@@ -135,6 +135,15 @@
                            [(ngModel)]="field.multiple">
                     <span class="oi oi-list"></span>
                 </label>
+                <label class="btn" title="{{ 'tooltip_important' | translate }}"
+                       [ngClass]="{ 'btn-primary': field.important, 'btn-outline-secondary': !field.important }">
+                    <input (change)="onInputChange()"
+                           formControlName="important"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.important">
+                    <span class="oi oi-warning"></span>
+                </label>
                 <label class="btn" title="{{ 'tooltip_searchable' | translate }}"
                        [ngClass]="{ 'btn-primary': field.searchable, 'btn-outline-secondary': !field.searchable }">
                     <input (change)="onInputChange()"
@@ -171,14 +180,23 @@
                            [(ngModel)]="field.internal">
                     <span class="oi oi-code"></span>
                 </label>
-                <label class="btn" title="{{ 'tooltip_important' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.important, 'btn-outline-secondary': !field.important }">
+                <label class="btn" title="{{ 'tooltip_restricted' | translate }}"
+                       [ngClass]="{ 'btn-primary': field.restricted, 'btn-outline-secondary': !field.restricted }">
                     <input (change)="onInputChange()"
-                           formControlName="important"
+                           formControlName="restricted"
                            type="checkbox"
                            autocomplete="off"
-                           [(ngModel)]="field.important">
-                    <span class="oi oi-warning"></span>
+                           [(ngModel)]="field.restricted">
+                    <span class="oi oi-lock-locked"></span>
+                </label>
+                <label class="btn" title="{{ 'tooltip_ownership' | translate }}"
+                       [ngClass]="{ 'btn-primary': field.ownership, 'btn-outline-secondary': !field.ownership }">
+                    <input (change)="onInputChange()"
+                           formControlName="ownership"
+                           type="checkbox"
+                           autocomplete="off"
+                           [(ngModel)]="field.ownership">
+                    <span class="oi oi-person"></span>
                 </label>
             </div>
         </div>
