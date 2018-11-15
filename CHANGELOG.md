@@ -15,8 +15,12 @@
 
 ### Changed
 - Moved documentation to `hapify-cli` repository.
+- Use `hapify-cli` as backend rather than Bitbucket.
+- Use `hapify-cli` for sync process.
 
 ### Removed
+- Removed all Bitbucket interfaces.
+- Removed deployment interface.
 
 ## [0.2.0] - 2018-05-09
 
