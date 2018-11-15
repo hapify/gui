@@ -3,6 +3,14 @@
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Removed
+
+## [0.3.0] - 2018-11-15
+
+### Added
 - Add script to detect fields properties combinations not supported by a channel.
 - Add `important` field property to load linked entity in listings.
 - Add `underscoreUpper` to properties names (Example: FIRST_NAME).
