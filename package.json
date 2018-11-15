@@ -1,6 +1,6 @@
 {
-  "name": "hapify",
-  "version": "0.0.0",
+  "name": "hapify-cli-console",
+  "version": "0.3.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
