@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ITemplate} from '../../interfaces/template';
-import {GeneratorService} from '../../../generator/services/generator.service';
+import {GeneratorService} from '../../services/generator.service';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
-import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
+import {IGeneratorResult} from '../../interfaces/generator-result';
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';

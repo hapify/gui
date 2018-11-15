@@ -12,7 +12,6 @@ import {ValidatorService} from './validator/services/validator.service';
 import {AppComponent} from './app.component';
 import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
-import {GeneratorComponent} from './components/generator/generator.component';
 import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 
 // Services
@@ -23,7 +22,6 @@ import {HeaderComponent} from './components/common/header/header.component';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {ChannelModule} from './channel/channel.module';
 import {ModelModule} from './model/model.module';
-import {GeneratorModule} from './generator/generator.module';
 import {WebSocketService} from './services/websocket.service';
 
 @NgModule({
@@ -31,7 +29,6 @@ import {WebSocketService} from './services/websocket.service';
     AppComponent,
     ModelComponent,
     ChannelComponent,
-    GeneratorComponent,
     SidebarComponent,
     HeaderComponent
   ],
@@ -47,7 +44,6 @@ import {WebSocketService} from './services/websocket.service';
     HotkeyModule.forRoot(),
     ChannelModule,
     ModelModule,
-    GeneratorModule,
   ],
   providers: [
     ConfigService,

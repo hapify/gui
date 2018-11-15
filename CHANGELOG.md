@@ -21,6 +21,7 @@
 ### Removed
 - Removed all Bitbucket interfaces.
 - Removed deployment interface.
+- Removed generator interface.
 
 ## [0.2.0] - 2018-05-09
 

@@ -16,6 +16,7 @@ import {ValidatorEditorComponent} from '../validator/components/validator-editor
 
 // Services
 import {StorageService} from './services/storage.service';
+import {GeneratorService} from './services/generator.service';
 import {HotkeyModule} from 'angular2-hotkeys';
 
 
@@ -45,7 +46,8 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
     ValidatorEditorComponent
   ],
   providers: [
-    StorageService
+    StorageService,
+    GeneratorService
   ],
 })
 export class ChannelModule {
@@ -56,5 +58,7 @@ export {Channel} from './classes/channel';
 export {Template} from './classes/template';
 export {IChannel, IChannelBase} from './interfaces/channel';
 export {ITemplate, ITemplateBase} from './interfaces/template';
+export {IGeneratorResult} from './interfaces/generator-result';
 export {TemplateEngine} from './interfaces/template-engine.enum';
 export {StorageService} from './services/storage.service';
+export {GeneratorService} from './services/generator.service';
