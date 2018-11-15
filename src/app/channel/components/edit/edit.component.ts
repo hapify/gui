@@ -1,8 +1,10 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Injector} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {IChannel} from '../../interfaces/channel';
+import {ITemplate} from '../../interfaces/template';
 import {Router, ActivatedRoute} from '@angular/router';
 import {StorageService} from '../../services/storage.service';
+import {GeneratorService} from '../../services/generator.service';
 
 @Component({
   selector: 'app-channel-edit',
@@ -11,26 +13,19 @@ import {StorageService} from '../../services/storage.service';
 })
 export class EditComponent implements OnInit, OnDestroy {
 
-  /**
-   * Route params subscription
-   *
-   * @type {Subscription}
-   * @private
-   */
+  /** @type {GeneratorService} The generator service */
+  generatorService: GeneratorService;
+  /** @type {Subscription} Route params subscription */
   private _paramsSub: Subscription;
-  /**
-   * Channel instance
-   *
-   * @type {IChannel}
-   */
+  /** @type {IChannel} Channel instance*/
   public channel: IChannel;
-
-  /**
-   * Constructor
-   */
+  /** Constructor */
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private storageService: StorageService) {
+              private storageService: StorageService,
+              private injector: Injector) {
+    // Avoid circular dependency
+    this.generatorService = this.injector.get(GeneratorService);
   }
 
   /**
@@ -58,10 +53,15 @@ export class EditComponent implements OnInit, OnDestroy {
 
   /**
    * Called when the user update the channel
+   * @param {ITemplate} toGenerate
    */
-  onSave(): void {
+  async onSave(toGenerate: ITemplate|null): Promise<void> {
     // Store the channel
-    this.storageService.update(this.channel);
+    await this.storageService.update(this.channel);
+    // Generate the template
+    if (toGenerate) {
+      await this.generatorService.compileTempate(toGenerate);
+    }
   }
 
 }

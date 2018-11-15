@@ -1,6 +1,6 @@
 <div id="edit-channel">
     <div class="container-fluid">
-        <app-channel-channel *ngIf="channel" [channel]="channel" (onSave)="onSave()"></app-channel-channel>
+        <app-channel-channel *ngIf="channel" [channel]="channel" (onSave)="onSave($event)"></app-channel-channel>
         <div class="alert alert-danger" *ngIf="!channel">
             <span>{{ 'channels_not_found' | translate }}</span>
         </div>

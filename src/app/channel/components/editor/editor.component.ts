@@ -5,13 +5,12 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {ITemplate} from '../../interfaces/template';
-import {GeneratorService} from '../../../generator/services/generator.service';
+import {GeneratorService} from '../../services/generator.service';
 import {StorageService as ModelStorageService, IModel} from '../../../model/model.module';
-import {IGeneratorResult} from '../../../generator/interfaces/generator-result';
+import {IGeneratorResult} from '../../interfaces/generator-result';
 import {AceService} from '../../../services/ace.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Hotkey, HotkeysService} from 'angular2-hotkeys';
-import {SyncService} from '../../services/sync.service';
 
 @Component({
   selector: 'app-channel-editor',
@@ -20,145 +19,67 @@ import {SyncService} from '../../services/sync.service';
 })
 export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  /**
-   * The generator service
-   *
-   * @type {GeneratorService}
-   */
+  /** @type {GeneratorService} The generator service */
   generatorService: GeneratorService;
-
-  /**
-   * The generator service
-   *
-   * @type {ModelStorageService}
-   */
+  /** @type {ModelStorageService} The generator service */
   modelStorageService: ModelStorageService;
-
-  /**
-   * Template to edit instance
-   *
-   * @type {ITemplate}
-   */
+  /** @type {ITemplate} Template to edit instance */
   @Input() template: ITemplate;
-
-  /**
-   * Max length allowed for the path
-   *
-   * @type {number}
-   */
+  /** @type {number} Max length allowed for the path */
   @Input() pathMinLength = 1;
-
-  /**
-   * Min length allowed for the path
-   *
-   * @type {number}
-   */
+  /** @type {number} Min length allowed for the path */
   @Input() pathMaxLength = 64;
-
-  /**
-   * @type {FormGroup}
-   */
+  /** @type {FormGroup} */
   form: FormGroup;
-  /**
-   * @type {{minLength: number; maxLength: number}}
-   */
+  /** @type {{minLength: number; maxLength: number}} */
   translateParams = {
     minLength: this.pathMinLength,
     maxLength: this.pathMaxLength,
   };
-
-  /**
-   * On save event
-   *
-   * @type {EventEmitter<void>}
-   */
-  @Output() onSave = new EventEmitter<void>();
-
-  /**
-   * On save event
-   *
-   * @type {EventEmitter<void>}
-   */
+  /** @type {EventEmitter<ITemplate|null>} On save event */
+  @Output() onSave = new EventEmitter<ITemplate|null>();
+  /** @type {EventEmitter<void>} On save event */
   @Output() onClose = new EventEmitter<void>();
-
-  /**
-   * The edited template
-   *
-   * @type {ITemplate}
-   */
+  /** @type {ITemplate} The edited template */
   wip: ITemplate;
-
-  /**
-   * Preview models
-   */
+  /** Preview models */
   models: IModel[];
-
-  /**
-   * Preview model
-   */
+  /** Preview model */
   model: IModel;
-
-  /**
-   * Generation results
-   */
+  /** Generation results */
   result: IGeneratorResult;
-
-  /**
-   * Generation error
-   */
+  /** Generation results for path only */
+  pathResult: string;
+  /** Generation error */
   error: string;
-
-  /**
-   * Denotes if should re-generate on change
-   */
+  /** Denotes if should re-generate on change */
   autoGenerate = true;
-
-  /**
-   * Text display to prevent reloading
-   */
+  /** Text display to prevent reloading */
   private beforeUnloadWarning: string;
-
-  /**
-   * Denotes if the user has unsaved changes (to prevent reload)
-   *
-   * @type {boolean}
-   */
+  /** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
   unsavedChanges = false;
-
-  /**
-   * Hotkeys to unbind
-   */
+  /** Hotkeys to unbind */
   private saveHotKeys: Hotkey | Hotkey[];
-
-  /**
-   * Left editor
-   */
+  /** Left editor */
   @ViewChild('editorInput') editorInput;
-
   /**
    * Constructor
-   *
    * @param {FormBuilder} formBuilder
    * @param {Injector} injector
    * @param {TranslateService} translateService
    * @param {HotkeysService} hotKeysService
    * @param {AceService} aceService
-   * @param {SyncService} syncService
    */
   constructor(private formBuilder: FormBuilder,
               private injector: Injector,
               private translateService: TranslateService,
               private hotKeysService: HotkeysService,
-              public aceService: AceService,
-              public syncService: SyncService) {
+              public aceService: AceService) {
     // Avoid circular dependency
     this.generatorService = this.injector.get(GeneratorService);
     this.modelStorageService = this.injector.get(ModelStorageService);
   }
-
-  /**
-   * On init
-   */
+  /** On init */
   ngOnInit() {
 
     // Update translateParams
@@ -196,14 +117,10 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
       ])
     });
   }
-
-  /**
-   * Destroy
-   */
+  /** Destroy */
   ngOnDestroy() {
     this.hotKeysService.remove(this.saveHotKeys);
   }
-
   /**
    * After init
    * Bind Ctrl-S inside the editors
@@ -211,10 +128,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.editorInput.getEditor().commands.addCommand(this._getEditorSaveCommand());
   }
-
-  /**
-   * Get the save command for the editors
-   */
+  /** Get the save command for the editors */
   private _getEditorSaveCommand(): any {
     return {
       name: 'saveCommand',
@@ -228,68 +142,67 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     };
   }
-
-  /**
-   * Called when the user click on save
-   */
+  /** Called when the user click on save */
   didClickSave() {
     this.template.content = this.wip.content;
     this.template.path = this.wip.path;
     this.unsavedChanges = false;
-    this.onSave.emit();
-    // Auto-sync
-    if (this.syncService.autoSyncEnabled) {
-      this.syncService.run(this.template)
-        .catch(console.error);
-    }
+    this.onSave.emit(this.generatorService.autoSyncEnabled ? this.wip : null);
   }
-
-  /**
-   * Called when the user click on close
-   */
+  /** Called when the user click on close */
   didClickClose() {
     this.onClose.emit();
   }
-
   /**
    * Runs the content generation
-   *
    * @private
    */
   private _generate() {
     // Clean results and error
-    this.result = null;
-    this.error = null;
     // Run generation
     this.generatorService.run(this.wip, this.model)
       .then((result) => {
         this.result = result;
+        this.error = null;
+        this.pathResult = result.path;
+      })
+      .catch((e) => {
+        this.result = null;
+        this.error = `${e.message}\n\n${e.stack}`;
+      });
+  }
+  /**
+   * Runs the path generation
+   * @private
+   */
+  private _generatePath() {
+    // Run generation
+    this.generatorService.path(this.wip, this.model)
+      .then((result) => {
+        this.pathResult = result;
       })
       .catch((e) => {
         this.error = `${e.message}\n\n${e.stack}`;
       });
   }
-
-  /**
-   * Call when the selected model is changed
-   */
+  /** Call when the selected model is changed */
   onModelChange() {
     this._generate();
   }
-
+  /** Call when the path is changed */
+  onPathChange() {
+    this._generatePath();
+  }
   /**
    * Call when the content is left
-   *
    * @param {string} content
    */
   onBlur(content: string) {
     this.wip.content = content;
     this._generate();
   }
-
   /**
    * Call when the content changes
-   *
    * @param {string} content
    */
   onChange(content: string) {
@@ -299,17 +212,13 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
       this._generate();
     }
   }
-
-  /**
-   * Call when the user click on "dump"
-   */
+  /** Call when the user click on "dump" */
   async didClickDump() {
-    console.log(await this.generatorService.inputs(this.model));
+    // @todo Dump in bash
+    console.log('To be implemented');
   }
-
   /**
    * Prevent reloading
-   *
    * @param event
    * @return {string|null}
    */

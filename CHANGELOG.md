@@ -8,6 +8,29 @@
 
 ### Removed
 
+## [0.3.0] - 2018-11-15
+
+### Added
+- Add script to detect fields properties combinations not supported by a channel.
+- Add `important` field property to load linked entity in listings.
+- Add `underscoreUpper` to properties names (Example: FIRST_NAME).
+- Add `hyphenUpper` to properties names (Example: FIRST-NAME).
+- Add subtype `rich` to type `string` for rich text editors.
+- Implement Hapify Syntax.
+- Add ability to clone models.
+- Add unsaved states indicator in models.
+- Add `Ctrl+S` shortcut to save a model.
+
+### Changed
+- Moved documentation to `hapify-cli` repository.
+- Use `hapify-cli` as backend rather than Bitbucket.
+- Use `hapify-cli` for sync process.
+
+### Removed
+- Removed all Bitbucket interfaces.
+- Removed deployment interface.
+- Removed generator interface.
+
 ## [0.2.0] - 2018-05-09
 
 ### Added

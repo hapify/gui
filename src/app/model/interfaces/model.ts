@@ -1,5 +1,6 @@
 import {IField, IFieldBase} from './field';
 import {IStorableBase, IStorable} from '../../interfaces/storable';
+import {IAccesses} from './access';
 
 export interface IModelBase extends IStorableBase {
   /**
@@ -14,6 +15,12 @@ export interface IModelBase extends IStorableBase {
    * @type {IFieldBase[]}
    */
   fields: IFieldBase[];
+  /**
+   * The model privacy access
+   *
+   * @type IAccesses
+   */
+  accesses: IAccesses;
 }
 
 export interface IModel extends IModelBase, IStorable {
@@ -47,6 +54,15 @@ export interface IModel extends IModelBase, IStorable {
   addField(field: IField): void;
 
   /**
+   * Push a new field
+   *
+   * @param {IField} field
+   * @param {number} indexDelta
+   * @returns {void}
+   */
+  moveField(field: IField, indexDelta: number): void;
+
+  /**
    * Remove empty fields
    *
    * @returns {void}
@@ -59,4 +75,11 @@ export interface IModel extends IModelBase, IStorable {
    * @returns {IModelBase}
    */
   toObject(): IModelBase;
+
+  /**
+   * Clone the model with a new id
+   *
+   * @returns {IModel}
+   */
+  clone(): IModel;
 }

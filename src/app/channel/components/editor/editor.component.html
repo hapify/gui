@@ -11,21 +11,21 @@
                         <option *ngFor="let model of models" [ngValue]="model">{{model.name}}</option>
                     </select>
                     <div class="btn-group ml-2" data-toggle="buttons">
-                        <label class="btn" title="{{ 'channels_tooltip_autogenerate' | translate }}"
+                        <label class="btn" title="{{ 'channels_tooltip_autorefresh' | translate }}"
                                [ngClass]="{ 'btn-light': autoGenerate, 'btn-outline-light': !autoGenerate }">
                             <input type="checkbox" autocomplete="off" [(ngModel)]="autoGenerate">
+                            <span class="oi oi-eye"></span>
+                        </label>
+                    </div>
+                    <div class="btn-group ml-2" data-toggle="buttons">
+                        <label class="btn" title="{{ 'channels_tooltip_autogenerate' | translate }}"
+                               [ngClass]="{ 'btn-light': generatorService.autoSyncEnabled, 'btn-outline-light': !generatorService.autoSyncEnabled }">
+                            <input type="checkbox" autocomplete="off" [(ngModel)]="generatorService.autoSyncEnabled">
                             <span class="oi oi-reload"></span>
                         </label>
                     </div>
-                    <div *ngIf="syncService.enabled()" class="btn-group ml-2" data-toggle="buttons">
-                        <label class="btn" title="{{ 'channels_tooltip_autosync' | translate }}"
-                               [ngClass]="{ 'btn-light': syncService.autoSyncEnabled, 'btn-outline-light': !syncService.autoSyncEnabled }">
-                            <input type="checkbox" autocomplete="off" [(ngModel)]="syncService.autoSyncEnabled">
-                            <span class="oi oi-cloud-download"></span>
-                        </label>
-                    </div>
                 </div>
-                <button type="button" class="btn btn-outline-light" (click)="didClickDump();"
+                <button type="button" class="btn btn-outline-light d-none" (click)="didClickDump();"
                         title="{{ 'channels_tooltip_dump' | translate }}">
                     <span class="oi oi-code"></span>
                 </button>
@@ -46,7 +46,8 @@
         <div class="col-lg-6 input d-flex flex-column p-3">
             <div [formGroup]="form">
                 <div class="input-cnt">
-                    <input formControlName="path" class="form-control" [(ngModel)]="wip.path" type="text">
+                    <input formControlName="path" class="form-control"
+                           [(ngModel)]="wip.path" type="text" (keyup)="onPathChange();">
                     <div
                             *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
                             class="alert alert-danger mt-2">
@@ -81,7 +82,7 @@
             <input *ngIf="!template.needsModel() || !!model"
                    class="form-control"
                    readonly
-                   [value]="generatorService.path(wip, model)"
+                   [value]="pathResult"
                    type="text">
             <ace-editor
                     *ngIf="result"

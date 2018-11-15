@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "hapify"
+    "name": "hapify-cli-console"
   },
   "apps": [
     {
@@ -22,16 +22,11 @@
         "scss/styles.scss"
       ],
       "scripts": [
-        "../node_modules/dot/doT.js",
-        "../node_modules/jszip/dist/jszip.js",
-        "../node_modules/file-saver/FileSaver.js",
         "../node_modules/ace-builds/src-min/ace.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
-        "local": "environments/environment.local.ts",
-        "staging": "environments/environment.staging.ts",
         "prod": "environments/environment.prod.ts"
       }
     }

@@ -11,8 +11,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="clearfix">
-                        <div class="float-left py-2">{{ 'models_subtitle' | translate:{count: models && models.length ? models.length : 0} }}</div>
+                        <div class="float-left py-2">{{ 'models_subtitle' | translate:{count: models && models.length ?
+                            models.length : 0} }}
+                        </div>
                         <div class="float-right">
+                            <a [routerLink]="['/model/2d']" class="btn btn-outline-secondary">
+                              <span class="oi oi-compass"></span>
+                            </a>
                             <a [routerLink]="['/model/new']" class="btn btn-outline-primary">
                                 <span class="oi oi-plus small"></span> {{ 'common_new_model' | translate }}
                             </a>
@@ -21,14 +26,9 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li *ngFor="let model of models;" class="list-group-item">
-                        <app-model-model-row [model]="model" (onDelete)="deleteModel(model)"></app-model-model-row>
+                        <app-model-model-row [model]="model" (onClone)="cloneModel(model)" (onDelete)="deleteModel(model)"></app-model-model-row>
                     </li>
                 </ul>
-            </div>
-            <div *ngIf="models && models.length" class="text-center mt-5">
-                <button class="btn btn-outline-secondary" (click)="onDownload()">
-                    <span class="oi oi-data-transfer-download"></span> {{ 'models_download' | translate }}
-                </button>
             </div>
         </div>
     </div>

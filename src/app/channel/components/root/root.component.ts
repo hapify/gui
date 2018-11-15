@@ -9,46 +9,21 @@ import {IChannel} from '../../interfaces/channel';
 })
 export class RootComponent implements OnInit {
 
-  /**
-   * Constructor
-   */
+  /** @type {IChannel[]} Channel instances */
+  public channels: IChannel[] = [];
+  /** Constructor */
   constructor(private storageService: StorageService) {
   }
-
-  /**
-   * Channel instances
-   *
-   * @type {IChannel[]}
-   */
-  public channels: IChannel[];
-
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   ngOnInit() {
     this.updateChannels();
   }
-
-  /**
-   * Called when the user update the channel
-   */
-  deleteChannel(channel: IChannel): void {
-    // Store the channel
-    this.storageService.remove(channel)
-      .then(() => this.updateChannels());
-  }
-
   /**
    * Update channels with storage
-   *
    * @returns {Promise<void>}
    */
-  protected updateChannels(): Promise<void> {
-    return this.storageService.list()
-      .then((channels) => {
-        channels.sort((a, b) => a.name.localeCompare(b.name));
-        this.channels = channels;
-      });
+  protected async updateChannels(): Promise<void> {
+    this.channels = await this.storageService.list();
   }
 
 }

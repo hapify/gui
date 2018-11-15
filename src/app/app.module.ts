@@ -5,14 +5,13 @@ import {AppRoutingModule} from './app.routing';
 import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {TranslateModuleLoad} from './translate-import';
+import {AceEditorModule} from 'ng2-ace-editor';
+import {ValidatorService} from './validator/services/validator.service';
 
 // Components
 import {AppComponent} from './app.component';
 import {ModelComponent} from './components/model/model.component';
 import {ChannelComponent} from './components/channel/channel.component';
-import {GeneratorComponent} from './components/generator/generator.component';
-import {LoaderComponent} from './components/loader/loader.component';
-import {DeployerComponent} from './components/deployer/deployer.component';
 import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 
 // Services
@@ -21,16 +20,15 @@ import {StringService} from './services/string.service';
 import {AceService} from './services/ace.service';
 import {HeaderComponent} from './components/common/header/header.component';
 import {HotkeyModule} from 'angular2-hotkeys';
-
+import {ChannelModule} from './channel/channel.module';
+import {ModelModule} from './model/model.module';
+import {WebSocketService} from './services/websocket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModelComponent,
     ChannelComponent,
-    GeneratorComponent,
-    LoaderComponent,
-    DeployerComponent,
     SidebarComponent,
     HeaderComponent
   ],
@@ -41,13 +39,18 @@ import {HotkeyModule} from 'angular2-hotkeys';
     TranslateModuleLoad(),
     TooltipModule.forRoot(),
     AlertModule.forRoot(),
+    AceEditorModule,
     FormsModule,
-    HotkeyModule.forRoot()
+    HotkeyModule.forRoot(),
+    ChannelModule,
+    ModelModule,
   ],
   providers: [
     ConfigService,
     StringService,
-    AceService
+    AceService,
+    ValidatorService,
+    WebSocketService
   ],
   bootstrap: [AppComponent]
 })

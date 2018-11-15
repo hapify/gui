@@ -1,8 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, Injector} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {IChannel} from '../../interfaces/channel';
-import {MasksDownloaderService} from '../../../loader/services/masks-downloader.service';
-import {SyncService} from '../../services/sync.service';
+import {GeneratorService} from '../../services/generator.service';
+import {ITemplate} from '../../interfaces/template';
 
 @Component({
   selector: 'app-channel-channel',
@@ -11,53 +11,42 @@ import {SyncService} from '../../services/sync.service';
 })
 export class ChannelComponent implements OnInit {
 
-  /**
-   * Constructor
-   *
-   * @param {FormBuilder} formBuilder
-   * @param {MasksDownloaderService} masksDownloaderService
-   * @param {SyncService} syncService
-   */
-  constructor(private formBuilder: FormBuilder,
-              private masksDownloaderService: MasksDownloaderService,
-              public syncService: SyncService) {
-  }
-
-  /**
-   * Channel instance
-   *
-   * @type {IChannel}
-   */
+  /** @type {GeneratorService} The generator service */
+  generatorService: GeneratorService;
+  /** @type {IChannel} Channel instance */
   @Input() channel: IChannel;
-  /**
-   * On save event
-   *
-   * @type {EventEmitter<void>}
-   */
-  @Output() onSave = new EventEmitter<void>();
-  /**
-   * @type {FormGroup}
-   */
+  /** @type {EventEmitter<ITemplate|null>} On save event */
+  @Output() onSave = new EventEmitter<ITemplate|null>();
+  /** @type {FormGroup} */
   form: FormGroup;
-  /**
-   * @type {number}
-   */
+  /** @type {number} */
   minLength = 2;
-  /**
-   * @type {number}
-   */
+  /** @type {number} */
   maxLength = 32;
-  /**
-   * @type {boolean}
-   */
+  /** @type {string} */
+  defaultTemplateName = 'New template';
+  /** @type {string} */
+  defaultTemplatePath = '/path/to/{model.hyphen}';
+  /** @type {boolean} */
   syncing = false;
-  /**
-   * @type {{minLength: number; maxLength: number}}
-   */
+  /** @type {{minLength: number; maxLength: number}} */
   translateParams = {
     minLength: this.minLength,
     maxLength: this.maxLength,
   };
+  /** @type {boolean} */
+  showValidatorEditor = false;
+
+  /**
+   * Constructor
+   * @param {FormBuilder} formBuilder
+   * @param {Injector} injector
+   */
+  constructor(private formBuilder: FormBuilder,
+              private injector: Injector) {
+    // Avoid circular dependency
+    this.generatorService = this.injector.get(GeneratorService);
+  }
 
   /**
    * @inheritDoc
@@ -75,20 +64,18 @@ export class ChannelComponent implements OnInit {
 
   /**
    * Called when the user click on "save"
+   * @param {ITemplate|null} toGenerate
    */
-  onSubmit() {
-    this.onSave.emit();
+  onSubmit(toGenerate: ITemplate|null) {
+    this.onSave.emit(toGenerate);
   }
 
   /**
    * Will sync all templates of the channel
    */
-  async onSync() {
+  async onGenerate() {
     this.syncing = true;
-    for (let i = 0; i < this.channel.templates.length; i++) {
-      await this.syncService.run(this.channel.templates[i])
-        .catch(console.error);
-    }
+    await this.generatorService.compileChannel(this.channel);
     this.syncing = false;
   }
 
@@ -96,7 +83,10 @@ export class ChannelComponent implements OnInit {
    * Called when the user click on "add template"
    */
   addTemplate() {
-    this.channel.addTemplate(this.channel.newTemplate());
+    const template = this.channel.newTemplate();
+    template.name = this.defaultTemplateName;
+    template.path = this.defaultTemplatePath;
+    this.channel.addTemplate(template);
   }
 
   /**
@@ -107,9 +97,23 @@ export class ChannelComponent implements OnInit {
   }
 
   /**
-   * Call zhen user click on download
+   * Called when the user click on "Open Validator Editor" button
    */
-  onDownload() {
-    this.masksDownloaderService.downloadAsZip(this.channel);
+  onShowValidatorEditor() {
+    this.showValidatorEditor = true;
+  }
+
+  /**
+   * Called when the ValidatorEditor is saved
+   */
+  onValidatorEditorSave() {
+    this.onSave.emit();
+  }
+
+  /**
+   * Called when the ValidatorEditor is saved
+   */
+  onValidatorEditorClose() {
+    this.showValidatorEditor = false;
   }
 }

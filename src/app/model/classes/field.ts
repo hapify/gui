@@ -4,87 +4,64 @@ import {FieldType} from './field-type';
 import {FieldSubType} from './field-subtype';
 
 export class Field implements IField {
-  /**
-   * Constructor
-   */
+  /** Constructor */
   constructor() {
   }
 
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public name = '';
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public type = FieldType.String;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public subtype = FieldSubType.String.Default;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public reference = null;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public primary = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public unique = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public label = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public nullable = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public multiple = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
+  public important = false;
+  /** @inheritDoc */
   public searchable = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public sortable = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public isPrivate = false;
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public internal = false;
+  /** @inheritDoc */
+  public restricted = false;
+  /** @inheritDoc */
+  public ownership = false;
 
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public fromObject(object: IFieldBase): void {
     this.name = object.name;
     this.type = object.type;
     this.subtype = object.subtype;
     this.reference = object.reference;
-    this.primary = object.primary;
-    this.unique = object.unique;
-    this.label = object.label;
-    this.nullable = object.nullable;
-    this.multiple = object.multiple;
-    this.searchable = object.searchable;
-    this.sortable = object.sortable;
-    this.isPrivate = object.isPrivate;
-    this.internal = object.internal;
+    this.primary = !!<any>object.primary;
+    this.unique = !!<any>object.unique;
+    this.label = !!<any>object.label;
+    this.nullable = !!<any>object.nullable;
+    this.multiple = !!<any>object.multiple;
+    this.important = !!<any>object.important;
+    this.searchable = !!<any>object.searchable;
+    this.sortable = !!<any>object.sortable;
+    this.isPrivate = !!<any>object.isPrivate;
+    this.internal = !!<any>object.internal;
+    this.restricted = !!<any>object.restricted;
+    this.ownership = !!<any>object.ownership;
   }
 
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public toObject(): IFieldBase {
     return {
       name: this.name,
@@ -96,16 +73,17 @@ export class Field implements IField {
       label: this.label,
       nullable: this.nullable,
       multiple: this.multiple,
+      important: this.important,
       searchable: this.searchable,
       sortable: this.sortable,
       isPrivate: this.isPrivate,
-      internal: this.internal
+      internal: this.internal,
+      restricted: this.restricted,
+      ownership: this.ownership
     };
   }
 
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   public isEmpty(): boolean {
     return typeof this.name !== 'string'
       || this.name === null

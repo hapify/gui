@@ -14,6 +14,12 @@ export interface IChannelBase extends IStorableBase {
    * @type {ITemplateBase[]}
    */
   templates: ITemplateBase[];
+  /**
+   * The channel's validation script
+   *
+   * @type {string}
+   */
+  validator: string;
 }
 
 export interface IChannel extends IChannelBase, IStorable {

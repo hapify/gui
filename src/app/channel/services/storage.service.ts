@@ -2,42 +2,37 @@ import {Injectable} from '@angular/core';
 import {StorageService as BaseStorageService} from '../../services/storage.service';
 import {Channel} from '../classes/channel';
 import {IChannel} from '../interfaces/channel';
+import {WebSocketMessages} from '../../interfaces/websocket-message';
 
 @Injectable()
 export class StorageService extends BaseStorageService {
 
-  /**
-   * Returns a new instance
-   *
-   * @protected
-   * @returns {IChannel}
-   */
+  /** @inheritDoc */
   protected instance(): IChannel {
     return new Channel();
   }
-
-  /**
-   * Returns the name of the bucket to store data
-   *
-   * @protected
-   * @returns {string}
-   */
-  protected bucket(): string {
-    return 'channels';
+  /** @inheritDoc */
+  protected getMessageId(): string {
+    return WebSocketMessages.GET_CHANNELS;
   }
-
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
+  protected setMessageId(): string {
+    return WebSocketMessages.SET_CHANNELS;
+  }
+  /** @inheritDoc */
   list(): Promise<IChannel[]> {
     return super.list();
   }
-
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   find(id: string): Promise<IChannel> {
     return super.find(id);
+  }
+  /** @inheritDoc */
+  sort(instances: IChannel[]): void {
+    instances.sort((a, b) => a.name.localeCompare(b.name));
+    for (const instance of instances) {
+      instance.templates.sort((a, b) => a.name.localeCompare(b.name));
+    }
   }
 
 }

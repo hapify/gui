@@ -31,3 +31,9 @@ html {
 body {
   background-color: #fafafa;
 }
+
+.list-group-item {
+  &:hover {
+    background-color: #fafafa;
+  }
+}

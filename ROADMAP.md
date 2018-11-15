@@ -3,18 +3,16 @@
 ## Short-term
 
 - ~~Implement deployer interface~~
-- Add `important` field property to load linked entity in listings.
-- Add "dot" to properties names (Example: first.name).
-- Add "underscore uppercase" to properties names (Example: FIRST_NAME).
+- ~~Add `important` field property to load linked entity in listings.~~
+- ~~Add "underscore uppercase" to properties names (Example: FIRST_NAME).~~
 - Add a customizable sub-type "Enum".
 
 ## Medium-term
 
-- Add script to detect fields properties combinations not supported by a channel.
+- ~~Add script to detect fields properties combinations not supported by a channel.~~
 - Add middleware script(s) called before each template within a channel.
-- Create new templating language
+- ~~Create new templating language~~
 - Code formatter/Linter after build.
-- Groups models by project.
 
 ## Long-term
 

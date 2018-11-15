@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {IModel} from '../../interfaces/model';
-import {ModelsDownloaderService} from '../../../loader/services/models-downloader.service';
 
 @Component({
   selector: 'app-model-root',
@@ -12,12 +11,9 @@ export class RootComponent implements OnInit {
 
   /**
    * Constructor
-   *
    * @param {StorageService} storageService
-   * @param {ModelsDownloaderService} modelsDownloaderService
    */
-  constructor(private storageService: StorageService,
-              private modelsDownloaderService: ModelsDownloaderService) {
+  constructor(private storageService: StorageService) {
   }
 
   /**
@@ -44,23 +40,21 @@ export class RootComponent implements OnInit {
   }
 
   /**
+   * Called when the user update the model
+   */
+  cloneModel(model: IModel): void {
+    // Store the model
+    this.storageService.add(model.clone())
+      .then(() => this.updateModels());
+  }
+
+  /**
    * Update models with storage
    *
    * @returns {Promise<void>}
    */
-  protected updateModels(): Promise<void> {
-    return this.storageService.list()
-      .then((models) => {
-        models.sort((a, b) => a.name.localeCompare(b.name));
-        this.models = models;
-      });
-  }
-
-  /**
-   * Call zhen user click on download
-   */
-  onDownload() {
-    this.modelsDownloaderService.dowloadAsJson();
+  protected async updateModels(): Promise<void> {
+    this.models = await this.storageService.list();
   }
 
 }

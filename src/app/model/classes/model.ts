@@ -1,5 +1,6 @@
 import {IModel, IModelBase} from '../interfaces/model';
 import {IField, IFieldBase} from '../interfaces/field';
+import {Access, IAccesses} from '../interfaces/access';
 import {Field} from './field';
 
 export class Model implements IModel {
@@ -23,6 +24,17 @@ export class Model implements IModel {
    * @inheritDoc
    */
   public fields: IField[] = [];
+  /**
+   * @inheritDoc
+   */
+  public accesses: IAccesses = {
+    create: Access.GUEST,
+    read: Access.GUEST,
+    update: Access.GUEST,
+    remove: Access.GUEST,
+    search: Access.GUEST,
+    count: Access.GUEST,
+  };
 
   /**
    * Randomly generate id
@@ -52,6 +64,15 @@ export class Model implements IModel {
   public addField(field: IField): void {
     this.fields.push(field);
   }
+  
+  /**
+   * @inheritDoc
+   */
+  public moveField(field: IField, indexDelta: number): void {
+    const index = this.fields.indexOf(field);
+    const newIndex = Math.max(0, Math.min(this.fields.length, index + indexDelta));
+    this.fields.splice(newIndex, 0, this.fields.splice(index, 1)[0]);
+  }
 
   /**
    * @inheritDoc
@@ -64,6 +85,7 @@ export class Model implements IModel {
       field.fromObject(fieldBase);
       return field;
     });
+    this.accesses = object.accesses;
   }
 
   /**
@@ -75,7 +97,8 @@ export class Model implements IModel {
       name: this.name,
       fields: this.fields
         .filter((field: IField): boolean => !field.isEmpty())
-        .map((field: IField): IFieldBase => field.toObject())
+        .map((field: IField): IFieldBase => field.toObject()),
+      accesses: this.accesses
     };
   }
 
@@ -98,5 +121,16 @@ export class Model implements IModel {
     this.fields = this.fields.filter((field: IField): boolean => {
       return !field.isEmpty();
     });
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public clone(): IModel {
+    const model = new Model();
+    const id = model.id;
+    model.fromObject(this.toObject());
+    model.id = id;
+    return model;
   }
 }

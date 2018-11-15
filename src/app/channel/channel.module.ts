@@ -7,18 +7,18 @@ import {AceEditorModule} from 'ng2-ace-editor';
 import {TranslateModuleLoad} from '../translate-import';
 
 import {ChannelComponent} from './components/channel/channel.component';
-import {ChannelRowComponent} from './components/channel-row/channel-row.component';
+import {ChannelCardComponent} from './components/channel-card/channel-card.component';
 import {TemplateComponent} from './components/template/template.component';
-import {NewComponent} from './components/new/new.component';
 import {RootComponent} from './components/root/root.component';
 import {EditComponent} from './components/edit/edit.component';
 import {EditorComponent} from './components/editor/editor.component';
+import {ValidatorEditorComponent} from '../validator/components/validator-editor/validator-editor.component';
 
 // Services
 import {StorageService} from './services/storage.service';
-import {MasksDownloaderService} from '../loader/services/masks-downloader.service';
+import {GeneratorService} from './services/generator.service';
 import {HotkeyModule} from 'angular2-hotkeys';
-import {SyncService} from './services/sync.service';
+
 
 // Directives
 import {ContentEditableModelDirective} from './directives/content-editable-model.directive';
@@ -38,17 +38,16 @@ import {ContentEditableModelDirective} from './directives/content-editable-model
   declarations: [
     ChannelComponent,
     TemplateComponent,
-    NewComponent,
     RootComponent,
     EditComponent,
-    ChannelRowComponent,
+    ChannelCardComponent,
     EditorComponent,
-    ContentEditableModelDirective
+    ContentEditableModelDirective,
+    ValidatorEditorComponent
   ],
   providers: [
     StorageService,
-    MasksDownloaderService,
-    SyncService
+    GeneratorService
   ],
 })
 export class ChannelModule {
@@ -59,5 +58,7 @@ export {Channel} from './classes/channel';
 export {Template} from './classes/template';
 export {IChannel, IChannelBase} from './interfaces/channel';
 export {ITemplate, ITemplateBase} from './interfaces/template';
+export {IGeneratorResult} from './interfaces/generator-result';
 export {TemplateEngine} from './interfaces/template-engine.enum';
 export {StorageService} from './services/storage.service';
+export {GeneratorService} from './services/generator.service';
