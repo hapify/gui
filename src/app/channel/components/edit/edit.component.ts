@@ -4,7 +4,7 @@ import {IChannel} from '../../interfaces/channel';
 import {ITemplate} from '../../interfaces/template';
 import {Router, ActivatedRoute} from '@angular/router';
 import {StorageService} from '../../services/storage.service';
-import {GeneratorService} from '../../../generator/services/generator.service';
+import {GeneratorService} from '../../services/generator.service';
 
 @Component({
   selector: 'app-channel-edit',

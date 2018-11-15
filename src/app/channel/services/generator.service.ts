@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IModel} from '../../model/model.module';
-import {ITemplate, IChannel} from '../../channel/channel.module';
+import {ITemplate} from '../interfaces/template';
+import {IChannel} from '../interfaces/channel';
 import {IGeneratorResult} from '../interfaces/generator-result';
 import {WebSocketService} from '../../services/websocket.service';
 import {WebSocketMessages} from '../../interfaces/websocket-message';

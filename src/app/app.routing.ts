@@ -7,8 +7,6 @@ import {ModelComponent} from './components/model/model.component';
 import {ChannelModule, CHANNEL_ROUTES} from './channel/channel.module';
 import {ChannelComponent} from './components/channel/channel.component';
 
-import {GeneratorModule} from './generator/generator.module';
-
 export const routes: Routes = [
   {
     path: '',
@@ -31,7 +29,6 @@ export const routes: Routes = [
   imports: [
     ModelModule,
     ChannelModule,
-    GeneratorModule,
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]

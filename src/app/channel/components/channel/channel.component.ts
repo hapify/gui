@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, Injector} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {IChannel} from '../../interfaces/channel';
-import {GeneratorService} from '../../../generator/services/generator.service';
+import {GeneratorService} from '../../services/generator.service';
 import {ITemplate} from '../../interfaces/template';
 
 @Component({
