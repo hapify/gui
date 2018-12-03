@@ -11,6 +11,7 @@ import {ValidatorService} from './validator/services/validator.service';
 // Components
 import {AppComponent} from './app.component';
 import {ModelComponent} from './components/model/model.component';
+import {PresetComponent} from './components/preset/preset.component';
 import {ChannelComponent} from './components/channel/channel.component';
 import {SidebarComponent} from './components/common/sidebar/sidebar.component';
 
@@ -22,12 +23,14 @@ import {HeaderComponent} from './components/common/header/header.component';
 import {HotkeyModule} from 'angular2-hotkeys';
 import {ChannelModule} from './channel/channel.module';
 import {ModelModule} from './model/model.module';
+import {PresetModule} from './preset/preset.module';
 import {WebSocketService} from './services/websocket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModelComponent,
+    PresetComponent,
     ChannelComponent,
     SidebarComponent,
     HeaderComponent
@@ -44,6 +47,7 @@ import {WebSocketService} from './services/websocket.service';
     HotkeyModule.forRoot(),
     ChannelModule,
     ModelModule,
+    PresetModule,
   ],
   providers: [
     ConfigService,

@@ -40,7 +40,7 @@ export class NewComponent implements OnInit {
     primary.internal = true;
     this.model.addField(primary);
     const creation = this.model.newField();
-    creation.name = 'creation';
+    creation.name = 'created_at';
     creation.type = 'datetime';
     creation.internal = true;
     creation.sortable = true;
