@@ -2,11 +2,11 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IPreset} from '../../interfaces/preset';
 
 @Component({
-  selector: 'app-preset-preset-box',
-  templateUrl: './preset-box.component.html',
-  styleUrls: ['./preset-box.component.scss']
+  selector: 'app-preset-preset-card',
+  templateUrl: './preset-card.component.html',
+  styleUrls: ['./preset-card.component.scss']
 })
-export class PresetBoxComponent implements OnInit {
+export class PresetCardComponent implements OnInit {
 
   /**
    * Constructor

@@ -6,7 +6,7 @@ import {AlertModule, TooltipModule} from 'ngx-bootstrap';
 import {TranslateModuleLoad} from '../translate-import';
 
 import {RootComponent} from './components/root/root.component';
-import {PresetBoxComponent} from './components/preset-box/preset-box.component';
+import {PresetCardComponent} from './components/preset-card/preset-card.component';
 
 // Services
 import {StorageService} from './services/storage.service';
@@ -23,7 +23,7 @@ import {StorageService} from './services/storage.service';
   ],
   declarations: [
     RootComponent,
-    PresetBoxComponent
+    PresetCardComponent
   ],
   providers: [
     StorageService

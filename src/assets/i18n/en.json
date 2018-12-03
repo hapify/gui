@@ -26,6 +26,7 @@
   "presets_title": "Presets",
   "presets_subtitle": "Available presets: {{count}}",
   "presets_intro": "Load pre-defined model sets.",
+  "presets_use": "Use",
   "channels_title": "Channels",
   "channels_subtitle": "Available channels: {{count}}",
   "channels_not_found": "Unable to find this channel.",
