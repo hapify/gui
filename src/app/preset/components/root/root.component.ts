@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
+import {StorageService as ModelStorageService} from '../../../model/model.module';
 import {IPreset} from '../../interfaces/preset';
 
 @Component({
@@ -12,8 +13,10 @@ export class RootComponent implements OnInit {
   /**
    * Constructor
    * @param {StorageService} storageService
+   * @param {ModelStorageService} modelStorageService
    */
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService,
+              private modelStorageService: ModelStorageService) {
   }
 
   /**
@@ -33,10 +36,26 @@ export class RootComponent implements OnInit {
   /**
    * Called when the user apply the preset
    */
-  applyPreset(preset: IPreset): void {
-    // Store the preset
-    this.storageService.remove(preset)
-      .then(() => this.updatePresets());
+  async applyPreset(preset: IPreset): Promise<void> {
+    // Add or update each models
+    for (const model of preset.models) {
+      const existing = await this.modelStorageService.find(model.id);
+      if (existing) {
+        // Add or skip each fields
+        let shouldSave = false;
+        for (const field of model.fields) {
+          if (!existing.fields.some((f) => f.name === field.name)) {
+            existing.addField(field);
+            shouldSave = true;
+          }
+        }
+        if (shouldSave) {
+          await this.modelStorageService.update(existing);
+        }
+      } else {
+        await this.modelStorageService.add(model);
+      }
+    }
   }
 
   /**

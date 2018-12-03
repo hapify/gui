@@ -26,6 +26,8 @@
   "presets_title": "Scénarios",
   "presets_subtitle": "Scénarios disponibles : {{count}}",
   "presets_intro": "Charger des lots de modèles pré-définis.",
+  "presets_models_count": "{{count}} modèle",
+  "presets_models_count_plurial": "{{count}} modèles",
   "presets_use": "Utiliser",
   "channels_title": "Terminaisons",
   "channels_subtitle": "Terminaisons existantes: {{count}}",
