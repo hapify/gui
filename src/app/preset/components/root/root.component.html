@@ -1,0 +1,27 @@
+<div id="root-preset">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-secondary mb-5">
+                    {{ 'presets_intro' | translate }}
+                </p>
+            </div>
+        </div>
+        <div class="presets-list">
+            <div class="card">
+                <div class="card-header">
+                    <div class="clearfix">
+                        <div class="float-left py-2">{{ 'presets_subtitle' | translate:{count: presets && presets.length ?
+                            presets.length : 0} }}
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let preset of presets;" class="list-group-item">
+                        <app-preset-preset-box [preset]="preset" (onApply)="applyPreset(preset)"></app-preset-preset-box>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
