@@ -64,7 +64,7 @@ export class WebSocketService {
       }
     };
     this.ws.onclose = (event: CloseEvent) => {
-      this.logError(new Error(`Connection lost: ${event.reason}. Try again in ${this.reconnectDelay}ms`));
+      this.logError(new Error(`Connection lost: ${event.code}. Try again in ${this.reconnectDelay}ms`));
       this.handshake(this.reconnectDelay);
     };
     this.ws.onerror = (event: ErrorEvent) => {
