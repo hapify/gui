@@ -17,6 +17,8 @@ export class WebSocketService {
   /** Incoming messages/orders from server */
   private messageSubject = new Subject<IWebSocketMessage>();
   private messageObservable: Observable<IWebSocketMessage> = this.messageSubject.asObservable();
+  /** @type {boolean} Delay to retry connection */
+  private reconnectDelay = 30 * SECOND;
 
   /**
    * Constructor
@@ -30,15 +32,26 @@ export class WebSocketService {
    * If the websocket connection in not running,
    * get a new JWT token and open a new connection
    *
+   * @param {number} delay
    * @return {Promise<void>}
    */
-  async handshake() {
+  async handshake(delay = 0) {
     // Leave early
     if (this.opened()) {
       return;
     }
+    // Wait a while before handshake
+    if (delay) {
+      await new Promise(r => setTimeout(r, delay));
+    }
     // Get JWT & url
-    const wsInfo = await this.wsInfo();
+    let wsInfo;
+    try {
+      wsInfo = await this.wsInfo();
+    } catch (error) {
+      this.logError(new Error(`Cannot fetch connection info: ${error.message}. Try again in ${this.reconnectDelay}ms`));
+      return await this.handshake(this.reconnectDelay);
+    }
 
     this.ws = new WebSocket(wsInfo.url);
     // Bind events
@@ -51,7 +64,8 @@ export class WebSocketService {
       }
     };
     this.ws.onclose = (event: CloseEvent) => {
-      this.logError(new Error(`Connection lost: ${event.reason}`));
+      this.logError(new Error(`Connection lost: ${event.reason}. Try again in ${this.reconnectDelay}ms`));
+      this.handshake(this.reconnectDelay);
     };
     this.ws.onerror = (event: ErrorEvent) => {
       this.logError(new Error(event.message));
@@ -79,7 +93,7 @@ export class WebSocketService {
    * @param {string} id
    * @param {{}} data
    * @param {number} timeout
-   * @return {Promise<void>}
+   * @return {Promise<any>}
    */
   async send(id: string, data = {}, timeout = MINUTE): Promise<any> {
     await this.waitOpened();
@@ -125,34 +139,13 @@ export class WebSocketService {
   }
 
   /**
-   * Push an error
-   *
-   * @param {string} error
-   * @return {Promise<void>}
-   */
-  private async internalError(error) {
-    // Build message to propagate
-    const message: IWebSocketMessage = {
-      id: 'internalError',
-      type: 'error',
-      data: {error},
-    };
-    this.messageSubject.next(message);
-    this.logError(error);
-  }
-
-  /**
    * Get the info to connect to the websocket
    *
    * @return {IWebSocketInfo}
    */
   private async wsInfo(): Promise<IWebSocketInfo> {
-    try {
-      const response = await fetch(this.configService.getWebSocketInfoUrl(), { cache: 'no-store' });
-      return <IWebSocketInfo>(await response.json());
-    } catch (error) {
-      this.internalError(error.toString());
-    }
+    const response = await fetch(this.configService.getWebSocketInfoUrl(), { cache: 'no-store' });
+    return <IWebSocketInfo>(await response.json());
   }
 
   /**
@@ -191,7 +184,7 @@ export class WebSocketService {
 
   /** Log an error */
   private logError(error: Error) {
-    console.error(event);
+    console.error(error);
   }
 
 }
