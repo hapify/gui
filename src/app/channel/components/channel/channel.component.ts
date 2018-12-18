@@ -77,6 +77,7 @@ export class ChannelComponent implements OnInit {
 	 * @param {ITemplate|null} toGenerate
 	 */
 	onSubmit(toGenerate: ITemplate | null) {
+		this.updateModel();
 		this.onSave.emit(toGenerate);
 	}
 
@@ -125,5 +126,13 @@ export class ChannelComponent implements OnInit {
 	 */
 	onValidatorEditorClose() {
 		this.showValidatorEditor = false;
+	}
+
+	/** Update models properties from inputs values */
+	private updateModel(): void {
+		for (const key of Object.keys(this.form.controls)) {
+			console.log(this.channel[key], this.form.get(key).value);
+			this.channel[key] = this.form.get(key).value;
+		}
 	}
 }

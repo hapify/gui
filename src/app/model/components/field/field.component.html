@@ -12,7 +12,6 @@
 					(keyup)="onDebouncedChange()"
 					formControlName="name"
 					class="form-control"
-					[(ngModel)]="field.name"
 					type="text"
 				/>
 				<div
@@ -52,7 +51,6 @@
 				(change)="onInputChange()"
 				formControlName="type"
 				class="form-control"
-				[(ngModel)]="field.type"
 			>
 				<option disabled>{{ 'field_type' | translate }}</option>
 				<option *ngFor="let type of types" [ngValue]="type.value">{{
@@ -86,7 +84,6 @@
 					(change)="onDebouncedChange()"
 					formControlName="reference"
 					class="form-control"
-					[(ngModel)]="field.reference"
 				>
 					<option disabled>{{ 'reference' | translate }}</option>
 					<option *ngFor="let model of models" [ngValue]="model.id">{{
@@ -119,7 +116,6 @@
 					(change)="onDebouncedChange()"
 					formControlName="subtype"
 					class="form-control"
-					[(ngModel)]="field.subtype"
 				>
 					<option disabled>{{ 'field_subtype' | translate }}</option>
 					<option
@@ -166,7 +162,6 @@
 						formControlName="primary"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.primary"
 					/>
 					<span class="oi oi-key"></span>
 				</label>
@@ -183,7 +178,6 @@
 						formControlName="unique"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.unique"
 					/>
 					<span class="oi oi-star"></span>
 				</label>
@@ -200,7 +194,6 @@
 						formControlName="label"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.label"
 					/>
 					<span class="oi oi-text"></span>
 				</label>
@@ -217,7 +210,6 @@
 						formControlName="nullable"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.nullable"
 					/>
 					<span class="oi oi-ban"></span>
 				</label>
@@ -234,7 +226,6 @@
 						formControlName="multiple"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.multiple"
 					/>
 					<span class="oi oi-list"></span>
 				</label>
@@ -251,7 +242,6 @@
 						formControlName="important"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.important"
 					/>
 					<span class="oi oi-warning"></span>
 				</label>
@@ -268,7 +258,6 @@
 						formControlName="searchable"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.searchable"
 					/>
 					<span class="oi oi-magnifying-glass"></span>
 				</label>
@@ -285,7 +274,6 @@
 						formControlName="sortable"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.sortable"
 					/>
 					<span class="oi oi-arrow-thick-bottom"></span>
 				</label>
@@ -302,7 +290,6 @@
 						formControlName="isPrivate"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.isPrivate"
 					/>
 					<span class="oi oi-shield"></span>
 				</label>
@@ -319,7 +306,6 @@
 						formControlName="internal"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.internal"
 					/>
 					<span class="oi oi-code"></span>
 				</label>
@@ -336,7 +322,6 @@
 						formControlName="restricted"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.restricted"
 					/>
 					<span class="oi oi-lock-locked"></span>
 				</label>
@@ -353,7 +338,6 @@
 						formControlName="ownership"
 						type="checkbox"
 						autocomplete="off"
-						[(ngModel)]="field.ownership"
 					/>
 					<span class="oi oi-person"></span>
 				</label>

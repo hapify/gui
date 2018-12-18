@@ -1,4 +1,4 @@
-<div [formGroup]="form">
+<div [formGroup]="form" (change)="updateModel()">
 	<div class="mb-2">
 		<div class="row">
 			<div class="col-md-8">
@@ -6,7 +6,6 @@
 					<input
 						formControlName="name"
 						class="form-control"
-						[(ngModel)]="template.name"
 						type="text"
 					/>
 					<div
@@ -77,7 +76,6 @@
 					<input
 						formControlName="path"
 						class="form-control"
-						[(ngModel)]="template.path"
 						type="text"
 					/>
 					<div
@@ -115,11 +113,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 mt-2 mt-md-0">
-				<select
-					formControlName="engine"
-					class="form-control"
-					[(ngModel)]="template.engine"
-				>
+				<select formControlName="engine" class="form-control">
 					<option disabled>{{
 						'template_engine' | translate
 					}}</option>
@@ -151,11 +145,7 @@
 				</div>
 			</div>
 			<div class="col-md-3 mt-2 mt-md-0">
-				<select
-					formControlName="input"
-					class="form-control"
-					[(ngModel)]="template.input"
-				>
+				<select formControlName="input" class="form-control">
 					<option disabled>{{ 'template_input' | translate }}</option>
 					<option
 						*ngFor="let input of inputs"

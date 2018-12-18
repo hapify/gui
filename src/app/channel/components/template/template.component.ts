@@ -114,6 +114,7 @@ export class TemplateComponent implements OnInit {
 	 * @param {ITemplate|null} toGenerate
 	 */
 	onEditorSave(toGenerate: ITemplate | null) {
+		this.updateModel();
 		this.onSave.emit(toGenerate);
 	}
 
@@ -122,5 +123,12 @@ export class TemplateComponent implements OnInit {
 	 */
 	onEditorClose() {
 		this.showEditor = false;
+	}
+
+	/** Update models properties from inputs values */
+	updateModel(): void {
+		for (const key of Object.keys(this.form.controls)) {
+			this.template[key] = this.form.get(key).value;
+		}
 	}
 }

@@ -23,7 +23,7 @@ import {
 	IModel
 } from '../../../model/model.module';
 import { IGeneratorResult } from '../../interfaces/generator-result';
-import { AceService } from '../../../services/ace.service';
+import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 
@@ -45,7 +45,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() pathMaxLength = 64;
 	/** @type {FormGroup} */
 	form: FormGroup;
-	/** @type {{minLength: number; maxLength: number}} */
+	/** @type {{minLength: number, maxLength: number}} */
 	translateParams = {
 		minLength: this.pathMinLength,
 		maxLength: this.pathMaxLength
@@ -217,6 +217,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 	/** Call when the path is changed */
 	onPathChange() {
+		this.wip['path'] = this.form.get('path').value;
 		this._generatePath();
 	}
 	/**

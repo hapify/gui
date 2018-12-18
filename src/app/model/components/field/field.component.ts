@@ -78,6 +78,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 			this.keyupSubject
 				.pipe(debounceTime<void>(this.debounceTimeDelay))
 				.subscribe(() => {
+					this.updateModel();
 					this.onChange.emit();
 				})
 		];
@@ -140,6 +141,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 * Called when a value change
 	 */
 	onInputChange() {
+		this.updateModel();
 		this.onChange.emit();
 	}
 
@@ -147,6 +149,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 * Called when the user clicks on up
 	 */
 	onUp() {
+		this.updateModel();
 		this.onMoveUp.emit();
 	}
 
@@ -154,6 +157,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 * Called when the user clicks on up
 	 */
 	onDown() {
+		this.updateModel();
 		this.onMoveDown.emit();
 	}
 
@@ -162,5 +166,12 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 */
 	onDebouncedChange(): void {
 		this.keyupSubject.next();
+	}
+
+	/** Update models properties from inputs values */
+	private updateModel(): void {
+		for (const key of Object.keys(this.form.controls)) {
+			this.field[key] = this.form.get(key).value;
+		}
 	}
 }
