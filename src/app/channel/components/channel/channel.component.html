@@ -1,59 +1,93 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit(null)">
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <input id="name" formControlName="name"
-                               class="form-control" [(ngModel)]="channel.name"
-                               disabled
-                               type="text">
-                    </div>
-                </div>
-                <div class="col-sm-4 text-sm-right d-none d-sm-block">
-                    <button type="button"
-                            class="btn btn-outline-secondary"
-                            [disabled]="channel.isEmpty() || syncing"
-                            (click)="onGenerate()">
-                        {{ 'channels_generate' | translate }}
-                    </button>
-                    <button type="submit" class="btn btn-primary" [disabled]="channel.isEmpty()">
-                        {{ 'common_save' | translate }}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li *ngFor="let template of channel.templates" class="list-group-item">
-                <app-channel-template [template]="template" (onSave)="onSubmit($event)"></app-channel-template>
-            </li>
-        </ul>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-sm-8">
-                    <button type="button" class="btn btn-secondary" (click)="addTemplate()">
-                        <span class="oi oi-plus small"></span> {{ 'channels_add_template' | translate }}
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="cleanTemplates()">
-                        {{ 'channels_clean_templates' | translate }}
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="onShowValidatorEditor()">
-                        {{ 'channels_open_validator_editor' | translate }}
-                    </button>
-                </div>
-                <div class="col-sm-4 text-sm-right">
-                    <button type="submit" class="btn btn-primary" [disabled]="channel.isEmpty()">
-                        {{ 'common_save' | translate }}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="input-group">
+						<input
+							id="name"
+							formControlName="name"
+							class="form-control"
+							[(ngModel)]="channel.name"
+							disabled
+							type="text"
+						/>
+					</div>
+				</div>
+				<div class="col-sm-4 text-sm-right d-none d-sm-block">
+					<button
+						type="button"
+						class="btn btn-outline-secondary"
+						[disabled]="channel.isEmpty() || syncing"
+						(click)="onGenerate()"
+					>
+						{{ 'channels_generate' | translate }}
+					</button>
+					<button
+						type="submit"
+						class="btn btn-primary"
+						[disabled]="channel.isEmpty()"
+					>
+						{{ 'common_save' | translate }}
+					</button>
+				</div>
+			</div>
+		</div>
+		<ul class="list-group list-group-flush">
+			<li
+				*ngFor="let template of channel.templates"
+				class="list-group-item"
+			>
+				<app-channel-template
+					[template]="template"
+					(onSave)="onSubmit($event)"
+				></app-channel-template>
+			</li>
+		</ul>
+		<div class="card-footer">
+			<div class="row">
+				<div class="col-sm-8">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						(click)="addTemplate()"
+					>
+						<span class="oi oi-plus small"></span>
+						{{ 'channels_add_template' | translate }}
+					</button>
+					<button
+						type="button"
+						class="btn btn-outline-secondary"
+						(click)="cleanTemplates()"
+					>
+						{{ 'channels_clean_templates' | translate }}
+					</button>
+					<button
+						type="button"
+						class="btn btn-outline-secondary"
+						(click)="onShowValidatorEditor()"
+					>
+						{{ 'channels_open_validator_editor' | translate }}
+					</button>
+				</div>
+				<div class="col-sm-4 text-sm-right">
+					<button
+						type="submit"
+						class="btn btn-primary"
+						[disabled]="channel.isEmpty()"
+					>
+						{{ 'common_save' | translate }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 <div *ngIf="showValidatorEditor">
-    <app-validator-editor
-            [channel]="channel"
-            (onSave)="onValidatorEditorSave()"
-            (onClose)="onValidatorEditorClose()">
-    </app-validator-editor>
+	<app-validator-editor
+		[channel]="channel"
+		(onSave)="onValidatorEditorSave()"
+		(onClose)="onValidatorEditorClose()"
+	>
+	</app-validator-editor>
 </div>

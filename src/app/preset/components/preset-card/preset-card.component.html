@@ -1,14 +1,24 @@
 <div class="card">
-  <div class="text-center p-4">
-    <div class="mb-1 icon oi oi-{{ preset.icon }}"></div>
-    <div class="mb-4">
-      <strong>{{ preset.name }}</strong><br />
-      <div class="text-secondary font-italic">
-        {{ preset.models.length > 1 ? 'presets_models_count_plurial' : 'presets_models_count' | translate:{count: preset.models.length} }}
-      </div>
-    </div>
-    <button type="button" class="btn btn-outline-secondary" (click)="didClickApply()">
-      {{ 'presets_use' | translate }}
-    </button>
-  </div>
+	<div class="text-center p-4">
+		<div class="mb-1 icon oi oi-{{ preset.icon }}"></div>
+		<div class="mb-4">
+			<strong>{{ preset.name }}</strong
+			><br />
+			<div class="text-secondary font-italic">
+				{{
+					preset.models.length > 1
+						? 'presets_models_count_plurial'
+						: ('presets_models_count'
+						  | translate: { count: preset.models.length })
+				}}
+			</div>
+		</div>
+		<button
+			type="button"
+			class="btn btn-outline-secondary"
+			(click)="didClickApply()"
+		>
+			{{ 'presets_use' | translate }}
+		</button>
+	</div>
 </div>

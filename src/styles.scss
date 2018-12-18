@@ -1,0 +1,38 @@
+// $theme-colors: (
+//         "primary": #0000FF,
+// );
+@import '~bootstrap/scss/bootstrap';
+$icon-font-path: '~open-iconic/font/fonts/' !default;
+@import '~open-iconic/font/css/open-iconic-bootstrap';
+
+html {
+	font-size: 0.8rem;
+}
+
+@include media-breakpoint-up(sm) {
+	html {
+		font-size: 0.8rem;
+	}
+}
+
+@include media-breakpoint-up(md) {
+	html {
+		font-size: 0.9rem;
+	}
+}
+
+@include media-breakpoint-up(lg) {
+	html {
+		font-size: 0.9rem;
+	}
+}
+
+body {
+	background-color: #fafafa;
+}
+
+.list-group-item {
+	&:hover {
+		background-color: #fafafa;
+	}
+}

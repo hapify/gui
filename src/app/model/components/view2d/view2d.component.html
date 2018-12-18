@@ -1,18 +1,25 @@
 <div id="view2d-model">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <p class="text-secondary mb-5">
-                    {{ 'models_2d_intro' | translate }}
-                </p>
-            </div>
-        </div>
-        <div class="models-list">
-          <div class="row">
-            <div *ngFor="let model of models;" class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-              <app-model-model-uml-box [model]="model" (onClone)="cloneModel(model)" (onDelete)="deleteModel(model)"></app-model-model-uml-box>
-            </div>
-          </div>
-        </div>
-    </div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<p class="text-secondary mb-5">
+					{{ 'models_2d_intro' | translate }}
+				</p>
+			</div>
+		</div>
+		<div class="models-list">
+			<div class="row">
+				<div
+					*ngFor="let model of models"
+					class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4"
+				>
+					<app-model-model-uml-box
+						[model]="model"
+						(onClone)="cloneModel(model)"
+						(onDelete)="deleteModel(model)"
+					></app-model-model-uml-box>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
