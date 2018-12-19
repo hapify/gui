@@ -1,38 +1,115 @@
-// $theme-colors: (
-//         "primary": #0000FF,
-// );
+@import 'theme.scss';
 @import '~bootstrap/scss/bootstrap';
-$icon-font-path: '~open-iconic/font/fonts/' !default;
-@import '~open-iconic/font/css/open-iconic-bootstrap';
 
-html {
-	font-size: 0.8rem;
+/* FONTS */
+@font-face {
+	font-family: 'hapify-logo';
+	src: url('assets/fonts/hapify/hapify-logo.eot?lsqtnl');
+	src: url('assets/fonts/hapify/hapify-logo.eot?lsqtnl#iefix')
+			format('embedded-opentype'),
+		url('assets/fonts/hapify/hapify-logo.ttf?lsqtnl') format('truetype'),
+		url('assets/fonts/hapify/hapify-logo.woff?lsqtnl') format('woff'),
+		url('assets/fonts/hapify/hapify-logo.svg?lsqtnl#hapify-logo')
+			format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
-
-@include media-breakpoint-up(sm) {
-	html {
-		font-size: 0.8rem;
-	}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('assets/fonts/opensans/opensans-light-webfont.woff2')
+			format('woff2'),
+		url('assets/fonts/opensans/opensans-light-webfont.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
 }
-
-@include media-breakpoint-up(md) {
-	html {
-		font-size: 0.9rem;
-	}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('assets/fonts/opensans/opensans-regular-webfont.woff2')
+			format('woff2'),
+		url('assets/fonts/opensans/opensans-regular-webfont.woff')
+			format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
+@font-face {
+	font-family: 'Open Sans';
+	src: url('assets/fonts/opensans/opensans-bold-webfont.woff2')
+			format('woff2'),
+		url('assets/fonts/opensans/opensans-bold-webfont.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('assets/fonts/opensans/opensans-extrabold-webfont.woff2')
+			format('woff2'),
+		url('assets/fonts/opensans/opensans-extrabold-webfont.woff')
+			format('woff');
+	font-weight: 800;
+	font-style: normal;
+}
+/* /FONTS */
 
-@include media-breakpoint-up(lg) {
-	html {
-		font-size: 0.9rem;
-	}
+html,
+body {
+	height: 100%;
+	max-height: 100%;
 }
 
 body {
-	background-color: #fafafa;
-}
+	font: normal 400 1em 'Open Sans', sans-serif;
+	color: $gray-700;
 
-.list-group-item {
-	&:hover {
-		background-color: #fafafa;
+	.hpflogofont {
+		font: 1.6em 'hapify-logo', monospace;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		-moz-osx-font-smoothing: grayscale;
+
+		&[color='white'] {
+			color: white;
+		}
+
+		&[color='primary'] {
+			color: mat-color($hpf-app-primary);
+		}
+	}
+
+	.material-icons {
+		font-family: 'Material Icons';
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px;
+		display: inline-block;
+		line-height: 1;
+		text-transform: none;
+		letter-spacing: normal;
+		word-wrap: normal;
+		white-space: nowrap;
+		direction: ltr;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		-moz-osx-font-smoothing: grayscale;
+		font-feature-settings: 'liga';
+	}
+
+	.bg-gradient-purple,
+	&.bg-gradient-purple {
+		background: linear-gradient(to bottom, #3424af 1%, #a25cc1 100%);
+	}
+
+	.bg-plain-grey-1 {
+		background-color: $gray-200;
+	}
+
+	a {
+		&:hover {
+			color: inherit;
+		}
+	}
+
+	.mat-raised-button {
+		border-radius: 20px;
+		font-weight: 400;
 	}
 }

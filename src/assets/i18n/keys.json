@@ -1,7 +1,6 @@
 {
 	"common_save": "common_save",
 	"access_title": "access_title",
-	"app_name": "app_name",
 	"channels_add_template": "channels_add_template",
 	"channels_clean_templates": "channels_clean_templates",
 	"channels_generate": "channels_generate",
@@ -71,5 +70,6 @@
 	"tooltip_sortable": "tooltip_sortable",
 	"tooltip_unique": "tooltip_unique",
 	"validator_editor_title": "validator_editor_title",
-	"validator_tooltip_autovalidate": "validator_tooltip_autovalidate"
+	"validator_tooltip_autovalidate": "validator_tooltip_autovalidate",
+	"nav_documentation": "nav_documentation"
 }

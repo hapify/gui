@@ -1,18 +1,20 @@
-$w-lg-sidebar: 250px;
+@import '~bootstrap/scss/bootstrap';
 
-#sidebar {
-	width: $w-lg-sidebar;
-	min-height: 100vh;
-	z-index: 20;
-	> .inr {
-		position: fixed;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		width: $w-lg-sidebar;
+app-sidebar {
+	flex-basis: 216px;
+	overflow-x: hidden;
+
+	&.sm,
+	&.reduced {
+		flex-basis: 80px;
 	}
 }
 
-#content {
-	width: calc(100% - #{$w-lg-sidebar});
+#toggleReduceSidebar {
+	width: 3px;
+	background-color: $gray-200;
+	cursor: w-resize;
+	&.reduced {
+		cursor: e-resize;
+	}
 }

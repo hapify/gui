@@ -1,7 +1,6 @@
 {
 	"common_save": "Save",
 	"access_title": "Access restrictions",
-	"app_name": "Hapify",
 	"channels_add_template": "Add template",
 	"channels_clean_templates": "Cleanup",
 	"channels_generate": "Generate",
@@ -71,5 +70,6 @@
 	"tooltip_sortable": "Is sortable?",
 	"tooltip_unique": "Is a unique key?",
 	"validator_editor_title": "Validator for {{name}}",
-	"validator_tooltip_autovalidate": "Auto-validate"
+	"validator_tooltip_autovalidate": "Auto-validate",
+	"nav_documentation": "Documentation"
 }

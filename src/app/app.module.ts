@@ -25,6 +25,7 @@ import { ChannelModule } from './channel/channel.module';
 import { ModelModule } from './model/model.module';
 import { PresetModule } from './preset/preset.module';
 import { WebSocketService } from './services/websocket.service';
+import { MatButtonModule, MatIconModule } from '@angular/material';
 
 @NgModule({
 	declarations: [
@@ -47,7 +48,9 @@ import { WebSocketService } from './services/websocket.service';
 		HotkeyModule.forRoot(),
 		ChannelModule,
 		ModelModule,
-		PresetModule
+		PresetModule,
+		MatIconModule,
+		MatButtonModule
 	],
 	providers: [
 		ConfigService,

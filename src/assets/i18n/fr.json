@@ -1,7 +1,6 @@
 {
 	"common_save": "Valider",
 	"access_title": "Restrictions d'accès",
-	"app_name": "Hapify",
 	"channels_add_template": "Ajouter un masque",
 	"channels_clean_templates": "Nettoyer",
 	"channels_generate": "Générer",
@@ -71,5 +70,6 @@
 	"tooltip_sortable": "Ce champs est triable ?",
 	"tooltip_unique": "Est une clé unique ?",
 	"validator_editor_title": "Validateur {{name}}",
-	"validator_tooltip_autovalidate": "Auto-validation"
+	"validator_tooltip_autovalidate": "Auto-validation",
+	"nav_documentation": "Documentation"
 }

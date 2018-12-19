@@ -30,6 +30,11 @@ export const routes: Routes = [
 		path: 'channel',
 		component: ChannelComponent,
 		children: CHANNEL_ROUTES
+	},
+	{
+		path: 'documentation',
+		component: ModelComponent,
+		children: MODEL_ROUTES
 	}
 ];
 

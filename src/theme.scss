@@ -1,0 +1,110 @@
+@import '~@angular/material/theming';
+$md-primary: (
+	50: #f1e9fc,
+	100: #dcc8f7,
+	200: #c5a3f1,
+	300: #ad7eeb,
+	400: #9c62e7,
+	500: #8a46e3,
+	600: #823fe0,
+	700: #7737dc,
+	800: #6d2fd8,
+	900: #5a20d0,
+	A100: #ffffff,
+	A200: #e2d5ff,
+	A400: #bea2ff,
+	A700: #ac89ff,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #000000,
+		400: #000000,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #000000,
+		A400: #000000,
+		A700: #000000
+	)
+);
+
+$md-warn: (
+	50: #f9e1e4,
+	100: #f1b3bb,
+	200: #e8818d,
+	300: #de4e5f,
+	400: #d7283d,
+	500: #d0021b,
+	600: #cb0218,
+	700: #c40114,
+	800: #be0110,
+	900: #b30108,
+	A100: #ffdcdd,
+	A200: #ffa9aa,
+	A400: #ff7678,
+	A700: #ff5d5f,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #ffffff,
+		400: #ffffff,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #000000,
+		A400: #000000,
+		A700: #000000
+	)
+);
+
+$md-accent: (
+	50: #fef4e4,
+	100: #fce4bd,
+	200: #fad391,
+	300: #f8c164,
+	400: #f7b343,
+	500: #f5a622,
+	600: #f49e1e,
+	700: #f29519,
+	800: #f08b14,
+	900: #ee7b0c,
+	A100: #ffffff,
+	A200: #fff1e5,
+	A400: #ffd4b2,
+	A700: #ffc698,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #000000,
+		400: #000000,
+		500: #000000,
+		600: #000000,
+		700: #000000,
+		800: #000000,
+		900: #000000,
+		A100: #000000,
+		A200: #000000,
+		A400: #000000,
+		A700: #000000
+	)
+);
+
+@include mat-core();
+$hpf-app-primary: mat-palette($md-primary);
+$hpf-app-accent: mat-palette($md-accent);
+$hpf-app-warn: mat-palette($md-warn);
+$hpf-app-theme: mat-light-theme(
+	$hpf-app-primary,
+	$hpf-app-accent,
+	$hpf-app-warn
+);
+@include angular-material-theme($hpf-app-theme);

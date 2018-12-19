@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { WebSocketService } from './services/websocket.service';
+import { ResizeService } from '@app/services/resize.service';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+	sidebarIsReduced = false;
+	breakpoint = this.resizeService.currentBreakpoint;
+
 	constructor(
 		translate: TranslateService,
-		webSocketService: WebSocketService
+		webSocketService: WebSocketService,
+		private resizeService: ResizeService
 	) {
 		// this language will be used as a fallback when a translation isn't found in the current language
 		translate.setDefaultLang('en');
@@ -20,5 +25,11 @@ export class AppComponent {
 
 		// Init websocket
 		webSocketService.handshake();
+	}
+
+	ngOnInit() {
+		this.resizeService.breakpointChanges.subscribe(breakpointInfo => {
+			this.breakpoint = breakpointInfo.current;
+		});
 	}
 }

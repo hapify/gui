@@ -29,9 +29,8 @@
 							"src/robots.txt"
 						],
 						"styles": [
-							{
-								"input": "./node_modules/bootstrap/dist/css/bootstrap.css"
-							},
+							"./node_modules/bootstrap/scss/bootstrap.scss",
+							"./node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
 							"src/styles.scss"
 						],
 						"scripts": [
