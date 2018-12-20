@@ -26,6 +26,15 @@ import { ModelModule } from './model/model.module';
 import { PresetModule } from './preset/preset.module';
 import { WebSocketService } from './services/websocket.service';
 import { SharedModule } from '@app/shared/shared.module';
+import {
+	PERFECT_SCROLLBAR_CONFIG,
+	PerfectScrollbarModule,
+	PerfectScrollbarConfigInterface
+} from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+	suppressScrollX: true
+};
 
 @NgModule({
 	declarations: [
@@ -49,14 +58,19 @@ import { SharedModule } from '@app/shared/shared.module';
 		ChannelModule,
 		ModelModule,
 		PresetModule,
-		SharedModule
+		SharedModule,
+		PerfectScrollbarModule
 	],
 	providers: [
 		ConfigService,
 		StringService,
 		AceService,
 		ValidatorService,
-		WebSocketService
+		WebSocketService,
+		{
+			provide: PERFECT_SCROLLBAR_CONFIG,
+			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+		}
 	],
 	bootstrap: [AppComponent]
 })

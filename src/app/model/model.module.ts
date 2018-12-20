@@ -19,6 +19,7 @@ import { EditComponent } from './components/edit/edit.component';
 import { StorageService } from './services/storage.service';
 import { ModelUmlBoxComponent } from './components/model-uml-box/model-uml-box.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
 	imports: [
@@ -41,7 +42,8 @@ import { SharedModule } from '@app/shared/shared.module';
 		ModelRowComponent,
 		ModelUmlBoxComponent,
 		ValidatorIconComponent,
-		ValidatorDetailsComponent
+		ValidatorDetailsComponent,
+		HeaderComponent
 	],
 	providers: [StorageService]
 })

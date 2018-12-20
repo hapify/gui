@@ -1,58 +1,12 @@
 <main class="container-fluid">
-	<header class="row py-3 px-4 border-bottom">
-		<div class="col-12 d-flex justify-content-between align-items-center">
-			<h1 class="mb-0">
-				{{ 'models_title' | translate }}
-				<small class="d-block mt-2">{{
-					'models_intro' | translate
-				}}</small>
-			</h1>
-			<div class="flex-shrink-0">
-				<a
-					mat-raised-button
-					color="accent"
-					class="mat-elevation-z0 border mr-3 d-inline-flex align-items-center"
-					[routerLink]="['/model/new']"
-				>
-					<mat-icon>add</mat-icon>
-					{{ 'common_new_model' | translate }}
-				</a>
-				<a
-					[routerLink]="['/model']"
-					mat-mini-fab
-					color="accent"
-					class="mat-elevation-z0 border"
-				>
-					<mat-icon>list</mat-icon>
-				</a>
-			</div>
+	<app-header mode="grid"></app-header>
+	<section class="row px-4 py-5">
+		<div *ngFor="let model of models" class="col-12 col-md-6 col-lg-4 mb-4">
+			<app-model-model-uml-box
+				[model]="model"
+				(onClone)="cloneModel(model)"
+				(onDelete)="deleteModel(model)"
+			></app-model-model-uml-box>
 		</div>
-	</header>
-	<section class="row px-4 py-5"><div class="col-12"></div></section>
+	</section>
 </main>
-
-<div id="view2d-model">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-12">
-				<p class="text-secondary mb-5">
-					{{ 'models_2d_intro' | translate }}
-				</p>
-			</div>
-		</div>
-		<div class="models-list">
-			<div class="row">
-				<div
-					*ngFor="let model of models"
-					class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4"
-				>
-					<app-model-model-uml-box
-						[model]="model"
-						(onClone)="cloneModel(model)"
-						(onDelete)="deleteModel(model)"
-					></app-model-model-uml-box>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>

@@ -1,0 +1,8 @@
+.overable {
+	li {
+		position: relative;
+		opacity: 0;
+		animation: fadein 0.3s forwards;
+		animation-delay: 0.2s;
+	}
+}

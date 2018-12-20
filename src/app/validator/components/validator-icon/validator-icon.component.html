@@ -1,3 +1,5 @@
-<span *ngIf="level === 'valid'" class="oi oi-check text-success"></span>
-<span *ngIf="level === 'warning'" class="oi oi-warning text-warning"></span>
-<span *ngIf="level === 'error'" class="oi oi-x text-danger"></span>
+<mat-icon *ngIf="level === 'valid'" color="primary">check</mat-icon>
+<mat-icon *ngIf="level === 'warning'" style="color: darkorange;"
+	>error</mat-icon
+>
+<mat-icon *ngIf="level === 'error'" color="warn">warning</mat-icon>
