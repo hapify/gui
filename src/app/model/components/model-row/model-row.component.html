@@ -1,47 +1,36 @@
-<div class="row">
-	<div class="col-lg-7 pt-2">
-		<b class="mr-2">{{ model.name }}</b>
-		<app-validator-icon [model]="model"></app-validator-icon>
-	</div>
-	<div class="col-lg-5 text-lg-right">
+<div
+	class="w-100 d-flex flex-nowrap justify-content-between align-items-stretch py-1 px-2"
+>
+	<span class="d-flex w-100 flex-shrink-1 align-items-center">
 		<a
-			class="btn btn-secondary"
+			[routerLink]="['/model', 'edit', model.id]"
+			class="d-flex w-100 h-100 align-items-center"
+		>
+			{{ model.name }}
+		</a>
+	</span>
+	<div class="d-flex align-items-center flex-shrink-0 buttonSet">
+		<a
+			*ngIf="!deleteSwitch"
+			mat-icon-button
 			[routerLink]="['/model', 'edit', model.id]"
 		>
-			<span class="oi oi-pencil"></span>
+			<mat-icon>edit</mat-icon>
 		</a>
-		<button
-			type="button"
-			class="btn btn-outline-secondary"
-			(click)="didClickClone()"
-		>
-			<span class="oi oi-layers"></span>
+		<button *ngIf="!deleteSwitch" mat-icon-button (click)="didClickClone()">
+			<mat-icon>filter_none</mat-icon>
 		</button>
-		<span class="delete">
-			<button
-				*ngIf="!deleteSwitch"
-				type="button"
-				class="btn btn-outline-secondary"
-				(click)="deleteSwitch = !deleteSwitch"
-			>
-				<span class="oi oi-circle-x"></span>
-			</button>
-			<button
-				*ngIf="deleteSwitch"
-				type="button"
-				class="btn btn-outline-danger"
-				(click)="didClickDelete()"
-			>
-				{{ 'models_delete_confirm' | translate }}
-			</button>
-			<button
-				*ngIf="deleteSwitch"
-				type="button"
-				class="btn btn-outline-secondary"
-				(click)="deleteSwitch = false"
-			>
-				{{ 'models_delete_cancel' | translate }}
-			</button>
-		</span>
+		<button mat-icon-button (click)="deleteSwitch = !deleteSwitch">
+			<mat-icon *ngIf="!deleteSwitch">delete</mat-icon>
+			<mat-icon *ngIf="deleteSwitch">undo</mat-icon>
+		</button>
+		<button
+			*ngIf="deleteSwitch"
+			color="warn"
+			mat-icon-button
+			(click)="didClickDelete()"
+		>
+			<mat-icon>delete_forever</mat-icon>
+		</button>
 	</div>
 </div>

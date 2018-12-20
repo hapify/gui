@@ -1,0 +1,27 @@
+@import '../../../../theme.scss';
+span {
+	font-size: 0.9em;
+
+	&:hover {
+		color: mat-color($hpf-app-primary);
+	}
+}
+
+a,
+button {
+	font-weight: 500;
+	color: inherit;
+
+	&:hover {
+		color: mat-color($hpf-app-primary);
+		text-decoration: none;
+	}
+}
+
+.buttonSet {
+	opacity: 0;
+}
+
+div:hover .buttonSet {
+	opacity: 1;
+}

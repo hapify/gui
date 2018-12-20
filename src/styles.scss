@@ -33,10 +33,19 @@
 }
 @font-face {
 	font-family: 'Open Sans';
+	src: url('assets/fonts/opensans/opensans-semibold-webfont.woff2')
+			format('woff2'),
+		url('assets/fonts/opensans/opensans-semibold-webfont.woff')
+			format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Open Sans';
 	src: url('assets/fonts/opensans/opensans-bold-webfont.woff2')
 			format('woff2'),
 		url('assets/fonts/opensans/opensans-bold-webfont.woff') format('woff');
-	font-weight: 700;
+	font-weight: 600;
 	font-style: normal;
 }
 @font-face {
@@ -45,7 +54,7 @@
 			format('woff2'),
 		url('assets/fonts/opensans/opensans-extrabold-webfont.woff')
 			format('woff');
-	font-weight: 800;
+	font-weight: 700;
 	font-style: normal;
 }
 /* /FONTS */
@@ -57,14 +66,20 @@ body {
 }
 
 body {
-	font: normal 400 1em 'Open Sans', sans-serif;
-	color: $gray-700;
-
-	.hpflogofont {
-		font: 1.6em 'hapify-logo', monospace;
+	* {
+		font-family: 'Open Sans', sans-serif !important;
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
 		-moz-osx-font-smoothing: grayscale;
+	}
+
+	font-size: 1em;
+	font-weight: 400;
+	color: $gray-700;
+
+	.hpflogofont {
+		font-family: 'hapify-logo', monospace !important;
+		font-size: 1.6em;
 
 		&[color='white'] {
 			color: white;
@@ -76,7 +91,7 @@ body {
 	}
 
 	.material-icons {
-		font-family: 'Material Icons';
+		font-family: 'Material Icons' !important;
 		font-weight: normal;
 		font-style: normal;
 		font-size: 24px;
@@ -105,11 +120,50 @@ body {
 	a {
 		&:hover {
 			color: inherit;
+
+			&.mat-raised-button {
+				text-decoration: none;
+			}
 		}
 	}
 
 	.mat-raised-button {
 		border-radius: 20px;
+		font-weight: 500;
+	}
+
+	[color='accent'].border {
+		border-color: mat-contrast($hpf-app-accent, 500) !important;
+	}
+
+	.mat-mini-fab .mat-button-wrapper {
+		padding: 7px 0;
+	}
+
+	button {
+		&:focus {
+			outline: none;
+		}
+	}
+}
+
+[class*='border'] {
+	border-color: $gray-500 !important;
+}
+
+.border-light {
+	border-color: $gray-400 !important;
+}
+
+h1 {
+	font-size: 1em;
+	font-weight: 600;
+	small {
+		font-size: 0.9em;
 		font-weight: 400;
 	}
+}
+
+.overable li:hover {
+	background-color: $gray-300;
 }

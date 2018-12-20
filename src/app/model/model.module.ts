@@ -18,6 +18,7 @@ import { EditComponent } from './components/edit/edit.component';
 // Services
 import { StorageService } from './services/storage.service';
 import { ModelUmlBoxComponent } from './components/model-uml-box/model-uml-box.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { ModelUmlBoxComponent } from './components/model-uml-box/model-uml-box.c
 		ReactiveFormsModule,
 		TranslateModuleLoad(),
 		TooltipModule.forRoot(),
-		AlertModule.forRoot()
+		AlertModule.forRoot(),
+		SharedModule
 	],
 	declarations: [
 		ModelComponent,
