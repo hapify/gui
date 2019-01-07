@@ -1,114 +1,90 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-	<div class="card">
-		<div class="card-header">
-			<div class="row">
-				<div class="col-sm-8">
-					<div class="input-group">
-						<input
-							(keyup)="onDebouncedChange()"
-							id="name"
-							formControlName="name"
-							class="form-control"
-							type="text"
-						/>
-						<div
-							*ngIf="
-								form.controls['name'].invalid &&
-								(form.controls['name'].dirty ||
-									form.controls['name'].touched)
-							"
-							class="alert alert-danger mt-2"
-						>
-							<div *ngIf="form.controls['name'].errors.required">
-								{{ 'error_name_required' | translate }}
-							</div>
-							<div
-								*ngIf="
-									form.controls['name'].errors.pattern &&
-									!form.controls['name'].errors.required
-								"
-							>
-								{{ 'error_name_format' | translate }}
-							</div>
-							<div *ngIf="form.controls['name'].errors.minlength">
-								{{
-									'error_name_min_length'
-										| translate: translateParams
-								}}
-							</div>
-							<div *ngIf="form.controls['name'].errors.maxlength">
-								{{
-									'error_name_max_length'
-										| translate: translateParams
-								}}
-							</div>
-						</div>
-					</div>
+	<mat-card>
+		<div
+			class="d-flex w-100 align-items-center justify-content-start flex-nowrap border-bottom pb-2 mb-2"
+		>
+			<app-validator-icon
+				[model]="model"
+				class="flex-shrink-0 mr-2 d-flex align-items-center"
+			></app-validator-icon>
+			<input
+				formControlName="name"
+				class="title inline-input"
+				type="text"
+			/>
+			<!--
+				<div
+				  *ngIf="
+						form.controls['name'].invalid &&
+						(form.controls['name'].dirty ||
+							form.controls['name'].touched)
+					"
+				  class="alert alert-danger mt-2"
+				>
+				  <div *ngIf="form.controls['name'].errors.required">
+				    {{ 'error_name_required' | translate }}
+				  </div>
+				  <div
+				    *ngIf="
+							form.controls['name'].errors.pattern &&
+							!form.controls['name'].errors.required
+						"
+				  >
+				    {{ 'error_name_format' | translate }}
+				  </div>
+				  <div *ngIf="form.controls['name'].errors.minlength">
+				    {{
+				    'error_name_min_length'
+				    | translate: translateParams
+				    }}
+				  </div>
+				  <div *ngIf="form.controls['name'].errors.maxlength">
+				    {{
+				    'error_name_max_length'
+				    | translate: translateParams
+				    }}
+				  </div>
 				</div>
-				<div class="col-sm-4 text-sm-right d-none d-sm-block">
-					<button
-						type="submit"
-						class="btn"
-						[class.btn-primary]="unsavedChanges"
-						[class.btn-outline-secondary]="!unsavedChanges"
-						[disabled]="model.isEmpty()"
-					>
-						{{ 'common_save' | translate }}
-					</button>
-				</div>
-			</div>
+			-->
 		</div>
-		<ul class="list-group list-group-flush">
-			<li *ngFor="let field of model.fields" class="list-group-item">
-				<app-model-field
-					[field]="field"
-					(onChange)="onModelChange()"
-					(onMoveUp)="onFieldUp(field)"
-					(onMoveDown)="onFieldDown(field)"
-				></app-model-field>
-			</li>
-		</ul>
-		<div class="card-footer">
-			<div class="row">
-				<div class="col-sm-8">
-					<button
-						type="button"
-						class="btn btn-secondary"
-						(click)="addField()"
-					>
-						<span class="oi oi-plus small"></span>
-						{{ 'models_add_field' | translate }}
-					</button>
-					<button
-						type="button"
-						class="btn btn-outline-secondary"
-						(click)="cleanFields()"
-					>
-						{{ 'models_clean_fields' | translate }}
-					</button>
-				</div>
-				<div class="col-sm-4 text-sm-right">
-					<button
-						type="submit"
-						class="btn"
-						[class.btn-primary]="unsavedChanges"
-						[class.btn-outline-secondary]="!unsavedChanges"
-						[disabled]="model.isEmpty()"
-					>
-						{{ 'common_save' | translate }}
-					</button>
-				</div>
+		<mat-card-content>
+			<ul class="list-unstyled overable container-fluid">
+				<li
+					*ngFor="let field of model.fields; let i = index"
+					class="row border-top border-light py-1"
+					[class.border-top-0]="i === 0"
+				>
+					<app-model-field
+						[field]="field"
+						(change)="onModelChange()"
+						(moveUp)="onFieldUp(field)"
+						(moveDown)="onFieldDown(field)"
+						class="col-12"
+					></app-model-field>
+				</li>
+			</ul>
+			<div class="container-fluid text-center">
+				<button
+					type="submit"
+					class="btn"
+					[class.btn-primary]="unsavedChanges"
+					[class.btn-outline-secondary]="!unsavedChanges"
+					[disabled]="model.isEmpty()"
+				>
+					{{ 'common_save' | translate }}
+				</button>
 			</div>
-		</div>
-	</div>
+		</mat-card-content>
+	</mat-card>
+
 	<div class="my-3">
 		<app-validator-details
-			[signal]="onChange"
+			[signal]="change"
 			[model]="model"
 		></app-validator-details>
 	</div>
 
-	<div class="my-3">
+	<div class="d-none my-3">
 		<div class="card">
 			<div class="card-header">
 				<div class="row">

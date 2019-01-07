@@ -1,52 +1,167 @@
-<div [formGroup]="form">
-	<div class="row">
-		<div class="col-lg-4 my-1 my-lg-0">
-			<div class="input-group">
-				<span class="input-group-addon" (click)="onUp()">
-					<span class="oi oi-caret-top"></span>
-				</span>
-				<span class="input-group-addon" (click)="onDown()">
-					<span class="oi oi-caret-bottom"></span>
-				</span>
-				<input
-					(keyup)="onDebouncedChange()"
-					formControlName="name"
-					class="form-control"
-					type="text"
-				/>
-				<div
-					*ngIf="
-						form.controls['name'].invalid &&
-						(form.controls['name'].dirty ||
-							form.controls['name'].touched)
-					"
-					class="alert alert'-danger mt-2"
-				>
-					<div *ngIf="form.controls['name'].errors.required">
-						{{ 'error_name_required' | translate }}
-					</div>
-					<div
-						*ngIf="
-							form.controls['name'].errors.pattern &&
-							!form.controls['name'].errors.required
+<!--
+	<div class="col-6 ellipsis">{{ field.name }}</div>
+	<div
+	  class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
+	>
+	  <div
+	    class="badge"
+	    [class.badge-primary]="
+							field.type === fieldType.String
 						"
-					>
-						{{ 'error_name_format' | translate }}
-					</div>
-					<div *ngIf="form.controls['name'].errors.minlength">
-						{{
-							'error_name_min_length' | translate: translateParams
-						}}
-					</div>
-					<div *ngIf="form.controls['name'].errors.maxlength">
-						{{
-							'error_name_max_length' | translate: translateParams
-						}}
-					</div>
-				</div>
+	    [class.badge-secondary]="
+							field.type === fieldType.DateTime
+						"
+	    [class.badge-success]="
+							field.type === fieldType.Number
+						"
+	    [class.badge-danger]="
+							field.type === fieldType.Boolean
+						"
+	    [class.badge-warning]="
+							field.type === fieldType.Entity
+						"
+	  >
+						<span>{{
+							field.type === fieldType.Entity
+								? getModelName(field)
+								: field.type
+						}}</span
+	            ><span *ngIf="field.subtype"
+	  >:{{ field.subtype }}</span
+	  >
+	  </div>
+	  <div class="d-flex align-items-center">
+	    <mat-icon
+	      *ngIf="field.primary"
+	      color="primary"
+	      [inline]="true"
+	    >vpn_key</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.unique"
+	      color="primary"
+	      [inline]="true"
+	    >star</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.label"
+	      color="primary"
+	      [inline]="true"
+	    >label</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.nullable"
+	      color="primary"
+	      [inline]="true"
+	    >backspace</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.multiple"
+	      color="primary"
+	      [inline]="true"
+	    >list</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.important"
+	      color="primary"
+	      [inline]="true"
+	    >error_outline</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.searchable"
+	      color="primary"
+	      [inline]="true"
+	    >search</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.sortable"
+	      color="primary"
+	      [inline]="true"
+	    >filter_list</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.isPrivate"
+	      color="primary"
+	      [inline]="true"
+	    >lock</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.internal"
+	      color="primary"
+	      [inline]="true"
+	    >code</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.restricted"
+	      color="primary"
+	      [inline]="true"
+	    >not_interested</mat-icon
+	    >
+	    <mat-icon
+	      *ngIf="field.ownership"
+	      color="primary"
+	      [inline]="true"
+	    >copyright</mat-icon
+	    >
+	  </div>
+	</div>
+-->
+
+<div [formGroup]="form" class="row align-items-center">
+	<div class="col-6 ellipsis">
+		<input formControlName="name" class="inline-input" type="text" />
+		<!--
+			<div
+			  *ngIf="
+					form.controls['name'].invalid &&
+					(form.controls['name'].dirty ||
+						form.controls['name'].touched)
+				"
+			  class="alert alert'-danger mt-2"
+			>
+			  <div *ngIf="form.controls['name'].errors.required">
+			    {{ 'error_name_required' | translate }}
+			  </div>
+			  <div
+			    *ngIf="
+						form.controls['name'].errors.pattern &&
+						!form.controls['name'].errors.required
+					"
+			  >
+			    {{ 'error_name_format' | translate }}
+			  </div>
+			  <div *ngIf="form.controls['name'].errors.minlength">
+			    {{
+			    'error_name_min_length' | translate: translateParams
+			    }}
+			  </div>
+			  <div *ngIf="form.controls['name'].errors.maxlength">
+			    {{
+			    'error_name_max_length' | translate: translateParams
+			    }}
+			  </div>
 			</div>
+		-->
+	</div>
+	<div
+		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
+	>
+		<div
+			class="badge"
+			[class.badge-primary]="field.type === fieldType.String"
+			[class.badge-secondary]="field.type === fieldType.DateTime"
+			[class.badge-success]="field.type === fieldType.Number"
+			[class.badge-danger]="field.type === fieldType.Boolean"
+			[class.badge-warning]="field.type === fieldType.Entity"
+		>
+			<span>{{
+				field.type === fieldType.Entity
+					? getModelName(field)
+					: field.type
+			}}</span
+			><span *ngIf="field.subtype">:{{ field.subtype }}</span>
 		</div>
-		<div class="col-lg-2 my-1 my-lg-0">
+		<div class="d-none">
 			<select
 				(change)="onInputChange()"
 				formControlName="type"
@@ -57,291 +172,85 @@
 					type.name
 				}}</option>
 			</select>
+			<select formControlName="reference" class="form-control">
+				<option disabled>{{ 'reference' | translate }}</option>
+				<option *ngFor="let model of models" [ngValue]="model.id">{{
+					model.name
+				}}</option>
+			</select>
+		</div>
+		<div class="d-flex align-items-center position-relative">
 			<div
-				*ngIf="
-					form.controls['type'].invalid &&
-					(form.controls['type'].dirty ||
-						form.controls['type'].touched)
-				"
-				class="alert alert-danger mt-2"
+				class="fieldsTooltip flex-column justify-content-center align-items-center mat-elevation-z1 p-2"
+				[class.active]="isTooltipDisplayed"
 			>
-				<div *ngIf="form.controls['type'].errors.required">
-					{{ 'error_type_required' | translate }}
-				</div>
-				<div
-					*ngIf="
-						form.controls['type'].errors.pattern &&
-						!form.controls['type'].errors.required
-					"
+				<p
+					class="
+			pb-2 px-2 border-bottom w-100 m-0 d-flex align-items-center justify-content-center"
+					[class.generic]="fieldOvered === 'generic'"
 				>
-					{{ 'error_type_value' | translate }}
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-2 my-1 my-lg-0">
-			<div *ngIf="models && field.type === fieldType.Entity">
-				<select
-					(change)="onDebouncedChange()"
-					formControlName="reference"
-					class="form-control"
+					{{ 'tooltip_' + fieldOvered | translate }}
+				</p>
+				<ul
+					class="fieldsTooltip__group list-unstyled d-flex flex-nowrap p-0 m-0 mt-2"
 				>
-					<option disabled>{{ 'reference' | translate }}</option>
-					<option *ngFor="let model of models" [ngValue]="model.id">{{
-						model.name
-					}}</option>
-				</select>
-				<div
-					*ngIf="
-						form.controls['reference'].invalid &&
-						(form.controls['reference'].dirty ||
-							form.controls['reference'].touched)
-					"
-					class="alert alert-danger mt-2"
-				>
-					<div *ngIf="form.controls['reference'].errors.required">
-						{{ 'error_reference_required' | translate }}
-					</div>
-					<div
-						*ngIf="
-							form.controls['reference'].errors.pattern &&
-							!form.controls['reference'].errors.required
+					<li
+						*ngFor="
+							let availableField of availableFields;
+							let i = index
 						"
-					>
-						{{ 'error_reference_value' | translate }}
-					</div>
-				</div>
-			</div>
-			<div *ngIf="field.type !== fieldType.Entity">
-				<select
-					(change)="onDebouncedChange()"
-					formControlName="subtype"
-					class="form-control"
-				>
-					<option disabled>{{ 'field_subtype' | translate }}</option>
-					<option
-						*ngFor="let subtype of field.getAvailableSubTypes()"
-						[ngValue]="subtype.value"
-					>
-						{{ subtype.name }}
-					</option>
-				</select>
-				<div
-					*ngIf="
-						form.controls['subtype'].invalid &&
-						(form.controls['subtype'].dirty ||
-							form.controls['subtype'].touched)
-					"
-					class="alert alert-danger mt-2"
-				>
-					<div *ngIf="form.controls['subtype'].errors.required">
-						{{ 'error_subtype_required' | translate }}
-					</div>
-					<div
-						*ngIf="
-							form.controls['subtype'].errors.pattern &&
-							!form.controls['subtype'].errors.required
+						class="d-flex align-items-center"
+						[class.d-none]="
+							!fields.getFieldIconName(availableField)
 						"
+						[class.px-1]="fields.getFieldIconName(availableField)"
+						(mouseover)="fieldOvered = availableField"
+						(mouseleave)="fieldOvered = 'generic'"
 					>
-						{{ 'error_subtype_value' | translate }}
-					</div>
-				</div>
+						<label
+							class="m-0 p-0 d-flex align-items-center"
+							*ngIf="fields.getFieldIconName(availableField)"
+							title="{{
+								'tooltip_' + availableField | translate
+							}}"
+							[class.active]="field[availableField]"
+						>
+							<input
+								(change)="onInputChange()"
+								[formControlName]="availableField"
+								type="checkbox"
+								autocomplete="off"
+								class="d-none"
+							/>
+							<mat-icon
+								[class.inactive]="!field[availableField]"
+								color="primary"
+								>{{
+									fields.getFieldIconName(availableField)
+								}}</mat-icon
+							>
+						</label>
+					</li>
+				</ul>
+				<div class="overlay" (click)="isTooltipDisplayed = false"></div>
 			</div>
-		</div>
-		<div class="col-lg-4 my-1 my-lg-0 text-lg-right">
-			<div class="btn-group" data-toggle="buttons">
-				<label
-					class="btn"
-					title="{{ 'tooltip_primary' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.primary,
-						'btn-outline-secondary': !field.primary
-					}"
+			<ul
+				class="list-unstyled m-0 p-0 d-flex flex-nowrap align-items-center"
+				(click)="isTooltipDisplayed = true"
+				style="cursor:pointer;"
+			>
+				<li
+					*ngFor="let availableField of availableFields"
+					[class.d-none]="!field[availableField]"
 				>
-					<input
-						(change)="onInputChange()"
-						formControlName="primary"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-key"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_unique' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.unique,
-						'btn-outline-secondary': !field.unique
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="unique"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-star"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_label' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.label,
-						'btn-outline-secondary': !field.label
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="label"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-text"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_nullable' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.nullable,
-						'btn-outline-secondary': !field.nullable
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="nullable"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-ban"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_multiple' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.multiple,
-						'btn-outline-secondary': !field.multiple
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="multiple"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-list"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_important' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.important,
-						'btn-outline-secondary': !field.important
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="important"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-warning"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_searchable' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.searchable,
-						'btn-outline-secondary': !field.searchable
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="searchable"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-magnifying-glass"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_sortable' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.sortable,
-						'btn-outline-secondary': !field.sortable
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="sortable"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-arrow-thick-bottom"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_private' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.isPrivate,
-						'btn-outline-secondary': !field.isPrivate
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="isPrivate"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-shield"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_internal' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.internal,
-						'btn-outline-secondary': !field.internal
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="internal"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-code"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_restricted' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.restricted,
-						'btn-outline-secondary': !field.restricted
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="restricted"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-lock-locked"></span>
-				</label>
-				<label
-					class="btn"
-					title="{{ 'tooltip_ownership' | translate }}"
-					[ngClass]="{
-						'btn-primary': field.ownership,
-						'btn-outline-secondary': !field.ownership
-					}"
-				>
-					<input
-						(change)="onInputChange()"
-						formControlName="ownership"
-						type="checkbox"
-						autocomplete="off"
-					/>
-					<span class="oi oi-person"></span>
-				</label>
-			</div>
+					<mat-icon [inline]="true">{{
+						fields.getFieldIconName(availableField)
+					}}</mat-icon>
+				</li>
+				<li>
+					<mat-icon color="primary" [inline]="true">add</mat-icon>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>

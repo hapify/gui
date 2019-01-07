@@ -1,12 +1,19 @@
-<div id="edit-model">
-	<div class="container-fluid">
-		<app-model-model
-			*ngIf="model"
-			[model]="model"
-			(onSave)="onSave()"
-		></app-model-model>
-		<div class="alert alert-danger" *ngIf="!model">
-			<span>{{ 'models_not_found' | translate }}</span>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-4"><app-model-root></app-model-root></div>
+		<div class="col-8">
+			<div id="edit-model">
+				<div class="container-fluid">
+					<app-model-model
+						*ngIf="model"
+						[model]="model"
+						(onSave)="onSave()"
+					></app-model-model>
+					<div class="alert alert-danger" *ngIf="!model">
+						<span>{{ 'models_not_found' | translate }}</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,4 +1,65 @@
-.input-group-addon:not(:hover) {
-	background-color: transparent;
-	color: #868e96;
+@import '~bootstrap/scss/bootstrap';
+
+mat-icon.inactive {
+	color: $gray-400;
+}
+
+.fieldsTooltip {
+	position: absolute;
+	z-index: 99999;
+	bottom: 110%;
+	right: -32px;
+	background-color: white;
+	border-radius: 4px;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.2s ease, right 0.2s ease;
+
+	&.active {
+		pointer-events: initial;
+		opacity: 1;
+		right: -16px;
+	}
+
+	* {
+		position: relative;
+		z-index: 99;
+	}
+
+	.overlay {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1;
+	}
+
+	p {
+		min-height: 48px;
+		font-size: 0.8em;
+		color: $gray-700;
+
+		&.generic {
+			color: $gray-500;
+		}
+	}
+
+	.fieldsTooltip__group {
+		li {
+			mat-icon {
+				transition: color 0.1s ease;
+			}
+			&:hover {
+				background: transparent;
+				mat-icon {
+					color: $gray-700;
+				}
+			}
+
+			label {
+				cursor: pointer;
+			}
+		}
+	}
 }

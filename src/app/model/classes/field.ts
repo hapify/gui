@@ -114,4 +114,29 @@ export class Field implements IField {
 		}
 		return [];
 	}
+
+	/**
+	 * Get the icon for the selected field
+	 *
+	 * @return {string}
+	 */
+	public getFieldIconName(fieldName: string): string {
+		const iconsMap = {
+			reference: '',
+			primary: 'vpn_key',
+			unique: 'star',
+			label: 'label',
+			nullable: 'backspace',
+			multiple: 'list',
+			important: 'error_outline',
+			searchable: 'search',
+			sortable: 'filter_list',
+			isPrivate: 'lock',
+			internal: 'code',
+			restricted: '',
+			ownership: 'copyright'
+		};
+
+		return iconsMap[fieldName];
+	}
 }

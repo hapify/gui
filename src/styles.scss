@@ -177,6 +177,29 @@ h1 {
 		font-weight: 400;
 	}
 }
-.overable li:hover {
+.overable > li:hover {
 	background-color: $gray-300;
+}
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.badge {
+	font-weight: 500 !important;
+	padding: 0.25em 0.4em 0.35em !important;
+}
+
+.inline-input {
+	border: none;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+
+	&:focus {
+		outline: none;
+		color: mat-color($hpf-app-primary);
+	}
 }

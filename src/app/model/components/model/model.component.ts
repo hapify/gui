@@ -12,14 +12,12 @@ import {
 	FormControl,
 	Validators
 } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { debounceTime } from 'rxjs/operators';
 import { IModel } from '../../interfaces/model';
 import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { Field } from '../../classes/field';
+import { StorageService } from '@app/model/services/storage.service';
 
 @Component({
 	selector: 'app-model-model',
@@ -32,15 +30,20 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 */
 	constructor(
 		private formBuilder: FormBuilder,
-		private hotKeysService: HotkeysService
+		private hotKeysService: HotkeysService,
+		private storageService: StorageService
 	) {}
 
 	/** @type {IModel} Model instance */
 	@Input() model: IModel;
-	/** @type {EventEmitter<void>} On save event */
-	@Output() onSave = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Notify save */
+	@Output() save = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify changes */
-	@Output() onChange = new EventEmitter<void>();
+	@Output() change = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Notify cloning */
+	@Output() clone = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Notify deletion */
+	@Output() delete = new EventEmitter<void>();
 	/** @type {FormGroup} */
 	form: FormGroup;
 	/** @type {number} */
@@ -52,12 +55,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 		minLength: this.minLength,
 		maxLength: this.maxLength
 	};
-	/** @type {number} The debounce delay before triggering the event */
-	private debounceTimeDelay = 300;
-	/** @type {Subject<void>} Subject for debounced keyup event */
-	private keyupSubject = new Subject<void>();
-	/** @type {Subscription[]} Subscription of the component */
-	private subscriptions: Subscription[] = [];
 	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
 	unsavedChanges = false;
 	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
@@ -69,19 +66,13 @@ export class ModelComponent implements OnInit, OnDestroy {
 		{ name: 'Authenticated', value: Access.AUTHENTICATED },
 		{ name: 'Guest', value: Access.GUEST }
 	];
+	/** @type {IModel[]} Models availables */
+	models: IModel[];
 
 	/**
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		// Subscriptions
-		this.subscriptions = [
-			this.keyupSubject
-				.pipe(debounceTime<void>(this.debounceTimeDelay))
-				.subscribe(() => {
-					this.onModelChange();
-				})
-		];
 		// Form validator
 		this.form = this.formBuilder.group({
 			name: new FormControl(this.model.name, [
@@ -100,6 +91,10 @@ export class ModelComponent implements OnInit, OnDestroy {
 				}
 			)
 		);
+		// Get available models
+		this.storageService.list().then(models => {
+			this.models = models;
+		});
 	}
 
 	/**
@@ -107,7 +102,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 */
 	ngOnDestroy() {
 		this.hotKeysService.remove(this.saveHotKeys);
-		this.subscriptions.map(s => s.unsubscribe());
 	}
 
 	/**
@@ -115,7 +109,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 */
 	onSubmit() {
 		this.updateModel();
-		this.onSave.emit();
+		this.save.emit();
 		this.unsavedChanges = false;
 	}
 
@@ -155,15 +149,8 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 * Called when a field change
 	 */
 	onModelChange() {
-		this.onChange.emit();
+		this.change.emit();
 		this.unsavedChanges = true;
-	}
-
-	/**
-	 * Called when a value change and should be debounced
-	 */
-	onDebouncedChange(): void {
-		this.keyupSubject.next();
 	}
 
 	/**

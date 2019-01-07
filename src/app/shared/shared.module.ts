@@ -5,10 +5,11 @@ import {
 	MatCardModule,
 	MatIconModule
 } from '@angular/material';
+import { ClickOutsideModule } from 'ng4-click-outside';
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule],
-	exports: [MatIconModule, MatButtonModule, MatCardModule]
+	imports: [CommonModule, ClickOutsideModule],
+	exports: [MatIconModule, MatButtonModule, MatCardModule, ClickOutsideModule]
 })
 export class SharedModule {}

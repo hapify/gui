@@ -2,19 +2,23 @@
 	<app-header></app-header>
 	<section class="row px-4 py-5">
 		<div class="col-12">
-			<ul
-				class="m-0 p-0 list-unstyled d-flex flex-column align-content-stretch overable"
-			>
+			<ul class="row m-0 p-0 list-unstyled">
 				<li
-					*ngFor="let model of models; let i = index"
-					class="border-bottom border-light"
-					[class.border-top]="i === 0"
+					*ngFor="let model of models"
+					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
 				>
-					<app-model-model-row
+					<!--
+						<app-model-model-row
+							[model]="model"
+							(onClone)="cloneModel(model)"
+							(onDelete)="deleteModel(model)"
+						></app-model-model-row>
+					-->
+					<app-model-model
 						[model]="model"
-						(onClone)="cloneModel(model)"
-						(onDelete)="deleteModel(model)"
-					></app-model-model-row>
+						(clone)="onClone(model)"
+						(delete)="onDelete(model)"
+					></app-model-model>
 				</li>
 			</ul>
 		</div>

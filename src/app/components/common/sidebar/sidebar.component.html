@@ -1,23 +1,19 @@
-<nav
-	class="px-3"
-	[class.reduced]="reduced"
-	[class.sm]="breakpoint.label === 'sm'"
->
+<nav class="px-3 {{ breakpoint.label }} {{ reduced ? 'reduced' : '' }}">
 	<a
 		routerLink="/"
-		class="hpflogofont d-sm-none py-4 px-3"
-		[class.d-md-block]="!reduced"
+		class="hpflogofont d-none py-4 px-3"
+		[class.d-lg-block]="!reduced"
 		color="white"
 		>HAPIfy</a
 	>
 	<a
 		routerLink="/"
-		class="hpflogofont d-sm-block py-4 text-center"
-		[class.d-md-none]="!reduced"
+		class="hpflogofont d-block py-4 text-center"
+		[class.d-lg-none]="!reduced"
 		color="white"
 		>[H]</a
 	>
-	<p class="d-sm-none mb-3 px-3" [class.d-md-block]="!reduced">
+	<p class="d-none mb-3 px-3" [class.d-lg-block]="!reduced">
 		Mon super projet
 	</p>
 	<ul class="list-unstyled pt-5 d-flex w-100 flex-column align-items-center">
@@ -27,12 +23,12 @@
 				color="primary"
 				[routerLinkActive]="['active']"
 				[routerLink]="['/model']"
-				class="d-flex align-items-center justify-content-sm-center mat-elevation-z0"
-				[class.justify-content-md-start]="!reduced"
+				class="d-flex align-items-center justify-content-center mat-elevation-z0"
+				[class.justify-content-lg-start]="!reduced"
 			>
-				<mat-icon class="mr-sm-0" [class.mr-md-2]="!reduced"
+				<mat-icon class="mr-md-0" [class.mr-lg-2]="!reduced"
 					>home</mat-icon
-				><span class="d-sm-none" [class.d-md-inline]="!reduced">{{
+				><span class="d-none" [class.d-lg-inline]="!reduced">{{
 					'nav_model' | translate
 				}}</span>
 			</a>
@@ -43,12 +39,12 @@
 				color="primary"
 				[routerLinkActive]="['active']"
 				[routerLink]="['/preset']"
-				class="d-flex align-items-center justify-content-sm-center mat-elevation-z0"
-				[class.justify-content-md-start]="!reduced"
+				class="d-flex align-items-center justify-content-center mat-elevation-z0"
+				[class.justify-content-lg-start]="!reduced"
 			>
-				<mat-icon class="mr-sm-0" [class.mr-md-2]="!reduced"
+				<mat-icon class="mr-md-0" [class.mr-lg-2]="!reduced"
 					>input</mat-icon
-				><span class="d-sm-none" [class.d-md-inline]="!reduced">{{
+				><span class="d-none" [class.d-lg-inline]="!reduced">{{
 					'nav_preset' | translate
 				}}</span>
 			</a>
@@ -59,12 +55,12 @@
 				color="primary"
 				[routerLinkActive]="['active']"
 				[routerLink]="['/channel']"
-				class="d-flex align-items-center justify-content-sm-center mat-elevation-z0"
-				[class.justify-content-md-start]="!reduced"
+				class="d-flex align-items-center justify-content-center mat-elevation-z0"
+				[class.justify-content-lg-start]="!reduced"
 			>
-				<mat-icon class="mr-sm-0" [class.mr-md-2]="!reduced"
+				<mat-icon class="mr-md-0" [class.mr-lg-2]="!reduced"
 					>format_list_bulleted</mat-icon
-				><span class="d-sm-none" [class.d-md-inline]="!reduced">{{
+				><span class="d-none" [class.d-lg-inline]="!reduced">{{
 					'nav_channel' | translate
 				}}</span>
 			</a>
@@ -75,12 +71,12 @@
 				color="primary"
 				[routerLinkActive]="['active']"
 				[routerLink]="['/documentation']"
-				class="d-flex align-items-center justify-content-sm-center mat-elevation-z0"
-				[class.justify-content-md-start]="!reduced"
+				class="d-flex align-items-center justify-content-center mat-elevation-z0"
+				[class.justify-content-lg-start]="!reduced"
 			>
-				<mat-icon class="mr-sm-0" [class.mr-md-2]="!reduced"
+				<mat-icon class="mr-md-0" [class.mr-lg-2]="!reduced"
 					>assignment</mat-icon
-				><span class="d-sm-none" [class.d-md-inline]="!reduced">{{
+				><span class="d-none" [class.d-lg-inline]="!reduced">{{
 					'nav_documentation' | translate
 				}}</span>
 			</a>

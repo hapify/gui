@@ -5,6 +5,7 @@ app-sidebar {
 	overflow-x: hidden;
 
 	&.sm,
+	&.md,
 	&.reduced {
 		flex-basis: 80px;
 	}

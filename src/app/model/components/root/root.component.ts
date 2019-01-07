@@ -31,7 +31,7 @@ export class RootComponent implements OnInit {
 	/**
 	 * Called when the user update the model
 	 */
-	deleteModel(model: IModel): void {
+	onDelete(model: IModel): void {
 		// Store the model
 		this.storageService.remove(model).then(() => this.updateModels());
 	}
@@ -39,7 +39,7 @@ export class RootComponent implements OnInit {
 	/**
 	 * Called when the user update the model
 	 */
-	cloneModel(model: IModel): void {
+	onClone(model: IModel): void {
 		// Store the model
 		this.storageService.add(model.clone()).then(() => this.updateModels());
 	}

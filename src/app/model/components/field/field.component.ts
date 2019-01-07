@@ -12,13 +12,11 @@ import {
 	FormControl,
 	Validators
 } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '../../services/storage.service';
-import { IField } from '../../interfaces/field';
+import { IField, IFieldBase } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
+import { Field } from '@app/model/classes/field';
 
 @Component({
 	selector: 'app-model-field',
@@ -40,11 +38,11 @@ export class FieldComponent implements OnInit, OnDestroy {
 	/** @type {IField} New field instance */
 	@Input() field: IField;
 	/** @type {EventEmitter<void>} Notify changes */
-	@Output() onChange = new EventEmitter<void>();
+	@Output() change = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Request for move up */
-	@Output() onMoveUp = new EventEmitter<void>();
+	@Output() moveUp = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Request for move down */
-	@Output() onMoveDown = new EventEmitter<void>();
+	@Output() moveDown = new EventEmitter<void>();
 	/** @type {FormGroup} */
 	form: FormGroup;
 	/** @type {number} */
@@ -62,26 +60,15 @@ export class FieldComponent implements OnInit, OnDestroy {
 	types = this.fieldType.list();
 	/** Available models */
 	models: IModel[];
-	/** @type {number} The debounce delay before triggering the event */
-	private debounceTimeDelay = 300;
-	/** @type {Subject<void>} Subject for debounced keyup event */
-	private keyupSubject = new Subject<void>();
-	/** @type {Subscription[]} Subscription of the component */
-	private subscriptions: Subscription[] = [];
+	fields = new Field();
+	availableFields = Object.keys(this.fields);
+	fieldOvered = 'generic';
+	isTooltipDisplayed = false;
 
 	/**
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		// Subscriptions
-		this.subscriptions = [
-			this.keyupSubject
-				.pipe(debounceTime<void>(this.debounceTimeDelay))
-				.subscribe(() => {
-					this.updateModel();
-					this.onChange.emit();
-				})
-		];
 		// Get available models
 		this.storageService.list().then(models => {
 			this.models = models;
@@ -133,16 +120,14 @@ export class FieldComponent implements OnInit, OnDestroy {
 	/**
 	 * Destroy
 	 */
-	ngOnDestroy() {
-		this.subscriptions.map(s => s.unsubscribe());
-	}
+	ngOnDestroy() {}
 
 	/**
 	 * Called when a value change
 	 */
 	onInputChange() {
 		this.updateModel();
-		this.onChange.emit();
+		this.change.emit();
 	}
 
 	/**
@@ -150,7 +135,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 */
 	onUp() {
 		this.updateModel();
-		this.onMoveUp.emit();
+		this.moveUp.emit();
 	}
 
 	/**
@@ -158,14 +143,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 */
 	onDown() {
 		this.updateModel();
-		this.onMoveDown.emit();
-	}
-
-	/**
-	 * Called when a value change and should be debounced
-	 */
-	onDebouncedChange(): void {
-		this.keyupSubject.next();
+		this.moveDown.emit();
 	}
 
 	/** Update models properties from inputs values */
@@ -173,5 +151,19 @@ export class FieldComponent implements OnInit, OnDestroy {
 		for (const key of Object.keys(this.form.controls)) {
 			this.field[key] = this.form.get(key).value;
 		}
+	}
+
+	/**
+	 * Get the model name for an entity reference
+	 *
+	 * @param {IField} field
+	 * @return {string|null}
+	 */
+	getModelName(field: IField) {
+		if (field.type !== FieldType.Entity || !this.models) {
+			return null;
+		}
+		const model = this.models.find(m => m.id === field.reference);
+		return model ? model.name : '-';
 	}
 }

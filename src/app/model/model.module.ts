@@ -20,6 +20,7 @@ import { StorageService } from './services/storage.service';
 import { ModelUmlBoxComponent } from './components/model-uml-box/model-uml-box.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import { HeaderComponent } from './components/header/header.component';
 		TranslateModuleLoad(),
 		TooltipModule.forRoot(),
 		AlertModule.forRoot(),
-		SharedModule
+		SharedModule,
+		NgxMasonryModule
 	],
 	declarations: [
 		ModelComponent,

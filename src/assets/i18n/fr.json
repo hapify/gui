@@ -57,6 +57,7 @@
 	"template_input": "Type d'entrée",
 	"template_open_editor": "Ouvrir l'éditeur",
 	"template_show": "Afficher",
+	"tooltip_generic": "Choisissez les attributs pour ce champs",
 	"tooltip_important": "Est-ce une donnée importante ?",
 	"tooltip_internal": "Cette donnée est définie par le système ?",
 	"tooltip_label": "Cette donnée sert de nom ?",
