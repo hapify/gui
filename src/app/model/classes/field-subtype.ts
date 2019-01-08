@@ -33,7 +33,7 @@ export class FieldSubType {
 	 * @returns {ILabelledValue[]}
 	 */
 	static boolean(): ILabelledValue[] {
-		return [{ name: '-', value: FieldSubType.Boolean.Default }];
+		return [{ name: 'Default', value: FieldSubType.Boolean.Default }];
 	}
 
 	/**
@@ -43,7 +43,7 @@ export class FieldSubType {
 	 */
 	static number(): ILabelledValue[] {
 		return [
-			{ name: '-', value: FieldSubType.Number.Default },
+			{ name: 'Default', value: FieldSubType.Number.Default },
 			{ name: 'Integer', value: FieldSubType.Number.Integer },
 			{ name: 'Float', value: FieldSubType.Number.Float },
 			{ name: 'Latitude', value: FieldSubType.Number.Latitude },
@@ -58,7 +58,7 @@ export class FieldSubType {
 	 */
 	static string(): ILabelledValue[] {
 		return [
-			{ name: '-', value: FieldSubType.String.Default },
+			{ name: 'Default', value: FieldSubType.String.Default },
 			{ name: 'Email', value: FieldSubType.String.Email },
 			{ name: 'Password', value: FieldSubType.String.Password },
 			{ name: 'Text', value: FieldSubType.String.Text },
@@ -73,7 +73,7 @@ export class FieldSubType {
 	 */
 	static datetime(): ILabelledValue[] {
 		return [
-			{ name: '-', value: FieldSubType.DateTime.Default },
+			{ name: 'Default', value: FieldSubType.DateTime.Default },
 			{ name: 'Date', value: FieldSubType.DateTime.Date },
 			{ name: 'Time', value: FieldSubType.DateTime.Time }
 		];
@@ -85,6 +85,6 @@ export class FieldSubType {
 	 * @returns {ILabelledValue[]}
 	 */
 	static entity(): ILabelledValue[] {
-		return [{ name: '-', value: FieldSubType.Entity.Default }];
+		return [{ name: 'Empty', value: FieldSubType.Entity.Default }];
 	}
 }

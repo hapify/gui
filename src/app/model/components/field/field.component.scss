@@ -1,6 +1,33 @@
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_variables.scss';
 
+$string: #799599;
+$datetime: #3cbacc;
+$number: #59e3a8;
+$boolean: #ffa4a4;
+$entity: #d93c89;
+
+.badge {
+	cursor: pointer;
+	border-radius: 4px;
+	color: $white;
+	&.badge-string {
+		background-color: $string;
+	}
+	&.badge-datetime {
+		background-color: $datetime;
+	}
+	&.badge-number {
+		background-color: $number;
+	}
+	&.badge-boolean {
+		background-color: $boolean;
+	}
+	&.badge-entity {
+		background-color: $entity;
+	}
+}
+
 mat-icon.inactive {
 	color: $gray-600;
 }
@@ -75,5 +102,61 @@ mat-icon.inactive {
 
 	&.active {
 		right: 50%;
+	}
+
+	mat-icon {
+		cursor: pointer;
+		transition: color 0.1s ease;
+		&:hover {
+			color: $gray-600;
+		}
+	}
+
+	li {
+		font-size: 1em;
+		.field {
+			cursor: pointer;
+			[type='radio'] {
+				& + span {
+					border-radius: 4px;
+					transition: background-color 0.1s ease, color 0.1s ease;
+					&.field-string {
+						color: $string;
+					}
+					&.field-datetime {
+						color: $datetime;
+					}
+					&.field-number {
+						color: $number;
+					}
+					&.field-boolean {
+						color: $boolean;
+					}
+					&.field-entity {
+						color: $entity;
+					}
+				}
+
+				&:checked + span,
+				& + span:hover {
+					color: $white;
+					&.field-string {
+						background-color: $string;
+					}
+					&.field-datetime {
+						background-color: $datetime;
+					}
+					&.field-number {
+						background-color: $number;
+					}
+					&.field-boolean {
+						background-color: $boolean;
+					}
+					&.field-entity {
+						background-color: $entity;
+					}
+				}
+			}
+		}
 	}
 }

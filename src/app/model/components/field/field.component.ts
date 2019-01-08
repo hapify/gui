@@ -4,7 +4,8 @@ import {
 	OnDestroy,
 	Input,
 	Output,
-	EventEmitter
+	EventEmitter,
+	ChangeDetectorRef
 } from '@angular/core';
 import {
 	FormBuilder,
@@ -13,10 +14,11 @@ import {
 	Validators
 } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
-import { IField, IFieldBase } from '../../interfaces/field';
+import { IField } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
 import { Field } from '@app/model/classes/field';
+import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 
 @Component({
 	selector: 'app-model-field',
@@ -32,7 +34,8 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 */
 	constructor(
 		private storageService: StorageService,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private cd: ChangeDetectorRef
 	) {}
 
 	/** @type {IField} New field instance */
@@ -58,10 +61,13 @@ export class FieldComponent implements OnInit, OnDestroy {
 	fieldType = FieldType;
 	/** Availables types */
 	types = this.fieldType.list();
+	/** Availables subtypes */
+	subtypes: ILabelledValue[] = [];
 	/** Available models */
 	models: IModel[];
 
 	isTypesTooltipDisplayed = false;
+	isSubtypesTooltipDisplayed = false;
 
 	/** Available fields */
 	fields = new Field();
@@ -119,6 +125,8 @@ export class FieldComponent implements OnInit, OnDestroy {
 				Validators.required
 			])
 		});
+
+		this.subtypes = this.field.getAvailableSubTypes();
 	}
 
 	/**
@@ -155,6 +163,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 		for (const key of Object.keys(this.form.controls)) {
 			this.field[key] = this.form.get(key).value;
 		}
+		this.subtypes = this.field.getAvailableSubTypes();
 	}
 
 	/**
@@ -169,5 +178,9 @@ export class FieldComponent implements OnInit, OnDestroy {
 		}
 		const model = this.models.find(m => m.id === field.reference);
 		return model ? model.name : '-';
+	}
+
+	toggleSubtypesTooltip(type: ILabelledValue) {
+		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
 	}
 }
