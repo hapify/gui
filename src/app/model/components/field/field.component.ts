@@ -60,10 +60,14 @@ export class FieldComponent implements OnInit, OnDestroy {
 	types = this.fieldType.list();
 	/** Available models */
 	models: IModel[];
+
+	isTypesTooltipDisplayed = false;
+
+	/** Available fields */
 	fields = new Field();
 	availableFields = Object.keys(this.fields);
 	fieldOvered = 'generic';
-	isTooltipDisplayed = false;
+	isFieldsTooltipDisplayed = false;
 
 	/**
 	 * @inheritDoc

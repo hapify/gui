@@ -1,15 +1,16 @@
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/_functions.scss';
+@import '~bootstrap/scss/_variables.scss';
 
 mat-icon.inactive {
-	color: $gray-400;
+	color: $gray-600;
 }
 
-.fieldsTooltip {
+.fieldsTooltip,
+.typesTooltip {
 	position: absolute;
 	z-index: 99999;
 	bottom: 110%;
-	right: -32px;
-	background-color: white;
+	background-color: rgba(255, 255, 255, 0.95);
 	border-radius: 4px;
 	pointer-events: none;
 	opacity: 0;
@@ -23,7 +24,7 @@ mat-icon.inactive {
 
 	* {
 		position: relative;
-		z-index: 99;
+		z-index: 99999;
 	}
 
 	.overlay {
@@ -32,8 +33,12 @@ mat-icon.inactive {
 		right: 0;
 		bottom: 0;
 		left: 0;
-		z-index: 1;
+		z-index: 99998;
 	}
+}
+
+.fieldsTooltip {
+	right: -32px;
 
 	p {
 		min-height: 48px;
@@ -41,11 +46,12 @@ mat-icon.inactive {
 		color: $gray-700;
 
 		&.generic {
-			color: $gray-500;
+			color: $gray-600;
 		}
 	}
 
 	.fieldsTooltip__group {
+		position: relative;
 		li {
 			mat-icon {
 				transition: color 0.1s ease;
@@ -61,5 +67,13 @@ mat-icon.inactive {
 				cursor: pointer;
 			}
 		}
+	}
+}
+
+.typesTooltip {
+	right: 45%;
+
+	&.active {
+		right: 50%;
 	}
 }

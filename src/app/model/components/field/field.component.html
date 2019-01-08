@@ -1,112 +1,3 @@
-<!--
-	<div class="col-6 ellipsis">{{ field.name }}</div>
-	<div
-	  class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
-	>
-	  <div
-	    class="badge"
-	    [class.badge-primary]="
-							field.type === fieldType.String
-						"
-	    [class.badge-secondary]="
-							field.type === fieldType.DateTime
-						"
-	    [class.badge-success]="
-							field.type === fieldType.Number
-						"
-	    [class.badge-danger]="
-							field.type === fieldType.Boolean
-						"
-	    [class.badge-warning]="
-							field.type === fieldType.Entity
-						"
-	  >
-						<span>{{
-							field.type === fieldType.Entity
-								? getModelName(field)
-								: field.type
-						}}</span
-	            ><span *ngIf="field.subtype"
-	  >:{{ field.subtype }}</span
-	  >
-	  </div>
-	  <div class="d-flex align-items-center">
-	    <mat-icon
-	      *ngIf="field.primary"
-	      color="primary"
-	      [inline]="true"
-	    >vpn_key</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.unique"
-	      color="primary"
-	      [inline]="true"
-	    >star</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.label"
-	      color="primary"
-	      [inline]="true"
-	    >label</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.nullable"
-	      color="primary"
-	      [inline]="true"
-	    >backspace</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.multiple"
-	      color="primary"
-	      [inline]="true"
-	    >list</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.important"
-	      color="primary"
-	      [inline]="true"
-	    >error_outline</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.searchable"
-	      color="primary"
-	      [inline]="true"
-	    >search</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.sortable"
-	      color="primary"
-	      [inline]="true"
-	    >filter_list</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.isPrivate"
-	      color="primary"
-	      [inline]="true"
-	    >lock</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.internal"
-	      color="primary"
-	      [inline]="true"
-	    >code</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.restricted"
-	      color="primary"
-	      [inline]="true"
-	    >not_interested</mat-icon
-	    >
-	    <mat-icon
-	      *ngIf="field.ownership"
-	      color="primary"
-	      [inline]="true"
-	    >copyright</mat-icon
-	    >
-	  </div>
-	</div>
--->
-
 <div [formGroup]="form" class="row align-items-center">
 	<div class="col-6 ellipsis">
 		<input formControlName="name" class="inline-input" type="text" />
@@ -154,35 +45,83 @@
 			[class.badge-danger]="field.type === fieldType.Boolean"
 			[class.badge-warning]="field.type === fieldType.Entity"
 		>
-			<span>{{
+			<span (click)="isTypesTooltipDisplayed = true">{{
 				field.type === fieldType.Entity
 					? getModelName(field)
 					: field.type
 			}}</span
-			><span *ngIf="field.subtype">:{{ field.subtype }}</span>
+			><span
+				*ngIf="field.subtype"
+				(click)="isTypesTooltipDisplayed = true"
+				>:{{ field.subtype }}</span
+			>
+			<div
+				class="typesTooltip flex-row flex-nowrap justify-content-center align-items-center p-2 border border-hpf-primary"
+				[class.active]="isTypesTooltipDisplayed"
+			>
+				<ul class="list-unstyled d-flex flex-nowrap m-0 p-0">
+					<li
+						*ngFor="let type of types"
+						class="badge m-0"
+						[class.badge-primary]="type.value === fieldType.String"
+						[class.badge-secondary]="
+							type.value === fieldType.DateTime
+						"
+						[class.badge-success]="type.value === fieldType.Number"
+						[class.badge-danger]="type.value === fieldType.Boolean"
+						[class.badge-warning]="type.value === fieldType.Entity"
+					>
+						<label class="m-0">
+							<input
+								type="radio"
+								name="type"
+								[id]="type.name"
+								[value]="type.value"
+								class="d-none"
+							/>
+							<span> {{ type.name }} </span>
+						</label>
+					</li>
+				</ul>
+				<div
+					class="overlay"
+					(click)="isTypesTooltipDisplayed = false"
+				></div>
+			</div>
 		</div>
 		<div class="d-none">
-			<select
-				(change)="onInputChange()"
-				formControlName="type"
-				class="form-control"
-			>
-				<option disabled>{{ 'field_type' | translate }}</option>
-				<option *ngFor="let type of types" [ngValue]="type.value">{{
-					type.name
-				}}</option>
-			</select>
-			<select formControlName="reference" class="form-control">
-				<option disabled>{{ 'reference' | translate }}</option>
-				<option *ngFor="let model of models" [ngValue]="model.id">{{
-					model.name
-				}}</option>
-			</select>
+			<mat-form-field>
+				<mat-select
+					formControlName="type"
+					(selectionChange)="onInputChange()"
+				>
+					<mat-option *ngFor="let type of types" [value]="type.value">
+						{{ type.name }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<!-- <mat-form-field *ngIf="models && field.type === fieldType.Entity">
+         <mat-select formControlName="reference" (selectionChange)="onInputChange()">
+           <mat-option *ngFor="let model of models" [value]="model.id">
+             {{ model.name }}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>-->
+
+			<!--<mat-form-field *ngIf="field.type !== fieldType.Entity">
+        <mat-select formControlName="subtype">
+          <mat-option *ngFor="let subtype of field.getAvailableSubTypes()" [value]="subtype.value">
+            {{ subtype.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>-->
 		</div>
+
 		<div class="d-flex align-items-center position-relative">
 			<div
-				class="fieldsTooltip flex-column justify-content-center align-items-center mat-elevation-z1 p-2"
-				[class.active]="isTooltipDisplayed"
+				class="fieldsTooltip flex-column justify-content-center align-items-center p-2 border border-hpf-primary"
+				[class.active]="isFieldsTooltipDisplayed"
 			>
 				<p
 					class="
@@ -232,11 +171,14 @@
 						</label>
 					</li>
 				</ul>
-				<div class="overlay" (click)="isTooltipDisplayed = false"></div>
+				<div
+					class="overlay"
+					(click)="isFieldsTooltipDisplayed = false"
+				></div>
 			</div>
 			<ul
 				class="list-unstyled m-0 p-0 d-flex flex-nowrap align-items-center"
-				(click)="isTooltipDisplayed = true"
+				(click)="isFieldsTooltipDisplayed = true"
 				style="cursor:pointer;"
 			>
 				<li

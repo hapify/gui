@@ -163,10 +163,14 @@ body {
 
 [class*='border'] {
 	border-color: $gray-500 !important;
-}
 
-.border-light {
-	border-color: $gray-400 !important;
+	&.border-light {
+		border-color: $gray-400 !important;
+	}
+
+	&.border-hpf-primary {
+		border-color: mat-color($hpf-app-primary) !important;
+	}
 }
 
 h1 {
