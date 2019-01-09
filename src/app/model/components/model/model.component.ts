@@ -37,7 +37,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 	/** @type {IModel} Model instance */
 	@Input() model: IModel;
 	/** @type {EventEmitter<void>} Notify save */
-	@Output() save = new EventEmitter<void>();
+	@Output() save = new EventEmitter<IModel>();
 	/** @type {EventEmitter<void>} Notify changes */
 	@Output() change = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify cloning */
@@ -86,7 +86,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 			new Hotkey(
 				'meta+s',
 				(event: KeyboardEvent): boolean => {
-					this.onSubmit();
+					this.submit();
 					return false;
 				}
 			)
@@ -107,9 +107,9 @@ export class ModelComponent implements OnInit, OnDestroy {
 	/**
 	 * Called when the user click on "save"
 	 */
-	onSubmit() {
+	submit() {
 		this.updateModel();
-		this.save.emit();
+		this.save.emit(this.model);
 		this.unsavedChanges = false;
 	}
 
@@ -149,8 +149,10 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 * Called when a field change
 	 */
 	onModelChange() {
+		console.log('DEDED');
 		this.change.emit();
 		this.unsavedChanges = true;
+		this.submit();
 	}
 
 	/**

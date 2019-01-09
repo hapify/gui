@@ -1,5 +1,10 @@
-.validator-details {
-	.small {
-		font-size: 12px;
-	}
+@import '../../../../theme.scss';
+
+.border {
+	border-color: mat-color($hpf-app-warn) !important;
+	background-color: mat-color($hpf-app-warn, 50);
+}
+
+pre {
+	font-size: 0.8em;
 }

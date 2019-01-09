@@ -16,6 +16,7 @@
 					-->
 					<app-model-model
 						[model]="model"
+						(save)="onSave($event)"
 						(clone)="onClone(model)"
 						(delete)="onDelete(model)"
 					></app-model-model>

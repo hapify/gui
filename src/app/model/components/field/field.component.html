@@ -1,6 +1,11 @@
 <div [formGroup]="form" class="row align-items-center">
 	<div class="col-6 ellipsis">
-		<input formControlName="name" class="inline-input" type="text" />
+		<input
+			formControlName="name"
+			class="inline-input"
+			type="text"
+			(change)="onInputChange()"
+		/>
 		<!--
 			<div
 			  *ngIf="
@@ -45,11 +50,16 @@
 			[class.badge-boolean]="field.type === fieldType.Boolean"
 			[class.badge-entity]="field.type === fieldType.Entity"
 		>
-			<span (click)="isTypesTooltipDisplayed = true">{{
-				field.type === fieldType.Entity
-					? getModelName(field)
-					: field.type
-			}}</span
+			<span
+				(click)="
+					isTypesTooltipDisplayed = true;
+					isSubtypesTooltipDisplayed = false
+				"
+				>{{
+					field.type === fieldType.Entity
+						? getModelName(field)
+						: field.type
+				}}</span
 			><span
 				*ngIf="field.subtype"
 				(click)="isTypesTooltipDisplayed = true"
@@ -122,6 +132,25 @@
 					"
 				>
 					<li
+						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
+					>
+						<span
+							[class.fieldTitle-string]="
+								field.type === fieldType.String
+							"
+							[class.fieldTitle-datetime]="
+								field.type === fieldType.DateTime
+							"
+							[class.fieldTitle-number]="
+								field.type === fieldType.Number
+							"
+							[class.fieldTitle-boolean]="
+								field.type === fieldType.Boolean
+							"
+							>{{ field.type }}</span
+						>
+					</li>
+					<li
 						*ngFor="let subtype of subtypes; let i = index"
 						class="m-1"
 						[class.ml-0]="i === 1"
@@ -169,6 +198,10 @@
 						!isSubtypesTooltipDisplayed
 					"
 				>
+					<li>
+						<span class="fieldTitle-entity">{{ field.type }}</span>
+						|
+					</li>
 					<li
 						*ngFor="let model of models; let i = index"
 						class="m-1"
@@ -191,10 +224,7 @@
 				</ul>
 				<div
 					class="overlay"
-					(click)="
-						isTypesTooltipDisplayed = false;
-						isSubtypesTooltipDisplayed = false
-					"
+					(click)="isTypesTooltipDisplayed = false"
 				></div>
 			</div>
 		</div>
@@ -258,9 +288,8 @@
 				></div>
 			</div>
 			<ul
-				class="list-unstyled m-0 p-0 d-flex flex-nowrap align-items-center"
+				class="list-unstyled m-0 p-0 d-flex flex-nowrap align-items-center selectedFields"
 				(click)="isFieldsTooltipDisplayed = true"
-				style="cursor:pointer;"
 			>
 				<li
 					*ngFor="let availableField of availableFields"
@@ -270,7 +299,7 @@
 						fields.getFieldIconName(availableField)
 					}}</mat-icon>
 				</li>
-				<li>
+				<li *ngIf="noSelectedField">
 					<mat-icon color="primary" [inline]="true">add</mat-icon>
 				</li>
 			</ul>

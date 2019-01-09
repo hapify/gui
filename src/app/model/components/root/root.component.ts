@@ -44,6 +44,11 @@ export class RootComponent implements OnInit {
 		this.storageService.add(model.clone()).then(() => this.updateModels());
 	}
 
+	onSave(model: IModel): void {
+		console.log('SAVE', model);
+		this.storageService.update(model);
+	}
+
 	/**
 	 * Update models with storage
 	 *

@@ -4,8 +4,7 @@ import {
 	OnDestroy,
 	Input,
 	Output,
-	EventEmitter,
-	ChangeDetectorRef
+	EventEmitter
 } from '@angular/core';
 import {
 	FormBuilder,
@@ -34,8 +33,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 */
 	constructor(
 		private storageService: StorageService,
-		private formBuilder: FormBuilder,
-		private cd: ChangeDetectorRef
+		private formBuilder: FormBuilder
 	) {}
 
 	/** @type {IField} New field instance */
@@ -74,6 +72,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	availableFields = Object.keys(this.fields);
 	fieldOvered = 'generic';
 	isFieldsTooltipDisplayed = false;
+	noSelectedField = false;
 
 	/**
 	 * @inheritDoc
@@ -127,6 +126,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 		});
 
 		this.subtypes = this.field.getAvailableSubTypes();
+		this.areSelectedFields();
 	}
 
 	/**
@@ -164,6 +164,23 @@ export class FieldComponent implements OnInit, OnDestroy {
 			this.field[key] = this.form.get(key).value;
 		}
 		this.subtypes = this.field.getAvailableSubTypes();
+		this.areSelectedFields();
+	}
+
+	/**Detect if at least one field attribute has been defined*/
+	private areSelectedFields(): void {
+		this.noSelectedField = true;
+		for (const key of Object.keys(this.form.controls)) {
+			if (
+				key !== 'name' &&
+				key !== 'type' &&
+				key !== 'subtype' &&
+				key !== 'reference' &&
+				this.field[key]
+			) {
+				this.noSelectedField = false;
+			}
+		}
 	}
 
 	/**
@@ -180,6 +197,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 		return model ? model.name : '-';
 	}
 
+	/** Display subtypes in tooltip */
 	toggleSubtypesTooltip(type: ILabelledValue) {
 		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
 	}

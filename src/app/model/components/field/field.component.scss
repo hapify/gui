@@ -3,7 +3,7 @@
 
 $string: #799599;
 $datetime: #3cbacc;
-$number: #59e3a8;
+$number: #52d19b;
 $boolean: #ffa4a4;
 $entity: #d93c89;
 
@@ -114,6 +114,23 @@ mat-icon.inactive {
 
 	li {
 		font-size: 1em;
+
+		.fieldTitle-string {
+			color: $string;
+		}
+		.fieldTitle-datetime {
+			color: $datetime;
+		}
+		.fieldTitle-number {
+			color: $number;
+		}
+		.fieldTitle-boolean {
+			color: $boolean;
+		}
+		.fieldTitle-entity {
+			color: $entity;
+		}
+
 		.field {
 			cursor: pointer;
 			[type='radio'] {
@@ -158,5 +175,12 @@ mat-icon.inactive {
 				}
 			}
 		}
+	}
+}
+
+.selectedFields {
+	cursor: pointer;
+	mat-icon:not(.mat-primary) {
+		color: $gray-600;
 	}
 }

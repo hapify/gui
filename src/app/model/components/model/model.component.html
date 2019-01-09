@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (submit)="submit()">
 	<mat-card>
 		<div
 			class="d-flex w-100 align-items-center justify-content-start flex-nowrap border-bottom pb-2 mb-2"
@@ -11,6 +11,7 @@
 				formControlName="name"
 				class="title inline-input"
 				type="text"
+				(change)="onModelChange()"
 			/>
 			<!--
 				<div
@@ -62,91 +63,13 @@
 						class="col-12"
 					></app-model-field>
 				</li>
+				<li></li>
 			</ul>
-			<div class="container-fluid text-center">
-				<button
-					type="submit"
-					class="btn"
-					[class.btn-primary]="unsavedChanges"
-					[class.btn-outline-secondary]="!unsavedChanges"
-					[disabled]="model.isEmpty()"
-				>
-					{{ 'common_save' | translate }}
-				</button>
-			</div>
+			<app-validator-details
+				[signal]="change"
+				[model]="model"
+				class="d-block mt-2"
+			></app-validator-details>
 		</mat-card-content>
 	</mat-card>
-
-	<div class="my-3">
-		<app-validator-details
-			[signal]="change"
-			[model]="model"
-		></app-validator-details>
-	</div>
-
-	<div class="d-none my-3">
-		<div class="card">
-			<div class="card-header">
-				<div class="row">
-					<div class="col-12">
-						<span>{{ 'access_title' | translate }}</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<div class="card-body">
-						<div
-							*ngFor="let action of getActions()"
-							class="btn-toolbar mb-3"
-						>
-							<div class="btn-group" role="group">
-								<button
-									type="button"
-									class="btn btn-secondary action-label"
-									disabled
-								>
-									{{ action }}
-								</button>
-								<button
-									*ngFor="let access of accesses"
-									type="button"
-									class="btn"
-									[class.btn-outline-secondary]="
-										!isAccesseselected(action, access)
-									"
-									[class.btn-outline-primary]="
-										isAccesseselected(action, access) &&
-										model.accesses[action] !== access.value
-									"
-									[class.btn-primary]="
-										isAccesseselected(action, access) &&
-										model.accesses[action] === access.value
-									"
-									(click)="onAccessChange(action, access)"
-								>
-									{{ access.name }}
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-footer">
-				<div class="row">
-					<div class="col-12 text-right">
-						<button
-							type="submit"
-							class="btn"
-							[class.btn-primary]="unsavedChanges"
-							[class.btn-outline-secondary]="!unsavedChanges"
-							[disabled]="model.isEmpty()"
-						>
-							{{ 'common_save' | translate }}
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </form>
