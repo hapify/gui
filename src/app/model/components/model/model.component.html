@@ -1,59 +1,55 @@
 <form [formGroup]="form" (submit)="submit()">
 	<mat-card>
 		<div
-			class="d-flex w-100 align-items-center justify-content-start flex-nowrap border-bottom pb-2 mb-2"
+			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2 mb-2"
 		>
-			<app-validator-icon
-				[model]="model"
-				class="flex-shrink-0 mr-2 d-flex align-items-center"
-			></app-validator-icon>
-			<input
-				formControlName="name"
-				class="title inline-input"
-				type="text"
-				(change)="onModelChange()"
-			/>
-			<!--
-				<div
-				  *ngIf="
-						form.controls['name'].invalid &&
-						(form.controls['name'].dirty ||
-							form.controls['name'].touched)
+			<div class="d-flex align-items-center">
+				<app-validator-icon
+					[model]="model"
+					class="flex-shrink-0 mr-2 d-flex align-items-center"
+				></app-validator-icon>
+				<input
+					formControlName="name"
+					class="title inline-input"
+					type="text"
+					(change)="onModelChange()"
+				/>
+			</div>
+			<div class="d-flex align-items-center modelTools">
+				<button
+					mat-icon-button
+					matTooltip="{{ 'access_title' | translate }}"
+					(click)="
+						accessRightsPannelIsDisplayed = !accessRightsPannelIsDisplayed
 					"
-				  class="alert alert-danger mt-2"
+					[color]="accessRightsPannelIsDisplayed ? 'primary' : ''"
 				>
-				  <div *ngIf="form.controls['name'].errors.required">
-				    {{ 'error_name_required' | translate }}
-				  </div>
-				  <div
-				    *ngIf="
-							form.controls['name'].errors.pattern &&
-							!form.controls['name'].errors.required
-						"
-				  >
-				    {{ 'error_name_format' | translate }}
-				  </div>
-				  <div *ngIf="form.controls['name'].errors.minlength">
-				    {{
-				    'error_name_min_length'
-				    | translate: translateParams
-				    }}
-				  </div>
-				  <div *ngIf="form.controls['name'].errors.maxlength">
-				    {{
-				    'error_name_max_length'
-				    | translate: translateParams
-				    }}
-				  </div>
-				</div>
-			-->
+					<mat-icon>fingerprint</mat-icon>
+				</button>
+				<button
+					mat-icon-button
+					matTooltip="{{ 'models_clean_fields' | translate }}"
+				>
+					<mat-icon>delete_sweep</mat-icon>
+				</button>
+				<button mat-icon-button [matMenuTriggerFor]="menu">
+					<mat-icon>more_vert</mat-icon>
+				</button>
+				<mat-menu #menu>
+					<button mat-menu-item>
+						<mat-icon>filter_none</mat-icon>
+					</button>
+					<button mat-menu-item>
+						<mat-icon color="warn">delete_outline</mat-icon>
+					</button>
+				</mat-menu>
+			</div>
 		</div>
 		<mat-card-content>
 			<ul class="list-unstyled overable container-fluid">
 				<li
-					*ngFor="let field of model.fields; let i = index"
-					class="row border-top border-light py-1"
-					[class.border-top-0]="i === 0"
+					*ngFor="let field of model.fields"
+					class="row border-bottom border-light py-1"
 				>
 					<app-model-field
 						[field]="field"
@@ -63,8 +59,48 @@
 						class="col-12"
 					></app-model-field>
 				</li>
-				<li></li>
+				<li
+					(click)="addField()"
+					class="row align-items-center py-1 addField"
+				>
+					<div class="col-12">
+						{{ 'models_add_field' | translate }}
+					</div>
+				</li>
 			</ul>
+			<div
+				*ngIf="accessRightsPannelIsDisplayed"
+				class="container-fluid accessRights border border-hpf-primary mt-4 pt-3"
+			>
+				<div class="row">
+					<div class="col-12">
+						<h4 class="mb-3">{{ 'access_title' | translate }}</h4>
+						<ul class="list-unstyled ">
+							<li
+								*ngFor="let action of getActions()"
+								class="mb-3"
+							>
+								<mat-button-toggle-group
+									class="w-100 border-0 d-flex flex-row flex-nowrap"
+								>
+									<mat-button-toggle [disabled]="true">
+										{{ action }}
+									</mat-button-toggle>
+									<mat-button-toggle
+										*ngFor="let access of accesses"
+										(click)="onAccessChange(action, access)"
+										[class.active]="
+											isAccesseselected(action, access)
+										"
+										>{{ access.name }}</mat-button-toggle
+									>
+								</mat-button-toggle-group>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
 			<app-validator-details
 				[signal]="change"
 				[model]="model"

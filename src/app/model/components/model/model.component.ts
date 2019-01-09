@@ -69,6 +69,8 @@ export class ModelComponent implements OnInit, OnDestroy {
 	/** @type {IModel[]} Models availables */
 	models: IModel[];
 
+	accessRightsPannelIsDisplayed = false;
+
 	/**
 	 * @inheritDoc
 	 */

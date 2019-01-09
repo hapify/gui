@@ -27,3 +27,47 @@ input[type='text'] {
 		outline: none;
 	}
 }
+.addField {
+	color: mat-color($hpf-app-primary);
+	cursor: pointer;
+}
+
+::ng-deep {
+	.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+		line-height: 32px !important;
+	}
+}
+
+.accessRights {
+	font-size: 0.9em;
+	background-color: mat-color($hpf-app-primary, 50, 0.1);
+	h4 {
+		font-size: 1em;
+		font-weight: 400;
+		color: mat-color($hpf-app-primary);
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		text-align: center;
+	}
+	mat-button-toggle {
+		background-color: transparent;
+		width: inherit;
+		color: $gray-600 !important;
+
+		&.mat-button-toggle-disabled {
+			::ng-deep {
+				.mat-button-toggle-label-content {
+					text-transform: uppercase !important;
+					font-size: 0.8em;
+					color: mat-color($hpf-app-primary) !important;
+				}
+			}
+		}
+
+		&.active {
+			background-color: mat-color($hpf-app-primary, 50);
+			color: mat-color($hpf-app-primary) !important;
+			border-color: mat-color($hpf-app-primary, 100) !important;
+		}
+	}
+}
