@@ -128,6 +128,7 @@ export class Model implements IModel {
 	public filter(): void {
 		this.fields = this.fields.filter(
 			(field: IField): boolean => {
+				console.log(field);
 				return !field.isEmpty();
 			}
 		);

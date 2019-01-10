@@ -1,7 +1,7 @@
 <form [formGroup]="form" (submit)="submit()">
 	<mat-card>
 		<div
-			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2 mb-2"
+			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2"
 		>
 			<div class="d-flex align-items-center">
 				<app-validator-icon
@@ -29,6 +29,8 @@
 				<button
 					mat-icon-button
 					matTooltip="{{ 'models_clean_fields' | translate }}"
+					(click)="cleanRows = !cleanRows"
+					[color]="cleanRows ? 'warn' : ''"
 				>
 					<mat-icon>delete_sweep</mat-icon>
 				</button>
@@ -46,31 +48,9 @@
 			</div>
 		</div>
 		<mat-card-content>
-			<ul class="list-unstyled overable container-fluid">
-				<li
-					*ngFor="let field of model.fields"
-					class="row border-bottom border-light py-1"
-				>
-					<app-model-field
-						[field]="field"
-						(change)="onModelChange()"
-						(moveUp)="onFieldUp(field)"
-						(moveDown)="onFieldDown(field)"
-						class="col-12"
-					></app-model-field>
-				</li>
-				<li
-					(click)="addField()"
-					class="row align-items-center py-1 addField"
-				>
-					<div class="col-12">
-						{{ 'models_add_field' | translate }}
-					</div>
-				</li>
-			</ul>
 			<div
-				*ngIf="accessRightsPannelIsDisplayed"
-				class="container-fluid accessRights border border-hpf-primary mt-4 pt-3"
+				class="container-fluid accessRights pt-3"
+				[class.d-none]="!accessRightsPannelIsDisplayed"
 			>
 				<div class="row">
 					<div class="col-12">
@@ -100,6 +80,30 @@
 					</div>
 				</div>
 			</div>
+			<ul class="list-unstyled overable container-fluid mt-2">
+				<li
+					*ngFor="let field of model.fields"
+					class="row border-bottom border-light py-1"
+				>
+					<app-model-field
+						[field]="field"
+						[cleanRows]="cleanRows"
+						(cleanRow)="cleanFields()"
+						(change)="onModelChange()"
+						(moveUp)="onFieldUp(field)"
+						(moveDown)="onFieldDown(field)"
+						class="col-12"
+					></app-model-field>
+				</li>
+				<li
+					(click)="addField()"
+					class="row align-items-center py-2 addField"
+				>
+					<div class="col-12">
+						{{ 'models_add_field' | translate }}
+					</div>
+				</li>
+			</ul>
 
 			<app-validator-details
 				[signal]="change"

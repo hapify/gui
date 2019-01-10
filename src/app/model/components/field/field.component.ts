@@ -38,12 +38,16 @@ export class FieldComponent implements OnInit, OnDestroy {
 
 	/** @type {IField} New field instance */
 	@Input() field: IField;
+	/** @type {boolean} Rows deletion mode */
+	@Input() cleanRows = false;
 	/** @type {EventEmitter<void>} Notify changes */
 	@Output() change = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Request for move up */
 	@Output() moveUp = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Request for move down */
 	@Output() moveDown = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Request for clean row */
+	@Output() cleanRow = new EventEmitter<void>();
 	/** @type {FormGroup} */
 	form: FormGroup;
 	/** @type {number} */
@@ -200,5 +204,11 @@ export class FieldComponent implements OnInit, OnDestroy {
 	/** Display subtypes in tooltip */
 	toggleSubtypesTooltip(type: ILabelledValue) {
 		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
+	}
+
+	cleanField(): void {
+		this.form.patchValue({ name: null });
+		this.updateModel();
+		this.cleanRow.emit();
 	}
 }

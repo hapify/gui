@@ -2,42 +2,10 @@
 	<div class="col-6 ellipsis">
 		<input
 			formControlName="name"
-			class="inline-input"
+			class="inline-input w-100"
 			type="text"
 			(change)="onInputChange()"
 		/>
-		<!--
-			<div
-			  *ngIf="
-					form.controls['name'].invalid &&
-					(form.controls['name'].dirty ||
-						form.controls['name'].touched)
-				"
-			  class="alert alert'-danger mt-2"
-			>
-			  <div *ngIf="form.controls['name'].errors.required">
-			    {{ 'error_name_required' | translate }}
-			  </div>
-			  <div
-			    *ngIf="
-						form.controls['name'].errors.pattern &&
-						!form.controls['name'].errors.required
-					"
-			  >
-			    {{ 'error_name_format' | translate }}
-			  </div>
-			  <div *ngIf="form.controls['name'].errors.minlength">
-			    {{
-			    'error_name_min_length' | translate: translateParams
-			    }}
-			  </div>
-			  <div *ngIf="form.controls['name'].errors.maxlength">
-			    {{
-			    'error_name_max_length' | translate: translateParams
-			    }}
-			  </div>
-			</div>
-		-->
 	</div>
 	<div
 		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
@@ -289,8 +257,25 @@
 				></div>
 			</div>
 			<ul
-				class="list-unstyled m-0 p-0 d-flex flex-nowrap align-items-center selectedFields"
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center cleanRow"
+				[class.d-none]="!cleanRows"
+				[class.d-flex]="cleanRows"
+			>
+				<li>
+					<mat-icon
+						[inline]="true"
+						color="warn"
+						(click)="cleanField()"
+					>
+						remove_circle
+					</mat-icon>
+				</li>
+			</ul>
+			<ul
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center selectedFields"
 				(click)="isFieldsTooltipDisplayed = true"
+				[class.d-none]="cleanRows"
+				[class.d-flex]="!cleanRows"
 			>
 				<li
 					*ngFor="let availableField of availableFields"
@@ -301,7 +286,12 @@
 					}}</mat-icon>
 				</li>
 				<li *ngIf="noSelectedField">
-					<mat-icon color="primary" [inline]="true">add</mat-icon>
+					<mat-icon
+						color="primary"
+						[inline]="true"
+						matTooltip="{{ 'tooltip_generic' | translate }}"
+						>settings</mat-icon
+					>
 				</li>
 			</ul>
 		</div>

@@ -68,8 +68,9 @@ export class ModelComponent implements OnInit, OnDestroy {
 	];
 	/** @type {IModel[]} Models availables */
 	models: IModel[];
-
 	accessRightsPannelIsDisplayed = false;
+
+	cleanRows = false;
 
 	/**
 	 * @inheritDoc
@@ -151,7 +152,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 * Called when a field change
 	 */
 	onModelChange() {
-		console.log('DEDED');
 		this.change.emit();
 		this.unsavedChanges = true;
 		this.submit();

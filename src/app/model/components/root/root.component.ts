@@ -45,7 +45,6 @@ export class RootComponent implements OnInit {
 	}
 
 	onSave(model: IModel): void {
-		console.log('SAVE', model);
 		this.storageService.update(model);
 	}
 
