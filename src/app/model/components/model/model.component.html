@@ -1,5 +1,5 @@
 <form [formGroup]="form" (submit)="submit()">
-	<mat-card>
+	<mat-card class="position-relative">
 		<div
 			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2"
 		>
@@ -23,6 +23,7 @@
 						accessRightsPannelIsDisplayed = !accessRightsPannelIsDisplayed
 					"
 					[color]="accessRightsPannelIsDisplayed ? 'primary' : ''"
+					type="button"
 				>
 					<mat-icon>fingerprint</mat-icon>
 				</button>
@@ -31,23 +32,34 @@
 					matTooltip="{{ 'models_clean_fields' | translate }}"
 					(click)="cleanRows = !cleanRows"
 					[color]="cleanRows ? 'warn' : ''"
+					type="button"
 				>
 					<mat-icon>delete_sweep</mat-icon>
 				</button>
-				<button mat-icon-button [matMenuTriggerFor]="menu">
+				<button
+					mat-icon-button
+					[matMenuTriggerFor]="menu"
+					type="button"
+				>
 					<mat-icon>more_vert</mat-icon>
 				</button>
 				<mat-menu #menu>
-					<button mat-menu-item>
+					<button mat-menu-item (click)="clone.emit()" type="button">
 						<mat-icon>filter_none</mat-icon>
+						{{ 'model_duplicate' | translate }}
 					</button>
-					<button mat-menu-item>
+					<button
+						mat-menu-item
+						(click)="confirmModelDeletion = true"
+						type="button"
+					>
 						<mat-icon color="warn">delete_outline</mat-icon>
+						{{ 'model_delete' | translate }}
 					</button>
 				</mat-menu>
 			</div>
 		</div>
-		<mat-card-content>
+		<mat-card-content class="mb-0">
 			<div
 				class="container-fluid accessRights pt-3"
 				[class.d-none]="!accessRightsPannelIsDisplayed"
@@ -111,5 +123,34 @@
 				class="d-block mt-2"
 			></app-validator-details>
 		</mat-card-content>
+		<div
+			class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center confirmModelDeletion"
+			[class.active]="confirmModelDeletion"
+		>
+			<div class="bg-gradient-purple position-absolute w-100 h-100"></div>
+			<div class="position-relative">
+				<h6>{{ 'model_delete_confirm' | translate }}</h6>
+				<div class="d-flex align-items-center justify-content-center">
+					<button
+						mat-mini-fab
+						color="accent"
+						(click)="confirmModelDeletion = false"
+						class="mat-elevation-z0 mr-2"
+						type="button"
+					>
+						<mat-icon color="primary">undo</mat-icon>
+					</button>
+					<button
+						mat-mini-fab
+						color="warn"
+						(click)="delete.emit()"
+						class="mat-elevation-z0"
+						type="button"
+					>
+						<mat-icon>delete_forever</mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
 	</mat-card>
 </form>

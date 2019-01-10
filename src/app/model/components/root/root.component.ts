@@ -32,7 +32,8 @@ export class RootComponent implements OnInit {
 	 * Called when the user update the model
 	 */
 	onDelete(model: IModel): void {
-		// Store the model
+		console.log(model.toObject().name);
+		// Delete the model
 		this.storageService.remove(model).then(() => this.updateModels());
 	}
 
@@ -40,11 +41,12 @@ export class RootComponent implements OnInit {
 	 * Called when the user update the model
 	 */
 	onClone(model: IModel): void {
-		// Store the model
+		// Clone the model
 		this.storageService.add(model.clone()).then(() => this.updateModels());
 	}
 
 	onSave(model: IModel): void {
+		// Update the model
 		this.storageService.update(model);
 	}
 
