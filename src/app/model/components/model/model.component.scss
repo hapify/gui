@@ -16,10 +16,28 @@ input.title {
 	font-weight: 500;
 }
 
-.overable > li:hover {
-	background-color: $gray-100;
-}
+.overable > li {
+	.dndHandler {
+		position: absolute;
+		z-index: 9;
+		top: 6px;
+		left: 0px;
+		color: $gray-500;
+		opacity: 0;
+		cursor: grab;
 
+		&:active {
+			cursor: grabbing;
+		}
+	}
+
+	&:hover {
+		background-color: $gray-100;
+		.dndHandler {
+			opacity: 1;
+		}
+	}
+}
 input[type='text'] {
 	&:focus {
 		color: mat-color($hpf-app-primary);

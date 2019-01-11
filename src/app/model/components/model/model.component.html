@@ -5,6 +5,7 @@
 		>
 			<div class="d-flex align-items-center">
 				<app-validator-icon
+					[signal]="change"
 					[model]="model"
 					class="flex-shrink-0 mr-2 d-flex align-items-center"
 				></app-validator-icon>
@@ -92,11 +93,18 @@
 					</div>
 				</div>
 			</div>
-			<ul class="list-unstyled overable container-fluid mt-2">
+			<ul
+				class="list-unstyled overable container-fluid mt-2"
+				cdkDropList
+				(cdkDropListDropped)="dropped(model, $event)"
+			>
 				<li
 					*ngFor="let field of model.fields"
-					class="row border-bottom border-light py-1"
+					class="row border-bottom border-light py-1 position-relative"
 				>
+					<mat-icon [inline]="true" class="dndHandler" cdkDrag
+						>more_vert</mat-icon
+					>
 					<app-model-field
 						[field]="field"
 						[cleanRows]="cleanRows"
@@ -120,7 +128,7 @@
 			<app-validator-details
 				[signal]="change"
 				[model]="model"
-				class="d-block mt-2"
+				class="d-block"
 			></app-validator-details>
 		</mat-card-content>
 		<div

@@ -18,6 +18,7 @@ import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { Field } from '../../classes/field';
 import { StorageService } from '@app/model/services/storage.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
 	selector: 'app-model-model',
@@ -208,5 +209,11 @@ export class ModelComponent implements OnInit, OnDestroy {
 		for (const key of Object.keys(this.form.controls)) {
 			this.model[key] = this.form.get(key).value;
 		}
+	}
+
+	dropped(model: IModel, event: CdkDragDrop<string[]>) {
+		moveItemInArray(model.fields, event.previousIndex, event.currentIndex);
+		console.log(event);
+		this.updateModel();
 	}
 }

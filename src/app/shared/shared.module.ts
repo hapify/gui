@@ -11,10 +11,11 @@ import {
 } from '@angular/material';
 import { ClickOutsideModule } from 'ng4-click-outside';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, BrowserAnimationsModule],
+	imports: [CommonModule, DragDropModule, BrowserAnimationsModule],
 	exports: [
 		MatIconModule,
 		MatButtonModule,
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		MatTooltipModule,
 		MatMenuModule,
 		MatButtonToggleModule,
+		DragDropModule,
 		ClickOutsideModule
 	]
 })
