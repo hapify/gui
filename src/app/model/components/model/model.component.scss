@@ -118,3 +118,11 @@ input[type='text'] {
 		color: $white !important;
 	}
 }
+
+.cdk-drag {
+	transition: transform 0.2s ease;
+}
+
+.cdk-drag-placeholder {
+	box-shadow: 0 1px 2px $gray-500;
+}

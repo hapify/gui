@@ -43,6 +43,7 @@
 	"models_not_found": "Le modèle n'existe pas.",
 	"models_subtitle": "Modèles existants: {{count}}",
 	"models_title": "Modèles",
+	"model_name_placeholder": "Titre du model",
 	"model_duplicate": "Dupliquer",
 	"model_delete": "Supprimer",
 	"model_delete_confirm": "Confirmer la suppression ?",

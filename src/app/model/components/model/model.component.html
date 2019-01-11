@@ -3,7 +3,7 @@
 		<div
 			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2"
 		>
-			<div class="d-flex align-items-center">
+			<div class="d-flex align-items-center w-100">
 				<app-validator-icon
 					[signal]="change"
 					[model]="model"
@@ -11,8 +11,10 @@
 				></app-validator-icon>
 				<input
 					formControlName="name"
-					class="title inline-input"
+					autofocus
+					class="title inline-input w-100"
 					type="text"
+					placeholder="{{ 'model_name_placeholder' | translate }}"
 					(change)="onModelChange()"
 				/>
 			</div>
@@ -101,8 +103,12 @@
 				<li
 					*ngFor="let field of model.fields"
 					class="row border-bottom border-light py-1 position-relative"
+					cdkDrag
 				>
-					<mat-icon [inline]="true" class="dndHandler" cdkDrag
+					<mat-icon
+						[inline]="true"
+						class="dndHandler"
+						cdkDragHandle=""
 						>more_vert</mat-icon
 					>
 					<app-model-field

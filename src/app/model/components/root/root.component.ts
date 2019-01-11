@@ -21,6 +21,8 @@ export class RootComponent implements OnInit {
 	 */
 	public models: IModel[];
 
+	newModelIsDisplayed = false;
+
 	/**
 	 * @inheritDoc
 	 */

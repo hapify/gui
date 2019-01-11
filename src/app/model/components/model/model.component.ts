@@ -211,9 +211,9 @@ export class ModelComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	/** Drag and drop fields list */
 	dropped(model: IModel, event: CdkDragDrop<string[]>) {
 		moveItemInArray(model.fields, event.previousIndex, event.currentIndex);
-		console.log(event);
-		this.updateModel();
+		this.onModelChange();
 	}
 }
