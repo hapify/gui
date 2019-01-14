@@ -21,7 +21,10 @@ export class RootComponent implements OnInit {
 	 */
 	public models: IModel[];
 
-	newModelIsDisplayed = false;
+	/** Used for loader to toggle */
+	modelsAreLoaded = false;
+	/** Used new model atom to toggle */
+	addingNewModel = false;
 
 	/**
 	 * @inheritDoc
@@ -34,7 +37,6 @@ export class RootComponent implements OnInit {
 	 * Called when the user update the model
 	 */
 	onDelete(model: IModel): void {
-		console.log(model.toObject().name);
 		// Delete the model
 		this.storageService.remove(model).then(() => this.updateModels());
 	}
@@ -47,6 +49,7 @@ export class RootComponent implements OnInit {
 		this.storageService.add(model.clone()).then(() => this.updateModels());
 	}
 
+	/** Called when the user save the model (For now, autosaving on any changes is activated) */
 	onSave(model: IModel): void {
 		// Update the model
 		this.storageService.update(model);
@@ -58,6 +61,11 @@ export class RootComponent implements OnInit {
 	 * @returns {Promise<void>}
 	 */
 	protected async updateModels(): Promise<void> {
-		this.models = await this.storageService.list();
+		this.modelsAreLoaded = false;
+		this.storageService.list().then(result => {
+			this.models = result;
+			this.modelsAreLoaded = true;
+		});
+		this.addingNewModel = false;
 	}
 }

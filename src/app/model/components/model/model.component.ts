@@ -37,6 +37,8 @@ export class ModelComponent implements OnInit, OnDestroy {
 
 	/** @type {IModel} Model instance */
 	@Input() model: IModel;
+	/** @type {IModel[]} Available Models */
+	@Input() models: IModel[];
 	/** @type {EventEmitter<void>} Notify save */
 	@Output() save = new EventEmitter<IModel>();
 	/** @type {EventEmitter<void>} Notify changes */
@@ -67,8 +69,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 		{ name: 'Authenticated', value: Access.AUTHENTICATED },
 		{ name: 'Guest', value: Access.GUEST }
 	];
-	/** @type {IModel[]} Models availables */
-	models: IModel[];
+
 	accessRightsPannelIsDisplayed = false;
 	cleanRows = false;
 	confirmModelDeletion = false;
@@ -95,10 +96,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 				}
 			)
 		);
-		// Get available models
-		this.storageService.list().then(models => {
-			this.models = models;
-		});
 	}
 
 	/**

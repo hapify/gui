@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+	MatInputModule,
+	MatFormFieldModule,
 	MatButtonModule,
 	MatButtonToggleModule,
 	MatCardModule,
 	MatIconModule,
 	MatMenuModule,
+	MatProgressSpinnerModule,
 	MatSelectModule,
 	MatTooltipModule
 } from '@angular/material';
-import { ClickOutsideModule } from 'ng4-click-outside';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -17,6 +19,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 	declarations: [],
 	imports: [CommonModule, DragDropModule, BrowserAnimationsModule],
 	exports: [
+		MatInputModule,
+		MatFormFieldModule,
 		MatIconModule,
 		MatButtonModule,
 		MatCardModule,
@@ -25,7 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 		MatMenuModule,
 		MatButtonToggleModule,
 		DragDropModule,
-		ClickOutsideModule
+		MatProgressSpinnerModule
 	]
 })
 export class SharedModule {}

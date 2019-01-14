@@ -36,6 +36,8 @@ export class FieldComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder
 	) {}
 
+	/** @type {IModel[]} Available Models */
+	@Input() models: IModel[];
 	/** @type {IField} New field instance */
 	@Input() field: IField;
 	/** @type {boolean} Rows deletion mode */
@@ -65,8 +67,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	types = this.fieldType.list();
 	/** Availables subtypes */
 	subtypes: ILabelledValue[] = [];
-	/** Available models */
-	models: IModel[];
 
 	isTypesTooltipDisplayed = false;
 	isSubtypesTooltipDisplayed = false;
@@ -82,10 +82,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		// Get available models
-		this.storageService.list().then(models => {
-			this.models = models;
-		});
 		// Form validator
 		this.form = this.formBuilder.group({
 			name: new FormControl(this.field.name, [

@@ -1,1 +1,23 @@
-<app-model-model [model]="model" (onSave)="onSave()"></app-model-model>
+<form
+	(submit)="save()"
+	class="d-flex w-100 flex-column justify-content-center align-items-center"
+>
+	<mat-form-field class="w-75">
+		<input
+			matInput
+			placeholder="{{ 'new_model_name_placeholder' | translate }}"
+			#name
+			autocomplete="false"
+			name="name"
+			[(ngModel)]="model.name"
+		/>
+		<mat-icon
+			*ngIf="model.name"
+			matSuffix
+			[inline]="true"
+			(click)="save()"
+			style="cursor: pointer"
+			>keyboard_return</mat-icon
+		>
+	</mat-form-field>
+</form>

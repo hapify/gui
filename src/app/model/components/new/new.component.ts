@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	EventEmitter,
+	OnInit,
+	Output,
+	ViewChild
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Model } from '../../classes/model';
@@ -9,7 +17,7 @@ import { StorageService } from '../../services/storage.service';
 	templateUrl: './new.component.html',
 	styleUrls: ['./new.component.scss']
 })
-export class NewComponent implements OnInit {
+export class NewComponent implements OnInit, AfterViewInit {
 	/**
 	 * Constructor
 	 */
@@ -26,6 +34,11 @@ export class NewComponent implements OnInit {
 	 * @type {Model}
 	 */
 	public model: Model;
+
+	/** @type {EventEmitter<void>} Notify save */
+	@Output() create = new EventEmitter<void>();
+
+	@ViewChild('name') nameInput: ElementRef;
 
 	/**
 	 * @inheritDoc
@@ -46,21 +59,22 @@ export class NewComponent implements OnInit {
 		creation.sortable = true;
 		this.model.addField(creation);
 		// Get default name
-		this.translateService.get('new_model_name').subscribe(text => {
+		/*this.translateService.get('new_model_name').subscribe(text => {
 			this.model.name = text;
-		});
+		});*/
+		this.model.name = '';
+	}
+
+	ngAfterViewInit() {
+		this.nameInput.nativeElement.focus();
 	}
 
 	/**
 	 * Called when the user save the new model
 	 */
-	onSave(): void {
+	save(): void {
 		// Store the model
-		this.storageService.add(this.model).then(() => {
-			// Go to edit page
-			this.router.navigate(['../edit', this.model.id], {
-				relativeTo: this.route
-			});
-		});
+		this.storageService.add(this.model);
+		this.create.emit();
 	}
 }

@@ -1,6 +1,12 @@
 <main class="container-fluid">
 	<app-header></app-header>
 	<section class="row px-4 py-5">
+		<div
+			class="col-12 d-flex justify-content-center my-5"
+			*ngIf="!modelsAreLoaded"
+		>
+			<mat-spinner [diameter]="32"></mat-spinner>
+		</div>
 		<div class="col-12">
 			<ul class="row m-0 p-0 list-unstyled">
 				<li
@@ -9,6 +15,7 @@
 				>
 					<app-model-model
 						[model]="model"
+						[models]="models"
 						(save)="onSave($event)"
 						(clone)="onClone(model)"
 						(delete)="onDelete(model)"
@@ -16,19 +23,22 @@
 				</li>
 				<li
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
-					[class.d-none]="!newModelIsDisplayed"
+					*ngIf="modelsAreLoaded"
 				>
-					<app-model-new></app-model-new>
-				</li>
-				<li class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4">
 					<div
 						class="newModelCallToAction border border-hpf-primary p-5 d-flex w-100 align-items-center justify-content-center"
 					>
+						<app-model-new
+							class="d-block w-100"
+							*ngIf="addingNewModel"
+							(create)="updateModels()"
+						></app-model-new>
 						<button
 							mat-raised-button
 							color="accent"
-							class="mat-elevation-z0 border mr-3 d-inline-flex align-items-center"
-							[routerLink]="['/model/new']"
+							class="mat-elevation-z0 border my-5 d-inline-flex align-items-center"
+							(click)="addingNewModel = true"
+							*ngIf="!addingNewModel"
 						>
 							<mat-icon>add</mat-icon>
 							{{ 'common_new_model' | translate }}
