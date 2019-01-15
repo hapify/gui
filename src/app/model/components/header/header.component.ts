@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
 	selector: 'app-header',
@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 	@Input() mode: 'list' | 'grid' = 'list';
+	addingNewModel = false;
+	@Output() newModel = new EventEmitter<void>();
 
 	constructor() {}
 

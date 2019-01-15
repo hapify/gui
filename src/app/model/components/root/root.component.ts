@@ -68,4 +68,8 @@ export class RootComponent implements OnInit {
 		});
 		this.addingNewModel = false;
 	}
+
+	onNewModel() {
+		this.addingNewModel = true;
+	}
 }

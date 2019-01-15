@@ -1,5 +1,5 @@
 <main class="container-fluid">
-	<app-header></app-header>
+	<app-header (newModel)="updateModels()"></app-header>
 	<section class="row px-4 py-5">
 		<div
 			class="col-12 d-flex justify-content-center my-5"
@@ -8,7 +8,7 @@
 			<mat-spinner [diameter]="32"></mat-spinner>
 		</div>
 		<div class="col-12">
-			<ul class="row m-0 p-0 list-unstyled">
+			<ul class="row list-unstyled">
 				<li
 					*ngFor="let model of models"
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
@@ -28,11 +28,23 @@
 					<div
 						class="newModelCallToAction border border-hpf-primary p-5 d-flex w-100 align-items-center justify-content-center"
 					>
-						<app-model-new
-							class="d-block w-100"
+						<div
+							class="d-flex flex-nowrap align-items-center w-75 justify-content-center"
 							*ngIf="addingNewModel"
-							(create)="updateModels()"
-						></app-model-new>
+						>
+							<app-model-new
+								class="d-block w-100"
+								(create)="updateModels()"
+							></app-model-new>
+							<button
+								mat-icon-button
+								color="warn"
+								type="button"
+								(click)="addingNewModel = false"
+							>
+								<mat-icon>close</mat-icon>
+							</button>
+						</div>
 						<button
 							mat-raised-button
 							color="accent"

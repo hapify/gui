@@ -1,37 +1,38 @@
 <header class="row py-3 px-4 border-bottom">
 	<div class="col-12 d-flex justify-content-between align-items-center">
-		<h1 class="mb-0">
+		<h1 class="my-3">
 			{{ 'models_title' | translate }}
 			<small class="d-block mt-2">{{ 'models_intro' | translate }}</small>
 		</h1>
-		<div class="flex-shrink-0">
-			<a
+		<div class="flex-shrink-0 w-25 d-flex justify-content-end">
+			<div
+				class="d-flex flex-nowrap align-items-center w-100 justify-content-end"
+				*ngIf="addingNewModel"
+			>
+				<app-model-new
+					class="d-block w-100"
+					(create)="newModel.emit()"
+				></app-model-new>
+				<button
+					mat-icon-button
+					color="warn"
+					type="button"
+					(click)="addingNewModel = false"
+				>
+					<mat-icon>close</mat-icon>
+				</button>
+			</div>
+
+			<button
 				mat-raised-button
 				color="accent"
-				class="mat-elevation-z0 border mr-3 d-inline-flex align-items-center"
-				[routerLink]="['/model/new']"
+				class="mat-elevation-z0 border d-inline-flex align-items-center"
+				(click)="addingNewModel = true"
+				*ngIf="!addingNewModel"
 			>
 				<mat-icon>add</mat-icon>
 				{{ 'common_new_model' | translate }}
-			</a>
-			<a
-				*ngIf="mode === 'list'"
-				[routerLink]="['/model/2d']"
-				mat-mini-fab
-				color="accent"
-				class="mat-elevation-z0 border"
-			>
-				<mat-icon>apps</mat-icon>
-			</a>
-			<a
-				*ngIf="mode === 'grid'"
-				[routerLink]="['/model']"
-				mat-mini-fab
-				color="accent"
-				class="mat-elevation-z0 border"
-			>
-				<mat-icon>list</mat-icon>
-			</a>
+			</button>
 		</div>
 	</div>
 </header>
