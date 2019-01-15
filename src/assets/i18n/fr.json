@@ -77,5 +77,8 @@
 	"tooltip_unique": "Est une clé unique ?",
 	"validator_editor_title": "Validateur {{name}}",
 	"validator_tooltip_autovalidate": "Auto-validation",
-	"nav_documentation": "Documentation"
+	"nav_documentation": "Documentation",
+	"documentation_title": "Documentation",
+	"documentation_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec eros metus.",
+	"documentation_contentTable_title": "Table des matières"
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { IModel } from '../../interfaces/model';
+import { environment } from '@env/environment';
 
 @Component({
 	selector: 'app-model-root',
@@ -13,6 +14,9 @@ export class RootComponent implements OnInit {
 	 * @param {StorageService} storageService
 	 */
 	constructor(private storageService: StorageService) {}
+
+	private _saveTimeout;
+	dTime = environment.debounceTime;
 
 	/**
 	 * Model instances
@@ -51,8 +55,11 @@ export class RootComponent implements OnInit {
 
 	/** Called when the user save the model (For now, autosaving on any changes is activated) */
 	onSave(model: IModel): void {
-		// Update the model
-		this.storageService.update(model);
+		clearTimeout(this._saveTimeout);
+		this._saveTimeout = setTimeout(() => {
+			// Update the model
+			this.storageService.update(model);
+		}, this.dTime);
 	}
 
 	/**

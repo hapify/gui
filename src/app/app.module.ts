@@ -31,6 +31,7 @@ import {
 	PerfectScrollbarModule,
 	PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
+import { DocumentationComponent } from './documentation/documentation/documentation.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	suppressScrollX: true
@@ -43,7 +44,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		PresetComponent,
 		ChannelComponent,
 		SidebarComponent,
-		HeaderComponent
+		HeaderComponent,
+		DocumentationComponent
 	],
 	imports: [
 		BrowserModule,

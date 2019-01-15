@@ -1,0 +1,37 @@
+@import '~bootstrap/scss/_functions.scss';
+@import '~bootstrap/scss/_variables.scss';
+@import '../../../theme.scss';
+
+.marked {
+	::ng-deep {
+		h1 {
+			font-size: 2em;
+			margin-bottom: 1.5rem;
+		}
+
+		h2 {
+			font-size: 1.7em;
+			padding-bottom: 1rem;
+			margin-bottom: 1rem;
+			border-bottom: 1px solid #999;
+		}
+
+		h3 {
+			font-size: 1.2em;
+		}
+	}
+}
+
+#contentTable li {
+	cursor: pointer;
+	color: mat-color($hpf-app-primary);
+	font-size: 0.9em;
+
+	&.active {
+		font-weight: 500;
+	}
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

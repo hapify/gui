@@ -9,6 +9,7 @@ import { PresetComponent } from './components/preset/preset.component';
 
 import { ChannelModule, CHANNEL_ROUTES } from './channel/channel.module';
 import { ChannelComponent } from './components/channel/channel.component';
+import { DocumentationComponent } from '@app/documentation/documentation/documentation.component';
 
 export const routes: Routes = [
 	{
@@ -33,8 +34,7 @@ export const routes: Routes = [
 	},
 	{
 		path: 'documentation',
-		component: ModelComponent,
-		children: MODEL_ROUTES
+		component: DocumentationComponent
 	}
 ];
 
