@@ -10,17 +10,15 @@
 		</div>
 	</header>
 
-	<div class="row px-4 my-4">
-		<mat-card
+	<ul class="row px-4 my-4 list-unstyled">
+		<li
 			*ngFor="let preset of presets"
-			class="col-xl-3 col-lg-4 col-md-6 col-12"
+			class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3"
 		>
-			<mat-card-content>
-				<app-preset-preset-card
-					[preset]="preset"
-					(onApply)="applyPreset(preset)"
-				></app-preset-preset-card>
-			</mat-card-content>
-		</mat-card>
-	</div>
+			<app-preset-preset-card
+				[preset]="preset"
+				(onApply)="applyPreset(preset)"
+			></app-preset-preset-card>
+		</li>
+	</ul>
 </div>
