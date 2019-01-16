@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="submit()">
+<div>
 	<mat-card class="position-relative">
 		<div
 			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2"
@@ -10,11 +10,11 @@
 					class="flex-shrink-0 mr-2 d-flex align-items-center"
 				></app-validator-icon>
 				<input
-					formControlName="name"
 					autofocus
 					class="title inline-input w-100"
 					type="text"
 					placeholder="{{ 'model_name_placeholder' | translate }}"
+					[(ngModel)]="model.name"
 					(change)="onModelChange()"
 				/>
 			</div>
@@ -168,4 +168,4 @@
 			</div>
 		</div>
 	</mat-card>
-</form>
+</div>
