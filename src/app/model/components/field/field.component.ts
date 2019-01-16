@@ -6,13 +6,6 @@ import {
 	Output,
 	EventEmitter
 } from '@angular/core';
-import {
-	FormBuilder,
-	FormGroup,
-	FormControl,
-	Validators
-} from '@angular/forms';
-import { StorageService } from '../../services/storage.service';
 import { IField } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
@@ -30,16 +23,8 @@ interface IPropertyIcon {
 	styleUrls: ['./field.component.scss']
 })
 export class FieldComponent implements OnInit, OnDestroy {
-	/**
-	 * Constructor
-	 *
-	 * @param storageService
-	 * @param formBuilder
-	 */
-	constructor(
-		private storageService: StorageService,
-		private formBuilder: FormBuilder
-	) {}
+	/** Constructor */
+	constructor() {}
 
 	/** @type {IModel[]} Available Models */
 	@Input() models: IModel[];
@@ -51,12 +36,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	@Output() change = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Request for delete field */
 	@Output() delete = new EventEmitter<void>();
-	/** @type {FormGroup} */
-	form: FormGroup;
-	/** @type {number} */
-	minLength = 1;
-	/** @type {number} */
-	maxLength = 64;
 	/** Link to FieldType class */
 	fieldType = FieldType;
 	/** Availables types */
@@ -91,49 +70,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		// Form validator
-		this.form = this.formBuilder.group({
-			name: new FormControl(this.field.name, [
-				Validators.minLength(this.minLength),
-				Validators.maxLength(this.maxLength)
-			]),
-			type: new FormControl(this.field.type, [Validators.required]),
-			subtype: new FormControl(this.field.subtype, []),
-			reference: new FormControl(this.field.reference, [
-				Validators.required
-			]),
-			primary: new FormControl(this.field.primary, [Validators.required]),
-			unique: new FormControl(this.field.unique, [Validators.required]),
-			label: new FormControl(this.field.label, [Validators.required]),
-			nullable: new FormControl(this.field.nullable, [
-				Validators.required
-			]),
-			multiple: new FormControl(this.field.multiple, [
-				Validators.required
-			]),
-			important: new FormControl(this.field.important, [
-				Validators.required
-			]),
-			searchable: new FormControl(this.field.searchable, [
-				Validators.required
-			]),
-			sortable: new FormControl(this.field.sortable, [
-				Validators.required
-			]),
-			isPrivate: new FormControl(this.field.isPrivate, [
-				Validators.required
-			]),
-			internal: new FormControl(this.field.internal, [
-				Validators.required
-			]),
-			restricted: new FormControl(this.field.restricted, [
-				Validators.required
-			]),
-			ownership: new FormControl(this.field.ownership, [
-				Validators.required
-			])
-		});
-
 		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 		this.areSelectedFields();
@@ -155,9 +91,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 
 	/** Update models properties from inputs values */
 	private updateField(): void {
-		for (const key of Object.keys(this.form.controls)) {
-			this.field[key] = this.form.get(key).value;
-		}
 		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 		this.areSelectedFields();
@@ -166,15 +99,10 @@ export class FieldComponent implements OnInit, OnDestroy {
 	/** Detect if at least one field attribute has been defined*/
 	private areSelectedFields(): void {
 		this.noSelectedField = true;
-		for (const key of Object.keys(this.form.controls)) {
-			if (
-				key !== 'name' &&
-				key !== 'type' &&
-				key !== 'subtype' &&
-				key !== 'reference' &&
-				this.field[key]
-			) {
+		for (const pi of this.propertiesIcons) {
+			if (this.field[pi.property]) {
 				this.noSelectedField = false;
+				break;
 			}
 		}
 	}

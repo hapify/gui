@@ -1,9 +1,9 @@
-<div [formGroup]="form" class="row align-items-center">
+<div class="row align-items-center">
 	<div class="col-6 ellipsis">
 		<input
-			formControlName="name"
 			class="inline-input w-100"
 			type="text"
+			[(ngModel)]="field.name"
 			(change)="onInputChange()"
 		/>
 	</div>
@@ -52,9 +52,9 @@
 						<label class="m-0 field">
 							<input
 								type="radio"
-								[value]="type.value"
 								class="d-none"
-								formControlName="type"
+								[value]="type.value"
+								[(ngModel)]="field.type"
 								(change)="onInputChange(); field.subtype = null"
 								(click)="toggleSubtypesTooltip(type)"
 							/>
@@ -91,9 +91,9 @@
 						<label class="m-0 field">
 							<input
 								type="radio"
-								[value]="subtype.value"
 								class="d-none"
-								formControlName="subtype"
+								[value]="subtype.value"
+								[(ngModel)]="field.subtype"
 								(change)="onInputChange()"
 							/>
 							<span class="p-1 field-{{ field.type }}">
@@ -127,9 +127,9 @@
 						<label class="m-0 field">
 							<input
 								type="radio"
-								[value]="model.id"
 								class="d-none"
-								formControlName="reference"
+								[value]="model.id"
+								[(ngModel)]="field.reference"
 								(change)="onInputChange(); field.subtype = null"
 							/>
 							<span class="p-1 field-entity">
@@ -186,12 +186,11 @@
 					>
 						<label
 							class="m-0 p-0 d-flex align-items-center"
-							title="{{ 'tooltip_' + pi.property | translate }}"
 							[class.active]="pi.value"
 						>
 							<input
 								(change)="onInputChange()"
-								[formControlName]="pi.property"
+								[(ngModel)]="field[pi.property]"
 								type="checkbox"
 								autocomplete="off"
 								class="d-none"
