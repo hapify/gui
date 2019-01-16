@@ -54,6 +54,7 @@
 	"new_model_name": "NouveauModele",
 	"presets_intro": "Charger des lots de modèles pré-définis.",
 	"presets_models_count": "{{count}} modèle",
+	"presets_models_count_plural": "{{count}} modèles",
 	"presets_title": "Scénarios",
 	"presets_use": "Utiliser",
 	"reference": "Référence",

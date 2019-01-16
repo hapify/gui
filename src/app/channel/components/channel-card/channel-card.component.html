@@ -4,5 +4,7 @@
 		[routerLink]="['/channel', 'edit', channel.id]"
 	>
 		<div>{{ channel.name }}</div>
+		<div *ngIf="channel.description">{{ channel.description }}</div>
+		<div *ngIf="channel.logo"><img src="{{ channel.logo }}" /></div>
 	</a>
 </div>

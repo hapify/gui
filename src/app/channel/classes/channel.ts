@@ -22,6 +22,14 @@ export class Channel implements IChannel {
 	/**
 	 * @inheritDoc
 	 */
+	public description = null;
+	/**
+	 * @inheritDoc
+	 */
+	public logo = null;
+	/**
+	 * @inheritDoc
+	 */
 	public validator = '';
 	/**
 	 * @inheritDoc
@@ -63,6 +71,8 @@ export class Channel implements IChannel {
 	public fromObject(object: IChannelBase): void {
 		this.id = object.id;
 		this.name = object.name;
+		this.description = object.description;
+		this.logo = object.logo;
 		this.templates = object.templates.map(
 			(templateBase: ITemplateBase): ITemplate => {
 				const template = this.newTemplate();
@@ -80,6 +90,8 @@ export class Channel implements IChannel {
 		return {
 			id: this.id,
 			name: this.name,
+			description: this.description,
+			logo: this.logo,
 			templates: this.templates
 				.filter((template: ITemplate): boolean => !template.isEmpty())
 				.map(

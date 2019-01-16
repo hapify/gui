@@ -49,6 +49,7 @@
 	"new_model_name": "NewModel",
 	"presets_intro": "Load pre-defined model sets.",
 	"presets_models_count": "{{count}} model",
+	"presets_models_count_plural": "{{count}} models",
 	"presets_title": "Presets",
 	"presets_use": "Use",
 	"reference": "Reference",

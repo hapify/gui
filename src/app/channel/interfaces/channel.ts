@@ -9,6 +9,18 @@ export interface IChannelBase extends IStorableBase {
 	 */
 	name: string;
 	/**
+	 * The channel's description
+	 *
+	 * @type {string}
+	 */
+	description: string;
+	/**
+	 * The channel's logo
+	 *
+	 * @type {string}
+	 */
+	logo: string;
+	/**
 	 * The templates of the channel
 	 *
 	 * @type {ITemplateBase[]}

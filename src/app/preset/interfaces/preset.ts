@@ -2,38 +2,24 @@ import { IModel, IModelBase } from '../../model/model.module';
 import { IStorableBase, IStorable } from '../../interfaces/storable';
 
 export interface IPresetBase extends IStorableBase {
-	/**
-	 * The preset's icon
-	 *
-	 * @type {string}
-	 */
+	/** @type {string} The preset icon */
 	icon: string;
-	/**
-	 * The preset's name
-	 *
-	 * @type {string}
-	 */
+	/** @type {string} The preset's name */
 	name: string;
-	/**
-	 * The models of the preset
-	 *
-	 * @type {IModelBase[]}
-	 */
+	/** @type {string} The preset's name in french */
+	name__fr: string;
+	/** @type {string} The preset's name */
+	description: string;
+	/** @type {string} The preset's name in french */
+	description__fr: string;
+	/** @type {IModelBase[]} The models of the preset */
 	models: IModelBase[];
 }
 
 export interface IPreset extends IPresetBase, IStorable {
-	/**
-	 * The models of the preset
-	 *
-	 * @type {IModel[]}
-	 */
+	/** @type {IModel[]} The models of the preset */
 	models: IModel[];
 
-	/**
-	 * Convert the instance to an object
-	 *
-	 * @returns {IPresetBase}
-	 */
+	/** @returns {IPresetBase} Convert the instance to an object */
 	toObject(): IPresetBase;
 }
