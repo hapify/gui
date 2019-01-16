@@ -148,7 +148,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 					this.details += `  ${errors.length} error${
 						errors.length > 1 ? 's' : ''
 					}\n`;
-					this.details += `    ${errors.join('\n')}${
+					this.details += `    ${errors.join('\n    ')}${
 						errors.length ? '\n' : ''
 					}\n`;
 				}
@@ -156,7 +156,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 					this.details += `  ${warnings.length} warning${
 						warnings.length > 1 ? 's' : ''
 					}\n`;
-					this.details += `    ${warnings.join('\n')}${
+					this.details += `    ${warnings.join('\n    ')}${
 						warnings.length ? '\n' : ''
 					}\n`;
 				}
