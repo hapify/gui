@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IValidatorResult } from '../interfaces/validator-result';
-import { IModel } from '../../model/interfaces/model';
+import { IModel } from '@app/model/interfaces/model';
+import md5 from 'md5';
 
 @Injectable()
 export class ValidatorService {
+	/** Cache stack */
+	private cache: { [key: string]: IValidatorResult } = {};
+
 	/**
 	 * Constructor
 	 */
@@ -17,7 +21,12 @@ export class ValidatorService {
 	 * @return {Promise<IValidatorResult>}
 	 */
 	async run(script: string, model: IModel): Promise<IValidatorResult> {
-		console.log('yo');
+		// Get cache
+		const hash = this.hash(script, model);
+		if (typeof this.cache[hash] !== 'undefined') {
+			return this.cache[hash];
+		}
+
 		// No script, no error
 		if (typeof script === 'undefined' || script.length === 0) {
 			return {
@@ -40,6 +49,17 @@ export class ValidatorService {
 			);
 		}
 
+		// Save cache
+		this.cache[hash] = result;
+
 		return result;
+	}
+
+	private hash(script: string, model: IModel): string {
+		const m = model.toObject();
+		delete m.id;
+		const modelHash = md5(JSON.stringify(m));
+		const scriptHash = md5(script);
+		return `${modelHash}-${scriptHash}`;
 	}
 }
