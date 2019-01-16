@@ -7,10 +7,10 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { ValidatorService } from '../../services/validator.service';
-import { StorageService as ChannelStorageService } from '../../../channel/services/storage.service';
-import { StorageService as ModelStorageService } from '../../../model/services/storage.service';
-import { IModel } from '../../../model/interfaces/model';
-import { IChannel } from '../../../channel/interfaces/channel';
+import { StorageService as ChannelStorageService } from '@app/channel/services/storage.service';
+import { StorageService as ModelStorageService } from '@app/model/services/storage.service';
+import { IModel } from '@app/model/interfaces/model';
+import { IChannel } from '@app/channel/interfaces/channel';
 
 @Component({
 	selector: 'app-validator-details',
@@ -66,6 +66,10 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	/** @param val Set signal */
 	@Input()
 	set signal(val: EventEmitter<void>) {
+		// Unsubscribe previous
+		if (this.signalSubscription) {
+			this.signalSubscription.unsubscribe();
+		}
 		this.signalSubscription = val.subscribe(() => {
 			this.run();
 		});
