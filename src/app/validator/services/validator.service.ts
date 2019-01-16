@@ -17,6 +17,7 @@ export class ValidatorService {
 	 * @return {Promise<IValidatorResult>}
 	 */
 	async run(script: string, model: IModel): Promise<IValidatorResult> {
+		console.log('yo');
 		// No script, no error
 		if (typeof script === 'undefined' || script.length === 0) {
 			return {

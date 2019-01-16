@@ -18,7 +18,7 @@ import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 
-interface PropertyIcon {
+interface IPropertyIcon {
 	property: string;
 	icon: string;
 	value: boolean;
@@ -71,7 +71,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 	isFieldsTooltipDisplayed = false;
 	noSelectedField = false;
 
-	propertiesIcons: PropertyIcon[] = [
+	propertiesIcons: IPropertyIcon[] = [
 		{ property: 'primary', icon: 'vpn_key', value: false },
 		{ property: 'unique', icon: 'star', value: false },
 		{ property: 'label', icon: 'label', value: false },
@@ -85,7 +85,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 		{ property: 'restricted', icon: '', value: false },
 		{ property: 'ownership', icon: 'copyright', value: false }
 	];
-	filteredPropertiesIcons: PropertyIcon[] = [];
+	filteredPropertiesIcons: IPropertyIcon[] = [];
 
 	/**
 	 * @inheritDoc

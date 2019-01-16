@@ -10,14 +10,7 @@
 	<div
 		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
 	>
-		<div
-			class="badge"
-			[class.badge-string]="field.type === fieldType.String"
-			[class.badge-datetime]="field.type === fieldType.DateTime"
-			[class.badge-number]="field.type === fieldType.Number"
-			[class.badge-boolean]="field.type === fieldType.Boolean"
-			[class.badge-entity]="field.type === fieldType.Entity"
-		>
+		<div class="badge badge-{{ field.type }}">
 			<span
 				(click)="
 					isTypesTooltipDisplayed = true;
@@ -65,24 +58,7 @@
 								(change)="onInputChange(); field.subtype = null"
 								(click)="toggleSubtypesTooltip(type)"
 							/>
-							<span
-								class="p-1"
-								[class.field-string]="
-									type.value === fieldType.String
-								"
-								[class.field-datetime]="
-									type.value === fieldType.DateTime
-								"
-								[class.field-number]="
-									type.value === fieldType.Number
-								"
-								[class.field-boolean]="
-									type.value === fieldType.Boolean
-								"
-								[class.field-entity]="
-									type.value === fieldType.Entity
-								"
-							>
+							<span class="p-1 field-{{ type.value }}">
 								{{ type.name }}
 							</span>
 						</label>
@@ -102,21 +78,9 @@
 					<li
 						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
 					>
-						<span
-							[class.fieldTitle-string]="
-								field.type === fieldType.String
-							"
-							[class.fieldTitle-datetime]="
-								field.type === fieldType.DateTime
-							"
-							[class.fieldTitle-number]="
-								field.type === fieldType.Number
-							"
-							[class.fieldTitle-boolean]="
-								field.type === fieldType.Boolean
-							"
-							>{{ field.type }}</span
-						>
+						<span class="p-1 fieldTitle-{{ field.type }}">{{
+							field.type
+						}}</span>
 					</li>
 					<li
 						*ngFor="let subtype of subtypes; let i = index"
@@ -132,24 +96,7 @@
 								formControlName="subtype"
 								(change)="onInputChange()"
 							/>
-							<span
-								class="p-1"
-								[class.field-string]="
-									field.type === fieldType.String
-								"
-								[class.field-datetime]="
-									field.type === fieldType.DateTime
-								"
-								[class.field-number]="
-									field.type === fieldType.Number
-								"
-								[class.field-boolean]="
-									field.type === fieldType.Boolean
-								"
-								[class.field-entity]="
-									field.type === fieldType.Entity
-								"
-							>
+							<span class="p-1 field-{{ field.type }}">
 								{{ subtype.name }}
 							</span>
 						</label>
@@ -204,6 +151,7 @@
 				[class.active]="isFieldsTooltipDisplayed"
 			>
 				<!--
+ 				  DO NOT REMOVE
 					<span class="d-none">
 						{{ 'tooltip_generic' | translate }}
 						{{ 'tooltip_internal' | translate }}
