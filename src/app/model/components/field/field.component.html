@@ -214,39 +214,27 @@
 					class="fieldsTooltip__group list-unstyled d-flex flex-nowrap p-0 m-0 mt-2"
 				>
 					<li
-						*ngFor="
-							let availableField of availableFields;
-							let i = index
-						"
-						class="d-flex align-items-center"
-						[class.d-none]="
-							!fields.getFieldIconName(availableField)
-						"
-						[class.px-1]="fields.getFieldIconName(availableField)"
-						(mouseover)="fieldOvered = availableField"
+						*ngFor="let pi of propertiesIcons"
+						class="d-flex align-items-center px-1"
+						(mouseover)="fieldOvered = pi.property"
 						(mouseleave)="fieldOvered = 'generic'"
 					>
 						<label
 							class="m-0 p-0 d-flex align-items-center"
-							*ngIf="fields.getFieldIconName(availableField)"
-							title="{{
-								'tooltip_' + availableField | translate
-							}}"
-							[class.active]="field[availableField]"
+							title="{{ 'tooltip_' + pi.property | translate }}"
+							[class.active]="pi.value"
 						>
 							<input
 								(change)="onInputChange()"
-								[formControlName]="availableField"
+								[formControlName]="pi.property"
 								type="checkbox"
 								autocomplete="off"
 								class="d-none"
 							/>
 							<mat-icon
-								[class.inactive]="!field[availableField]"
+								[class.inactive]="!pi.value"
 								color="primary"
-								>{{
-									fields.getFieldIconName(availableField)
-								}}</mat-icon
+								>{{ pi.icon }}</mat-icon
 							>
 						</label>
 					</li>
@@ -277,15 +265,10 @@
 				[class.d-none]="cleanRows"
 				[class.d-flex]="!cleanRows"
 			>
-				<li
-					*ngFor="let availableField of availableFields"
-					[class.d-none]="!field[availableField]"
-				>
-					<mat-icon [inline]="true">{{
-						fields.getFieldIconName(availableField)
-					}}</mat-icon>
+				<li *ngFor="let pi of filteredPropertiesIcons">
+					<mat-icon [inline]="true">{{ pi.icon }}</mat-icon>
 				</li>
-				<li *ngIf="noSelectedField">
+				<li *ngIf="filteredPropertiesIcons.length === 0">
 					<mat-icon
 						color="primary"
 						[inline]="true"

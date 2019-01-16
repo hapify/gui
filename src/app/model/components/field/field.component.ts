@@ -19,6 +19,12 @@ import { IModel } from '../../interfaces/model';
 import { Field } from '@app/model/classes/field';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 
+interface PropertyIcon {
+	property: string;
+	icon: string;
+	value: boolean;
+}
+
 @Component({
 	selector: 'app-model-field',
 	templateUrl: './field.component.html',
@@ -71,12 +77,25 @@ export class FieldComponent implements OnInit, OnDestroy {
 	isTypesTooltipDisplayed = false;
 	isSubtypesTooltipDisplayed = false;
 
-	/** Available fields */
-	fields = new Field();
-	availableFields = Object.keys(this.fields);
 	fieldOvered = 'generic';
 	isFieldsTooltipDisplayed = false;
 	noSelectedField = false;
+
+	propertiesIcons: PropertyIcon[] = [
+		{ property: 'primary', icon: 'vpn_key', value: false },
+		{ property: 'unique', icon: 'star', value: false },
+		{ property: 'label', icon: 'label', value: false },
+		{ property: 'nullable', icon: 'backspace', value: false },
+		{ property: 'multiple', icon: 'list', value: false },
+		{ property: 'important', icon: 'error_outline', value: false },
+		{ property: 'searchable', icon: 'search', value: false },
+		{ property: 'sortable', icon: 'filter_list', value: false },
+		{ property: 'isPrivate', icon: 'lock', value: false },
+		{ property: 'internal', icon: 'code', value: false },
+		{ property: 'restricted', icon: '', value: false },
+		{ property: 'ownership', icon: 'copyright', value: false }
+	];
+	filteredPropertiesIcons: PropertyIcon[] = [];
 
 	/**
 	 * @inheritDoc
@@ -125,6 +144,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 			])
 		});
 
+		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 		this.areSelectedFields();
 	}
@@ -163,6 +183,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 		for (const key of Object.keys(this.form.controls)) {
 			this.field[key] = this.form.get(key).value;
 		}
+		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 		this.areSelectedFields();
 	}
@@ -206,5 +227,15 @@ export class FieldComponent implements OnInit, OnDestroy {
 		this.form.patchValue({ name: null });
 		this.updateModel();
 		this.cleanRow.emit();
+	}
+
+	/** Get the icon for the selected field */
+	updatePropertiesIcons(): void {
+		for (const p of this.propertiesIcons) {
+			p.value = !!this.field[p.property];
+		}
+		this.filteredPropertiesIcons = this.propertiesIcons.filter(
+			i => i.value
+		);
 	}
 }
