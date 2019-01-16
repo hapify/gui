@@ -32,7 +32,6 @@ import {
 	PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
 import { DocumentationComponent } from './documentation/documentation/documentation.component';
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	suppressScrollX: true
 };
