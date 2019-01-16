@@ -45,7 +45,7 @@
 	"new_model_name_placeholder": "Titre du nouveau modèle",
 	"presets_intro": "Charger des lots de modèles pré-définis.",
 	"presets_title": "Scénarios",
-	"presets_use": "Utiliser",
+	"presets_use": "Charger ce scénario dans le projet",
 	"template_engine": "Moteur de template",
 	"template_hide": "Masquer",
 	"template_input": "Type d'entrée",
@@ -54,8 +54,7 @@
 	"tooltip_generic": "Choisissez les attributs pour ce champs",
 	"validator_editor_title": "Validateur {{name}}",
 	"validator_tooltip_autovalidate": "Auto-validation",
-	"presets_models_count": "{{count}} modèle",
-	"presets_models_count_plural": "{count}} modèles",
+	"presets_models_count": "Ce scénario contient le modèle suivant :",
 	"tooltip_important": "Est-ce une donnée importante ?",
 	"tooltip_internal": "Cette donnée est définie par le système ?",
 	"tooltip_label": "Cette donnée sert de nom ?",
@@ -67,5 +66,7 @@
 	"tooltip_searchable": "Ce champs est recherchable ?",
 	"tooltip_sortable": "Ce champs est triable ?",
 	"tooltip_unique": "Est une clé unique ?",
-	"tooltip_isprivate": "Ce champs est privé ?"
+	"tooltip_isprivate": "Ce champs est privé ?",
+	"presets_models_count_0": "Ce scénario ne contient aucun modèle.",
+	"presets_models_count_plural": "Ce scénario contient les modèles suivant :"
 }

@@ -55,7 +55,6 @@
 	"validator_editor_title": "validator_editor_title",
 	"validator_tooltip_autovalidate": "validator_tooltip_autovalidate",
 	"presets_models_count": "presets_models_count",
-	"presets_models_count_plural": "presets_models_count_plural",
 	"tooltip_important": "tooltip_important",
 	"tooltip_internal": "tooltip_internal",
 	"tooltip_label": "tooltip_label",
@@ -67,5 +66,7 @@
 	"tooltip_searchable": "tooltip_searchable",
 	"tooltip_sortable": "tooltip_sortable",
 	"tooltip_unique": "tooltip_unique",
-	"tooltip_isprivate": "tooltip_isprivate"
+	"tooltip_isprivate": "tooltip_isprivate",
+	"presets_models_count_0": "presets_models_count_0",
+	"presets_models_count_plural": "presets_models_count_plural"
 }

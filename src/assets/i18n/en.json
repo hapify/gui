@@ -55,7 +55,6 @@
 	"validator_editor_title": "Validator for {{name}}",
 	"validator_tooltip_autovalidate": "Auto-validate",
 	"presets_models_count": "",
-	"presets_models_count_plural": "",
 	"tooltip_important": "",
 	"tooltip_internal": "",
 	"tooltip_label": "",
@@ -67,5 +66,7 @@
 	"tooltip_searchable": "",
 	"tooltip_sortable": "",
 	"tooltip_unique": "",
-	"tooltip_isprivate": ""
+	"tooltip_isprivate": "",
+	"presets_models_count_0": "",
+	"presets_models_count_plural": ""
 }
