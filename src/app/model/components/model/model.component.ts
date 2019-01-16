@@ -181,7 +181,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 
 	/** Compute actions selected actions for this model */
 	private updateActions(): void {
-		console.log('yo');
 		this.actions = Object.keys(this.model.accesses).map(
 			(action: string): IActionValue => {
 				return {
