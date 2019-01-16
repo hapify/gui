@@ -19,6 +19,30 @@ import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Field } from '@app/model/classes/field';
 
+interface IAccessValue {
+	selected: boolean;
+	value: ILabelledValue;
+}
+interface IActionValue {
+	name: string;
+	accesses: IAccessValue[];
+}
+
+/** Store accesses indexes */
+const AccessesIndex = {
+	[Access.ADMIN]: 0,
+	[Access.OWNER]: 1,
+	[Access.AUTHENTICATED]: 2,
+	[Access.GUEST]: 3
+};
+/** Store available accesses */
+const Accesses: ILabelledValue[] = [
+	{ name: 'Admin', value: Access.ADMIN },
+	{ name: 'Owner', value: Access.OWNER },
+	{ name: 'Authenticated', value: Access.AUTHENTICATED },
+	{ name: 'Guest', value: Access.GUEST }
+];
+
 @Component({
 	selector: 'app-model-model',
 	templateUrl: './model.component.html',
@@ -55,13 +79,8 @@ export class ModelComponent implements OnInit, OnDestroy {
 	unsavedChanges = false;
 	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
-	/** @type {ILabelledValue[]} Available accesses */
-	accesses: ILabelledValue[] = [
-		{ name: 'Admin', value: Access.ADMIN },
-		{ name: 'Owner', value: Access.OWNER },
-		{ name: 'Authenticated', value: Access.AUTHENTICATED },
-		{ name: 'Guest', value: Access.GUEST }
-	];
+	/** @type {IActionValue[]} List available actions */
+	actions: IActionValue[] = [];
 
 	accessRightsPannelIsDisplayed = false;
 	cleanRows = false;
@@ -89,6 +108,8 @@ export class ModelComponent implements OnInit, OnDestroy {
 				}
 			)
 		);
+		// Get available actions
+		this.updateActions();
 	}
 
 	/**
@@ -130,6 +151,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 		this.change.emit();
 		this.unsavedChanges = true;
 		this.submit();
+		this.updateActions();
 	}
 
 	/**
@@ -140,42 +162,14 @@ export class ModelComponent implements OnInit, OnDestroy {
 		this.onModelChange();
 	}
 	/**
-	 * Get available actions for this model
-	 * @return {string[]}
-	 */
-	getActions(): string[] {
-		return Object.keys(this.model.accesses);
-	}
-	/**
 	 * Denotes if the access should be highlighted
 	 * @return {boolean}
 	 */
-	isAccesseselected(action: string, access: ILabelledValue): boolean {
+	private isAccessSelected(action: string, access: ILabelledValue): boolean {
 		return (
-			this.accessPosition(this.model.accesses[action]) >=
-			this.accessPosition(access.value)
+			AccessesIndex[this.model.accesses[action]] >=
+			AccessesIndex[access.value]
 		);
-	}
-
-	/**
-	 * Get the position in importance
-	 * @param name
-	 * @return {number}
-	 */
-	accessPosition(name): number {
-		if (name === Access.ADMIN) {
-			return 0;
-		}
-		if (name === Access.OWNER) {
-			return 1;
-		}
-		if (name === Access.AUTHENTICATED) {
-			return 2;
-		}
-		if (name === Access.GUEST) {
-			return 3;
-		}
-		return -1;
 	}
 
 	/** Update models properties from inputs values */
@@ -183,6 +177,22 @@ export class ModelComponent implements OnInit, OnDestroy {
 		for (const key of Object.keys(this.form.controls)) {
 			this.model[key] = this.form.get(key).value;
 		}
+	}
+
+	/** Compute actions selected actions for this model */
+	private updateActions(): void {
+		console.log('yo');
+		this.actions = Object.keys(this.model.accesses).map(
+			(action: string): IActionValue => {
+				return {
+					name: action,
+					accesses: Accesses.map(access => ({
+						selected: this.isAccessSelected(action, access),
+						value: access
+					}))
+				};
+			}
+		);
 	}
 
 	/** Drag and drop fields list */
