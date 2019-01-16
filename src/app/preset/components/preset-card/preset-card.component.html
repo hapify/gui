@@ -7,9 +7,9 @@
 			<h2
 				class="mt-0 mb-2 pb-2 border-bottom border-light w-100 text-center"
 			>
-				{{ preset.name }}
+				{{ preset | translateEntry: 'name' }}
 			</h2>
-			<div [innerHTML]="preset.description"></div>
+			<div [innerHTML]="preset | translateEntry: 'description'"></div>
 			<i *ngIf="preset.models.length" class="mb-2">
 				{{
 					'presets_models_count'
@@ -38,7 +38,7 @@
 				color="primary"
 				type="button"
 				(click)="didClickApply()"
-				class="mt-3"
+				class="mt-3 mat-elevation-z0"
 			>
 				{{ 'presets_use' | translate }}
 			</button>

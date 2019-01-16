@@ -14,9 +14,10 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
 
 @NgModule({
-	declarations: [],
+	declarations: [TranslateEntryPipe],
 	imports: [CommonModule, DragDropModule, BrowserAnimationsModule],
 	exports: [
 		MatInputModule,
@@ -29,7 +30,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 		MatMenuModule,
 		MatButtonToggleModule,
 		DragDropModule,
-		MatProgressSpinnerModule
+		MatProgressSpinnerModule,
+		TranslateEntryPipe
 	]
 })
 export class SharedModule {}

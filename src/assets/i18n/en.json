@@ -36,7 +36,6 @@
 	"models_add_field": "Add field",
 	"models_clean_fields": "Cleanup",
 	"models_intro": "Create a new model or edit its fields.",
-	"models_not_found": "Unable to find this model.",
 	"models_title": "Models",
 	"nav_channel": "Channels",
 	"nav_documentation": "Documentation",
@@ -68,5 +67,6 @@
 	"tooltip_unique": "",
 	"tooltip_isprivate": "",
 	"presets_models_count_0": "",
-	"presets_models_count_plural": ""
+	"presets_models_count_plural": "",
+	"channel_edit": ""
 }

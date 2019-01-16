@@ -21,6 +21,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
 
 // Directives
 import { ContentEditableModelDirective } from './directives/content-editable-model.directive';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { ContentEditableModelDirective } from './directives/content-editable-mod
 		TranslateModuleLoad(),
 		TooltipModule.forRoot(),
 		AlertModule.forRoot(),
-		HotkeyModule
+		HotkeyModule,
+		SharedModule
 	],
 	declarations: [
 		ChannelComponent,

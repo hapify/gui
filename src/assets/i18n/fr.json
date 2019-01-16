@@ -36,7 +36,6 @@
 	"models_add_field": "Ajouter un champ",
 	"models_clean_fields": "Nettoyer",
 	"models_intro": "Créer un nouveau modèle ou éditer ses propriétés.",
-	"models_not_found": "Le modèle n'existe pas.",
 	"models_title": "Modèles",
 	"nav_channel": "Terminaisons",
 	"nav_documentation": "Documentation",
@@ -68,5 +67,6 @@
 	"tooltip_unique": "Est une clé unique ?",
 	"tooltip_isprivate": "Ce champs est privé ?",
 	"presets_models_count_0": "Ce scénario ne contient aucun modèle.",
-	"presets_models_count_plural": "Ce scénario contient les modèles suivant :"
+	"presets_models_count_plural": "Ce scénario contient les modèles suivant :",
+	"channel_edit": "Éditer cette terminaison"
 }
