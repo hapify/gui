@@ -98,7 +98,7 @@
 			<ul
 				class="list-unstyled overable container-fluid mt-2"
 				cdkDropList
-				(cdkDropListDropped)="dropped(model, $event)"
+				(cdkDropListDropped)="dropped($event)"
 			>
 				<li
 					*ngFor="let field of model.fields"

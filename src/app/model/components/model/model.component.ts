@@ -16,9 +16,7 @@ import { IModel } from '../../interfaces/model';
 import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
-import { Field } from '../../classes/field';
-import { StorageService } from '@app/model/services/storage.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
 	selector: 'app-model-model',
@@ -31,8 +29,7 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 */
 	constructor(
 		private formBuilder: FormBuilder,
-		private hotKeysService: HotkeysService,
-		private storageService: StorageService
+		private hotKeysService: HotkeysService
 	) {}
 
 	/** @type {IModel} Model instance */
@@ -53,11 +50,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 	minLength = 2;
 	/** @type {number} */
 	maxLength = 32;
-	/** @type {{minLength: number; maxLength: number}} */
-	translateParams = {
-		minLength: this.minLength,
-		maxLength: this.maxLength
-	};
 	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
 	unsavedChanges = false;
 	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
@@ -119,22 +111,6 @@ export class ModelComponent implements OnInit, OnDestroy {
 	 */
 	addField() {
 		this.model.addField(this.model.newField());
-		this.onModelChange();
-	}
-
-	/**
-	 * Called when the user clicks on up
-	 */
-	onFieldUp(field: Field) {
-		this.model.moveField(field, -1);
-		this.onModelChange();
-	}
-
-	/**
-	 * Called when the user clicks on up
-	 */
-	onFieldDown(field: Field) {
-		this.model.moveField(field, 1);
 		this.onModelChange();
 	}
 
@@ -209,8 +185,11 @@ export class ModelComponent implements OnInit, OnDestroy {
 	}
 
 	/** Drag and drop fields list */
-	dropped(model: IModel, event: CdkDragDrop<string[]>) {
-		moveItemInArray(model.fields, event.previousIndex, event.currentIndex);
+	dropped(event: CdkDragDrop<string[]>) {
+		this.model.moveField(
+			this.model.fields[event.previousIndex],
+			event.currentIndex - event.previousIndex
+		);
 		this.onModelChange();
 	}
 }

@@ -16,7 +16,6 @@ import { StorageService } from '../../services/storage.service';
 import { IField } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
-import { Field } from '@app/model/classes/field';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 
 interface PropertyIcon {
@@ -50,10 +49,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	@Input() cleanRows = false;
 	/** @type {EventEmitter<void>} Notify changes */
 	@Output() change = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for move up */
-	@Output() moveUp = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for move down */
-	@Output() moveDown = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Request for clean row */
 	@Output() cleanRow = new EventEmitter<void>();
 	/** @type {FormGroup} */
@@ -62,11 +57,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	minLength = 1;
 	/** @type {number} */
 	maxLength = 64;
-	/** @type {{minLength: number; maxLength: number}} */
-	translateParams = {
-		minLength: this.minLength,
-		maxLength: this.maxLength
-	};
 	/** Link to FieldType class */
 	fieldType = FieldType;
 	/** Availables types */
@@ -160,22 +150,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	onInputChange() {
 		this.updateModel();
 		this.change.emit();
-	}
-
-	/**
-	 * Called when the user clicks on up
-	 */
-	onUp() {
-		this.updateModel();
-		this.moveUp.emit();
-	}
-
-	/**
-	 * Called when the user clicks on up
-	 */
-	onDown() {
-		this.updateModel();
-		this.moveDown.emit();
 	}
 
 	/** Update models properties from inputs values */
