@@ -8,16 +8,12 @@ import { ValidatorIconComponent } from '../validator/components/validator-icon/v
 import { ValidatorDetailsComponent } from '../validator/components/validator-details/validator-details.component';
 
 import { ModelComponent } from './components/model/model.component';
-import { ModelRowComponent } from './components/model-row/model-row.component';
 import { FieldComponent } from './components/field/field.component';
 import { NewComponent } from './components/new/new.component';
 import { RootComponent } from './components/root/root.component';
-import { View2dComponent } from './components/view2d/view2d.component';
-import { EditComponent } from './components/edit/edit.component';
 
 // Services
 import { StorageService } from './services/storage.service';
-import { ModelUmlBoxComponent } from './components/model-uml-box/model-uml-box.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 
@@ -37,10 +33,6 @@ import { HeaderComponent } from './components/header/header.component';
 		FieldComponent,
 		NewComponent,
 		RootComponent,
-		View2dComponent,
-		EditComponent,
-		ModelRowComponent,
-		ModelUmlBoxComponent,
 		ValidatorIconComponent,
 		ValidatorDetailsComponent,
 		HeaderComponent

@@ -262,16 +262,12 @@
 				></div>
 			</div>
 			<ul
-				class="list-unstyled m-0 p-0 flex-nowrap align-items-center cleanRow"
-				[class.d-none]="!cleanRows"
-				[class.d-flex]="cleanRows"
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center deletionMode"
+				[class.d-none]="!deletionMode"
+				[class.d-flex]="deletionMode"
 			>
 				<li>
-					<mat-icon
-						[inline]="true"
-						color="warn"
-						(click)="cleanField()"
-					>
+					<mat-icon [inline]="true" color="warn" (click)="onDelete()">
 						remove_circle
 					</mat-icon>
 				</li>
@@ -279,8 +275,8 @@
 			<ul
 				class="list-unstyled m-0 p-0 flex-nowrap align-items-center selectedFields"
 				(click)="isFieldsTooltipDisplayed = true"
-				[class.d-none]="cleanRows"
-				[class.d-flex]="!cleanRows"
+				[class.d-none]="deletionMode"
+				[class.d-flex]="!deletionMode"
 			>
 				<li *ngFor="let pi of filteredPropertiesIcons">
 					<mat-icon [inline]="true">{{ pi.icon }}</mat-icon>

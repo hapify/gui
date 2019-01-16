@@ -98,7 +98,7 @@
 			<ul
 				class="list-unstyled overable container-fluid mt-2"
 				cdkDropList
-				(cdkDropListDropped)="dropped(model, $event)"
+				(cdkDropListDropped)="dropped($event)"
 			>
 				<li
 					*ngFor="let field of model.fields"
@@ -114,11 +114,9 @@
 					<app-model-field
 						[models]="models"
 						[field]="field"
-						[cleanRows]="cleanRows"
-						(cleanRow)="cleanFields()"
+						[deletionMode]="cleanRows"
+						(delete)="deleteField(field)"
 						(change)="onModelChange()"
-						(moveUp)="onFieldUp(field)"
-						(moveDown)="onFieldDown(field)"
 						class="col-12"
 					></app-model-field>
 				</li>

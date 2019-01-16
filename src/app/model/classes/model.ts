@@ -68,6 +68,13 @@ export class Model implements IModel {
 	/**
 	 * @inheritDoc
 	 */
+	public removeField(field: IField): void {
+		this.fields = this.fields.filter((f: IField) => f !== field);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public moveField(field: IField, indexDelta: number): void {
 		const index = this.fields.indexOf(field);
 		const newIndex = Math.max(
@@ -128,7 +135,6 @@ export class Model implements IModel {
 	public filter(): void {
 		this.fields = this.fields.filter(
 			(field: IField): boolean => {
-				console.log(field);
 				return !field.isEmpty();
 			}
 		);

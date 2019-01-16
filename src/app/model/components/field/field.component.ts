@@ -16,7 +16,6 @@ import { StorageService } from '../../services/storage.service';
 import { IField } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
-import { Field } from '@app/model/classes/field';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 
 interface PropertyIcon {
@@ -47,26 +46,17 @@ export class FieldComponent implements OnInit, OnDestroy {
 	/** @type {IField} New field instance */
 	@Input() field: IField;
 	/** @type {boolean} Rows deletion mode */
-	@Input() cleanRows = false;
+	@Input() deletionMode = false;
 	/** @type {EventEmitter<void>} Notify changes */
 	@Output() change = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for move up */
-	@Output() moveUp = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for move down */
-	@Output() moveDown = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for clean row */
-	@Output() cleanRow = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Request for delete field */
+	@Output() delete = new EventEmitter<void>();
 	/** @type {FormGroup} */
 	form: FormGroup;
 	/** @type {number} */
 	minLength = 1;
 	/** @type {number} */
 	maxLength = 64;
-	/** @type {{minLength: number; maxLength: number}} */
-	translateParams = {
-		minLength: this.minLength,
-		maxLength: this.maxLength
-	};
 	/** Link to FieldType class */
 	fieldType = FieldType;
 	/** Availables types */
@@ -149,37 +139,22 @@ export class FieldComponent implements OnInit, OnDestroy {
 		this.areSelectedFields();
 	}
 
-	/**
-	 * Destroy
-	 */
+	/** Destroy */
 	ngOnDestroy() {}
 
-	/**
-	 * Called when a value change
-	 */
+	/** Called when a value change */
 	onInputChange() {
-		this.updateModel();
+		this.updateField();
 		this.change.emit();
 	}
 
-	/**
-	 * Called when the user clicks on up
-	 */
-	onUp() {
-		this.updateModel();
-		this.moveUp.emit();
-	}
-
-	/**
-	 * Called when the user clicks on up
-	 */
-	onDown() {
-		this.updateModel();
-		this.moveDown.emit();
+	/** Called when the user delete the field */
+	onDelete(): void {
+		this.delete.emit();
 	}
 
 	/** Update models properties from inputs values */
-	private updateModel(): void {
+	private updateField(): void {
 		for (const key of Object.keys(this.form.controls)) {
 			this.field[key] = this.form.get(key).value;
 		}
@@ -188,7 +163,7 @@ export class FieldComponent implements OnInit, OnDestroy {
 		this.areSelectedFields();
 	}
 
-	/**Detect if at least one field attribute has been defined*/
+	/** Detect if at least one field attribute has been defined*/
 	private areSelectedFields(): void {
 		this.noSelectedField = true;
 		for (const key of Object.keys(this.form.controls)) {
@@ -221,12 +196,6 @@ export class FieldComponent implements OnInit, OnDestroy {
 	/** Display subtypes in tooltip */
 	toggleSubtypesTooltip(type: ILabelledValue) {
 		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
-	}
-
-	cleanField(): void {
-		this.form.patchValue({ name: null });
-		this.updateModel();
-		this.cleanRow.emit();
 	}
 
 	/** Get the icon for the selected field */
