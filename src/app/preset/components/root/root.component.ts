@@ -38,8 +38,12 @@ export class RootComponent implements OnInit {
 	 */
 	async applyPreset(preset: IPreset): Promise<void> {
 		// Add or update each models
+		const updated = [];
+		const created = [];
 		for (const model of preset.models) {
-			const existing = await this.modelStorageService.find(model.id);
+			const existing = (await this.modelStorageService.list()).find(
+				m => m.name === model.name
+			);
 			if (existing) {
 				// Add or skip each fields
 				let shouldSave = false;
@@ -51,11 +55,23 @@ export class RootComponent implements OnInit {
 				}
 				if (shouldSave) {
 					await this.modelStorageService.update(existing);
+					updated.push(existing);
 				}
 			} else {
-				await this.modelStorageService.add(model);
+				const clone = model.clone();
+				await this.modelStorageService.add(clone);
+				created.push(clone);
 			}
 		}
+		// Show message to user...
+		let message = created.length
+			? `Did create model(s) ${created.map(m => m.name).join(', ')}`
+			: 'No model created';
+		message += '. ';
+		message += updated.length
+			? `Did update model(s) ${updated.map(m => m.name).join(', ')}`
+			: 'No model updated';
+		console.log(message);
 	}
 
 	/**
