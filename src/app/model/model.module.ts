@@ -11,6 +11,8 @@ import { ModelComponent } from './components/model/model.component';
 import { FieldComponent } from './components/field/field.component';
 import { NewComponent } from './components/new/new.component';
 import { RootComponent } from './components/root/root.component';
+import { ModelLightComponent } from './components/model-light/model-light.component';
+import { FieldLightComponent } from './components/field-light/field-light.component';
 
 // Services
 import { StorageService } from './services/storage.service';
@@ -31,6 +33,8 @@ import { HeaderComponent } from './components/header/header.component';
 	declarations: [
 		ModelComponent,
 		FieldComponent,
+		ModelLightComponent,
+		FieldLightComponent,
 		NewComponent,
 		RootComponent,
 		ValidatorIconComponent,
