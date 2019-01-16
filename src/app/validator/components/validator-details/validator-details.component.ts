@@ -6,7 +6,6 @@ import {
 	Injector,
 	EventEmitter
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { ValidatorService } from '../../services/validator.service';
 import { StorageService as ChannelStorageService } from '../../../channel/services/storage.service';
 import { StorageService as ModelStorageService } from '../../../model/services/storage.service';
@@ -20,23 +19,23 @@ import { IChannel } from '../../../channel/interfaces/channel';
 })
 export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	/** @type {ChannelStorageService} The channel storage service */
-	private channelStorageService: ChannelStorageService;
+	protected channelStorageService: ChannelStorageService;
 	/** @type {ModelStorageService} The model storage service */
-	private modelStorageService: ModelStorageService;
+	protected modelStorageService: ModelStorageService;
 	/** @type {ValidatorService} The validator service */
-	private validatorService: ValidatorService;
+	protected validatorService: ValidatorService;
 	/** @type {IModel} */
-	private modelValue: IModel;
+	protected modelValue: IModel;
 	/** @type {IModel[]} */
-	private models: IModel[] = [];
+	protected models: IModel[] = [];
 	/** @type {IChannel} */
-	private channelValue: IChannel;
+	protected channelValue: IChannel;
 	/** @type {IChannel[]} */
-	private channels: IChannel[] = [];
-	/** @type {Subscription<void>} Notify changes */
-	private signalSubscription: EventEmitter<void>;
+	protected channels: IChannel[] = [];
+	/** @type {EventEmitter<void>} Notify changes */
+	protected signalSubscription: EventEmitter<void>;
 	/** @type {boolean} Denotes if the process can be ran */
-	private initialized = false;
+	protected initialized = false;
 	/** @type {string} Errors & warnings details */
 	details: string = null;
 
@@ -77,7 +76,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	 *
 	 * @param {Injector} injector
 	 */
-	constructor(private injector: Injector) {}
+	constructor(protected injector: Injector) {}
 
 	/**
 	 * On init
@@ -114,7 +113,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	/**
 	 * Run the process for Models x Channels
 	 */
-	private async run() {
+	protected async run() {
 		// Check if possible
 		if (!this.initialized) {
 			return;
