@@ -17,6 +17,7 @@ import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { Field } from '@app/model/classes/field';
 
 @Component({
 	selector: 'app-model-model',
@@ -117,8 +118,8 @@ export class ModelComponent implements OnInit, OnDestroy {
 	/**
 	 * Called when the user click on "clean fields"
 	 */
-	cleanFields() {
-		this.model.filter();
+	deleteField(field: Field) {
+		this.model.removeField(field);
 		this.onModelChange();
 	}
 

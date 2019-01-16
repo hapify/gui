@@ -114,11 +114,9 @@
 					<app-model-field
 						[models]="models"
 						[field]="field"
-						[cleanRows]="cleanRows"
-						(cleanRow)="cleanFields()"
+						[deletionMode]="cleanRows"
+						(delete)="deleteField(field)"
 						(change)="onModelChange()"
-						(moveUp)="onFieldUp(field)"
-						(moveDown)="onFieldDown(field)"
 						class="col-12"
 					></app-model-field>
 				</li>

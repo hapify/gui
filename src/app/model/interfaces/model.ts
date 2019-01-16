@@ -54,6 +54,14 @@ export interface IModel extends IModelBase, IStorable {
 	addField(field: IField): void;
 
 	/**
+	 * Remove a field
+	 *
+	 * @param {IField} field
+	 * @returns {void}
+	 */
+	removeField(field: IField): void;
+
+	/**
 	 * Push a new field
 	 *
 	 * @param {IField} field
