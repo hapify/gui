@@ -5,12 +5,18 @@
 			<strong>{{ preset.name }}</strong>
 			<small [innerHTML]="preset.description"></small> <br />
 			<div class="text-secondary font-italic">
-				{{
-					(preset.models.length > 1
-						? 'presets_models_count_plural'
-						: 'presets_models_count')
-						| translate: { count: preset.models.length }
-				}}
+				<span *ngIf="preset.models.length > 1">
+					{{
+						'presets_models_count_plural'
+							| translate: { count: preset.models.length }
+					}}</span
+				>
+				<span *ngIf="preset.models.length === 0">
+					{{
+						'presets_models_count'
+							| translate: { count: preset.models.length }
+					}}</span
+				>
 			</div>
 		</div>
 		<button

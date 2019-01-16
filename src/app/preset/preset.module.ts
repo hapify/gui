@@ -10,6 +10,7 @@ import { PresetCardComponent } from './components/preset-card/preset-card.compon
 
 // Services
 import { StorageService } from './services/storage.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
 	imports: [
@@ -19,7 +20,8 @@ import { StorageService } from './services/storage.service';
 		ReactiveFormsModule,
 		TranslateModuleLoad(),
 		TooltipModule.forRoot(),
-		AlertModule.forRoot()
+		AlertModule.forRoot(),
+		SharedModule
 	],
 	declarations: [RootComponent, PresetCardComponent],
 	providers: [StorageService]
