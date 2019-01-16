@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IValidatorResult } from '../interfaces/validator-result';
 import { IModel } from '@app/model/interfaces/model';
-import md5 from 'md5';
+import * as md5 from 'md5';
 
 @Injectable()
 export class ValidatorService {
