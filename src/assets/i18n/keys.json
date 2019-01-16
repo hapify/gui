@@ -36,7 +36,6 @@
 	"models_add_field": "models_add_field",
 	"models_clean_fields": "models_clean_fields",
 	"models_intro": "models_intro",
-	"models_not_found": "models_not_found",
 	"models_title": "models_title",
 	"nav_channel": "nav_channel",
 	"nav_documentation": "nav_documentation",
@@ -68,5 +67,6 @@
 	"tooltip_unique": "tooltip_unique",
 	"tooltip_isprivate": "tooltip_isprivate",
 	"presets_models_count_0": "presets_models_count_0",
-	"presets_models_count_plural": "presets_models_count_plural"
+	"presets_models_count_plural": "presets_models_count_plural",
+	"channel_edit": "channel_edit"
 }

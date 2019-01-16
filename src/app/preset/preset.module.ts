@@ -11,7 +11,6 @@ import { PresetCardComponent } from './components/preset-card/preset-card.compon
 // Services
 import { StorageService } from './services/storage.service';
 import { SharedModule } from '@app/shared/shared.module';
-import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
 
 @NgModule({
 	imports: [
@@ -24,7 +23,7 @@ import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
 		AlertModule.forRoot(),
 		SharedModule
 	],
-	declarations: [RootComponent, PresetCardComponent, TranslateEntryPipe],
+	declarations: [RootComponent, PresetCardComponent],
 	providers: [StorageService]
 })
 export class PresetModule {}
