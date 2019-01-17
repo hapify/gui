@@ -2,16 +2,15 @@ import {
 	Component,
 	OnInit,
 	OnDestroy,
-	Input,
 	Output,
 	EventEmitter
 } from '@angular/core';
-import { IModel } from '../../interfaces/model';
 import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Field } from '@app/model/classes/field';
+import { ModelLightComponent } from '../model-light/model-light.component';
 
 interface IAccessValue {
 	selected: boolean;
@@ -42,16 +41,15 @@ const Accesses: ILabelledValue[] = [
 	templateUrl: './model.component.html',
 	styleUrls: ['./model.component.scss']
 })
-export class ModelComponent implements OnInit, OnDestroy {
+export class ModelComponent extends ModelLightComponent
+	implements OnInit, OnDestroy {
 	/**
 	 * Constructor
 	 */
-	constructor(private hotKeysService: HotkeysService) {}
+	constructor(private hotKeysService: HotkeysService) {
+		super();
+	}
 
-	/** @type {IModel} Model instance */
-	@Input() model: IModel;
-	/** @type {IModel[]} Available Models */
-	@Input() models: IModel[];
 	/** @type {EventEmitter<void>} Notify save */
 	@Output() save = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify changes */
