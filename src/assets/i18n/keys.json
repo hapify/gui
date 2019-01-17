@@ -68,5 +68,6 @@
 	"tooltip_isprivate": "tooltip_isprivate",
 	"presets_models_count_0": "presets_models_count_0",
 	"presets_models_count_plural": "presets_models_count_plural",
-	"channel_edit": "channel_edit"
+	"channel_edit": "channel_edit",
+	"error_dismiss-action": "error_dismiss-action"
 }

@@ -68,5 +68,6 @@
 	"tooltip_isprivate": "Ce champs est privé ?",
 	"presets_models_count_0": "Ce scénario ne contient aucun modèle.",
 	"presets_models_count_plural": "Ce scénario contient les modèles suivant :",
-	"channel_edit": "Éditer cette terminaison"
+	"channel_edit": "Éditer cette terminaison",
+	"error_dismiss-action": "Ok"
 }
