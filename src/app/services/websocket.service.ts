@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IWebSocketInfo } from '../interfaces/websocket-info';
 import { IWebSocketMessage } from '../interfaces/websocket-message';
 import { ConfigService } from './config.service';
+import { MessageService } from './message.service';
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
@@ -21,12 +22,11 @@ export class WebSocketService {
 	/** @type {boolean} Delay to retry connection */
 	private reconnectDelay = 30 * SECOND;
 
-	/**
-	 * Constructor
-	 *
-	 * @param {ConfigService} configService
-	 */
-	constructor(private configService: ConfigService) {}
+	/** Constructor */
+	constructor(
+		private configService: ConfigService,
+		private messageService: MessageService
+	) {}
 
 	/**
 	 * If the websocket connection in not running,
@@ -133,7 +133,9 @@ export class WebSocketService {
 					if (response.type === 'error') {
 						const error = new Error(
 							`Error from WebSocket server: ${
-								response.data ? response.data.error : 'No data'
+								response.data
+									? response.data.message
+									: 'No data'
 							}`
 						);
 						this.logError(error);

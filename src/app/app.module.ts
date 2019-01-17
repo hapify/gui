@@ -32,6 +32,7 @@ import {
 	PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
 import { DocumentationComponent } from './documentation/documentation/documentation.component';
+import { MessageService } from '@app/services/message.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	suppressScrollX: true
 };
@@ -68,6 +69,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		AceService,
 		ValidatorService,
 		WebSocketService,
+		MessageService,
 		{
 			provide: PERFECT_SCROLLBAR_CONFIG,
 			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
