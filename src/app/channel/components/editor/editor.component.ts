@@ -26,6 +26,8 @@ import { IGeneratorResult } from '../../interfaces/generator-result';
 import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
+import { MessageService } from '@app/services/message.service';
+import { GeneratorError } from '@app/class/GeneratorError';
 
 @Component({
 	selector: 'app-channel-editor',
@@ -76,20 +78,14 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** Left editor */
 	@ViewChild('editorInput') editorInput;
-	/**
-	 * Constructor
-	 * @param {FormBuilder} formBuilder
-	 * @param {Injector} injector
-	 * @param {TranslateService} translateService
-	 * @param {HotkeysService} hotKeysService
-	 * @param {AceService} aceService
-	 */
+	/** Constructor */
 	constructor(
 		private formBuilder: FormBuilder,
 		private injector: Injector,
 		private translateService: TranslateService,
 		private hotKeysService: HotkeysService,
-		public aceService: AceService
+		public aceService: AceService,
+		private messageService: MessageService
 	) {
 		// Avoid circular dependency
 		this.generatorService = this.injector.get(GeneratorService);
@@ -193,7 +189,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			})
 			.catch(e => {
 				this.result = null;
-				this.error = `${e.message}\n\n${e.stack}`;
+				this._formatError(e);
 			});
 	}
 	/**
@@ -208,9 +204,18 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 				this.pathResult = result;
 			})
 			.catch(e => {
-				this.error = `${e.message}\n\n${e.stack}`;
+				this._formatError(e);
 			});
 	}
+	/** Format an error to be displayed */
+	private _formatError(error: Error) {
+		if (error instanceof GeneratorError) {
+			this.error = error.details();
+		} else {
+			this.error = `${error.message}\n\n${error.stack}`;
+		}
+	}
+
 	/** Call when the selected model is changed */
 	onModelChange() {
 		this._generate();
@@ -242,7 +247,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** Call when the user click on "dump" */
 	async didClickDump() {
 		// @todo Dump in bash
-		console.log('To be implemented');
+		this.messageService.info('To be implemented');
 	}
 	/**
 	 * Prevent reloading

@@ -1,11 +1,8 @@
 {
 	"access_title": "Access restrictions",
-	"channels_add_template": "Add template",
-	"channels_clean_templates": "Cleanup",
 	"channels_generate": "Generate",
 	"channels_intro": "Manage a channel and edit its templates.",
 	"channels_not_found": "Unable to find this channel.",
-	"channels_open_validator_editor": "Validator",
 	"channels_title": "Channels",
 	"channels_tooltip_autogenerate": "Auto-generate on save",
 	"channels_tooltip_autorefresh": "Preview generated code",
@@ -61,5 +58,6 @@
 	"channel_edit": "",
 	"channels_save": "",
 	"template_input_all": "",
-	"template_input_one": ""
+	"template_input_one": "",
+	"error_dismiss-action": ""
 }

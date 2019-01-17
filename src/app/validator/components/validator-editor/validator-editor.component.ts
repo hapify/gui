@@ -13,13 +13,14 @@ import {
 import {
 	StorageService as ModelStorageService,
 	IModel
-} from '../../../model/model.module';
-import { AceService } from '../../../services/ace.service';
+} from '@app/model/model.module';
+import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { IValidatorResult } from '../../interfaces/validator-result';
 import { ValidatorService } from '../../services/validator.service';
-import { IChannel } from '../../../channel/interfaces/channel';
+import { IChannel } from '@app/channel/interfaces/channel';
+import { MessageService } from '@app/services/message.service';
 
 @Component({
 	selector: 'app-validator-editor',
@@ -63,19 +64,13 @@ export class ValidatorEditorComponent
 	/** Main editor */
 	@ViewChild('editorInput') editorInput;
 
-	/**
-	 * Constructor
-	 *
-	 * @param {Injector} injector
-	 * @param {TranslateService} translateService
-	 * @param {HotkeysService} hotKeysService
-	 * @param {AceService} aceService
-	 */
+	/** Constructor */
 	constructor(
 		private injector: Injector,
 		private translateService: TranslateService,
 		private hotKeysService: HotkeysService,
-		public aceService: AceService
+		public aceService: AceService,
+		private messageService: MessageService
 	) {}
 
 	/**
@@ -229,7 +224,7 @@ export class ValidatorEditorComponent
 	 * Call when the user click on "dump"
 	 */
 	async didClickDump() {
-		console.log(await this.model.toObject());
+		this.messageService.log(this.model.toObject());
 	}
 
 	/**

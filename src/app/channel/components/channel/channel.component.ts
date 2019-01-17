@@ -131,7 +131,6 @@ export class ChannelComponent implements OnInit {
 	/** Update models properties from inputs values */
 	private updateModel(): void {
 		for (const key of Object.keys(this.form.controls)) {
-			console.log(this.channel[key], this.form.get(key).value);
 			this.channel[key] = this.form.get(key).value;
 		}
 	}

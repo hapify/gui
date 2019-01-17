@@ -1,11 +1,8 @@
 {
 	"access_title": "Restrictions d'accès",
-	"channels_add_template": "Ajouter un masque",
-	"channels_clean_templates": "Nettoyer",
 	"channels_generate": "Générer",
 	"channels_intro": "Gérer une terminaison et éditer ses masques.",
 	"channels_not_found": "Le masque n'existe pas.",
-	"channels_open_validator_editor": "Validateur",
 	"channels_title": "Terminaisons",
 	"channels_tooltip_autogenerate": "Génération automatique à la sauvegarde",
 	"channels_tooltip_autorefresh": "Prévisualiser le code générer",
@@ -61,5 +58,6 @@
 	"channel_edit": "Éditer cette terminaison",
 	"channels_save": "Sauvegarder",
 	"template_input_all": "Tous",
-	"template_input_one": "Un seul"
+	"template_input_one": "Un seul",
+	"error_dismiss-action": ""
 }

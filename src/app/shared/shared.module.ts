@@ -10,7 +10,8 @@ import {
 	MatMenuModule,
 	MatProgressSpinnerModule,
 	MatSelectModule,
-	MatTooltipModule
+	MatTooltipModule,
+	MatSnackBarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -27,6 +28,7 @@ import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
 		MatCardModule,
 		MatSelectModule,
 		MatTooltipModule,
+		MatSnackBarModule,
 		MatMenuModule,
 		MatButtonToggleModule,
 		DragDropModule,

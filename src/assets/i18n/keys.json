@@ -1,11 +1,8 @@
 {
 	"access_title": "access_title",
-	"channels_add_template": "channels_add_template",
-	"channels_clean_templates": "channels_clean_templates",
 	"channels_generate": "channels_generate",
 	"channels_intro": "channels_intro",
 	"channels_not_found": "channels_not_found",
-	"channels_open_validator_editor": "channels_open_validator_editor",
 	"channels_title": "channels_title",
 	"channels_tooltip_autogenerate": "channels_tooltip_autogenerate",
 	"channels_tooltip_autorefresh": "channels_tooltip_autorefresh",
@@ -61,5 +58,6 @@
 	"channel_edit": "channel_edit",
 	"channels_save": "channels_save",
 	"template_input_all": "template_input_all",
-	"template_input_one": "template_input_one"
+	"template_input_one": "template_input_one",
+	"error_dismiss-action": "error_dismiss-action"
 }
