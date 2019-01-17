@@ -58,5 +58,7 @@
 	"channels_save": "channels_save",
 	"template_input_all": "template_input_all",
 	"template_input_one": "template_input_one",
-	"error_dismiss-action": "error_dismiss-action"
+	"error_dismiss-action": "error_dismiss-action",
+	"channels_hide_validator": "channels_hide_validator",
+	"channels_show_validator": "channels_show_validator"
 }

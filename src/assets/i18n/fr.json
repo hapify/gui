@@ -58,5 +58,7 @@
 	"channels_save": "Sauvegarder",
 	"template_input_all": "Tous",
 	"template_input_one": "Un seul",
-	"error_dismiss-action": "Ok"
+	"error_dismiss-action": "Ok",
+	"channels_hide_validator": "Masquer le validateur de code",
+	"channels_show_validator": "Afficher le validateur de code"
 }

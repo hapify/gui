@@ -9,6 +9,21 @@
 				mat-raised-button
 				color="accent"
 				class="mat-elevation-z0 border d-inline-flex align-items-center mr-3"
+				(click)="showValidatorEditor = !showValidatorEditor"
+				type="button"
+			>
+				<mat-icon class="mr-1">playlist_add_check</mat-icon>
+				<span *ngIf="!showValidatorEditor">
+					{{ 'channels_show_validator' | translate }}
+				</span>
+				<span *ngIf="showValidatorEditor">
+					{{ 'channels_hide_validator' | translate }}
+				</span>
+			</button>
+			<button
+				mat-raised-button
+				color="accent"
+				class="mat-elevation-z0 border d-inline-flex align-items-center mr-3"
 				(click)="onGenerate()"
 				type="button"
 				[disabled]="channel.isEmpty() || syncing"
@@ -34,7 +49,7 @@
 				(click)="onSubmit(null)"
 				[disabled]="channel.isEmpty()"
 			>
-				<mat-icon>playlist_add_check</mat-icon>
+				<mat-icon [inline]="true">check</mat-icon>
 				{{ 'channels_save' | translate }}
 			</button>
 		</div>
