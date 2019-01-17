@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { StorageService as ModelStorageService } from '../../../model/model.module';
 import { IPreset } from '../../interfaces/preset';
+import { AceService } from '@app/services/ace.service';
+import { MessageService } from '@app/services/message.service';
 
 @Component({
 	selector: 'app-preset-root',
@@ -9,14 +11,11 @@ import { IPreset } from '../../interfaces/preset';
 	styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
-	/**
-	 * Constructor
-	 * @param {StorageService} storageService
-	 * @param {ModelStorageService} modelStorageService
-	 */
+	/** Constructor */
 	constructor(
 		private storageService: StorageService,
-		private modelStorageService: ModelStorageService
+		private modelStorageService: ModelStorageService,
+		private messageService: MessageService
 	) {}
 
 	/**
@@ -71,7 +70,7 @@ export class RootComponent implements OnInit {
 		message += updated.length
 			? `Did update model(s) ${updated.map(m => m.name).join(', ')}`
 			: 'No model updated';
-		console.log(message);
+		this.messageService.info(message);
 	}
 
 	/**

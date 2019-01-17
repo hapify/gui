@@ -30,7 +30,6 @@ export class DocumentationComponent implements OnInit {
 			.get('/assets/docs/cli.md', { responseType: 'text' })
 			.toPromise()
 			.then(data => {
-				console.log(data);
 				this.documents.cli.content = data;
 			});
 		this.http

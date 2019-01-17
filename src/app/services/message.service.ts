@@ -13,11 +13,7 @@ export class MessageService {
 	constructor(
 		private translateService: TranslateService,
 		public snackBar: MatSnackBar
-	) {
-		// setTimeout(() => {
-		//   this.error(new Error('Fuck that shit'));
-		// }, 1000);
-	}
+	) {}
 	/** Show info */
 	info(message: string): void {
 		this._show(message, 'info');
@@ -37,7 +33,7 @@ export class MessageService {
 		this.log(error);
 	}
 	/** Log a message */
-	log(message: any): void {
+	log(message: Error | string | any): void {
 		if (message instanceof Error) {
 			console.error(message);
 		} else {

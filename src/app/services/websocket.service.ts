@@ -6,6 +6,7 @@ import { IWebSocketInfo } from '../interfaces/websocket-info';
 import { IWebSocketMessage } from '../interfaces/websocket-message';
 import { ConfigService } from './config.service';
 import { MessageService } from './message.service';
+import { GeneratorError } from '@app/class/GeneratorError';
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
@@ -49,7 +50,7 @@ export class WebSocketService {
 		try {
 			wsInfo = await this.wsInfo();
 		} catch (error) {
-			this.logError(
+			this.messageService.error(
 				new Error(
 					`Cannot fetch connection info: ${
 						error.message
@@ -66,11 +67,11 @@ export class WebSocketService {
 				const decoded = <IWebSocketMessage>JSON.parse(event.data);
 				this.messageSubject.next(decoded);
 			} catch (error) {
-				this.logError(error);
+				this.messageService.error(error);
 			}
 		};
 		this.ws.onclose = (event: CloseEvent) => {
-			this.logError(
+			this.messageService.error(
 				new Error(
 					`Connection lost: ${event.code}. Try again in ${
 						this.reconnectDelay
@@ -80,7 +81,7 @@ export class WebSocketService {
 			this.handshake(this.reconnectDelay);
 		};
 		this.ws.onerror = (event: ErrorEvent) => {
-			this.logError(new Error(event.message));
+			this.messageService.error(new Error(event.message));
 		};
 		// Wait for opening
 		await new Promise(resolve => {
@@ -131,14 +132,15 @@ export class WebSocketService {
 					clearTimeout(timeoutSub);
 					// On error
 					if (response.type === 'error') {
-						const error = new Error(
-							`Error from WebSocket server: ${
-								response.data
-									? response.data.message
-									: 'No data'
-							}`
-						);
-						this.logError(error);
+						const error =
+							response.data && response.data.data
+								? GeneratorError.from(response.data)
+								: new Error(
+										response.data
+											? response.data.message
+											: 'Error from WebSocket server'
+								  );
+						this.messageService.error(error);
 						reject(error);
 						return;
 					}
@@ -150,7 +152,7 @@ export class WebSocketService {
 			timeoutSub = setTimeout(() => {
 				subscription.unsubscribe();
 				const error = new Error('No response from WebSocket server');
-				this.logError(error);
+				this.messageService.error(error);
 				reject(error);
 			}, timeout);
 			// Start request
@@ -205,10 +207,5 @@ export class WebSocketService {
 		await new Promise(resolve => {
 			setTimeout(() => resolve(this.waitOpened()), 500);
 		});
-	}
-
-	/** Log an error */
-	private logError(error: Error) {
-		console.error(error);
 	}
 }
