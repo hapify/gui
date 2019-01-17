@@ -8,7 +8,7 @@
 					[model]="model"
 					class="flex-shrink-0 mr-2 d-flex align-items-center"
 				></app-validator-icon>
-				{{ model.name }}
+				<span class="title">{{ model.name }}</span>
 			</div>
 			<div class="d-flex align-items-center modelTools">
 				<button mat-icon-button type="button">
@@ -48,31 +48,5 @@
 				class="d-block"
 			></app-validator-details>
 		</mat-card-content>
-		<div
-			class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center confirmModelDeletion"
-		>
-			<div class="bg-gradient-purple position-absolute w-100 h-100"></div>
-			<div class="position-relative">
-				<h6>{{ 'model_delete_confirm' | translate }}</h6>
-				<div class="d-flex align-items-center justify-content-center">
-					<button
-						mat-mini-fab
-						color="accent"
-						class="mat-elevation-z0 mr-2"
-						type="button"
-					>
-						<mat-icon color="primary">undo</mat-icon>
-					</button>
-					<button
-						mat-mini-fab
-						color="warn"
-						class="mat-elevation-z0"
-						type="button"
-					>
-						<mat-icon>delete_forever</mat-icon>
-					</button>
-				</div>
-			</div>
-		</div>
 	</mat-card>
 </div>

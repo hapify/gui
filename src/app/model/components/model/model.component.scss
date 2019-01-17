@@ -6,12 +6,12 @@
 @import '~bootstrap/scss/_variables.scss';
 @import '../../../../theme.scss';
 mat-card {
-	opacity: 0;
-	animation: fadein 0.3s forwards;
-	animation-delay: 0.2s;
+	&.active {
+		outline: solid 1px mat-color($hpf-app-primary);
+	}
 }
 
-input.title {
+.title {
 	font-size: 0.9em;
 	font-weight: 500;
 }

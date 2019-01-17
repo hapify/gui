@@ -25,6 +25,8 @@ export class RootComponent implements OnInit {
 	 */
 	public models: IModel[];
 
+	public currentModel: IModel;
+
 	/** Used for loader to toggle */
 	modelsAreLoaded = false;
 	/** Used new model atom to toggle */

@@ -17,7 +17,11 @@ export abstract class StorageService<T extends IStorable> {
 	 * @returns {Promise<T[]>}
 	 */
 	async list(): Promise<T[]> {
-		// Wait for other process to be finished
+		// If the instances are loaded, returns directly
+		if (this._instances) {
+			return this._instances;
+		}
+		// Wait for other process to be finished and recheck if it is still necessary to get instances
 		await this.lock();
 		// Create the cached instances if not created
 		if (this._instances === null) {

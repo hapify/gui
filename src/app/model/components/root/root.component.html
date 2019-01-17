@@ -13,13 +13,21 @@
 					*ngFor="let model of models"
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
 				>
-					<app-model-model
-						[model]="model"
-						[models]="models"
-						(save)="onSave(model)"
-						(clone)="onClone(model)"
-						(delete)="onDelete(model)"
-					></app-model-model>
+					<div class="editOverlay" (click)="currentModel = model">
+						<app-model-model-light
+							*ngIf="model !== currentModel"
+							[model]="model"
+							[models]="models"
+						></app-model-model-light>
+						<app-model-model
+							*ngIf="model === currentModel"
+							[model]="model"
+							[models]="models"
+							(save)="onSave(model)"
+							(clone)="onClone(model)"
+							(delete)="onDelete(model)"
+						></app-model-model>
+					</div>
 				</li>
 				<li
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"

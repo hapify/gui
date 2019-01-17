@@ -27,11 +27,11 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	/** @type {IModel} */
 	protected modelValue: IModel;
 	/** @type {IModel[]} */
-	protected models: IModel[] = [];
+	protected models: IModel[];
 	/** @type {IChannel} */
 	protected channelValue: IChannel;
 	/** @type {IChannel[]} */
-	protected channels: IChannel[] = [];
+	protected channels: IChannel[];
 	/** @type {EventEmitter<void>} Notify changes */
 	protected signalSubscription: EventEmitter<void>;
 	/** @type {boolean} Denotes if the process can be ran */
@@ -91,18 +91,8 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		this.modelStorageService = this.injector.get(ModelStorageService);
 		this.validatorService = this.injector.get(ValidatorService);
 
-		// Load channels and models once
-		Promise.all([
-			this.channelStorageService.list().then(channels => {
-				this.channels = channels;
-			}),
-			this.modelStorageService.list().then(models => {
-				this.models = models;
-			})
-		]).then(() => {
-			this.initialized = true;
-			this.run();
-		});
+		this.initialized = true;
+		this.run();
 	}
 
 	/**
@@ -112,6 +102,28 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		if (this.signalSubscription) {
 			this.signalSubscription.unsubscribe();
 		}
+	}
+
+	/** Returns the list of channels to deal with */
+	protected async getChannels(): Promise<IChannel[]> {
+		if (typeof this.channelValue !== 'undefined') {
+			return [this.channelValue];
+		}
+		if (!this.channels) {
+			this.channels = await this.channelStorageService.list();
+		}
+		return this.channels;
+	}
+
+	/** Returns the list of models to deal with */
+	protected async getModels(): Promise<IModel[]> {
+		if (typeof this.modelValue !== 'undefined') {
+			return [this.modelValue];
+		}
+		if (!this.models) {
+			this.models = await this.modelStorageService.list();
+		}
+		return this.models;
 	}
 
 	/**
@@ -124,14 +136,8 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		}
 
 		// Start process
-		const channels =
-			typeof this.channelValue === 'undefined'
-				? this.channels
-				: [this.channelValue];
-		const models =
-			typeof this.modelValue === 'undefined'
-				? this.models
-				: [this.modelValue];
+		const channels = await this.getChannels();
+		const models = await this.getModels();
 
 		// Stop process on first error
 		this.details = '';

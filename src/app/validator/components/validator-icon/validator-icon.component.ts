@@ -19,14 +19,8 @@ export class ValidatorIconComponent extends ValidatorDetailsComponent {
 		}
 
 		// Start process
-		const channels =
-			typeof this.channelValue === 'undefined'
-				? this.channels
-				: [this.channelValue];
-		const models =
-			typeof this.modelValue === 'undefined'
-				? this.models
-				: [this.modelValue];
+		const channels = await this.getChannels();
+		const models = await this.getModels();
 
 		// Stop process on first error
 		let hasError = false;
