@@ -2,7 +2,6 @@
 	"access_title": "Restrictions d'accès",
 	"channels_generate": "Générer",
 	"channels_intro": "Gérer une terminaison et éditer ses masques.",
-	"channels_not_found": "Le masque n'existe pas.",
 	"channels_title": "Terminaisons",
 	"channels_tooltip_autogenerate": "Génération automatique à la sauvegarde",
 	"channels_tooltip_autorefresh": "Prévisualiser le code générer",
@@ -59,5 +58,5 @@
 	"channels_save": "Sauvegarder",
 	"template_input_all": "Tous",
 	"template_input_one": "Un seul",
-	"error_dismiss-action": ""
+	"error_dismiss-action": "Ok"
 }
