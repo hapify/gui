@@ -3,9 +3,11 @@
 		<div
 			class="p-4 d-flex flex-column align-items-center justify-content-center"
 		>
-			<div *ngIf="channel.logo" class="w-50 mb-3">
-				<img src="{{ channel.logo }}" class="w-100 h-auto" />
-			</div>
+			<div
+				*ngIf="channel.logo"
+				class="w-50 mb-3 bg"
+				[style.background-image]="'url(' + channel.logo + ')'"
+			></div>
 			<h2 class="w-100 mb-2 pb-2 border-bottom border-light text-center">
 				{{ channel.name }}
 			</h2>

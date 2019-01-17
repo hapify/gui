@@ -41,7 +41,7 @@ export class FieldLightComponent implements OnInit {
 		{ property: 'sortable', icon: 'filter_list', value: false },
 		{ property: 'isPrivate', icon: 'lock', value: false },
 		{ property: 'internal', icon: 'code', value: false },
-		{ property: 'restricted', icon: '', value: false },
+		{ property: 'restricted', icon: 'pan_tool', value: false },
 		{ property: 'ownership', icon: 'copyright', value: false }
 	];
 	filteredPropertiesIcons: IPropertyIcon[] = [];

@@ -11,9 +11,11 @@
 		[class.reduced]="sidebarIsReduced"
 		(click)="sidebarIsReduced = !sidebarIsReduced"
 	></div>
-	<perfect-scrollbar
+	<div
+		id="scrollzone"
+		(scroll)="test()"
 		class="d-block h-100 w-100 bg-plain-grey-1 flex-shrink-1 flex-grow-1"
 	>
-		<router-outlet></router-outlet>
-	</perfect-scrollbar>
+		<div #scrollzone><router-outlet></router-outlet></div>
+	</div>
 </div>

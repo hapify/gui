@@ -1,37 +1,78 @@
+<header class="row py-3 px-4 border-bottom">
+	<div class="col-12 d-flex justify-content-between align-items-center">
+		<h1 class="my-3">
+			{{ channel.name }}
+			<small class="d-block mt-2">{{ channel.description }}</small>
+		</h1>
+		<div class="flex-shrink-0 d-flex align-items-center">
+			<button
+				mat-raised-button
+				color="accent"
+				class="mat-elevation-z0 border d-inline-flex align-items-center mr-3"
+				(click)="onGenerate()"
+				type="button"
+				[disabled]="channel.isEmpty() || syncing"
+			>
+				<mat-icon
+					*ngIf="!channel.isEmpty() && !syncing"
+					[inline]="true"
+					class="mr-1"
+					>gavel</mat-icon
+				>
+				<mat-spinner
+					*ngIf="channel.isEmpty() || syncing"
+					[diameter]="16"
+					class="d-inline-block"
+				></mat-spinner>
+				{{ 'channels_generate' | translate }}
+			</button>
+			<button
+				mat-raised-button
+				color="primary"
+				class="mat-elevation-z0 border d-inline-flex align-items-center"
+				type="button"
+				(click)="onSubmit(null)"
+				[disabled]="channel.isEmpty()"
+			>
+				<mat-icon>playlist_add_check</mat-icon>
+				{{ 'channels_save' | translate }}
+			</button>
+		</div>
+	</div>
+</header>
+<div class="row" *ngIf="showValidatorEditor">
+	<div class="col-12">
+		<app-validator-editor
+			[channel]="channel"
+			(onSave)="onValidatorEditorSave()"
+			(onClose)="onValidatorEditorClose()"
+		>
+		</app-validator-editor>
+	</div>
+</div>
+<form class="row px-4 my-4" [formGroup]="form" (ngSubmit)="onSubmit(null)">
+	<!-- Todo: Delete this input -->
+	<input
+		id="name"
+		formControlName="name"
+		class="d-none"
+		disabled
+		type="text"
+	/>
+	<!-- /Delete this input -->
+	<div class="col-4"></div>
+	<ul class="col-8 list-unstyled d-flex flex-column">
+		<li *ngFor="let template of channel.templates" class="w-100 mb-3">
+			<app-channel-template
+				[template]="template"
+				(onSave)="onSubmit($event)"
+			></app-channel-template>
+		</li>
+	</ul>
+</form>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit(null)">
 	<div class="card">
-		<div class="card-header">
-			<div class="row">
-				<div class="col-sm-8">
-					<div class="input-group">
-						<input
-							id="name"
-							formControlName="name"
-							class="form-control"
-							disabled
-							type="text"
-						/>
-					</div>
-				</div>
-				<div class="col-sm-4 text-sm-right d-none d-sm-block">
-					<button
-						type="button"
-						class="btn btn-outline-secondary"
-						[disabled]="channel.isEmpty() || syncing"
-						(click)="onGenerate()"
-					>
-						{{ 'channels_generate' | translate }}
-					</button>
-					<button
-						type="submit"
-						class="btn btn-primary"
-						[disabled]="channel.isEmpty()"
-					>
-						{{ 'common_save' | translate }}
-					</button>
-				</div>
-			</div>
-		</div>
 		<ul class="list-group list-group-flush">
 			<li
 				*ngFor="let template of channel.templates"

@@ -19,3 +19,12 @@ app-sidebar {
 		cursor: e-resize;
 	}
 }
+
+.scrolling {
+	pointer-events: none;
+}
+
+#scrollzone {
+	height: 100%;
+	overflow: auto;
+}

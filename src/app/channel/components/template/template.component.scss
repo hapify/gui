@@ -1,9 +1,14 @@
+@import '../../../../theme.scss';
+
 .template-preview {
 	position: relative;
 	pre {
-		height: 260px;
+		background-color: mat-color($hpf-app-primary, 50, 1);
+		min-height: 80px;
+		max-height: 260px;
 		overflow: hidden;
 		position: relative;
+		color: mat-color($hpf-app-primary);
 		&:after {
 			content: '';
 			position: absolute;
@@ -14,8 +19,8 @@
 			height: 3rem;
 			background: linear-gradient(
 				to top,
-				rgba(248, 249, 250, 1) 33%,
-				rgba(248, 249, 250, 0) 100%
+				mat-color($hpf-app-primary, 50, 1) 30%,
+				mat-color($hpf-app-primary, 50, 0) 100%
 			);
 		}
 	}
@@ -27,8 +32,8 @@
 		right: 0;
 		top: 0;
 		opacity: 0;
-		background-color: rgba(248, 249, 250, 0.8);
-		transition: opacity 300ms ease;
+		background-color: mat-color($hpf-app-primary, 50, 0.6);
+		transition: opacity 0.1s ease;
 	}
 	&:hover {
 		.open-overlay {
