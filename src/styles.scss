@@ -233,6 +233,12 @@ h1 {
 		color: $json;
 	}
 }
+.color-js {
+	color: $js;
+	mat-icon {
+		color: $js;
+	}
+}
 .color-folder {
 	color: $folder;
 	mat-icon {
@@ -251,6 +257,9 @@ h1 {
 }
 .bg-json {
 	background-color: $bg-json;
+}
+.bg-js {
+	background-color: $bg-js;
 }
 .bg-folder {
 	background-color: $bg-folder;
@@ -293,6 +302,13 @@ h1 {
 		$bg-json 100%
 	);
 }
+.gradientoverlay-js:after {
+	background: linear-gradient(
+		to bottom,
+		fade_out($bg-js, 0.3) 30%,
+		$bg-json 100%
+	);
+}
 .gradientoverlay-folder:after {
 	background: linear-gradient(
 		to bottom,
@@ -316,6 +332,10 @@ h1 {
 .over-json:hover,
 .over-json.selected {
 	background-color: $bg-json;
+}
+.over-js:hover,
+.over-js.selected {
+	background-color: $bg-js;
 }
 .over-folder:hover,
 .over-folder.selected {
