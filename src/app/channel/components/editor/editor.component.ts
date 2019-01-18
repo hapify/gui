@@ -44,7 +44,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** @type {number} Max length allowed for the path */
 	@Input() pathMinLength = 1;
 	/** @type {number} Min length allowed for the path */
-	@Input() pathMaxLength = 64;
+	@Input() pathMaxLength = 128;
 	/** @type {FormGroup} */
 	form: FormGroup;
 	/** @type {{minLength: number, maxLength: number}} */

@@ -6,12 +6,6 @@ import {
 	EventEmitter,
 	Injector
 } from '@angular/core';
-import {
-	FormBuilder,
-	FormGroup,
-	FormControl,
-	Validators
-} from '@angular/forms';
 import { IChannel } from '../../interfaces/channel';
 import { GeneratorService } from '../../services/generator.service';
 import { ITemplate } from '../../interfaces/template';
@@ -34,12 +28,6 @@ export class ChannelComponent implements OnInit {
 	@Input() channel: IChannel;
 	/** @type {EventEmitter<ITemplate|null>} On save event */
 	@Output() onSave = new EventEmitter<ITemplate | null>();
-	/** @type {FormGroup} */
-	form: FormGroup;
-	/** @type {number} */
-	minLength = 2;
-	/** @type {number} */
-	maxLength = 32;
 	/** @type {string} */
 	defaultTemplateName = 'New template';
 	/** @type {string} */
@@ -48,11 +36,6 @@ export class ChannelComponent implements OnInit {
 	syncing = false;
 	/** Current edited template */
 	currentEditedTemplate: ITemplate;
-	/** @type {{minLength: number; maxLength: number}} */
-	translateParams = {
-		minLength: this.minLength,
-		maxLength: this.maxLength
-	};
 	/** @type {boolean} */
 	showValidatorEditor = false;
 	/** @type {TreeBranch[]} */
@@ -61,10 +44,9 @@ export class ChannelComponent implements OnInit {
 
 	/**
 	 * Constructor
-	 * @param {FormBuilder} formBuilder
 	 * @param {Injector} injector
 	 */
-	constructor(private formBuilder: FormBuilder, private injector: Injector) {
+	constructor(private injector: Injector) {
 		// Avoid circular dependency
 		this.generatorService = this.injector.get(GeneratorService);
 	}
@@ -73,15 +55,6 @@ export class ChannelComponent implements OnInit {
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		// Form validator
-		this.form = this.formBuilder.group({
-			name: new FormControl(this.channel.name, [
-				Validators.required,
-				Validators.minLength(this.minLength),
-				Validators.maxLength(this.maxLength)
-			])
-		});
-
 		this.tree = this.buildTree();
 	}
 
@@ -126,7 +99,6 @@ export class ChannelComponent implements OnInit {
 	 * @param {ITemplate|null} toGenerate
 	 */
 	onSubmit(toGenerate: ITemplate | null) {
-		this.updateModel();
 		this.onSave.emit(toGenerate);
 	}
 
@@ -197,12 +169,5 @@ export class ChannelComponent implements OnInit {
 	 */
 	matchPath(path: string): boolean {
 		return path.indexOf(this.selectedPath) > -1;
-	}
-
-	/** Update models properties from inputs values */
-	private updateModel(): void {
-		for (const key of Object.keys(this.form.controls)) {
-			this.channel[key] = this.form.get(key).value;
-		}
 	}
 }
