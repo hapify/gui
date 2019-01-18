@@ -8,7 +8,10 @@
 		>
 			<span
 				class="w-100 flex-shrink-1 d-flex align-items-center"
-				(click)="onSelectPath(branch.path)"
+				(click)="
+					onSelectPath(branch.path);
+					isOpen[branch.path] = !isOpen[branch.path]
+				"
 			>
 				<div class="mr-1 fileIconColor {{ getType(branch.path) }}">
 					<mat-icon
