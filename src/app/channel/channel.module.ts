@@ -22,6 +22,7 @@ import { HotkeyModule } from 'angular2-hotkeys';
 // Directives
 import { ContentEditableModelDirective } from './directives/content-editable-model.directive';
 import { SharedModule } from '@app/shared/shared.module';
+import { TreeComponent } from './components/tree/tree.component';
 
 @NgModule({
 	imports: [
@@ -44,7 +45,8 @@ import { SharedModule } from '@app/shared/shared.module';
 		ChannelCardComponent,
 		EditorComponent,
 		ContentEditableModelDirective,
-		ValidatorEditorComponent
+		ValidatorEditorComponent,
+		TreeComponent
 	],
 	providers: [StorageService, GeneratorService]
 })

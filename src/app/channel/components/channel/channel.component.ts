@@ -16,6 +16,12 @@ import { IChannel } from '../../interfaces/channel';
 import { GeneratorService } from '../../services/generator.service';
 import { ITemplate } from '../../interfaces/template';
 
+export interface TreeBranch {
+	name: string;
+	path: string;
+	children: TreeBranch[];
+}
+
 @Component({
 	selector: 'app-channel-channel',
 	templateUrl: './channel.component.html',
@@ -47,6 +53,9 @@ export class ChannelComponent implements OnInit {
 	};
 	/** @type {boolean} */
 	showValidatorEditor = false;
+	/** @type {TreeBranch[]} */
+	tree: TreeBranch[];
+	selectedPath = '';
 
 	/**
 	 * Constructor
@@ -70,6 +79,44 @@ export class ChannelComponent implements OnInit {
 				Validators.maxLength(this.maxLength)
 			])
 		});
+
+		this.tree = this.buildTree();
+	}
+
+	buildTree(): TreeBranch[] {
+		const tree = [];
+
+		this.channel.templates.forEach(template => {
+			const pathParts = template.path.split('/');
+
+			let currentLevel = tree;
+			let parentPath = '';
+			pathParts.forEach(pathPart => {
+				if (currentLevel) {
+					const existingPathPart = currentLevel.filter(
+						level => level.name === pathPart
+					);
+					if (existingPathPart.length) {
+						parentPath = parentPath
+							? parentPath + '/' + existingPathPart[0]['name']
+							: existingPathPart[0]['name'];
+						currentLevel = existingPathPart[0]['children'];
+					} else {
+						parentPath = parentPath
+							? parentPath + '/' + pathPart
+							: pathPart;
+						const newPathPart = {
+							name: pathPart,
+							path: parentPath,
+							children: []
+						};
+						currentLevel.push(newPathPart);
+						currentLevel = newPathPart['children'];
+					}
+				}
+			});
+		});
+		return tree;
 	}
 
 	/**
@@ -108,13 +155,6 @@ export class ChannelComponent implements OnInit {
 	}
 
 	/**
-	 * Called when the user click on "Open Validator Editor" button
-	 */
-	onShowValidatorEditor() {
-		this.showValidatorEditor = true;
-	}
-
-	/**
 	 * Called when the ValidatorEditor is saved
 	 */
 	onValidatorEditorSave() {
@@ -126,6 +166,13 @@ export class ChannelComponent implements OnInit {
 	 */
 	onValidatorEditorClose() {
 		this.showValidatorEditor = false;
+	}
+
+	/**
+	 * Toggle template card display
+	 */
+	matchPath(path: string): boolean {
+		return path.indexOf(this.selectedPath) > -1;
 	}
 
 	/** Update models properties from inputs values */

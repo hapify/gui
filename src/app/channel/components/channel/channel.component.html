@@ -16,9 +16,6 @@
 				<span *ngIf="!showValidatorEditor">
 					{{ 'channels_show_validator' | translate }}
 				</span>
-				<span *ngIf="showValidatorEditor">
-					{{ 'channels_hide_validator' | translate }}
-				</span>
 			</button>
 			<button
 				mat-raised-button
@@ -75,9 +72,19 @@
 		type="text"
 	/>
 	<!-- /Delete this input -->
-	<div class="col-4"></div>
+	<div class="col-4">
+		<app-tree
+			[tree]="tree"
+			(selectPath)="selectedPath = $event"
+			[selectedPath]="selectedPath"
+		></app-tree>
+	</div>
 	<ul class="col-8 list-unstyled d-flex flex-column">
-		<li *ngFor="let template of channel.templates" class="w-100 mb-3">
+		<li
+			*ngFor="let template of channel.templates"
+			class="w-100 mb-3"
+			[class.d-none]="!matchPath(template.path)"
+		>
 			<app-channel-template
 				[template]="template"
 				(onSave)="onSubmit($event)"

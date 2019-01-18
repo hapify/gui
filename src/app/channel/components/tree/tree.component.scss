@@ -1,0 +1,54 @@
+@import '../../../../theme.scss';
+
+ul {
+	font-size: 12px;
+	border-left: 1px solid mat-color($hpf-app-primary, 100);
+	li {
+		& > span {
+			transition: background-color 0.1s ease;
+
+			&.ts:hover,
+			&.ts.selected {
+				background-color: #e7f1ff;
+			}
+			&.html:hover,
+			&.html.selected {
+				background-color: #f1ffed;
+			}
+			&.scss:hover,
+			&.scss.selected {
+				background-color: #ffe5e5;
+			}
+			&.json:hover,
+			&.json.selected {
+				background-color: #fff9e2;
+			}
+			&.folder:hover,
+			&.folder.selected {
+				background-color: #fff;
+			}
+
+			& > span {
+				cursor: pointer;
+
+				mat-icon {
+					margin-top: 2px;
+				}
+			}
+
+			& > mat-icon {
+				cursor: pointer;
+			}
+		}
+
+		app-tree {
+			height: 0;
+			overflow: hidden;
+			transition: height 0.1s ease;
+
+			&.openned {
+				height: auto;
+			}
+		}
+	}
+}
