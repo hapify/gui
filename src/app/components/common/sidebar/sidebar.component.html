@@ -14,7 +14,7 @@
 		>[H]</a
 	>
 	<p class="d-none mb-3 px-3" [class.d-lg-block]="!reduced">
-		Mon super projet
+		{{ info ? info.project.name : '&nbsp;' }}
 	</p>
 	<ul class="list-unstyled pt-5 d-flex w-100 flex-column align-items-center">
 		<li class="mb-3">
