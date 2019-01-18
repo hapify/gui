@@ -62,6 +62,18 @@
 		</app-validator-editor>
 	</div>
 </div>
+<div class="row" *ngIf="currentEditedTemplate">
+	<div class="col-12">
+		<app-channel-editor
+			[pathMaxLength]="maxLength"
+			[pathMinLength]="minLength"
+			[template]="currentEditedTemplate"
+			(onSave)="onEditorSave($event)"
+			(onClose)="onEditorClose()"
+		>
+		</app-channel-editor>
+	</div>
+</div>
 <form class="row px-4 my-4" [formGroup]="form" (ngSubmit)="onSubmit(null)">
 	<!-- Todo: Delete this input -->
 	<input
@@ -85,7 +97,7 @@
 				*ngIf="matchPath(template.path)"
 				class="d-block mb-3"
 				[template]="template"
-				(onSave)="onSubmit($event)"
+				(showEditor)="onShowEditor(template)"
 			></app-channel-template>
 		</li>
 	</ul>

@@ -46,6 +46,8 @@ export class ChannelComponent implements OnInit {
 	defaultTemplatePath = '/path/to/{model.hyphen}';
 	/** @type {boolean} */
 	syncing = false;
+	/** Current edited template */
+	currentEditedTemplate: ITemplate;
 	/** @type {{minLength: number; maxLength: number}} */
 	translateParams = {
 		minLength: this.minLength,
@@ -166,6 +168,28 @@ export class ChannelComponent implements OnInit {
 	 */
 	onValidatorEditorClose() {
 		this.showValidatorEditor = false;
+	}
+
+	/**
+	 * Called when the user click on "Open Editor" button
+	 */
+	onShowEditor(template: ITemplate) {
+		this.currentEditedTemplate = template;
+	}
+
+	/**
+	 * Called when the editor is saved
+	 */
+	onEditorClose() {
+		this.currentEditedTemplate = null;
+	}
+
+	/**
+	 * Called when the editor is saved
+	 * @param {ITemplate|null} toGenerate
+	 */
+	onEditorSave(toGenerate: ITemplate | null) {
+		this.onSubmit(toGenerate);
 	}
 
 	/**
