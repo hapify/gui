@@ -62,7 +62,7 @@
 						mat-raised-button
 						color="primary"
 						(click)="onShowEditor()"
-						class="d-flex align-items-center"
+						class="d-flex align-items-center mat-elevation-z0"
 					>
 						<mat-icon [inline]="true" class="mr-1">edit</mat-icon>
 						{{ 'template_open_editor' | translate }}
@@ -72,13 +72,12 @@
 		</form>
 	</mat-card-content>
 </mat-card>
-<div *ngIf="showEditor">
-	<app-channel-editor
-		[pathMaxLength]="maxLength"
-		[pathMinLength]="minLength"
-		[template]="template"
-		(onSave)="onEditorSave($event)"
-		(onClose)="onEditorClose()"
-	>
-	</app-channel-editor>
-</div>
+<app-channel-editor
+	*ngIf="showEditor"
+	[pathMaxLength]="maxLength"
+	[pathMinLength]="minLength"
+	[template]="template"
+	(onSave)="onEditorSave($event)"
+	(onClose)="onEditorClose()"
+>
+</app-channel-editor>

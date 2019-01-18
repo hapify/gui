@@ -1,5 +1,16 @@
 @import '../../../../theme.scss';
 
+$ts-bg: #dbebff;
+$ts: #75a2ff;
+$html-bg: #f1ffed;
+$html: #95ff94;
+$scss-bg: #ffe5e5;
+$scss: #ff8192;
+$json-bg: #fff9e2;
+$json: #fff9e2;
+$folder-bg: #dbdee2;
+$folder: #838487;
+
 ul {
 	font-size: 12px;
 	border-left: 1px solid mat-color($hpf-app-primary, 100);
@@ -9,23 +20,23 @@ ul {
 
 			&.ts:hover,
 			&.ts.selected {
-				background-color: #e7f1ff;
+				background-color: $ts-bg;
 			}
 			&.html:hover,
 			&.html.selected {
-				background-color: #f1ffed;
+				background-color: $html-bg;
 			}
 			&.scss:hover,
 			&.scss.selected {
-				background-color: #ffe5e5;
+				background-color: $scss-bg;
 			}
 			&.json:hover,
 			&.json.selected {
-				background-color: #fff9e2;
+				background-color: $json-bg;
 			}
 			&.folder:hover,
 			&.folder.selected {
-				background-color: #fff;
+				background-color: $folder-bg;
 			}
 
 			& > span {
@@ -50,5 +61,31 @@ ul {
 				height: auto;
 			}
 		}
+	}
+}
+
+.fileIconColor.ts {
+	mat-icon {
+		color: $ts;
+	}
+}
+.fileIconColor.html {
+	mat-icon {
+		color: $html;
+	}
+}
+.fileIconColor.scss {
+	mat-icon {
+		color: $scss;
+	}
+}
+.fileIconColor.json {
+	mat-icon {
+		color: $json;
+	}
+}
+.fileIconColor.folder {
+	mat-icon {
+		color: $folder;
 	}
 }

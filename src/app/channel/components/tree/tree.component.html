@@ -10,17 +10,26 @@
 				class="w-100 flex-shrink-1 d-flex align-items-center"
 				(click)="onSelectPath(branch.path)"
 			>
-				<div class="mr-1">
+				<div class="mr-1 fileIconColor {{ getType(branch.path) }}">
 					<mat-icon
-						*ngIf="getType(branch.path) === 'folder'"
+						*ngIf="
+							getType(branch.path) === 'folder' &&
+							isOpen[branch.path]
+						"
 						[inline]="true"
-						color="primary"
+						>folder_open</mat-icon
+					>
+					<mat-icon
+						*ngIf="
+							getType(branch.path) === 'folder' &&
+							!isOpen[branch.path]
+						"
+						[inline]="true"
 						>folder</mat-icon
 					>
 					<mat-icon
 						*ngIf="getType(branch.path) !== 'folder'"
 						[inline]="true"
-						color="primary"
 						>insert_drive_file</mat-icon
 					>
 				</div>
