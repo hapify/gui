@@ -1,5 +1,6 @@
 @import 'theme.scss';
 @import '~bootstrap/scss/bootstrap';
+@import 'file-colors.scss';
 
 /* FONTS */
 @font-face {
@@ -206,4 +207,113 @@ h1 {
 		outline: none;
 		color: mat-color($hpf-app-primary);
 	}
+}
+
+.color-ts {
+	color: $ts;
+	mat-icon {
+		color: $ts;
+	}
+}
+.color-html {
+	color: $html;
+	mat-icon {
+		color: $html;
+	}
+}
+.color-scss {
+	color: $scss;
+	mat-icon {
+		color: $scss;
+	}
+}
+.color-json {
+	color: $json;
+	mat-icon {
+		color: $json;
+	}
+}
+.color-folder {
+	color: $folder;
+	mat-icon {
+		color: $folder;
+	}
+}
+
+.bg-ts {
+	background-color: $bg-ts;
+}
+.bg-html {
+	background-color: $bg-html;
+}
+.bg-scss {
+	background-color: $bg-scss;
+}
+.bg-json {
+	background-color: $bg-json;
+}
+.bg-folder {
+	background-color: $bg-folder;
+}
+
+[class*='gradientoverlay']:after {
+	content: '';
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 3rem;
+}
+.gradientoverlay-ts:after {
+	background: linear-gradient(to top, fade_out($bg-ts, 0.3) 30%, $bg-ts 100%);
+}
+.gradientoverlay-html:after {
+	background: linear-gradient(
+		to top,
+		fade_out($bg-html, 0.3) 30%,
+		$bg-html 100%
+	);
+}
+.gradientoverlay-scss:after {
+	background: linear-gradient(
+		to top,
+		fade_out($bg-scss, 0.3) 30%,
+		$bg-scss 100%
+	);
+}
+.gradientoverlay-json:after {
+	background: linear-gradient(
+		to top,
+		fade_out($bg-json, 0.3) 30%,
+		$bg-json 100%
+	);
+}
+.gradientoverlay-folder:after {
+	background: linear-gradient(
+		to top,
+		fade_out($bg-folder, 0.3) 30%,
+		$bg-folder 100%
+	);
+}
+
+.over-ts:hover,
+.over-ts.selected {
+	background-color: $bg-ts;
+}
+.over-html:hover,
+.over-html.selected {
+	background-color: $bg-html;
+}
+.over-scss:hover,
+.over-scss.selected {
+	background-color: $bg-scss;
+}
+.over-json:hover,
+.over-json.selected {
+	background-color: $bg-json;
+}
+.over-folder:hover,
+.over-folder.selected {
+	background-color: $bg-folder;
 }
