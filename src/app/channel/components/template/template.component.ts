@@ -27,11 +27,11 @@ export class TemplateComponent implements OnInit {
 	 */
 	@Input() template: ITemplate;
 	/**
-	 * On save event
+	 * Show editor
 	 *
-	 * @type {EventEmitter<ITemplate|null>}
+	 * @type {EventEmitter<void>}
 	 */
-	@Output() onSave = new EventEmitter<ITemplate | null>();
+	@Output() showEditor = new EventEmitter<void>();
 	/**
 	 * @type {FormGroup}
 	 */
@@ -44,21 +44,6 @@ export class TemplateComponent implements OnInit {
 	 * @type {number}
 	 */
 	maxLength = 128;
-	/**
-	 * @type {boolean}
-	 */
-	showCode = false;
-	/**
-	 * @type {boolean}
-	 */
-	showEditor = false;
-	/**
-	 * @type {{minLength: number; maxLength: number}}
-	 */
-	translateParams = {
-		minLength: this.minLength,
-		maxLength: this.maxLength
-	};
 	/**
 	 * Available engines
 	 */
@@ -106,23 +91,7 @@ export class TemplateComponent implements OnInit {
 	 * Called when the user click on "Open Editor" button
 	 */
 	onShowEditor() {
-		this.showEditor = true;
-	}
-
-	/**
-	 * Called when the editor is saved
-	 * @param {ITemplate|null} toGenerate
-	 */
-	onEditorSave(toGenerate: ITemplate | null) {
-		this.updateModel();
-		this.onSave.emit(toGenerate);
-	}
-
-	/**
-	 * Called when the editor is saved
-	 */
-	onEditorClose() {
-		this.showEditor = false;
+		this.showEditor.emit();
 	}
 
 	/** Update models properties from inputs values */

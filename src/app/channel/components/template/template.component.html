@@ -72,12 +72,3 @@
 		</form>
 	</mat-card-content>
 </mat-card>
-<app-channel-editor
-	*ngIf="showEditor"
-	[pathMaxLength]="maxLength"
-	[pathMinLength]="minLength"
-	[template]="template"
-	(onSave)="onEditorSave($event)"
-	(onClose)="onEditorClose()"
->
-</app-channel-editor>
