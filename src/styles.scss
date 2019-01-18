@@ -266,32 +266,36 @@ h1 {
 	height: 3rem;
 }
 .gradientoverlay-ts:after {
-	background: linear-gradient(to top, fade_out($bg-ts, 0.3) 30%, $bg-ts 100%);
+	background: linear-gradient(
+		to bottom,
+		fade_out($bg-ts, 0.3) 30%,
+		$bg-ts 100%
+	);
 }
 .gradientoverlay-html:after {
 	background: linear-gradient(
-		to top,
+		to bottom,
 		fade_out($bg-html, 0.3) 30%,
 		$bg-html 100%
 	);
 }
 .gradientoverlay-scss:after {
 	background: linear-gradient(
-		to top,
+		to bottom,
 		fade_out($bg-scss, 0.3) 30%,
 		$bg-scss 100%
 	);
 }
 .gradientoverlay-json:after {
 	background: linear-gradient(
-		to top,
+		to bottom,
 		fade_out($bg-json, 0.3) 30%,
 		$bg-json 100%
 	);
 }
 .gradientoverlay-folder:after {
 	background: linear-gradient(
-		to top,
+		to bottom,
 		fade_out($bg-folder, 0.3) 30%,
 		$bg-folder 100%
 	);
