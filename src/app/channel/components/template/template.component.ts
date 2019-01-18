@@ -37,4 +37,26 @@ export class TemplateComponent {
 	onShowEditor() {
 		this.showEditor.emit();
 	}
+
+	/** Get File extension*/
+	getType(name: string): string {
+		const regex = /\.[a-z]+$/gm;
+		let m;
+		let extension = '';
+
+		while ((m = regex.exec(name)) !== null) {
+			if (m.index === regex.lastIndex) {
+				regex.lastIndex++;
+			}
+			if (m) {
+				extension = m[0].slice(1);
+			}
+		}
+
+		if (extension.length) {
+			return extension;
+		} else {
+			return 'folder';
+		}
+	}
 }

@@ -3,26 +3,11 @@
 .template-preview {
 	position: relative;
 	pre {
-		background-color: mat-color($hpf-app-primary, 50, 1);
 		min-height: 80px;
 		max-height: 260px;
 		overflow: hidden;
 		position: relative;
-		color: mat-color($hpf-app-primary);
-		&:after {
-			content: '';
-			position: absolute;
-			z-index: 1;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 3rem;
-			background: linear-gradient(
-				to top,
-				mat-color($hpf-app-primary, 50, 1) 30%,
-				mat-color($hpf-app-primary, 50, 0) 100%
-			);
-		}
+		color: #666;
 	}
 	.open-overlay {
 		position: absolute;
@@ -32,7 +17,7 @@
 		right: 0;
 		top: 0;
 		opacity: 0;
-		background-color: mat-color($hpf-app-primary, 50, 0.6);
+		background-color: rgba(255, 255, 255, 0.3);
 		transition: opacity 0.1s ease;
 	}
 	&:hover {

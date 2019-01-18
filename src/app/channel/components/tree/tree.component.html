@@ -2,18 +2,15 @@
 	<li *ngFor="let branch of tree" class="w-100 pl-2 d-flex flex-column">
 		<span
 			class="d-flex align-items-center justify-content-between py-1 px-2 {{
-				getType(branch.path)
+				'over-' + getType(branch.path)
 			}}"
 			[class.selected]="selectedPath === branch.path"
 		>
 			<span
 				class="w-100 flex-shrink-1 d-flex align-items-center"
-				(click)="
-					onSelectPath(branch.path);
-					isOpen[branch.path] = !isOpen[branch.path]
-				"
+				(click)="onSelectPath(branch.path); isOpen[branch.path] = true"
 			>
-				<div class="mr-1 fileIconColor {{ getType(branch.path) }}">
+				<div class="mr-1 {{ 'color-' + getType(branch.path) }}">
 					<mat-icon
 						*ngIf="
 							getType(branch.path) === 'folder' &&
