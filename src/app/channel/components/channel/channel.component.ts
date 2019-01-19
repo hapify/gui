@@ -41,6 +41,7 @@ export class ChannelComponent implements OnInit {
 	/** @type {TreeBranch[]} */
 	tree: TreeBranch[];
 	selectedPath = '';
+	templatesToDisplay: { [key: string]: boolean } = {};
 
 	/**
 	 * Constructor
@@ -55,10 +56,13 @@ export class ChannelComponent implements OnInit {
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		this.tree = this.buildTree();
+		this.updateTree();
 	}
 
-	buildTree(): TreeBranch[] {
+	/**
+	 * Get the tree
+	 */
+	private buildTree(): TreeBranch[] {
 		const tree = [];
 
 		this.channel.templates.forEach(template => {
@@ -92,6 +96,17 @@ export class ChannelComponent implements OnInit {
 			});
 		});
 		return tree;
+	}
+
+	/**
+	 * Update the tree and filters
+	 */
+	private updateTree(): void {
+		this.tree = this.buildTree();
+		for (const template of this.channel.templates) {
+			this.templatesToDisplay[template.path] =
+				template.path.indexOf(this.selectedPath) > -1;
+		}
 	}
 
 	/**
@@ -164,10 +179,9 @@ export class ChannelComponent implements OnInit {
 		this.onSubmit(toGenerate);
 	}
 
-	/**
-	 * Toggle template card display
-	 */
-	matchPath(path: string): boolean {
-		return path.indexOf(this.selectedPath) > -1;
+	/** Called when the path is selected */
+	onSelectPath(path: string) {
+		this.selectedPath = path;
+		this.updateTree();
 	}
 }
