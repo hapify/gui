@@ -108,3 +108,8 @@ $hpf-app-theme: mat-light-theme(
 	$hpf-app-warn
 );
 @include angular-material-theme($hpf-app-theme);
+
+$custom-typography: mat-typography-config(
+	$font-family: 'Open Sans'
+);
+@include angular-material-typography($custom-typography);

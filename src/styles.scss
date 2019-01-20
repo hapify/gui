@@ -81,7 +81,11 @@ body {
 }
 
 body {
-	*:not(pre):not(code) {
+	&,
+	input,
+	textarea,
+	select,
+	button {
 		font-family: 'Open Sans', sans-serif !important;
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
