@@ -60,6 +60,14 @@ export class ChannelComponent implements OnInit {
 	}
 
 	/**
+	 * Update the tree and filters
+	 */
+	private updateTree(): void {
+		this.tree = this.buildTree();
+		this.filterTemplates();
+	}
+
+	/**
 	 * Get the tree
 	 */
 	private buildTree(): TreeBranch[] {
@@ -99,10 +107,9 @@ export class ChannelComponent implements OnInit {
 	}
 
 	/**
-	 * Update the tree and filters
+	 * Filters templates to display
 	 */
-	private updateTree(): void {
-		this.tree = this.buildTree();
+	filterTemplates(): void {
 		for (const template of this.channel.templates) {
 			this.templatesToDisplay[template.path] =
 				template.path.indexOf(this.selectedPath) > -1;
@@ -177,11 +184,5 @@ export class ChannelComponent implements OnInit {
 	 */
 	onEditorSave(toGenerate: ITemplate | null) {
 		this.onSubmit(toGenerate);
-	}
-
-	/** Called when the path is selected */
-	onSelectPath(path: string) {
-		this.selectedPath = path;
-		this.updateTree();
 	}
 }

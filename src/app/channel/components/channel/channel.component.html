@@ -77,14 +77,17 @@
 	<div class="col-4">
 		<app-tree
 			[tree]="tree"
-			(selectPath)="onSelectPath($event)"
+			(selectPath)="selectedPath = $event; filterTemplates()"
 			[selectedPath]="selectedPath"
 		></app-tree>
 	</div>
 	<ul class="col-8 list-unstyled d-flex flex-column">
-		<li *ngFor="let template of channel.templates" class="w-100">
+		<li
+			*ngFor="let template of channel.templates"
+			[class.d-none]="!templatesToDisplay[template.path]"
+			class="w-100"
+		>
 			<app-channel-template
-				[class.d-none]="!templatesToDisplay[template.path]"
 				class="d-block mb-3"
 				[template]="template"
 				(showEditor)="onShowEditor(template)"
