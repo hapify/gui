@@ -2,7 +2,7 @@
 	<li *ngFor="let branch of tree" class="w-100 pl-2 d-flex flex-column">
 		<span
 			class="d-flex align-items-center justify-content-between py-1 px-2 {{
-				'over-' + getType(branch.path)
+				'over-' + types[branch.path]
 			}}"
 			[class.selected]="selectedPath === branch.path"
 		>
@@ -10,10 +10,10 @@
 				class="w-100 flex-shrink-1 d-flex align-items-center"
 				(click)="onSelectPath(branch.path); isOpen[branch.path] = true"
 			>
-				<div class="mr-1 {{ 'color-' + getType(branch.path) }}">
+				<div class="mr-1 {{ 'color-' + types[branch.path] }}">
 					<mat-icon
 						*ngIf="
-							getType(branch.path) === 'folder' &&
+							types[branch.path] === 'folder' &&
 							isOpen[branch.path]
 						"
 						[inline]="true"
@@ -21,14 +21,14 @@
 					>
 					<mat-icon
 						*ngIf="
-							getType(branch.path) === 'folder' &&
+							types[branch.path] === 'folder' &&
 							!isOpen[branch.path]
 						"
 						[inline]="true"
 						>folder</mat-icon
 					>
 					<mat-icon
-						*ngIf="getType(branch.path) !== 'folder'"
+						*ngIf="types[branch.path] !== 'folder'"
 						[inline]="true"
 						>insert_drive_file</mat-icon
 					>
@@ -36,7 +36,7 @@
 				{{ branch.name }}
 			</span>
 			<mat-icon
-				*ngIf="getType(branch.path) === 'folder'"
+				*ngIf="types[branch.path] === 'folder'"
 				color="primary"
 				class="flex-shrink-0"
 				(click)="isOpen[branch.path] = !isOpen[branch.path]"

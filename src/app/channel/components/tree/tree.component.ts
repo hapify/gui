@@ -19,7 +19,8 @@ export class TreeComponent implements OnInit {
 	@Input() selectedPath = '';
 	@Output() selectPath = new EventEmitter<string>();
 
-	isOpen = {};
+	isOpen: { [key: string]: boolean } = {};
+	types: { [key: string]: string } = {};
 
 	constructor() {}
 
@@ -27,11 +28,12 @@ export class TreeComponent implements OnInit {
 		// Init isOpen object
 		this.tree.map(branch => {
 			this.isOpen[branch.path] = false;
+			this.types[branch.path] = this.getType(branch.path);
 		});
 	}
 
 	/** Get File extension*/
-	getType(name: string): string {
+	private getType(name: string): string {
 		const regex = /\.[a-z]+$/gm;
 		let m;
 		let extension = '';
