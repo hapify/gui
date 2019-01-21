@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TreeBranch } from '@app/channel/components/channel/channel.component';
+import { TreeBranch } from '../../interfaces/tree-branch';
 
 @Component({
 	selector: 'app-tree',
@@ -19,7 +19,7 @@ export class TreeComponent implements OnInit {
 		return this._tree;
 	}
 	@Input() selectedPath = '';
-	@Output() selectPath = new EventEmitter<string>();
+	@Output() selectBranch = new EventEmitter<TreeBranch>();
 
 	private _tree: TreeBranch[];
 	isOpen: { [key: string]: boolean } = {};
@@ -40,8 +40,16 @@ export class TreeComponent implements OnInit {
 		return parts[parts.length - 1];
 	}
 
-	onSelectPath(path: string) {
-		this.selectedPath = path;
-		this.selectPath.emit(path);
+	onSelectBranch(branch: TreeBranch) {
+		this.selectedPath = branch.path;
+		this.selectBranch.emit(branch);
+	}
+
+	isSelected(branch: TreeBranch): boolean {
+		if (this.selectedPath.endsWith('/')) {
+			return this.selectedPath === `${branch.path}/`;
+		} else {
+			return this.selectedPath === branch.path;
+		}
 	}
 }

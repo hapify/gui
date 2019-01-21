@@ -6,15 +6,10 @@ import {
 	EventEmitter,
 	Injector
 } from '@angular/core';
-import { IChannel } from '../../interfaces/channel';
 import { GeneratorService } from '../../services/generator.service';
+import { IChannel } from '../../interfaces/channel';
 import { ITemplate } from '../../interfaces/template';
-
-export interface TreeBranch {
-	name: string;
-	path: string;
-	children: TreeBranch[];
-}
+import { TreeBranch } from '../../interfaces/tree-branch';
 
 @Component({
 	selector: 'app-channel-channel',
@@ -85,12 +80,12 @@ export class ChannelComponent implements OnInit {
 					);
 					if (existingPathPart.length) {
 						parentPath = parentPath
-							? parentPath + '/' + existingPathPart[0]['name']
-							: existingPathPart[0]['name'];
-						currentLevel = existingPathPart[0]['children'];
+							? `${parentPath}/${existingPathPart[0].name}`
+							: existingPathPart[0].name;
+						currentLevel = existingPathPart[0].children;
 					} else {
 						parentPath = parentPath
-							? parentPath + '/' + pathPart
+							? `${parentPath}/${pathPart}`
 							: pathPart;
 						const newPathPart = {
 							name: pathPart,
@@ -98,7 +93,7 @@ export class ChannelComponent implements OnInit {
 							children: []
 						};
 						currentLevel.push(newPathPart);
-						currentLevel = newPathPart['children'];
+						currentLevel = newPathPart.children;
 					}
 				}
 			});
@@ -116,6 +111,16 @@ export class ChannelComponent implements OnInit {
 				this.selectedPath
 			);
 		}
+	}
+
+	/**
+	 * Called when a branch is selected
+	 */
+	onSelectBranch(branch: TreeBranch) {
+		this.selectedPath = branch.children.length
+			? `${branch.path}/`
+			: branch.path;
+		this.filterTemplates();
 	}
 
 	/**

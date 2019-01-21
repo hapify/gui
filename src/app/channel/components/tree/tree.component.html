@@ -4,11 +4,11 @@
 			class="d-flex align-items-center justify-content-between py-1 px-2 {{
 				'over-' + types[branch.path]
 			}}"
-			[class.selected]="selectedPath === branch.path"
+			[class.selected]="isSelected(branch)"
 		>
 			<span
 				class="w-100 flex-shrink-1 d-flex align-items-center"
-				(click)="onSelectPath(branch.path); isOpen[branch.path] = true"
+				(click)="onSelectBranch(branch); isOpen[branch.path] = true"
 			>
 				<div class="mr-1 {{ 'color-' + types[branch.path] }}">
 					<mat-icon
@@ -53,7 +53,7 @@
 			class="d-flex flex-column"
 			[class.openned]="isOpen[branch.path]"
 			[tree]="branch.children"
-			(selectPath)="onSelectPath($event)"
+			(selectBranch)="onSelectBranch($event)"
 		></app-tree>
 	</li>
 </ul>
