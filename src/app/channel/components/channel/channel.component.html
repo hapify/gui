@@ -79,7 +79,8 @@
 			[tree]="tree"
 			(selectBranch)="onSelectBranch($event)"
 			[selectedPath]="selectedPath"
-			(addTemplate)="addTemplate($event)"
+			(addTemplate)="onAddTemplate($event)"
+			(removeTemplate)="onRemoveTemplate($event)"
 		></app-channel-tree>
 	</div>
 	<ul class="col-8 list-unstyled d-flex flex-column">

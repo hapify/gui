@@ -139,7 +139,7 @@ export class ChannelComponent implements OnInit {
 	/**
 	 * Called when the user click on "add template"
 	 */
-	addTemplate(path: string) {
+	onAddTemplate(path: string) {
 		const template = this.channel.newTemplate();
 		template.name = path;
 		template.path = path;
@@ -151,7 +151,7 @@ export class ChannelComponent implements OnInit {
 	/**
 	 * Called when the user click on "remove templates"
 	 */
-	removeTemplate(template: ITemplate) {
+	onRemoveTemplate(template: ITemplate) {
 		this.channel.removeTemplate(template);
 		this.updateTree();
 	}

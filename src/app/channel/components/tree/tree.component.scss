@@ -7,6 +7,16 @@ ul {
 		& > span {
 			transition: background-color 0.1s ease;
 
+			.removeBtn {
+				opacity: 0;
+			}
+
+			&:hover {
+				.removeBtn {
+					opacity: 1;
+				}
+			}
+
 			& > span {
 				cursor: pointer;
 

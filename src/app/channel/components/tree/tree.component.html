@@ -1,31 +1,67 @@
 <ul *ngIf="tree && tree.length" class="list-unstyled w-100 d-flex flex-column">
 	<li *ngFor="let branch of tree" class="w-100 pl-2 d-flex flex-column">
 		<span
-			class="d-flex align-items-center justify-content-between py-1 px-2 {{
+			class="d-flex align-items-center justify-content-between {{
 				'over-' + types[branch.path]
 			}}"
 			[class.selected]="isSelected(branch)"
 		>
 			<span
-				class="w-100 flex-shrink-1 d-flex align-items-center"
+				class="w-100 flex-shrink-1 d-flex align-items-center justify-content-between py-1 px-2"
 				(click)="onSelectBranch(branch); isOpen[branch.path] = true"
+				(mouseleave)="confirmDeletion = false"
 			>
-				<div class="mr-1 {{ 'color-' + types[branch.path] }}">
+				<div class="w-100 d-flex align-items-center flex-shrink-1">
+					<div class="mr-1 {{ 'color-' + types[branch.path] }}">
+						<mat-icon
+							*ngIf="
+								branch.children.length && isOpen[branch.path]
+							"
+							[inline]="true"
+							>folder_open</mat-icon
+						>
+						<mat-icon
+							*ngIf="
+								branch.children.length && !isOpen[branch.path]
+							"
+							[inline]="true"
+							>folder</mat-icon
+						>
+						<mat-icon
+							*ngIf="!branch.children.length"
+							[inline]="true"
+							>insert_drive_file</mat-icon
+						>
+					</div>
+					{{ branch.name }}
+				</div>
+				<div
+					class="removeBtn flex-shrink-0 d-flex align-items-center"
+					*ngIf="types[branch.path] !== 'folder'"
+				>
 					<mat-icon
-						*ngIf="branch.children.length && isOpen[branch.path]"
+						*ngIf="!confirmDeletion"
 						[inline]="true"
-						>folder_open</mat-icon
+						color="warn"
+						(click)="confirmDeletion = true"
+						>remove_circle</mat-icon
 					>
 					<mat-icon
-						*ngIf="branch.children.length && !isOpen[branch.path]"
+						*ngIf="confirmDeletion"
 						[inline]="true"
-						>folder</mat-icon
+						color="primary"
+						(click)="confirmDeletion = false"
+						class="mr-1"
+						>undo</mat-icon
 					>
-					<mat-icon *ngIf="!branch.children.length" [inline]="true"
-						>insert_drive_file</mat-icon
+					<mat-icon
+						*ngIf="confirmDeletion"
+						[inline]="true"
+						color="warn"
+						(click)="removeTemplate.emit(branch)"
+						>delete_forever</mat-icon
 					>
 				</div>
-				{{ branch.name }}
 			</span>
 			<mat-icon
 				*ngIf="branch.children.length"
@@ -50,6 +86,7 @@
 			[tree]="branch.children"
 			(selectBranch)="onSelectBranch($event)"
 			(addTemplate)="addTemplate.emit($event)"
+			(removeTemplate)="removeTemplate.emit($event)"
 		></app-channel-tree>
 	</li>
 	<li class="w-100 pl-2 d-flex flex-column">

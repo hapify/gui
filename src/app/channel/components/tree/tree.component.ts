@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeBranch } from '../../interfaces/tree-branch';
+import { ITemplate } from '@app/channel/interfaces/template';
 
 @Component({
 	selector: 'app-channel-tree',
@@ -23,11 +24,14 @@ export class TreeComponent implements OnInit {
 	@Input() selectedPath = '';
 	@Output() selectBranch = new EventEmitter<TreeBranch>();
 	@Output() addTemplate = new EventEmitter<string>();
+	@Output() removeTemplate = new EventEmitter<ITemplate>();
 
 	newTemplatePath = '';
 	private _tree: TreeBranch[];
 	isOpen: { [key: string]: boolean } = {};
 	types: { [key: string]: string } = {};
+
+	confirmDeletion = false;
 
 	constructor() {}
 
