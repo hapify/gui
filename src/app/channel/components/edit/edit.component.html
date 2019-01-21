@@ -3,7 +3,7 @@
 		<app-channel-channel
 			*ngIf="channel"
 			[channel]="channel"
-			(onSave)="onSave($event)"
+			(save)="onSave($event)"
 		></app-channel-channel>
 		<div class="w-100 d-flex justify-content-center my-5" *ngIf="!channel">
 			<mat-spinner [diameter]="32"></mat-spinner>

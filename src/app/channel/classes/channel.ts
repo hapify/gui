@@ -68,6 +68,15 @@ export class Channel implements IChannel {
 	/**
 	 * @inheritDoc
 	 */
+	public removeTemplate(template: ITemplate): void {
+		this.templates = this.templates.filter(
+			(t: ITemplate) => t !== template
+		);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public fromObject(object: IChannelBase): void {
 		this.id = object.id;
 		this.name = object.name;

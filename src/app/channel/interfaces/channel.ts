@@ -65,6 +65,14 @@ export interface IChannel extends IChannelBase, IStorable {
 	addTemplate(template: ITemplate): void;
 
 	/**
+	 * Remove a template
+	 *
+	 * @param {ITemplate} template
+	 * @returns {void}
+	 */
+	removeTemplate(template: ITemplate): void;
+
+	/**
 	 * Remove empty templates
 	 *
 	 * @returns {void}

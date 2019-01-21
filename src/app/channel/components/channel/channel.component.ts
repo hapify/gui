@@ -27,7 +27,7 @@ export class ChannelComponent implements OnInit {
 	/** @type {IChannel} Channel instance */
 	@Input() channel: IChannel;
 	/** @type {EventEmitter<ITemplate|null>} On save event */
-	@Output() onSave = new EventEmitter<ITemplate | null>();
+	@Output() save = new EventEmitter<ITemplate | null>();
 	/** @type {string} */
 	defaultTemplateName = 'New template';
 	/** @type {string} */
@@ -122,8 +122,8 @@ export class ChannelComponent implements OnInit {
 	 * Called when the user click on "save"
 	 * @param {ITemplate|null} toGenerate
 	 */
-	onSubmit(toGenerate: ITemplate | null) {
-		this.onSave.emit(toGenerate);
+	onSave(toGenerate: ITemplate | null) {
+		this.save.emit(toGenerate);
 	}
 
 	/**
@@ -155,13 +155,6 @@ export class ChannelComponent implements OnInit {
 	/**
 	 * Called when the ValidatorEditor is saved
 	 */
-	onValidatorEditorSave() {
-		this.onSave.emit();
-	}
-
-	/**
-	 * Called when the ValidatorEditor is saved
-	 */
 	onValidatorEditorClose() {
 		this.showValidatorEditor = false;
 	}
@@ -178,13 +171,5 @@ export class ChannelComponent implements OnInit {
 	 */
 	onEditorClose() {
 		this.currentEditedTemplate = null;
-	}
-
-	/**
-	 * Called when the editor is saved
-	 * @param {ITemplate|null} toGenerate
-	 */
-	onEditorSave(toGenerate: ITemplate | null) {
-		this.onSubmit(toGenerate);
 	}
 }

@@ -7,7 +7,6 @@
 					<select
 						*ngIf="template.needsModel()"
 						[(ngModel)]="model"
-						class="form-control"
 						(change)="onModelChange()"
 					>
 						<option
@@ -77,7 +76,6 @@
 						'btn-outline-light': !unsavedChanges,
 						'btn-light': unsavedChanges
 					}"
-					[disabled]="form.invalid"
 					(click)="didClickSave()"
 				>
 					{{ 'common_save' | translate }}
@@ -87,46 +85,13 @@
 	</header>
 	<div class="d-flex grow">
 		<div class="col-lg-6 input d-flex flex-column p-3">
-			<div [formGroup]="form">
+			<div>
 				<div class="input-cnt">
 					<input
-						formControlName="path"
-						class="form-control"
 						type="text"
-						(keyup)="onPathChange()"
+						[value]="wip.path"
+						(blur)="onPathChange($event.target.value)"
 					/>
-					<div
-						*ngIf="
-							form.controls['path'].invalid &&
-							(form.controls['path'].dirty ||
-								form.controls['path'].touched)
-						"
-						class="alert alert-danger mt-2"
-					>
-						<div *ngIf="form.controls['path'].errors.required">
-							{{ 'error_path_required' | translate }}
-						</div>
-						<div
-							*ngIf="
-								form.controls['path'].errors.pattern &&
-								!form.controls['path'].errors.required
-							"
-						>
-							{{ 'error_path_format' | translate }}
-						</div>
-						<div *ngIf="form.controls['path'].errors.minlength">
-							{{
-								'error_path_min_length'
-									| translate: translateParams
-							}}
-						</div>
-						<div *ngIf="form.controls['path'].errors.maxlength">
-							{{
-								'error_path_max_length'
-									| translate: translateParams
-							}}
-						</div>
-					</div>
 				</div>
 			</div>
 			<ace-editor
@@ -145,7 +110,6 @@
 		<div class="col-lg-6 output d-flex flex-column p-3">
 			<input
 				*ngIf="!template.needsModel() || !!model"
-				class="form-control"
 				readonly
 				[value]="pathResult"
 				type="text"

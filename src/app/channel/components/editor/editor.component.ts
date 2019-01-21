@@ -10,12 +10,6 @@ import {
 	Output,
 	ViewChild
 } from '@angular/core';
-import {
-	FormBuilder,
-	FormGroup,
-	FormControl,
-	Validators
-} from '@angular/forms';
 import { ITemplate } from '../../interfaces/template';
 import { GeneratorService } from '../../services/generator.service';
 import {
@@ -41,17 +35,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	modelStorageService: ModelStorageService;
 	/** @type {ITemplate} Template to edit instance */
 	@Input() template: ITemplate;
-	/** @type {number} Max length allowed for the path */
-	@Input() pathMinLength = 1;
-	/** @type {number} Min length allowed for the path */
-	@Input() pathMaxLength = 128;
-	/** @type {FormGroup} */
-	form: FormGroup;
-	/** @type {{minLength: number, maxLength: number}} */
-	translateParams = {
-		minLength: this.pathMinLength,
-		maxLength: this.pathMaxLength
-	};
 	/** @type {EventEmitter<ITemplate|null>} On save event */
 	@Output() onSave = new EventEmitter<ITemplate | null>();
 	/** @type {EventEmitter<void>} On save event */
@@ -80,7 +63,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild('editorInput') editorInput;
 	/** Constructor */
 	constructor(
-		private formBuilder: FormBuilder,
 		private injector: Injector,
 		private translateService: TranslateService,
 		private hotKeysService: HotkeysService,
@@ -93,10 +75,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 	/** On init */
 	ngOnInit() {
-		// Update translateParams
-		this.translateParams.minLength = this.pathMinLength;
-		this.translateParams.maxLength = this.pathMaxLength;
-
 		this.translateService
 			.get('common_unload_warning')
 			.subscribe(value => (this.beforeUnloadWarning = value));
@@ -123,14 +101,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			}
 			// Generate
 			this._generate();
-		});
-
-		// Form validator
-		this.form = this.formBuilder.group({
-			path: new FormControl(this.wip.path, [
-				Validators.minLength(this.pathMinLength),
-				Validators.maxLength(this.pathMaxLength)
-			])
 		});
 	}
 	/** Destroy */
@@ -221,8 +191,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		this._generate();
 	}
 	/** Call when the path is changed */
-	onPathChange() {
-		this.wip['path'] = this.form.get('path').value;
+	onPathChange(value: string) {
+		this.wip.path = value;
 		this._generatePath();
 	}
 	/**
