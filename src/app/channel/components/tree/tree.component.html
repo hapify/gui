@@ -66,7 +66,8 @@
 			<mat-icon
 				*ngIf="branch.children.length"
 				color="primary"
-				class="flex-shrink-0"
+				[inline]="true"
+				class="flex-shrink-0 mr-2"
 				(click)="isOpen[branch.path] = !isOpen[branch.path]"
 			>
 				{{
@@ -93,7 +94,7 @@
 		<span
 			class="d-flex align-items-center justify-content-between py-1 px-2"
 		>
-			<div class="d-flex align-items-center w-100 flex-shrink-1">
+			<div class="d-flex align-items-center w-100 flex-shrink-1 newpath">
 				<span
 					(click)="newpath.focus()"
 					style="cursor:pointer;"
