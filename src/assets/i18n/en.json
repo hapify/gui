@@ -13,10 +13,6 @@
 	"documentation_contentTable_title": "",
 	"documentation_intro": "",
 	"documentation_title": "",
-	"error_path_format": "The path is malformed.",
-	"error_path_max_length": "The path must be less than {{maxLength}} chars length.",
-	"error_path_min_length": "The path must be more than {{minLength}} chars length.",
-	"error_path_required": "The path is required.",
 	"model_delete": "",
 	"model_delete_confirm": "",
 	"model_duplicate": "",
@@ -59,6 +55,7 @@
 	"template_input_all": "",
 	"template_input_one": "",
 	"error_dismiss-action": "Ok",
-	"channels_hide_validator": "",
-	"channels_show_validator": ""
+	"channels_show_validator": "",
+	"tree_add_new_path_placeholder": "",
+	"tree_add_new_path_tooltip": ""
 }

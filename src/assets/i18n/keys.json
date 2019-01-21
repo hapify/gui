@@ -13,10 +13,6 @@
 	"documentation_contentTable_title": "documentation_contentTable_title",
 	"documentation_intro": "documentation_intro",
 	"documentation_title": "documentation_title",
-	"error_path_format": "error_path_format",
-	"error_path_max_length": "error_path_max_length",
-	"error_path_min_length": "error_path_min_length",
-	"error_path_required": "error_path_required",
 	"model_delete": "model_delete",
 	"model_delete_confirm": "model_delete_confirm",
 	"model_duplicate": "model_duplicate",
@@ -59,6 +55,7 @@
 	"template_input_all": "template_input_all",
 	"template_input_one": "template_input_one",
 	"error_dismiss-action": "error_dismiss-action",
-	"channels_hide_validator": "channels_hide_validator",
-	"channels_show_validator": "channels_show_validator"
+	"channels_show_validator": "channels_show_validator",
+	"tree_add_new_path_placeholder": "tree_add_new_path_placeholder",
+	"tree_add_new_path_tooltip": "tree_add_new_path_tooltip"
 }

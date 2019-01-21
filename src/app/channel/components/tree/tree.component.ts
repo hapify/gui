@@ -2,12 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeBranch } from '../../interfaces/tree-branch';
 
 @Component({
-	selector: 'app-tree',
+	selector: 'app-channel-tree',
 	templateUrl: './tree.component.html',
 	styleUrls: ['./tree.component.scss']
 })
 export class TreeComponent implements OnInit {
-	@Input() set tree(value: TreeBranch[]) {
+	@Input()
+	set tree(value: TreeBranch[]) {
 		this._tree = value;
 		this._tree.map(branch => {
 			this.isOpen[branch.path] = this.isOpen[branch.path] || false;

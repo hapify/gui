@@ -13,10 +13,6 @@
 	"documentation_contentTable_title": "Table des matières",
 	"documentation_intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec eros metus.",
 	"documentation_title": "Documentation",
-	"error_path_format": "Le chemin est malformé.",
-	"error_path_max_length": "Le chemin doit comporter au plus {{maxLength}} caractères.",
-	"error_path_min_length": "Le chemin doit comporter au moins {{minLength}} caractères.",
-	"error_path_required": "Le chemin est requis.",
 	"model_delete": "Supprimer",
 	"model_delete_confirm": "Confirmer la suppression ?",
 	"model_duplicate": "Dupliquer",
@@ -59,6 +55,7 @@
 	"template_input_all": "Tous",
 	"template_input_one": "Un seul",
 	"error_dismiss-action": "Ok",
-	"channels_hide_validator": "Masquer le validateur de code",
-	"channels_show_validator": "Afficher le validateur de code"
+	"channels_show_validator": "Ouvrir le validateur de code",
+	"tree_add_new_path_placeholder": "Nouveau chemin (Ex: assets/main.ts)",
+	"tree_add_new_path_tooltip": "Définir le nom du chemin avant de le soumettre"
 }

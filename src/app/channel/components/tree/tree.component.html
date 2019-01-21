@@ -40,7 +40,7 @@
 				}}
 			</mat-icon>
 		</span>
-		<app-tree
+		<app-channel-tree
 			[selectedPath]="selectedPath"
 			[rootPath]="
 				rootPath.length ? rootPath + '/' + branch.path : branch.path
@@ -50,22 +50,39 @@
 			[tree]="branch.children"
 			(selectBranch)="onSelectBranch($event)"
 			(addTemplate)="addTemplate.emit($event)"
-		></app-tree>
+		></app-channel-tree>
 	</li>
 	<li class="w-100 pl-2 d-flex flex-column">
 		<span
 			class="d-flex align-items-center justify-content-between py-1 px-2"
 		>
-			<input
-				[(ngModel)]="newTemplatePath"
-				class="inline-input w-100 flex-shrink-1 mr-2"
-				type="text"
-			/>
-			<span (click)="onAddTemplate()">
-				<mat-icon
-					[color]="newTemplatePath.length ? 'primary' : 'secondary'"
-					>add</mat-icon
+			<div class="d-flex align-items-center w-100 flex-shrink-1">
+				<span
+					(click)="newpath.focus()"
+					style="cursor:pointer;"
+					class="mr-1"
+					[matTooltip]="'tree_add_new_path_tooltip' | translate"
 				>
+					<mat-icon [inline]="true" color="primary">add</mat-icon>
+				</span>
+				<input
+					[(ngModel)]="newTemplatePath"
+					[placeholder]="'tree_add_new_path_placeholder' | translate"
+					class="inline-input w-100 flex-shrink-1 mr-2"
+					type="text"
+					#newpath
+					(change)="newpath.value.length ? onAddTemplate() : false"
+				/>
+			</div>
+			<span
+				(click)="onAddTemplate()"
+				*ngIf="newpath.value.length"
+				class="flex-shrink-0"
+				style="cursor:pointer;"
+			>
+				<mat-icon [inline]="true" color="primary"
+					>keyboard_return
+				</mat-icon>
 			</span>
 		</span>
 	</li>

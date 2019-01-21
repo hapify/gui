@@ -75,12 +75,12 @@
 <div class="row px-4 my-4">
 	<!-- /Delete this input -->
 	<div class="col-4">
-		<app-tree
+		<app-channel-tree
 			[tree]="tree"
 			(selectBranch)="onSelectBranch($event)"
 			[selectedPath]="selectedPath"
 			(addTemplate)="addTemplate($event)"
-		></app-tree>
+		></app-channel-tree>
 	</div>
 	<ul class="col-8 list-unstyled d-flex flex-column">
 		<li
