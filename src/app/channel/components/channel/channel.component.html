@@ -66,7 +66,7 @@
 	<div class="col-12">
 		<app-channel-editor
 			[template]="currentEditedTemplate"
-			(save)="onSave($event)"
+			(save)="onSave($event); updateTree()"
 			(close)="onEditorClose()"
 		>
 		</app-channel-editor>
