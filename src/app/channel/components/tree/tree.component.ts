@@ -62,7 +62,6 @@ export class TreeComponent implements OnInit {
 		const path = this.rootPath.length
 			? `${this.rootPath}/${this.newTemplatePath}`
 			: this.newTemplatePath;
-		console.log(path);
 		this.addTemplate.emit(path);
 		this.newTemplatePath = '';
 	}
