@@ -18,9 +18,12 @@ export class TreeComponent implements OnInit {
 	get tree(): TreeBranch[] {
 		return this._tree;
 	}
+	@Input() rootPath = '';
 	@Input() selectedPath = '';
 	@Output() selectBranch = new EventEmitter<TreeBranch>();
+	@Output() addTemplate = new EventEmitter<string>();
 
+	newTemplatePath = '';
 	private _tree: TreeBranch[];
 	isOpen: { [key: string]: boolean } = {};
 	types: { [key: string]: string } = {};
@@ -51,5 +54,16 @@ export class TreeComponent implements OnInit {
 		} else {
 			return this.selectedPath === branch.path;
 		}
+	}
+	onAddTemplate(): void {
+		if (this.newTemplatePath.length === 0) {
+			return;
+		}
+		const path = this.rootPath.length
+			? `${this.rootPath}/${this.newTemplatePath}`
+			: this.newTemplatePath;
+		console.log(path);
+		this.addTemplate.emit(path);
+		this.newTemplatePath = '';
 	}
 }

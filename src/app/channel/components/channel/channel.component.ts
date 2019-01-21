@@ -23,10 +23,6 @@ export class ChannelComponent implements OnInit {
 	@Input() channel: IChannel;
 	/** @type {EventEmitter<ITemplate|null>} On save event */
 	@Output() save = new EventEmitter<ITemplate | null>();
-	/** @type {string} */
-	defaultTemplateName = 'New template';
-	/** @type {string} */
-	defaultTemplatePath = '/path/to/{model.hyphen}';
 	/** @type {boolean} */
 	syncing = false;
 	/** Current edited template */
@@ -143,18 +139,20 @@ export class ChannelComponent implements OnInit {
 	/**
 	 * Called when the user click on "add template"
 	 */
-	addTemplate() {
+	addTemplate(path: string) {
 		const template = this.channel.newTemplate();
-		template.name = this.defaultTemplateName;
-		template.path = this.defaultTemplatePath;
+		template.name = path;
+		template.path = path;
+		template.content = ' '; // @todo Fix this on API side: allow empty strings.
 		this.channel.addTemplate(template);
+		this.updateTree();
 	}
 
 	/**
-	 * Called when the user click on "clean templates"
+	 * Called when the user click on "remove templates"
 	 */
-	cleanTemplates() {
-		this.channel.filter();
+	removeTemplate(template: ITemplate) {
+		this.channel.removeTemplate(template);
 	}
 
 	/**
