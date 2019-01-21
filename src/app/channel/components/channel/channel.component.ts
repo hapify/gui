@@ -153,6 +153,7 @@ export class ChannelComponent implements OnInit {
 	 */
 	removeTemplate(template: ITemplate) {
 		this.channel.removeTemplate(template);
+		this.updateTree();
 	}
 
 	/**
