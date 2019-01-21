@@ -34,6 +34,12 @@ export interface ITemplateBase {
 
 export interface ITemplate extends ITemplateBase {
 	/**
+	 * Stores the extension of the output file
+	 *
+	 * @returns {string}
+	 */
+	type: string | null;
+	/**
 	 * Convert the instance to an object
 	 *
 	 * @returns {ITemplateBase}
@@ -87,4 +93,9 @@ export interface ITemplate extends ITemplateBase {
 	 * Returns the containing channel
 	 */
 	channel(): IChannel;
+
+	/**
+	 * Returns the sub parts of the path
+	 */
+	splitPath(): string[];
 }

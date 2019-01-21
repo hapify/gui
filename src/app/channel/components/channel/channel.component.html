@@ -90,6 +90,7 @@
 			<app-channel-template
 				class="d-block mb-3"
 				[template]="template"
+				(pathChanged)="updateTree()"
 				(showEditor)="onShowEditor(template)"
 			></app-channel-template>
 		</li>

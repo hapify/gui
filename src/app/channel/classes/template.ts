@@ -17,9 +17,13 @@ export class Template implements ITemplate {
 	 */
 	public name = '';
 	/**
-	 * @inheritDoc
+	 * Stores the path value managed by getter/setter
 	 */
-	public path = '';
+	private _path = '';
+	/**
+	 * Stores the path value managed by getter/setter
+	 */
+	private _type = null;
 	/**
 	 * @inheritDoc
 	 */
@@ -32,6 +36,39 @@ export class Template implements ITemplate {
 	 * @inheritDoc
 	 */
 	public content = '';
+
+	/**
+	 * Split a string into path parts
+	 */
+	private static split(path: string): string {
+		return path
+			.trim()
+			.split(/[\/\\]/g)
+			.filter(x => x.length);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	set path(value) {
+		this._path = Template.split(value).join('/');
+		const parts = this._path.split('.');
+		this._type = parts.length > 1 ? parts[parts.length - 1] : null;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	get path() {
+		return this._path;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	get type() {
+		return this._type;
+	}
 
 	/**
 	 * @inheritDoc
@@ -110,5 +147,12 @@ export class Template implements ITemplate {
 	 */
 	public channel(): IChannel {
 		return this._channel;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	splitPath(): string[] {
+		return Template.split(this.path);
 	}
 }

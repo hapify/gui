@@ -62,7 +62,7 @@ export class ChannelComponent implements OnInit {
 	/**
 	 * Update the tree and filters
 	 */
-	private updateTree(): void {
+	updateTree(): void {
 		this.tree = this.buildTree();
 		this.filterTemplates();
 	}
@@ -74,7 +74,7 @@ export class ChannelComponent implements OnInit {
 		const tree = [];
 
 		this.channel.templates.forEach(template => {
-			const pathParts = template.path.split('/');
+			const pathParts = template.splitPath();
 
 			let currentLevel = tree;
 			let parentPath = '';
@@ -110,9 +110,11 @@ export class ChannelComponent implements OnInit {
 	 * Filters templates to display
 	 */
 	filterTemplates(): void {
+		this.templatesToDisplay = {};
 		for (const template of this.channel.templates) {
-			this.templatesToDisplay[template.path] =
-				template.path.indexOf(this.selectedPath) > -1;
+			this.templatesToDisplay[template.path] = template.path.startsWith(
+				this.selectedPath
+			);
 		}
 	}
 

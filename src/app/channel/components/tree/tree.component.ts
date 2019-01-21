@@ -1,12 +1,4 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnInit,
-	Output,
-	SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeBranch } from '@app/channel/components/channel/channel.component';
 
 @Component({
@@ -15,43 +7,37 @@ import { TreeBranch } from '@app/channel/components/channel/channel.component';
 	styleUrls: ['./tree.component.scss']
 })
 export class TreeComponent implements OnInit {
-	@Input() tree: TreeBranch[];
+	@Input() set tree(value: TreeBranch[]) {
+		this._tree = value;
+		this._tree.map(branch => {
+			this.isOpen[branch.path] = this.isOpen[branch.path] || false;
+			this.types[branch.path] =
+				this.types[branch.path] || this.getType(branch.path); // Avoid re-compute
+		});
+	}
+	get tree(): TreeBranch[] {
+		return this._tree;
+	}
 	@Input() selectedPath = '';
 	@Output() selectPath = new EventEmitter<string>();
 
+	private _tree: TreeBranch[];
 	isOpen: { [key: string]: boolean } = {};
 	types: { [key: string]: string } = {};
 
 	constructor() {}
 
-	ngOnInit() {
-		// Init isOpen object
-		this.tree.map(branch => {
-			this.isOpen[branch.path] = false;
-			this.types[branch.path] = this.getType(branch.path);
-		});
-	}
+	ngOnInit() {}
 
 	/** Get File extension*/
 	private getType(name: string): string {
-		const regex = /\.[a-z]+$/gm;
-		let m;
-		let extension = '';
-
-		while ((m = regex.exec(name)) !== null) {
-			if (m.index === regex.lastIndex) {
-				regex.lastIndex++;
-			}
-			if (m) {
-				extension = m[0].slice(1);
-			}
-		}
-
-		if (extension.length) {
-			return extension;
-		} else {
+		const parts = name
+			.replace(/{[a-z]+\.[a-z]+}/gi, 'DYN') // Replace dynamic paths
+			.split('.');
+		if (parts.length < 2) {
 			return 'folder';
 		}
+		return parts[parts.length - 1];
 	}
 
 	onSelectPath(path: string) {
