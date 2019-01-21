@@ -1,5 +1,6 @@
 import {
 	AfterViewInit,
+	ChangeDetectorRef,
 	Component,
 	EventEmitter,
 	HostListener,
@@ -67,7 +68,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		private translateService: TranslateService,
 		private hotKeysService: HotkeysService,
 		public aceService: AceService,
-		private messageService: MessageService
+		private messageService: MessageService,
+		private cd: ChangeDetectorRef
 	) {
 		// Avoid circular dependency
 		this.generatorService = this.injector.get(GeneratorService);
@@ -102,7 +104,10 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			// Generate
 			this._generate();
 		});
+
+		console.log(this.template);
 	}
+
 	/** Destroy */
 	ngOnDestroy() {
 		this.hotKeysService.remove(this.saveHotKeys);
@@ -115,6 +120,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.editorInput
 			.getEditor()
 			.commands.addCommand(this._getEditorSaveCommand());
+		this.cd.detectChanges();
 	}
 	/** Get the save command for the editors */
 	private _getEditorSaveCommand(): any {
@@ -224,6 +230,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	 */
 	@HostListener('window:beforeunload', ['$event'])
 	beforeUnloadHandler(event: any): string {
+		console.log('YOOO');
 		if (!this.unsavedChanges) {
 			return;
 		}

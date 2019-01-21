@@ -62,16 +62,14 @@
 		</app-validator-editor>
 	</div>
 </div>
-<div class="row" *ngIf="currentEditedTemplate">
-	<div class="col-12">
-		<app-channel-editor
-			[template]="currentEditedTemplate"
-			(save)="onSave($event); updateTree()"
-			(close)="onEditorClose()"
-		>
-		</app-channel-editor>
-	</div>
-</div>
+<app-channel-editor
+	*ngIf="currentEditedTemplate"
+	[template]="currentEditedTemplate"
+	(save)="onSave($event); updateTree()"
+	(close)="onEditorClose()"
+	class="d-block"
+>
+</app-channel-editor>
 <div class="row px-4 my-4">
 	<!-- /Delete this input -->
 	<div class="col-4">

@@ -149,6 +149,10 @@ body {
 	.mat-raised-button {
 		border-radius: 20px;
 		font-weight: 500;
+
+		&[color='primary'] {
+			border: none !important;
+		}
 	}
 
 	[color='accent'].border {
@@ -251,22 +255,22 @@ h1 {
 }
 
 .bg-ts {
-	background-color: $bg-ts;
+	background-color: $bg-ts !important;
 }
 .bg-html {
-	background-color: $bg-html;
+	background-color: $bg-html !important;
 }
 .bg-scss {
-	background-color: $bg-scss;
+	background-color: $bg-scss !important;
 }
 .bg-json {
-	background-color: $bg-json;
+	background-color: $bg-json !important;
 }
 .bg-js {
-	background-color: $bg-js;
+	background-color: $bg-js !important;
 }
 .bg-folder {
-	background-color: $bg-folder;
+	background-color: $bg-folder !important;
 }
 
 [class*='gradientoverlay']:after {
