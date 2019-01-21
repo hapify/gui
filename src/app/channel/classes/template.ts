@@ -40,7 +40,7 @@ export class Template implements ITemplate {
 	/**
 	 * Split a string into path parts
 	 */
-	private static split(path: string): string {
+	private static split(path: string): string[] {
 		return path
 			.trim()
 			.split(/[\/\\]/g)
