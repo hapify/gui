@@ -36,9 +36,9 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** @type {ITemplate} Template to edit instance */
 	@Input() template: ITemplate;
 	/** @type {EventEmitter<ITemplate|null>} On save event */
-	@Output() onSave = new EventEmitter<ITemplate | null>();
+	@Output() save = new EventEmitter<ITemplate | null>();
 	/** @type {EventEmitter<void>} On save event */
-	@Output() onClose = new EventEmitter<void>();
+	@Output() close = new EventEmitter<void>();
 	/** @type {ITemplate} The edited template */
 	wip: ITemplate;
 	/** Preview models */
@@ -135,13 +135,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.template.content = this.wip.content;
 		this.template.path = this.wip.path;
 		this.unsavedChanges = false;
-		this.onSave.emit(
-			this.generatorService.autoSyncEnabled ? this.wip : null
-		);
+		this.save.emit(this.generatorService.autoSyncEnabled ? this.wip : null);
 	}
 	/** Called when the user click on close */
 	didClickClose() {
-		this.onClose.emit();
+		this.close.emit();
 	}
 	/**
 	 * Runs the content generation

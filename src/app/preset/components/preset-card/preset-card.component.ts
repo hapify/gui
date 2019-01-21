@@ -23,7 +23,7 @@ export class PresetCardComponent implements OnInit {
 	 *
 	 * @type {EventEmitter<void>}
 	 */
-	@Output() onApply = new EventEmitter<void>();
+	@Output() apply = new EventEmitter<void>();
 
 	/**
 	 * @inheritDoc
@@ -34,6 +34,6 @@ export class PresetCardComponent implements OnInit {
 	 * Called when the user click on "apply"
 	 */
 	didClickApply() {
-		this.onApply.emit();
+		this.apply.emit();
 	}
 }

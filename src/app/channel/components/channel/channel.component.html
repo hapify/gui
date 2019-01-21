@@ -56,8 +56,8 @@
 	<div class="col-12">
 		<app-validator-editor
 			[channel]="channel"
-			(onSave)="onSave(null)"
-			(onClose)="onValidatorEditorClose()"
+			(save)="onSave(null)"
+			(close)="onValidatorEditorClose()"
 		>
 		</app-validator-editor>
 	</div>
@@ -66,8 +66,8 @@
 	<div class="col-12">
 		<app-channel-editor
 			[template]="currentEditedTemplate"
-			(onSave)="onSave($event)"
-			(onClose)="onEditorClose()"
+			(save)="onSave($event)"
+			(close)="onEditorClose()"
 		>
 		</app-channel-editor>
 	</div>

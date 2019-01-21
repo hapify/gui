@@ -36,9 +36,9 @@ export class ValidatorEditorComponent
 	/** @type {IChannel} The calling channel */
 	@Input() channel: IChannel;
 	/** @type {EventEmitter<void>} On save event */
-	@Output() onSave = new EventEmitter<void>();
+	@Output() save = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} On save event */
-	@Output() onClose = new EventEmitter<void>();
+	@Output() close = new EventEmitter<void>();
 	/** @type {string} The edited template */
 	content: string;
 	/** @type {string} The content mode for ACE */
@@ -148,14 +148,14 @@ export class ValidatorEditorComponent
 	didClickSave() {
 		this.channel.validator = this.content;
 		this.unsavedChanges = false;
-		this.onSave.emit();
+		this.save.emit();
 	}
 
 	/**
 	 * Called when the user click on close
 	 */
 	didClickClose() {
-		this.onClose.emit();
+		this.close.emit();
 	}
 
 	/**
