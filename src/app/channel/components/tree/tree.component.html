@@ -12,31 +12,23 @@
 			>
 				<div class="mr-1 {{ 'color-' + types[branch.path] }}">
 					<mat-icon
-						*ngIf="
-							types[branch.path] === 'folder' &&
-							isOpen[branch.path]
-						"
+						*ngIf="branch.children.length && isOpen[branch.path]"
 						[inline]="true"
 						>folder_open</mat-icon
 					>
 					<mat-icon
-						*ngIf="
-							types[branch.path] === 'folder' &&
-							!isOpen[branch.path]
-						"
+						*ngIf="branch.children.length && !isOpen[branch.path]"
 						[inline]="true"
 						>folder</mat-icon
 					>
-					<mat-icon
-						*ngIf="types[branch.path] !== 'folder'"
-						[inline]="true"
+					<mat-icon *ngIf="!branch.children.length" [inline]="true"
 						>insert_drive_file</mat-icon
 					>
 				</div>
 				{{ branch.name }}
 			</span>
 			<mat-icon
-				*ngIf="types[branch.path] === 'folder'"
+				*ngIf="branch.children.length"
 				color="primary"
 				class="flex-shrink-0"
 				(click)="isOpen[branch.path] = !isOpen[branch.path]"
