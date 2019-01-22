@@ -82,9 +82,11 @@
 			></ace-editor>
 		</div>
 		<div class="col-6">
-			<pre *ngIf="!error" class="m-0 p-2 rounded code bg-light">{{
-				summary
-			}}</pre>
+			<pre
+				*ngIf="!error"
+				class="m-0 p-2 rounded code bg-light preSummary"
+				>{{ summary }}</pre
+			>
 			<pre *ngIf="error" class="m-0 p-2 rounded code preError">{{
 				error.message + '\n\n' + error.stack
 			}}</pre>

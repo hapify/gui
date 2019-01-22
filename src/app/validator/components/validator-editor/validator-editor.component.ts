@@ -178,13 +178,13 @@ export class ValidatorEditorComponent
 			this.summary = `${errors.length} error${
 				errors.length > 1 ? 's' : ''
 			}`;
-			this.summary = `${this.summary}\n${errors.join('\n')}${
+			this.summary = `${this.summary}\n    ${errors.join('\n    ')}${
 				errors.length ? '\n' : ''
 			}`;
 			this.summary = `${this.summary}\n${warnings.length} warning${
 				warnings.length > 1 ? 's' : ''
 			}`;
-			this.summary = `${this.summary}\n${warnings.join('\n')}`;
+			this.summary = `${this.summary}\n    ${warnings.join('\n    ')}`;
 		} catch (error) {
 			this.error = error;
 		}
