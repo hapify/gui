@@ -146,7 +146,7 @@ export class ChannelComponent implements OnInit {
 		const template = this.channel.newTemplate();
 		template.name = path;
 		template.path = path;
-		template.content = ' '; // @todo Fix this on API side: allow empty strings.
+		template.content = '';
 		this.channel.addTemplate(template);
 		this.updateTree();
 	}

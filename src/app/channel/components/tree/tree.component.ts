@@ -14,7 +14,7 @@ export class TreeComponent implements OnInit {
 		this._tree.map(branch => {
 			this.isOpen[branch.path] = this.isOpen[branch.path] || false;
 			this.types[branch.path] =
-				this.types[branch.path] || this.getType(branch.path); // Avoid re-compute
+				this.types[branch.path] || this.getType(branch); // Avoid re-compute
 		});
 	}
 	get tree(): TreeBranch[] {
@@ -39,12 +39,15 @@ export class TreeComponent implements OnInit {
 	ngOnInit() {}
 
 	/** Get File extension*/
-	private getType(name: string): string {
-		const parts = name
+	private getType(branch: TreeBranch): string {
+		if (branch.children.length) {
+			return 'folder';
+		}
+		const parts = branch.name
 			.replace(/{[a-z]+\.[a-z]+}/gi, 'DYN') // Replace dynamic paths
 			.split('.');
 		if (parts.length < 2) {
-			return 'folder';
+			return 'file';
 		}
 		return parts[parts.length - 1];
 	}
