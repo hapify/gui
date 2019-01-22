@@ -154,9 +154,14 @@ export class ChannelComponent implements OnInit {
 	/**
 	 * Called when the user click on "remove templates"
 	 */
-	onRemoveTemplate(template: ITemplate) {
-		this.channel.removeTemplate(template);
-		this.updateTree();
+	onRemoveTemplate(branch: TreeBranch) {
+		const template = this.channel.templates.find(
+			t => t.path === branch.path
+		);
+		if (template) {
+			this.channel.removeTemplate(template);
+			this.updateTree();
+		}
 	}
 
 	/**

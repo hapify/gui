@@ -25,7 +25,7 @@ export class TreeComponent implements OnInit {
 	@Input() addTemplateDisabled = false;
 	@Output() selectBranch = new EventEmitter<TreeBranch>();
 	@Output() addTemplate = new EventEmitter<string>();
-	@Output() removeTemplate = new EventEmitter<ITemplate>();
+	@Output() removeTemplate = new EventEmitter<TreeBranch>();
 
 	newTemplatePath = '';
 	private _tree: TreeBranch[];
@@ -36,7 +36,15 @@ export class TreeComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		if (this.selectedPath.length) {
+			this._tree.map(branch => {
+				this.isOpen[branch.path] = this.selectedPath.startsWith(
+					branch.path
+				);
+			});
+		}
+	}
 
 	/** Get File extension*/
 	private getType(branch: TreeBranch): string {
@@ -50,11 +58,6 @@ export class TreeComponent implements OnInit {
 			return 'file';
 		}
 		return parts[parts.length - 1];
-	}
-
-	onSelectBranch(branch: TreeBranch) {
-		this.selectedPath = branch.path;
-		this.selectBranch.emit(branch);
 	}
 
 	isSelected(branch: TreeBranch): boolean {
