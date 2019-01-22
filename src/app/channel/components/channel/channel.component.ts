@@ -83,12 +83,14 @@ export class ChannelComponent implements OnInit {
 							: existingPathPart[0].name;
 						currentLevel = existingPathPart[0].children;
 					} else {
+						const rootPath = parentPath;
 						parentPath = parentPath
 							? `${parentPath}/${pathPart}`
 							: pathPart;
 						const newPathPart = {
 							name: pathPart,
 							path: parentPath,
+							root: rootPath,
 							children: []
 						};
 						currentLevel.push(newPathPart);
@@ -160,6 +162,8 @@ export class ChannelComponent implements OnInit {
 		);
 		if (template) {
 			this.channel.removeTemplate(template);
+			// Force selected path to parent path
+			this.selectedPath = branch.root;
 			this.updateTree();
 		}
 	}
