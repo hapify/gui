@@ -40,7 +40,7 @@ export class TemplateComponent {
 		this.showEditor.emit();
 	}
 	/** Called when the user click on "Open Editor" button */
-	onPathChange(value: getTypestring) {
+	onPathChange(value: string) {
 		this.template.path = value;
 		this.pathChanged.emit();
 	}
