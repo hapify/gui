@@ -1,21 +1,21 @@
 <form
-	(submit)="save(); name.value = ''"
+	(submit)="save(); nameInput.value = ''"
 	class="d-flex w-100 flex-column justify-content-center align-items-center"
 >
 	<mat-form-field class="w-100">
 		<input
 			matInput
 			placeholder="{{ 'new_model_name_placeholder' | translate }}"
-			#name
 			autocomplete="false"
-			name="name"
-			[(ngModel)]="model.name"
+			#nameInput
+			name="nameInput"
+			[(ngModel)]="name"
 		/>
 		<mat-icon
-			*ngIf="model.name"
+			*ngIf="name"
 			matSuffix
 			[inline]="true"
-			(click)="save(); name.value = ''"
+			(click)="save(); nameInput.value = ''"
 			style="cursor: pointer"
 			>keyboard_return</mat-icon
 		>

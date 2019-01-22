@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { IModel } from '../../interfaces/model';
 import { environment } from '@env/environment';
+import { InfoService } from '@app/services/info.service';
+import { IInfo } from '@app/interfaces/info';
 
 @Component({
 	selector: 'app-model-root',
@@ -9,23 +11,17 @@ import { environment } from '@env/environment';
 	styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
-	/**
-	 * Constructor
-	 * @param {StorageService} storageService
-	 */
-	constructor(private storageService: StorageService) {}
+	/** Constructor */
+	constructor(
+		private storageService: StorageService,
+		private infoService: InfoService
+	) {}
 
 	private _saveTimeout;
 	dTime = environment.debounceTime;
-
-	/**
-	 * Model instances
-	 *
-	 * @type {IModel[]}
-	 */
 	public models: IModel[];
-
 	public currentModel: IModel;
+	public info: IInfo;
 
 	/** Used for loader to toggle */
 	modelsAreLoaded = false;
@@ -37,6 +33,12 @@ export class RootComponent implements OnInit {
 	 */
 	ngOnInit() {
 		this.updateModels();
+		this.infoService.info().then(info => {
+			this.info = info;
+			this.info.limits.models = 10;
+			this.info.limits.fields = 12;
+			this.info.limits.templates = 15;
+		});
 	}
 
 	/**
@@ -55,6 +57,18 @@ export class RootComponent implements OnInit {
 		this.storageService.add(model.clone()).then(() => this.updateModels());
 	}
 
+	/**
+	 * Called when the user update the model
+	 */
+	onCreate(model: IModel): void {
+		// Check length
+		if (this.info && this.models.length >= this.info.limits.models) {
+			return;
+		}
+		// Store the model
+		this.storageService.add(model).then(() => this.updateModels());
+	}
+
 	/** Called when the user save the model (For now, autosaving on any changes is activated) */
 	onSave(model: IModel): void {
 		clearTimeout(this._saveTimeout);
@@ -71,10 +85,8 @@ export class RootComponent implements OnInit {
 	 */
 	protected async updateModels(): Promise<void> {
 		this.modelsAreLoaded = false;
-		this.storageService.list().then(result => {
-			this.models = result;
-			this.modelsAreLoaded = true;
-		});
+		this.models = await this.storageService.list();
+		this.modelsAreLoaded = true;
 		this.addingNewModel = false;
 	}
 }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { IModel } from '@app/model/interfaces/model';
 
 @Component({
 	selector: 'app-header',
@@ -7,7 +8,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 	addingNewModel = false;
-	@Output() newModel = new EventEmitter<void>();
+	@Output() newModel = new EventEmitter<IModel>();
+	@Input() newModelDisabled = false;
 
 	constructor() {}
 

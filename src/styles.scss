@@ -155,7 +155,7 @@ body {
 		}
 	}
 
-	[color='accent'].border {
+	[color='accent'].border:not([disabled]) {
 		border-color: mat-contrast($hpf-app-accent, 500) !important;
 	}
 

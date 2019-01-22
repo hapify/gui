@@ -1,5 +1,10 @@
 <main class="container-fluid">
-	<app-header (newModel)="updateModels()"></app-header>
+	<app-header
+		(newModel)="onCreate($event)"
+		[newModelDisabled]="
+			info && models && models.length >= info.limits.models
+		"
+	></app-header>
 	<section class="row px-4 py-5">
 		<div
 			class="col-12 d-flex justify-content-center my-5"
@@ -18,11 +23,19 @@
 							*ngIf="model !== currentModel"
 							[model]="model"
 							[models]="models"
+							[addFieldDisabled]="
+								info &&
+								model.fields.length >= info.limits.fields
+							"
 						></app-model-model-light>
 						<app-model-model
 							*ngIf="model === currentModel"
 							[model]="model"
 							[models]="models"
+							[addFieldDisabled]="
+								info &&
+								model.fields.length >= info.limits.fields
+							"
 							(save)="onSave(model)"
 							(clone)="onClone(model)"
 							(delete)="onDelete(model)"
@@ -42,7 +55,7 @@
 						>
 							<app-model-new
 								class="d-block w-100"
-								(create)="updateModels()"
+								(create)="onCreate($event)"
 							></app-model-new>
 							<button
 								mat-icon-button
@@ -57,6 +70,11 @@
 							mat-raised-button
 							color="accent"
 							class="mat-elevation-z0 border my-5 d-inline-flex align-items-center"
+							[disabled]="
+								info &&
+								models &&
+								models.length >= info.limits.models
+							"
 							(click)="addingNewModel = true"
 							*ngIf="!addingNewModel"
 						>

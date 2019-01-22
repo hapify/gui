@@ -47,6 +47,10 @@ input[type='text'] {
 .addField {
 	color: mat-color($hpf-app-primary);
 	cursor: pointer;
+	&.disabled {
+		color: $gray-500;
+		cursor: default;
+	}
 }
 
 ::ng-deep {

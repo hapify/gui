@@ -3,78 +3,58 @@ import {
 	Component,
 	ElementRef,
 	EventEmitter,
-	OnInit,
 	Output,
 	ViewChild
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Model } from '../../classes/model';
-import { StorageService } from '../../services/storage.service';
+import { IModel } from '../../interfaces/model';
 
 @Component({
 	selector: 'app-model-new',
 	templateUrl: './new.component.html',
 	styleUrls: ['./new.component.scss']
 })
-export class NewComponent implements OnInit, AfterViewInit {
+export class NewComponent implements AfterViewInit {
 	/**
 	 * Constructor
 	 */
-	constructor(
-		private router: Router,
-		private route: ActivatedRoute,
-		private translateService: TranslateService,
-		private storageService: StorageService
-	) {}
+	constructor() {}
 
-	/**
-	 * New model instance
-	 *
-	 * @type {Model}
-	 */
-	public model: Model;
+	public name = '';
 
 	/** @type {EventEmitter<void>} Notify save */
-	@Output() create = new EventEmitter<void>();
+	@Output() create = new EventEmitter<IModel>();
 
-	@ViewChild('name') nameInput: ElementRef;
-
-	/**
-	 * @inheritDoc
-	 */
-	ngOnInit() {
-		// New model
-		this.model = new Model();
-		// Default field(s)
-		const primary = this.model.newField();
-		primary.name = '_id';
-		primary.primary = true;
-		primary.internal = true;
-		this.model.addField(primary);
-		const creation = this.model.newField();
-		creation.name = 'created_at';
-		creation.type = 'datetime';
-		creation.internal = true;
-		creation.sortable = true;
-		this.model.addField(creation);
-		// Get default name
-		/*this.translateService.get('new_model_name').subscribe(text => {
-			this.model.name = text;
-		});*/
-		this.model.name = '';
-	}
+	@ViewChild('nameInput') nameInput: ElementRef;
 
 	ngAfterViewInit() {
-		this.nameInput.nativeElement.focus();
+		// Avoid "Expression has changed after it was checked" error
+		setTimeout(() => this.nameInput.nativeElement.focus());
 	}
 
 	/**
 	 * Called when the user save the new model
 	 */
-	save(): void {
-		// Store the model
-		this.storageService.add(this.model);
-		this.create.emit();
+	save() {
+		// Create new model
+		const model = new Model();
+		model.name = this.name;
+
+		// Default field(s)
+		const primary = model.newField();
+		primary.name = '_id';
+		primary.primary = true;
+		primary.internal = true;
+		model.addField(primary);
+
+		const creation = model.newField();
+		creation.name = 'created_at';
+		creation.type = 'datetime';
+		creation.internal = true;
+		creation.sortable = true;
+		model.addField(creation);
+
+		// Send the model
+		this.create.emit(model);
 	}
 }

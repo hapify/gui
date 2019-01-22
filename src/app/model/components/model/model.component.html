@@ -123,8 +123,9 @@
 					></app-model-field>
 				</li>
 				<li
-					(click)="addField()"
+					(click)="addFieldDisabled ? false : addField()"
 					class="row align-items-center py-2 addField"
+					[class.disabled]="addFieldDisabled"
 				>
 					<div class="col-12">
 						{{ 'models_add_field' | translate }}

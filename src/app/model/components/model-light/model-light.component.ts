@@ -14,4 +14,6 @@ export class ModelLightComponent {
 	@Input() model: IModel;
 	/** @type {IModel[]} Available Models */
 	@Input() models: IModel[];
+	/** Denotes if the model can support more fields */
+	@Input() addFieldDisabled = false;
 }

@@ -11,7 +11,7 @@
 			>
 				<app-model-new
 					class="d-block w-100"
-					(create)="newModel.emit()"
+					(create)="newModel.emit($event)"
 				></app-model-new>
 				<button
 					mat-icon-button
@@ -27,6 +27,7 @@
 				mat-raised-button
 				color="accent"
 				class="mat-elevation-z0 border d-inline-flex align-items-center"
+				[disabled]="newModelDisabled"
 				(click)="addingNewModel = true"
 				*ngIf="!addingNewModel"
 			>

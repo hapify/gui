@@ -37,7 +37,10 @@
 						class="col-12"
 					></app-model-field-light>
 				</li>
-				<li class="row align-items-center py-2 addField">
+				<li
+					class="row align-items-center py-2 addField"
+					[class.disabled]="addFieldDisabled"
+				>
 					<div class="col-12">
 						{{ 'models_add_field' | translate }}
 					</div>
