@@ -22,6 +22,7 @@ export class TreeComponent implements OnInit {
 	}
 	@Input() rootPath = '';
 	@Input() selectedPath = '';
+	@Input() addTemplateDisabled = false;
 	@Output() selectBranch = new EventEmitter<TreeBranch>();
 	@Output() addTemplate = new EventEmitter<string>();
 	@Output() removeTemplate = new EventEmitter<ITemplate>();
@@ -61,7 +62,7 @@ export class TreeComponent implements OnInit {
 		}
 	}
 	onAddTemplate(): void {
-		if (this.newTemplatePath.length === 0) {
+		if (this.addTemplateDisabled || this.newTemplatePath.length === 0) {
 			return;
 		}
 		const path = this.rootPath.length

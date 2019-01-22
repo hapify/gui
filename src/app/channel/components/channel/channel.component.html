@@ -77,6 +77,11 @@
 			[tree]="tree"
 			(selectBranch)="onSelectBranch($event)"
 			[selectedPath]="selectedPath"
+			[addTemplateDisabled]="
+				info &&
+				channel &&
+				channel.templates.length >= info.limits.templates
+			"
 			(addTemplate)="onAddTemplate($event)"
 			(removeTemplate)="onRemoveTemplate($event)"
 		></app-channel-tree>

@@ -35,9 +35,6 @@ export class RootComponent implements OnInit {
 		this.updateModels();
 		this.infoService.info().then(info => {
 			this.info = info;
-			this.info.limits.models = 10;
-			this.info.limits.fields = 12;
-			this.info.limits.templates = 15;
 		});
 	}
 

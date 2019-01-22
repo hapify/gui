@@ -10,6 +10,8 @@ import { GeneratorService } from '../../services/generator.service';
 import { IChannel } from '../../interfaces/channel';
 import { ITemplate } from '../../interfaces/template';
 import { TreeBranch } from '../../interfaces/tree-branch';
+import { InfoService } from '@app/services/info.service';
+import { IInfo } from '@app/interfaces/info';
 
 @Component({
 	selector: 'app-channel-channel',
@@ -33,14 +35,15 @@ export class ChannelComponent implements OnInit {
 	tree: TreeBranch[];
 	selectedPath = '';
 	templatesToDisplay: { [key: string]: boolean } = {};
+	info: IInfo;
 
-	/**
-	 * Constructor
-	 * @param {Injector} injector
-	 */
-	constructor(private injector: Injector) {
+	/** Constructor */
+	constructor(private injector: Injector, private infoService: InfoService) {
 		// Avoid circular dependency
 		this.generatorService = this.injector.get(GeneratorService);
+		this.infoService.info().then(info => {
+			this.info = info;
+		});
 	}
 
 	/**
