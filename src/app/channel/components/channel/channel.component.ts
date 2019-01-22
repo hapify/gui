@@ -31,6 +31,8 @@ export class ChannelComponent implements OnInit {
 	currentEditedTemplate: ITemplate;
 	/** @type {boolean} */
 	showValidatorEditor = false;
+	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+	unsavedChanges = false;
 	/** @type {TreeBranch[]} */
 	tree: TreeBranch[];
 	selectedPath = '';
@@ -130,6 +132,7 @@ export class ChannelComponent implements OnInit {
 	 */
 	onSave(toGenerate: ITemplate | null) {
 		this.save.emit(toGenerate);
+		this.unsavedChanges = false;
 	}
 
 	/**
@@ -150,7 +153,15 @@ export class ChannelComponent implements OnInit {
 		template.path = path;
 		template.content = '';
 		this.channel.addTemplate(template);
+		this.unsavedChanges = true;
 		this.updateTree();
+	}
+
+	/**
+	 * Called when a template is edited
+	 */
+	onTemplateChanged() {
+		this.unsavedChanges = true;
 	}
 
 	/**
@@ -162,6 +173,7 @@ export class ChannelComponent implements OnInit {
 		);
 		if (template) {
 			this.channel.removeTemplate(template);
+			this.unsavedChanges = true;
 			// Force selected path to parent path
 			this.selectedPath = branch.root;
 			this.updateTree();

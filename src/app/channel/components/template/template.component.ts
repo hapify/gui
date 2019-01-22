@@ -15,6 +15,8 @@ export class TemplateComponent {
 	@Input() template: ITemplate;
 	/** Triggered when the path is changed */
 	@Output() pathChanged = new EventEmitter<void>();
+	/** Triggered when something is changed */
+	@Output() changed = new EventEmitter<void>();
 	/** Show editor */
 	@Output() showEditor = new EventEmitter<void>();
 	/** Available engines */

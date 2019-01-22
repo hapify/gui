@@ -40,8 +40,8 @@
 			</button>
 			<button
 				mat-raised-button
-				color="primary"
-				class="mat-elevation-z0 border d-inline-flex align-items-center"
+				[color]="unsavedChanges ? 'primary' : 'accent'"
+				class="mat-elevation-z0 border d-inline-flex align-items-center accent"
 				type="button"
 				(click)="onSave(null)"
 				[disabled]="channel.isEmpty()"
@@ -93,6 +93,7 @@
 				class="d-block mb-3"
 				[template]="template"
 				(pathChanged)="updateTree()"
+				(changed)="onTemplateChanged()"
 				(showEditor)="onShowEditor(template)"
 			></app-channel-template>
 		</li>
