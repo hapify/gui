@@ -35,19 +35,17 @@
 				<mat-select
 					*ngIf="template.needsModel()"
 					[(ngModel)]="model"
-					(change)="onModelChange()"
+					(selectionChange)="onModelChange()"
 					color="accent"
 				>
-					<mat-option *ngFor="let model of models" [value]="model">{{
-						model.name
+					<mat-option *ngFor="let m of models" [value]="m">{{
+						m.name
 					}}</mat-option>
 				</mat-select>
 				<button
 					mat-icon-button
-					[color]="generatorService.autoSyncEnabled ? 'primary' : ''"
-					(click)="
-						generatorService.autoSyncEnabled = !generatorService.autoSyncEnabled
-					"
+					[color]="autoRefresh ? 'primary' : ''"
+					(click)="autoRefresh = !autoRefresh"
 					matTooltip="{{
 						'channels_tooltip_autorefresh' | translate
 					}}}"
@@ -57,8 +55,10 @@
 				</button>
 				<button
 					mat-icon-button
-					[color]="autoGenerate ? 'primary' : ''"
-					(click)="autoGenerate = !autoGenerate"
+					[color]="generatorService.autoSyncEnabled ? 'primary' : ''"
+					(click)="
+						generatorService.autoSyncEnabled = !generatorService.autoSyncEnabled
+					"
 					matTooltip="{{
 						'channels_tooltip_autogenerate' | translate
 					}}"
@@ -79,7 +79,7 @@
 				</button>
 				<button
 					mat-raised-button
-					color="primary"
+					[color]="unsavedChanges ? 'primary' : ''"
 					class="mat-elevation-z0 border d-inline-flex align-items-center"
 					type="button"
 					(click)="didClickSave()"

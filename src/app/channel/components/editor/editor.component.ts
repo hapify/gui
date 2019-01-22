@@ -52,8 +52,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	pathResult: string;
 	/** Generation error */
 	error: string;
-	/** Denotes if should re-generate on change */
-	autoGenerate = true;
+	/** Denotes if should re-generate preview on change */
+	autoRefresh = true;
 	/** Text display to prevent reloading */
 	private beforeUnloadWarning: string;
 	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
@@ -104,8 +104,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			// Generate
 			this._generate();
 		});
-
-		console.log(this.template);
 	}
 
 	/** Destroy */
@@ -214,13 +212,13 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	onChange(content: string) {
 		this.wip.content = content;
 		this.unsavedChanges = true;
-		if (this.autoGenerate) {
+		if (this.autoRefresh) {
 			this._generate();
 		}
 	}
 	/** Call when the user click on "dump" */
 	async didClickDump() {
-		// @todo Dump in bash
+		// @todo Dump in popin
 		this.messageService.info('To be implemented');
 	}
 	/**
@@ -230,7 +228,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	 */
 	@HostListener('window:beforeunload', ['$event'])
 	beforeUnloadHandler(event: any): string {
-		console.log('YOOO');
 		if (!this.unsavedChanges) {
 			return;
 		}
