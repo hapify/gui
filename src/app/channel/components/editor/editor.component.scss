@@ -5,10 +5,6 @@ $c-comment: #008e00;
 $c-bullet: #cccccc;
 $op-meta: 0.4;
 
-#editor {
-	background-color: rgba(255, 255, 255, 0.9);
-}
-
 header {
 	position: relative;
 	z-index: 99;
@@ -91,4 +87,10 @@ ace-editor {
 			}
 		}
 	}
+}
+
+.preError {
+	background-color: mat-color($hpf-app-warn, 50);
+	color: mat-color($hpf-app-warn);
+	font-size: 0.8em;
 }

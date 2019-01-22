@@ -247,7 +247,8 @@ h1 {
 		color: $js;
 	}
 }
-.color-file {
+.color-file,
+.color-null {
 	color: $file;
 	mat-icon {
 		color: $file;
@@ -275,7 +276,8 @@ h1 {
 .bg-js {
 	background-color: $bg-js !important;
 }
-.bg-file {
+.bg-file,
+.bg-null {
 	background-color: $bg-file !important;
 }
 .bg-folder {
@@ -326,7 +328,8 @@ h1 {
 		$bg-js 100%
 	);
 }
-.gradientoverlay-file:after {
+.gradientoverlay-file:after,
+.gradientoverlay-null:after {
 	background: linear-gradient(
 		to bottom,
 		fade_out($bg-file, 0.3) 30%,
@@ -362,7 +365,9 @@ h1 {
 	background-color: $bg-js;
 }
 .over-file:hover,
-.over-file.selected {
+.over-file.selected,
+.over-null:hover,
+.over-null.selected {
 	background-color: $bg-file;
 }
 .over-folder:hover,

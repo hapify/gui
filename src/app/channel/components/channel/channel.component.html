@@ -52,16 +52,13 @@
 		</div>
 	</div>
 </header>
-<div class="row" *ngIf="showValidatorEditor">
-	<div class="col-12">
-		<app-validator-editor
-			[channel]="channel"
-			(save)="onSave(null)"
-			(close)="onValidatorEditorClose()"
-		>
-		</app-validator-editor>
-	</div>
-</div>
+<app-validator-editor
+	*ngIf="showValidatorEditor"
+	[channel]="channel"
+	(save)="onSave(null)"
+	(close)="onValidatorEditorClose()"
+>
+</app-validator-editor>
 <app-channel-editor
 	*ngIf="currentEditedTemplate"
 	[template]="currentEditedTemplate"
