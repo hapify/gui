@@ -14,6 +14,7 @@ import { ModelComponent } from './components/model/model.component';
 import { PresetComponent } from './components/preset/preset.component';
 import { ChannelComponent } from './components/channel/channel.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component';
+import { DocumentationComponent } from '@app/components/documentation/documentation.component';
 
 // Services
 import { ConfigService } from './services/config.service';
@@ -31,9 +32,10 @@ import {
 	PerfectScrollbarModule,
 	PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
-import { DocumentationComponent } from './documentation/documentation/documentation.component';
 import { MessageService } from '@app/services/message.service';
 import { InfoService } from '@app/services/info.service';
+import { DocumentationModule } from '@app/documentation/documentation.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	suppressScrollX: true
 };
@@ -62,6 +64,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ModelModule,
 		PresetModule,
 		SharedModule,
+		DocumentationModule,
 		PerfectScrollbarModule
 	],
 	providers: [

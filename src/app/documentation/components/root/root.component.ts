@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import * as marked from 'marked';
 
 @Component({
-	selector: 'app-documentation',
-	templateUrl: './documentation.component.html',
-	styleUrls: ['./documentation.component.scss']
+	selector: 'app-documentation-root',
+	templateUrl: './root.component.html',
+	styleUrls: ['./root.component.scss']
 })
-export class DocumentationComponent implements OnInit {
+export class RootComponent implements OnInit {
 	objectKeys = Object.keys;
 	marked = marked;
 	documents = {
