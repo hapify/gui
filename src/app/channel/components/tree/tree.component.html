@@ -81,9 +81,7 @@
 		</span>
 		<app-channel-tree
 			[selectedPath]="selectedPath"
-			[rootPath]="
-				rootPath.length ? rootPath + '/' + branch.path : branch.path
-			"
+			[rootPath]="branch.path"
 			class="d-flex flex-column"
 			[class.openned]="isOpen[branch.path]"
 			[tree]="branch.children"
@@ -113,7 +111,7 @@
 					type="text"
 					#newpath
 					[disabled]="addTemplateDisabled"
-					(change)="newpath.value.length ? onAddTemplate() : false"
+					(change)="onAddTemplate()"
 				/>
 			</div>
 			<span
