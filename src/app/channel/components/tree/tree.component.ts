@@ -10,6 +10,16 @@ import { ITemplate } from '@app/channel/interfaces/template';
 export class TreeComponent implements OnInit {
 	@Input()
 	set tree(value: TreeBranch[]) {
+		// Folder first, then alphabetically
+		value.sort((a, b) => {
+			if (a.children.length === 0 && b.children.length > 0) {
+				return 1;
+			}
+			if (a.children.length > 0 && b.children.length === 0) {
+				return -1;
+			}
+			return a.name.localeCompare(b.name);
+		});
 		this._tree = value;
 		this._tree.map(branch => {
 			this.isOpen[branch.path] = this.isOpen[branch.path] || false;
