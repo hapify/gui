@@ -6,8 +6,10 @@ type MessageLevel = 'info' | 'success' | 'warning' | 'error';
 
 @Injectable()
 export class MessageService {
-	/** Display duration*/
-	duration = 5000;
+	/** Display duration */
+	defaultDuration = 4000;
+	/** Display duration for error */
+	errorDuration = 8000;
 
 	/** Constructor */
 	constructor(
@@ -28,8 +30,7 @@ export class MessageService {
 	}
 	/** Handle an error */
 	error(error: Error, asWarning = false): void {
-		const message = `${error.name}: ${error.message}`;
-		this._show(message, asWarning ? 'warning' : 'error');
+		this._show(error.message, asWarning ? 'warning' : 'error');
 		this.log(error);
 	}
 	/** Log a message */
@@ -47,7 +48,10 @@ export class MessageService {
 			.get('error_dismiss-action')
 			.subscribe(dismissText => {
 				this.snackBar.open(message, dismissText, {
-					duration: this.duration,
+					duration:
+						level === 'error'
+							? this.errorDuration
+							: this.defaultDuration,
 					panelClass: ['messageBar', `${level}Bar`],
 					horizontalPosition: 'right',
 					verticalPosition: 'top'

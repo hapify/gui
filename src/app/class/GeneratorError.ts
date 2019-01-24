@@ -1,33 +1,25 @@
-export interface GeneratorErrorData {
-	type: string;
+import { RichError, RichErrorData } from '@app/class/RichError';
+
+export interface GeneratorErrorData extends RichErrorData {
 	stack: string;
 	lineNumber: number;
 	columnNumber: number;
 }
-export class GeneratorError implements Error {
-	name: string;
-	message: string;
-	stack?: string;
+export class GeneratorError extends RichError {
 	data?: GeneratorErrorData;
 	constructor(message: string, data?: GeneratorErrorData) {
+		super(message, data);
 		this.name = 'GeneratorError';
-		this.message = message;
 		if (data) {
 			this.stack = data.stack;
-			this.data = data;
 		}
 	}
-	static from(payload: any) {
-		return new GeneratorError(payload.message, payload.data);
-	}
 	details(): string {
-		let output = `${this.name}: ${this.message}`;
+		let output = super.details();
+		if (this.stack) {
+			output += `\nStack: ${this.stack}`;
+		}
 		if (this.data) {
-			output += '\n';
-			output += `\nType: ${this.data.type}`;
-			if (this.data.stack) {
-				output += `\nStack: ${this.stack}`;
-			}
 			if (this.data.lineNumber) {
 				output += `\nLine Number: ${this.data.lineNumber}`;
 			}
