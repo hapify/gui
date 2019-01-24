@@ -60,7 +60,7 @@ export class MessageService {
 			const key = `error_code-${error.data.code}`;
 			this.translateService.get(key).subscribe(errorDetails => {
 				const message =
-					errorDetails !== key
+					errorDetails !== key && errorDetails.trim().length
 						? errorDetails
 						: `${error.message}\n${error.data.type}: ${
 								error.data.code
