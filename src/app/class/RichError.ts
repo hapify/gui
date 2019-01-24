@@ -1,9 +1,9 @@
 export interface RichErrorData {
 	type: string;
 	code: number;
-	stack: string;
-	lineNumber: number;
-	columnNumber: number;
+	stack?: string;
+	lineNumber?: number;
+	columnNumber?: number;
 }
 export class RichError implements Error {
 	name: string;

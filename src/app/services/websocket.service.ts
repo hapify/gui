@@ -51,10 +51,14 @@ export class WebSocketService {
 			wsInfo = await this.wsInfo();
 		} catch (error) {
 			this.messageService.error(
-				new Error(
-					`Cannot fetch connection info: ${
-						error.message
-					}. Try again in ${this.reconnectDelay}ms`
+				new RichError(
+					`Cannot fetch connection info. Try again in ${
+						this.reconnectDelay
+					}ms`,
+					{
+						code: 5004,
+						type: 'ConsoleWebSocketFetchError'
+					}
 				)
 			);
 			return await this.handshake(this.reconnectDelay);
@@ -72,16 +76,25 @@ export class WebSocketService {
 		};
 		this.ws.onclose = (event: CloseEvent) => {
 			this.messageService.error(
-				new Error(
-					`Connection lost: ${event.code}. Try again in ${
+				new RichError(
+					`WebSocket connection lost. Try again in ${
 						this.reconnectDelay
-					}ms`
+					}ms`,
+					{
+						code: 5005,
+						type: 'ConsoleWebSocketConnectionError'
+					}
 				)
 			);
 			this.handshake(this.reconnectDelay);
 		};
 		this.ws.onerror = (event: ErrorEvent) => {
-			this.messageService.error(new Error(event.message));
+			this.messageService.error(
+				new RichError(event.message, {
+					code: 5002,
+					type: 'ConsoleWebSocketError'
+				})
+			);
 		};
 		// Wait for opening
 		await new Promise(resolve => {
@@ -135,10 +148,15 @@ export class WebSocketService {
 						const error =
 							response.data && response.data.data
 								? RichError.from(response.data)
-								: new Error(
+								: new RichError(
 										response.data
 											? response.data.message
-											: 'Error from WebSocket server'
+											: 'Error from WebSocket server',
+										{
+											code: 5006,
+											type:
+												'ConsoleWebSocketResponseError'
+										}
 								  );
 						this.messageService.error(error);
 						reject(error);
@@ -151,7 +169,13 @@ export class WebSocketService {
 			// Set timeout
 			timeoutSub = setTimeout(() => {
 				subscription.unsubscribe();
-				const error = new Error('No response from WebSocket server');
+				const error = new RichError(
+					'No response from WebSocket server',
+					{
+						code: 5003,
+						type: 'ConsoleWebSocketTimeoutError'
+					}
+				);
 				this.messageService.error(error);
 				reject(error);
 			}, timeout);

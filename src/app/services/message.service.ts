@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { RichError } from '@app/class/RichError';
 
 type MessageLevel = 'info' | 'success' | 'warning' | 'error';
 
@@ -54,16 +55,27 @@ export class MessageService {
 				return;
 			}
 		}
-		this._show(error.message, asWarning ? 'warning' : 'error');
-		this.log(error);
+		// Translate and display error
+		if (error instanceof RichError) {
+			const key = `error_code-${error.data.code}`;
+			this.translateService.get(key).subscribe(errorDetails => {
+				const message =
+					errorDetails !== key
+						? errorDetails
+						: `${error.message}\n${error.data.type}: ${
+								error.data.code
+						  }`;
+				this._show(message, asWarning ? 'warning' : 'error');
+			});
+		} else {
+			this._show(error.message, asWarning ? 'warning' : 'error');
+		}
+		// Dump in console anyway
+		console.error(error);
 	}
 	/** Log a message */
-	log(message: Error | string | any): void {
-		if (message instanceof Error) {
-			console.error(message);
-		} else {
-			console.log(message);
-		}
+	log(message: string | any): void {
+		console.log(message);
 	}
 
 	/** Show the snackbar with the message */
