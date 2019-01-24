@@ -11,6 +11,7 @@ import { StorageService as ChannelStorageService } from '@app/channel/services/s
 import { StorageService as ModelStorageService } from '@app/model/services/storage.service';
 import { IModel } from '@app/model/interfaces/model';
 import { IChannel } from '@app/channel/interfaces/channel';
+import { MessageService } from '@app/services/message.service';
 
 @Component({
 	selector: 'app-validator-details',
@@ -24,6 +25,8 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	protected modelStorageService: ModelStorageService;
 	/** @type {ValidatorService} The validator service */
 	protected validatorService: ValidatorService;
+	/** @type {MessageService} The message service */
+	protected messageService: MessageService;
 	/** @type {IModel} */
 	protected modelValue: IModel;
 	/** @type {IModel[]} */
@@ -90,9 +93,10 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		this.channelStorageService = this.injector.get(ChannelStorageService);
 		this.modelStorageService = this.injector.get(ModelStorageService);
 		this.validatorService = this.injector.get(ValidatorService);
+		this.messageService = this.injector.get(MessageService);
 
 		this.initialized = true;
-		this.run();
+		this.run().catch(error => this.messageService.error(error));
 	}
 
 	/**

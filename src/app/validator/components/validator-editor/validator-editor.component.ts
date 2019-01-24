@@ -21,6 +21,7 @@ import { IValidatorResult } from '../../interfaces/validator-result';
 import { ValidatorService } from '../../services/validator.service';
 import { IChannel } from '@app/channel/interfaces/channel';
 import { MessageService } from '@app/services/message.service';
+import { RichError } from '@app/class/RichError';
 
 @Component({
 	selector: 'app-validator-editor',
@@ -49,8 +50,8 @@ export class ValidatorEditorComponent
 	model: IModel;
 	/** @type {IValidatorResult} Validation result */
 	result: IValidatorResult;
-	/** @type {Error} Validation error */
-	error: Error;
+	/** @type {string} Validation error */
+	error: string;
 	/** @type {string} Result summary */
 	summary = '';
 	/** @type {boolean} Denotes if should auto-check on change */
@@ -186,7 +187,11 @@ export class ValidatorEditorComponent
 			}`;
 			this.summary = `${this.summary}\n    ${warnings.join('\n    ')}`;
 		} catch (error) {
-			this.error = error;
+			if (error instanceof RichError) {
+				this.error = error.details();
+			} else {
+				this.error = `${error.message}\n\n${error.stack}`;
+			}
 		}
 	}
 

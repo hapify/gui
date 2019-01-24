@@ -2,6 +2,23 @@ import { Injectable } from '@angular/core';
 import { IValidatorResult } from '../interfaces/validator-result';
 import { IModel } from '@app/model/interfaces/model';
 import * as md5 from 'md5';
+import { environment } from '@env/environment';
+import { RichError } from '@app/class/RichError';
+import * as ErrorStackParser from 'error-stack-parser';
+
+const VoidContext = {
+	// disallowed
+	global: undefined,
+	process: undefined,
+	module: undefined,
+	require: undefined,
+	document: undefined,
+	window: undefined,
+	Window: undefined,
+	// no evil...
+	eval: undefined,
+	Function: undefined // locally define all potential global vars
+};
 
 @Injectable()
 export class ValidatorService {
@@ -35,7 +52,7 @@ export class ValidatorService {
 			};
 		}
 
-		const result = <IValidatorResult>new Function('model', script)(model);
+		const result = await this.eval(script, model);
 
 		if (
 			!(
@@ -44,8 +61,12 @@ export class ValidatorService {
 				result.warnings instanceof Array
 			)
 		) {
-			throw new Error(
-				'Invalid validator return. Must returns { errors: string[], warnings: string[] }'
+			throw new RichError(
+				'Invalid validator output. Must returns { errors: string[], warnings: string[] }',
+				{
+					code: 5009,
+					type: 'ConsoleValidatorOutputError'
+				}
 			);
 		}
 
@@ -53,6 +74,63 @@ export class ValidatorService {
 		this.cache[hash] = result;
 
 		return result;
+	}
+
+	/** Run eval */
+	private async eval(
+		content: string,
+		model: IModel
+	): Promise<IValidatorResult> {
+		try {
+			const final = `const t = setTimeout(() => reject(new Error('TIMEOUT')), ${
+				environment.validator.timeout
+			});
+const r = function() {
+${content}
+}();
+clearTimeout(t); resolve(r);`;
+			const results = await new Promise((resolve, reject) => {
+				new Function(
+					'model',
+					'resolve',
+					'reject',
+					...Object.keys(VoidContext),
+					final
+				)(model, resolve, reject, ...Object.values(VoidContext));
+			});
+			return results as IValidatorResult;
+		} catch (error) {
+			// Timeout error
+			if (error.message === 'TIMEOUT') {
+				throw new RichError(
+					`Template processing timed out (${
+						environment.validator.timeout
+					}ms)`,
+					{
+						code: 5008,
+						type: 'ConsoleValidatorTimeoutError'
+					}
+				);
+			}
+
+			// Format error
+			error.stack = error.stack.replace(
+				/eval at <anonymous> \((.*):([0-9]+):([0-9]+)\), /g,
+				''
+			); // Help error parser a little bit
+			const { lineNumber, columnNumber } = ErrorStackParser.parse(
+				error
+			)[0];
+			const lineOffset = -4;
+			throw new RichError(error.message, {
+				code: 5007,
+				type: 'ConsoleValidatorEvaluationError',
+				stack: `Error: ${error.message}. Line: ${lineNumber +
+					lineOffset}, Column: ${columnNumber}`,
+				lineNumber: lineNumber + lineOffset,
+				columnNumber
+			});
+		}
 	}
 
 	private hash(script: string, model: IModel): string {

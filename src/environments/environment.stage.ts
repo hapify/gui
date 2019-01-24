@@ -11,5 +11,9 @@ export const environment = {
 	},
 	cli: {
 		wsInfoUri: 'http://localhost:4800/ws.json'
-	}
+	},
+	validator: {
+		timeout: 1000
+	},
+	debounceTime: 1000
 };
