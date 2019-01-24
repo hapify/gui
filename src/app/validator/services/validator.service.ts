@@ -125,7 +125,7 @@ clearTimeout(t); resolve(r);`;
 			throw new RichError(error.message, {
 				code: 5007,
 				type: 'ConsoleValidatorEvaluationError',
-				stack: `Error: ${error.message}. Line: ${lineNumber +
+				details: `Error: ${error.message}. Line: ${lineNumber +
 					lineOffset}, Column: ${columnNumber}`,
 				lineNumber: lineNumber + lineOffset,
 				columnNumber
