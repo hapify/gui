@@ -4,8 +4,16 @@ import { TranslateService } from '@ngx-translate/core';
 
 type MessageLevel = 'info' | 'success' | 'warning' | 'error';
 
+export interface ErrorHandler {
+	name: string;
+	/** Must return true if hte error has been handled */
+	handle: (error: Error) => boolean;
+}
+
 @Injectable()
 export class MessageService {
+	/** A set of functions that can handle an error and skip the default behavior */
+	private errorHandlers: ErrorHandler[] = [];
 	/** Display duration */
 	defaultDuration = 4000;
 	/** Display duration for error */
@@ -16,6 +24,16 @@ export class MessageService {
 		private translateService: TranslateService,
 		public snackBar: MatSnackBar
 	) {}
+	/** Push an error handler to the set */
+	addErrorHandler(handler: ErrorHandler) {
+		// Avoid conflict
+		this.removeErrorHandler(handler.name);
+		this.errorHandlers.push(handler);
+	}
+	/** Remove an error handler to the set */
+	removeErrorHandler(name: string) {
+		this.errorHandlers = this.errorHandlers.filter(h => h.name !== name);
+	}
 	/** Show info */
 	info(message: string): void {
 		this._show(message, 'info');
@@ -30,6 +48,12 @@ export class MessageService {
 	}
 	/** Handle an error */
 	error(error: Error, asWarning = false): void {
+		// Try handlers first
+		for (const handler of this.errorHandlers) {
+			if (handler.handle(error)) {
+				return;
+			}
+		}
 		this._show(error.message, asWarning ? 'warning' : 'error');
 		this.log(error);
 	}

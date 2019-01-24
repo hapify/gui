@@ -6,7 +6,7 @@ import { IWebSocketInfo } from '../interfaces/websocket-info';
 import { IWebSocketMessage } from '../interfaces/websocket-message';
 import { ConfigService } from './config.service';
 import { MessageService } from './message.service';
-import { GeneratorError } from '@app/class/GeneratorError';
+import { RichError } from '@app/class/RichError';
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
@@ -134,7 +134,7 @@ export class WebSocketService {
 					if (response.type === 'error') {
 						const error =
 							response.data && response.data.data
-								? GeneratorError.from(response.data)
+								? RichError.from(response.data)
 								: new Error(
 										response.data
 											? response.data.message

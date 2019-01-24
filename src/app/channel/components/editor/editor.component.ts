@@ -22,7 +22,7 @@ import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { MessageService } from '@app/services/message.service';
-import { GeneratorError } from '@app/class/GeneratorError';
+import { RichError } from '@app/class/RichError';
 
 @Component({
 	selector: 'app-channel-editor',
@@ -60,6 +60,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	unsavedChanges = false;
 	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
+	/** Error codes to display in editor */
+	private handledCodes = [1003, 1004, 1005, 2004, 2005];
 	/** Left editor */
 	@ViewChild('editorInput') editorInput;
 	/** Constructor */
@@ -77,6 +79,13 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 	/** On init */
 	ngOnInit() {
+		// Handle generation messages
+		this.messageService.addErrorHandler({
+			name: 'template-editor',
+			handle: (error: Error) => this._handledError(error)
+		});
+
+		// Unloading message
 		this.translateService
 			.get('common_unload_warning')
 			.subscribe(value => (this.beforeUnloadWarning = value));
@@ -109,6 +118,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** Destroy */
 	ngOnDestroy() {
 		this.hotKeysService.remove(this.saveHotKeys);
+		this.messageService.removeErrorHandler('template-editor');
 	}
 	/**
 	 * After init
@@ -181,11 +191,16 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 	/** Format an error to be displayed */
 	private _formatError(error: Error) {
-		if (error instanceof GeneratorError) {
-			this.error = error.details();
-		} else {
-			this.error = `${error.message}\n\n${error.stack}`;
+		if (this._handledError(error)) {
+			this.error = (<RichError>error).details();
 		}
+	}
+	/** Format an error to be displayed */
+	private _handledError(error: Error): boolean {
+		return (
+			error instanceof RichError &&
+			this.handledCodes.includes(error.data.code)
+		);
 	}
 
 	/** Call when the selected model is changed */
