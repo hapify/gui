@@ -5,8 +5,8 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "ng build --prod --env=prod",
-		"build-for-cli": "ng build --prod --env=prod --output-path=../../html",
+		"build": "ng build --prod --configuration=production",
+		"build-for-cli": "ng build --prod --configuration=production --output-path=../../html",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
