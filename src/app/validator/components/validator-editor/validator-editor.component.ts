@@ -56,6 +56,8 @@ export class ValidatorEditorComponent
 	summary = '';
 	/** @type {boolean} Denotes if should auto-check on change */
 	autoValidate = true;
+	/** Error codes to display in editor */
+	private handledCodes = [4005, 4006, 4007];
 	/** @type {string} Text display to prevent reloading */
 	private beforeUnloadWarning: string;
 	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
@@ -81,6 +83,12 @@ export class ValidatorEditorComponent
 		// Avoid circular dependency
 		this.modelStorageService = this.injector.get(ModelStorageService);
 		this.validatorService = this.injector.get(ValidatorService);
+
+		// Handle generation messages
+		this.messageService.addErrorHandler({
+			name: 'validator-editor',
+			handle: (error: Error) => this._handledError(error)
+		});
 
 		this.translateService
 			.get('common_unload_warning')
@@ -114,6 +122,7 @@ export class ValidatorEditorComponent
 	 */
 	ngOnDestroy() {
 		this.hotKeysService.remove(this.saveHotKeys);
+		this.messageService.removeErrorHandler('validator-editor');
 	}
 
 	/**
@@ -124,6 +133,14 @@ export class ValidatorEditorComponent
 		this.editorInput
 			.getEditor()
 			.commands.addCommand(this._getEditorSaveCommand());
+	}
+
+	/** Format an error to be displayed */
+	private _handledError(error: Error): boolean {
+		return (
+			error instanceof RichError &&
+			this.handledCodes.includes(error.data.code)
+		);
 	}
 
 	/**

@@ -12,8 +12,5 @@ export const environment = {
 	cli: {
 		wsInfoUri: '/ws.json'
 	},
-	validator: {
-		timeout: 1000
-	},
 	debounceTime: 1000
 };
