@@ -1,12 +1,6 @@
 import { IChannel } from './channel';
 export interface ITemplateBase {
 	/**
-	 * The template's name
-	 *
-	 * @type {string}
-	 */
-	name: string;
-	/**
 	 * The template's path
 	 *
 	 * @type {string}

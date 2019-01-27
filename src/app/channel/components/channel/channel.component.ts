@@ -149,7 +149,6 @@ export class ChannelComponent implements OnInit {
 	 */
 	onAddTemplate(path: string) {
 		const template = this.channel.newTemplate();
-		template.name = path;
 		template.path = path;
 		template.content = '';
 		this.channel.addTemplate(template);

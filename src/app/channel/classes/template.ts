@@ -13,10 +13,6 @@ export class Template implements ITemplate {
 		this._channel = channel;
 	}
 	/**
-	 * @inheritDoc
-	 */
-	public name = '';
-	/**
 	 * Stores the path value managed by getter/setter
 	 */
 	private _path = '';
@@ -74,7 +70,6 @@ export class Template implements ITemplate {
 	 * @inheritDoc
 	 */
 	public fromObject(object: ITemplateBase): void {
-		this.name = object.name;
 		this.path = object.path;
 		this.engine = object.engine;
 		this.input = object.input;
@@ -86,7 +81,6 @@ export class Template implements ITemplate {
 	 */
 	public toObject(): ITemplateBase {
 		return {
-			name: this.name,
 			path: this.path,
 			engine: this.engine,
 			input: this.input,
