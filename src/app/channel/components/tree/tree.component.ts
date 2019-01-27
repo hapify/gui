@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeBranch } from '../../interfaces/tree-branch';
-import { ITemplate } from '@app/channel/interfaces/template';
 
 @Component({
 	selector: 'app-channel-tree',
