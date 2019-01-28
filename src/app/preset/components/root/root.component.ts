@@ -2,8 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { StorageService as ModelStorageService } from '../../../model/model.module';
 import { IPreset } from '../../interfaces/preset';
-import { AceService } from '@app/services/ace.service';
 import { MessageService } from '@app/services/message.service';
+import { WebSocketService } from '@app/services/websocket.service';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
+import { IModel } from '@app/model/interfaces';
+import { Model } from '@app/model/classes/model';
+
+interface PresetMergeResults {
+	created: IModel[];
+	updated: IModel[];
+}
 
 @Component({
 	selector: 'app-preset-root',
@@ -15,7 +23,8 @@ export class RootComponent implements OnInit {
 	constructor(
 		private storageService: StorageService,
 		private modelStorageService: ModelStorageService,
-		private messageService: MessageService
+		private messageService: MessageService,
+		private webSocketService: WebSocketService
 	) {}
 
 	/**
@@ -36,39 +45,36 @@ export class RootComponent implements OnInit {
 	 * Called when the user apply the preset
 	 */
 	async applyPreset(preset: IPreset): Promise<void> {
-		// Add or update each models
-		const updated = [];
-		const created = [];
-		for (const model of preset.models) {
-			const existing = (await this.modelStorageService.list()).find(
-				m => m.name === model.name
-			);
-			if (existing) {
-				// Add or skip each fields
-				let shouldSave = false;
-				for (const field of model.fields) {
-					if (!existing.fields.some(f => f.name === field.name)) {
-						existing.addField(field);
-						shouldSave = true;
-					}
-				}
-				if (shouldSave) {
-					await this.modelStorageService.update(existing);
-					updated.push(existing);
-				}
-			} else {
-				const clone = model.clone();
-				await this.modelStorageService.add(clone);
-				created.push(clone);
+		const results = (await this.webSocketService.send(
+			WebSocketMessages.APPLY_PRESETS,
+			{
+				models: preset.models
 			}
+		)) as PresetMergeResults;
+
+		// @todo Require validation from user
+		for (const modelObject of results.created) {
+			const model = new Model();
+			model.fromObject(modelObject);
+			await this.modelStorageService.add(model);
 		}
+		for (const modelObject of results.updated) {
+			const model = new Model();
+			model.fromObject(modelObject);
+			await this.modelStorageService.update(model);
+		}
+
 		// Show message to user...
-		let message = created.length
-			? `Did create model(s) ${created.map(m => m.name).join(', ')}`
+		let message = results.created.length
+			? `Did create model(s) ${results.created
+					.map(m => m.name)
+					.join(', ')}`
 			: 'No model created';
 		message += '. ';
-		message += updated.length
-			? `Did update model(s) ${updated.map(m => m.name).join(', ')}`
+		message += results.updated.length
+			? `Did update model(s) ${results.updated
+					.map(m => m.name)
+					.join(', ')}`
 			: 'No model updated';
 		this.messageService.info(message);
 	}
