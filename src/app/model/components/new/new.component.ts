@@ -7,7 +7,9 @@ import {
 	ViewChild
 } from '@angular/core';
 import { Model } from '../../classes/model';
-import { IModel } from '../../interfaces/model';
+import { IModel, IModelBase } from '../../interfaces/model';
+import { WebSocketService } from '@app/services/websocket.service';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
 
 @Component({
 	selector: 'app-model-new',
@@ -18,7 +20,7 @@ export class NewComponent implements AfterViewInit {
 	/**
 	 * Constructor
 	 */
-	constructor() {}
+	constructor(private webSocketService: WebSocketService) {}
 
 	public name = '';
 
@@ -35,24 +37,18 @@ export class NewComponent implements AfterViewInit {
 	/**
 	 * Called when the user save the new model
 	 */
-	save() {
+	async save() {
+		// Get model from CLI
+		const modelObject = (await this.webSocketService.send(
+			WebSocketMessages.NEW_MODEL,
+			{
+				name: this.name
+			}
+		)) as IModelBase;
+
 		// Create new model
 		const model = new Model();
-		model.name = this.name;
-
-		// Default field(s)
-		const primary = model.newField();
-		primary.name = '_id';
-		primary.primary = true;
-		primary.internal = true;
-		model.addField(primary);
-
-		const creation = model.newField();
-		creation.name = 'created_at';
-		creation.type = 'datetime';
-		creation.internal = true;
-		creation.sortable = true;
-		model.addField(creation);
+		model.fromObject(modelObject);
 
 		// Send the model
 		this.create.emit(model);

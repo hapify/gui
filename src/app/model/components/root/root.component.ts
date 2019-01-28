@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { IModel } from '../../interfaces/model';
+import { IModel, IModelBase } from '../../interfaces/model';
 import { environment } from '@env/environment';
 import { InfoService } from '@app/services/info.service';
 import { IInfo } from '@app/interfaces/info';
+import { WebSocketService } from '@app/services/websocket.service';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
 
 @Component({
 	selector: 'app-model-root',
@@ -14,7 +16,8 @@ export class RootComponent implements OnInit {
 	/** Constructor */
 	constructor(
 		private storageService: StorageService,
-		private infoService: InfoService
+		private infoService: InfoService,
+		private webSocketService: WebSocketService
 	) {}
 
 	private _saveTimeout;
@@ -49,9 +52,19 @@ export class RootComponent implements OnInit {
 	/**
 	 * Called when the user update the model
 	 */
-	onClone(model: IModel): void {
+	async onClone(model: IModel): Promise<void> {
+		// Get model from CLI
+		const modelObject = (await this.webSocketService.send(
+			WebSocketMessages.NEW_MODEL,
+			{
+				name: model.name
+			}
+		)) as IModelBase;
+		// Create clone and copy temp id
+		const clone = model.clone();
+		clone.id = modelObject.id;
 		// Clone the model
-		this.storageService.add(model.clone()).then(() => this.updateModels());
+		this.storageService.add(clone).then(() => this.updateModels());
 	}
 
 	/**

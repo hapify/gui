@@ -1,6 +1,6 @@
 import { IModel, IModelBase } from '../interfaces/model';
 import { IField, IFieldBase } from '../interfaces/field';
-import { Access, IAccesses } from '../interfaces/access';
+import { IAccesses } from '../interfaces/access';
 import { Field } from './field';
 
 export class Model implements IModel {
@@ -8,9 +8,7 @@ export class Model implements IModel {
 	 * Constructor
 	 * Auto-generate unique id
 	 */
-	constructor() {
-		this.id = this.guid();
-	}
+	constructor() {}
 
 	/**
 	 * @inheritDoc
@@ -27,29 +25,7 @@ export class Model implements IModel {
 	/**
 	 * @inheritDoc
 	 */
-	public accesses: IAccesses = {
-		create: Access.GUEST,
-		read: Access.GUEST,
-		update: Access.GUEST,
-		remove: Access.GUEST,
-		search: Access.GUEST,
-		count: Access.GUEST
-	};
-
-	/**
-	 * Randomly generate id
-	 *
-	 * @example af8a8416-6e18-a307-bd9c-f2c947bbb3aa
-	 * @returns {string}
-	 */
-	protected guid(): string {
-		function _p8(s?: boolean) {
-			const p = (Math.random().toString(16) + '000000000').substr(2, 8);
-			return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
-		}
-
-		return _p8() + _p8(true) + _p8(true) + _p8();
-	}
+	public accesses: IAccesses;
 
 	/**
 	 * @inheritDoc
@@ -145,9 +121,7 @@ export class Model implements IModel {
 	 */
 	public clone(): IModel {
 		const model = new Model();
-		const id = model.id;
 		model.fromObject(this.toObject());
-		model.id = id;
 		return model;
 	}
 }
