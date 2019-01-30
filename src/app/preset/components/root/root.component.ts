@@ -5,7 +5,7 @@ import { IPreset } from '../../interfaces/preset';
 import { MessageService } from '@app/services/message.service';
 import { WebSocketService } from '@app/services/websocket.service';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
-import { IModel } from '@app/model/interfaces';
+import { IModel } from '@app/model/interfaces/model';
 import { Model } from '@app/model/classes/model';
 
 interface PresetMergeResults {
