@@ -36,6 +36,8 @@ export abstract class StorageService<T extends IStorable> {
 				instance.fromObject(object);
 				return instance;
 			});
+			// Sort the instances
+			this.sort(this._instances);
 		}
 		// Release the lock
 		this.release();
