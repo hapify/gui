@@ -5,8 +5,6 @@ export interface IProject {
 	name: string;
 	/** The project's description */
 	description?: string | null;
-	/** The project's owner paylaod */
-	owner: string | any;
 }
 
 export interface ILimits {
