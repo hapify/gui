@@ -53,16 +53,20 @@ export class RootComponent implements OnInit {
 		)) as PresetMergeResults;
 
 		// @todo Require validation from user
-		for (const modelObject of results.created) {
-			const model = new Model();
-			model.fromObject(modelObject);
-			await this.modelStorageService.add(model);
-		}
-		for (const modelObject of results.updated) {
-			const model = new Model();
-			model.fromObject(modelObject);
-			await this.modelStorageService.update(model);
-		}
+		await this.modelStorageService.update(
+			results.updated.map(m => {
+				const model = new Model();
+				model.fromObject(m);
+				return model;
+			})
+		);
+		await this.modelStorageService.add(
+			results.created.map(m => {
+				const model = new Model();
+				model.fromObject(m);
+				return model;
+			})
+		);
 
 		// Show message to user...
 		let message = results.created.length

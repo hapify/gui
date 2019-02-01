@@ -10,7 +10,7 @@
 				{{ preset | translateEntry: 'name' }}
 			</h2>
 			<div [innerHTML]="preset | translateEntry: 'description'"></div>
-			<i *ngIf="preset.models.length" class="mb-2">
+			<i *ngIf="preset.models.length === 1" class="mb-2">
 				{{
 					'presets_models_count'
 						| translate: { count: preset.models.length }
@@ -22,7 +22,7 @@
 						| translate: { count: preset.models.length }
 				}}
 			</i>
-			<i *ngIf="!preset.models.length" class="mb-2">
+			<i *ngIf="preset.models.length < 1" class="mb-2">
 				{{
 					'presets_models_count_0'
 						| translate: { count: preset.models.length }

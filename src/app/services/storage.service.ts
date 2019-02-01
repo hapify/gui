@@ -64,15 +64,57 @@ export abstract class StorageService<T extends IStorable> {
 
 	/**
 	 * Push a instance into the storage
-	 * @param {T} instance
+	 * @param {T | T[]} instance
 	 * @returns {Promise<void>}
 	 */
-	async add(instance: T): Promise<void> {
+	async add(instance: T | T[]): Promise<void> {
 		// Add the instance to the list
 		const instances = await this.list();
-		instances.push(instance);
-		// Save the instances
+		if (instance instanceof Array) {
+			await this.save(instances.concat(instance));
+		} else {
+			instances.push(instance);
+			await this.save(instances);
+		}
+	}
+
+	/**
+	 * Find a instance and remove it
+	 * @param {T | T[]} instance
+	 * @returns {Promise<void>}
+	 */
+	async remove(instance: T | T[]): Promise<void> {
+		// Remove the instance from the list
+		const instances =
+			instance instanceof Array
+				? (await this.list()).filter(
+						m => !instance.some(i => m.id === i.id)
+				  )
+				: (await this.list()).filter(m => m.id !== instance.id);
+		// Find instance
 		await this.save(instances);
+	}
+
+	/**
+	 * Find a instance and replace it with its new version
+	 * @param {T | T[]} instance
+	 * @returns {Promise<void>}
+	 */
+	async update(instance: T | T[]): Promise<void> {
+		// Remove the instance from the list
+		const instances =
+			instance instanceof Array
+				? (await this.list()).filter(
+						m => !instance.some(i => m.id === i.id)
+				  )
+				: (await this.list()).filter(m => m.id !== instance.id);
+		// Add the instance to the list
+		if (instance instanceof Array) {
+			await this.save(instances.concat(instance));
+		} else {
+			instances.push(instance);
+			await this.save(instances);
+		}
 	}
 
 	/**
@@ -88,37 +130,11 @@ export abstract class StorageService<T extends IStorable> {
 	}
 
 	/**
-	 * Find a instance and remove it
-	 * @param {T} instance
-	 * @returns {Promise<void>}
-	 */
-	async remove(instance: T): Promise<void> {
-		// Remove the instance from the list
-		const instances = (await this.list()).filter(m => m.id !== instance.id);
-		// Find instance
-		await this.save(instances);
-	}
-
-	/**
 	 * Clear all the storage
 	 * @returns {Promise<void>}
 	 */
 	async clear(): Promise<void> {
 		await this.save([]);
-	}
-
-	/**
-	 * Find a instance and replace it with its new version
-	 * @param {T} instance
-	 * @returns {Promise<void>}
-	 */
-	async update(instance: T): Promise<void> {
-		// Remove the instance from the list
-		const instances = (await this.list()).filter(m => m.id !== instance.id);
-		// Add the instance to the list
-		instances.push(instance);
-		// Save the instances
-		await this.save(instances);
 	}
 
 	/**
