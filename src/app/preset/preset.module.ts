@@ -6,17 +6,19 @@ import { AlertModule, TooltipModule } from 'ngx-bootstrap';
 import { TranslateModuleLoad } from '../translate-import';
 
 import { RootComponent } from './components/root/root.component';
-import { PresetCardComponent } from './components/preset-card/preset-card.component';
 
 // Services
 import { StorageService } from './services/storage.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { PresetCardComponent } from '@app/preset/components/preset-card/preset-card.component';
+import { MessageService } from '@app/services/message.service';
+import { WebSocketService } from '@app/services/websocket.service';
+import { ModelService } from '@app/preset/services/model.service';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
-		RouterModule,
 		ReactiveFormsModule,
 		TranslateModuleLoad(),
 		TooltipModule.forRoot(),
@@ -24,11 +26,14 @@ import { SharedModule } from '@app/shared/shared.module';
 		SharedModule
 	],
 	declarations: [RootComponent, PresetCardComponent],
-	providers: [StorageService]
+	providers: [StorageService, MessageService, WebSocketService, ModelService],
+	exports: [RootComponent],
+	entryComponents: [RootComponent]
 })
 export class PresetModule {}
 
-export { PRESET_ROUTES } from './preset.routing';
+/*export { PRESET_ROUTES } from './preset.routing';*/
 export { Preset } from './classes/preset';
 export { IPreset, IPresetBase } from './interfaces/preset';
 export { StorageService } from './services/storage.service';
+export { RootComponent } from './components/root/root.component';

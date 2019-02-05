@@ -44,7 +44,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	declarations: [
 		AppComponent,
 		ModelComponent,
-		PresetComponent,
+		/*PresetComponent,*/
 		ChannelComponent,
 		SidebarComponent,
 		HeaderComponent,
@@ -62,7 +62,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		HotkeyModule.forRoot(),
 		ChannelModule,
 		ModelModule,
-		PresetModule,
+		/*PresetModule,*/
 		SharedModule,
 		DocumentationModule,
 		PerfectScrollbarModule

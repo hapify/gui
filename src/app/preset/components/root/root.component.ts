@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { StorageService as ModelStorageService } from '../../../model/model.module';
 import { IPreset } from '../../interfaces/preset';
 import { MessageService } from '@app/services/message.service';
 import { WebSocketService } from '@app/services/websocket.service';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { IModel } from '@app/model/interfaces/model';
-import { Model } from '@app/model/classes/model';
+import { ModelService } from '@app/preset/services/model.service';
 
 interface PresetMergeResults {
 	created: IModel[];
@@ -19,12 +18,15 @@ interface PresetMergeResults {
 	styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
+	@Output() presetApplied = new EventEmitter<PresetMergeResults>();
+
 	/** Constructor */
 	constructor(
 		private storageService: StorageService,
-		private modelStorageService: ModelStorageService,
+		// private modelStorageService: ModelStorageService,
 		private messageService: MessageService,
-		private webSocketService: WebSocketService
+		private webSocketService: WebSocketService,
+		private modelService: ModelService
 	) {}
 
 	/**
@@ -52,35 +54,8 @@ export class RootComponent implements OnInit {
 			}
 		)) as PresetMergeResults;
 
-		// @todo Require validation from user
-		await this.modelStorageService.update(
-			results.updated.map(m => {
-				const model = new Model();
-				model.fromObject(m);
-				return model;
-			})
-		);
-		await this.modelStorageService.add(
-			results.created.map(m => {
-				const model = new Model();
-				model.fromObject(m);
-				return model;
-			})
-		);
-
-		// Show message to user...
-		let message = results.created.length
-			? `Did create model(s) ${results.created
-					.map(m => m.name)
-					.join(', ')}`
-			: 'No model created';
-		message += '. ';
-		message += results.updated.length
-			? `Did update model(s) ${results.updated
-					.map(m => m.name)
-					.join(', ')}`
-			: 'No model updated';
-		this.messageService.info(message);
+		this.presetApplied.emit(results);
+		this.modelService.presetApplied.next(results);
 	}
 
 	/**

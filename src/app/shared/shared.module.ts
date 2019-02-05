@@ -13,7 +13,8 @@ import {
 	MatTooltipModule,
 	MatSnackBarModule,
 	MatTreeModule,
-	MatCheckboxModule
+	MatCheckboxModule,
+	MatDialogModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -37,7 +38,8 @@ import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
 		MatProgressSpinnerModule,
 		TranslateEntryPipe,
 		MatTreeModule,
-		MatCheckboxModule
+		MatCheckboxModule,
+		MatDialogModule
 	]
 })
 export class SharedModule {}
