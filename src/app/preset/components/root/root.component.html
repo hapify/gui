@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<header class="row py-3 px-4 border-bottom">
+	<header class="row border-bottom mb-2">
 		<div class="col-12 d-flex justify-content-between align-items-center">
 			<h1 class="my-3">
 				{{ 'presets_title' | translate }}
@@ -9,16 +9,12 @@
 			</h1>
 		</div>
 	</header>
-
-	<ul class="row px-4 my-4 list-unstyled">
-		<li
+	<div class="row align-items-center justify-content-start">
+		<app-preset-preset-card
 			*ngFor="let preset of presets"
-			class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
-		>
-			<app-preset-preset-card
-				[preset]="preset"
-				(apply)="applyPreset(preset)"
-			></app-preset-preset-card>
-		</li>
-	</ul>
+			class="d-block m-2"
+			[preset]="preset"
+			(apply)="applyPreset(preset)"
+		></app-preset-preset-card>
+	</div>
 </div>

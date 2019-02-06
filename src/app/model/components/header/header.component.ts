@@ -31,7 +31,9 @@ export class HeaderComponent implements OnInit {
 	ngOnInit() {}
 
 	openPresetDialog(): void {
-		this.dialog.open(PresetRootComponent);
+		this.dialog.open(PresetRootComponent, {
+			panelClass: 'wideDialog'
+		});
 
 		this.modelServiceSubscription = this.modelService.presetApplied.subscribe(
 			results => {

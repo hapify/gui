@@ -1,5 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	HostListener,
+	ViewChild,
+	ElementRef,
+	Renderer2
+} from '@angular/core';
 import { IPreset } from '../../interfaces/preset';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
+import { IModel } from '@app/model/interfaces/model';
+import { ModelService } from '@app/preset/services/model.service';
+import { WebSocketService } from '@app/services/websocket.service';
+
+interface PresetMergeResults {
+	created: IModel[];
+	updated: IModel[];
+}
 
 @Component({
 	selector: 'app-preset-preset-card',
@@ -10,7 +27,11 @@ export class PresetCardComponent implements OnInit {
 	/**
 	 * Constructor
 	 */
-	constructor() {}
+	constructor(
+		private renderer: Renderer2,
+		private modelService: ModelService,
+		private webSocketService: WebSocketService
+	) {}
 
 	/**
 	 * Preset instance
@@ -18,22 +39,54 @@ export class PresetCardComponent implements OnInit {
 	 * @type {IPreset}
 	 */
 	@Input() preset: IPreset;
-	/**
-	 * On apply event
-	 *
-	 * @type {EventEmitter<void>}
-	 */
-	@Output() apply = new EventEmitter<void>();
+
+	@ViewChild('description') description: ElementRef;
+
+	confirmLoading = false;
+
+	diffPreset: PresetMergeResults;
 
 	/**
 	 * @inheritDoc
 	 */
 	ngOnInit() {}
 
+	async previewDiffPresetApllied(): Promise<void> {
+		this.diffPreset = (await this.webSocketService.send(
+			WebSocketMessages.APPLY_PRESETS,
+			{
+				models: this.preset.models
+			}
+		)) as PresetMergeResults;
+
+		console.log(this.diffPreset);
+	}
+
 	/**
 	 * Called when the user click on "apply"
 	 */
-	didClickApply() {
-		this.apply.emit();
+	async applyDiffPreset(): Promise<void> {
+		this.modelService.presetApplied.next(this.diffPreset);
+	}
+
+	mouseOver(event: MouseEvent): void {
+		this.renderer.removeClass(this.description.nativeElement, 'd-none');
+		this.renderer.addClass(this.description.nativeElement, 'd-block');
+		this.renderer.setStyle(
+			this.description.nativeElement,
+			'top',
+			event.clientY + 20 + 'px'
+		);
+		this.renderer.setStyle(
+			this.description.nativeElement,
+			'left',
+			event.clientX + 20 + 'px'
+		);
+	}
+
+	@HostListener('mouseleave', ['$event'])
+	mouseLeave() {
+		this.renderer.removeClass(this.description.nativeElement, 'd-block');
+		this.renderer.addClass(this.description.nativeElement, 'd-none');
 	}
 }
