@@ -4,6 +4,7 @@
 		[newModelDisabled]="
 			info && models && models.length >= info.limits.models
 		"
+		(newImport)="updateModels()"
 	></app-header>
 	<section class="row px-4 py-5">
 		<div

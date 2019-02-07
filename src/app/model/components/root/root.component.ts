@@ -6,7 +6,6 @@ import { InfoService } from '@app/services/info.service';
 import { IInfo } from '@app/interfaces/info';
 import { WebSocketService } from '@app/services/websocket.service';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
-
 @Component({
 	selector: 'app-model-root',
 	templateUrl: './root.component.html',
@@ -40,7 +39,6 @@ export class RootComponent implements OnInit {
 			this.info = info;
 		});
 	}
-
 	/**
 	 * Called when the user update the model
 	 */
@@ -94,8 +92,10 @@ export class RootComponent implements OnInit {
 	 * @returns {Promise<void>}
 	 */
 	protected async updateModels(): Promise<void> {
+		console.log('avant', this.models);
 		this.modelsAreLoaded = false;
 		this.models = await this.storageService.list();
+		console.log('apres', this.models);
 		this.modelsAreLoaded = true;
 		this.addingNewModel = false;
 	}

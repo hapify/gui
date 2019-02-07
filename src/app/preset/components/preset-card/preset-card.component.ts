@@ -58,8 +58,6 @@ export class PresetCardComponent implements OnInit {
 				models: this.preset.models
 			}
 		)) as PresetMergeResults;
-
-		console.log(this.diffPreset);
 	}
 
 	/**
