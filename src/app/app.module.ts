@@ -11,7 +11,6 @@ import { ValidatorService } from './validator/services/validator.service';
 // Components
 import { AppComponent } from './app.component';
 import { ModelComponent } from './components/model/model.component';
-import { PresetComponent } from './components/preset/preset.component';
 import { ChannelComponent } from './components/channel/channel.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component';
 import { DocumentationComponent } from '@app/components/documentation/documentation.component';
@@ -24,7 +23,6 @@ import { HeaderComponent } from './components/common/header/header.component';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { ChannelModule } from './channel/channel.module';
 import { ModelModule } from './model/model.module';
-import { PresetModule } from './preset/preset.module';
 import { WebSocketService } from './services/websocket.service';
 import { SharedModule } from '@app/shared/shared.module';
 import {
@@ -44,7 +42,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	declarations: [
 		AppComponent,
 		ModelComponent,
-		/*PresetComponent,*/
 		ChannelComponent,
 		SidebarComponent,
 		HeaderComponent,
@@ -62,7 +59,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		HotkeyModule.forRoot(),
 		ChannelModule,
 		ModelModule,
-		/*PresetModule,*/
 		SharedModule,
 		DocumentationModule,
 		PerfectScrollbarModule
