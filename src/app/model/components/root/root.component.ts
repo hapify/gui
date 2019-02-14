@@ -91,7 +91,7 @@ export class RootComponent implements OnInit {
 	 *
 	 * @returns {Promise<void>}
 	 */
-	protected async updateModels(): Promise<void> {
+	async updateModels(): Promise<void> {
 		this.modelsAreLoaded = false;
 		this.models = await this.storageService.list();
 		this.modelsAreLoaded = true;

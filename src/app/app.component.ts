@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
 		});
 	}
 
-	test() {
+	disablePointerEvents() {
 		this.renderer.addClass(this.scrollzone.nativeElement, 'scrolling');
 		clearTimeout(this.scrollTimeout);
 		this.scrollTimeout = setTimeout(() => {
