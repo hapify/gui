@@ -6,6 +6,7 @@
 - Handle scenarios.
 
 ### Changed
+- New skin.
 
 ### Removed
 
