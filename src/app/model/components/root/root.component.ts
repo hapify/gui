@@ -4,6 +4,8 @@ import { IModel } from '../../interfaces/model';
 import { environment } from '@env/environment';
 import { InfoService } from '@app/services/info.service';
 import { IInfo } from '@app/interfaces/info';
+import { MatDialog } from '@angular/material';
+import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
 
 @Component({
 	selector: 'app-model-root',
@@ -14,7 +16,8 @@ export class RootComponent implements OnInit {
 	/** Constructor */
 	constructor(
 		private storageService: StorageService,
-		private infoService: InfoService
+		private infoService: InfoService,
+		private dialog: MatDialog
 	) {}
 
 	private _saveTimeout;
@@ -60,6 +63,7 @@ export class RootComponent implements OnInit {
 	onCreate(model: IModel): void {
 		// Check length
 		if (this.info && this.models.length >= this.info.limits.models) {
+			this.dialog.open(DialogPremiumComponent);
 			return;
 		}
 		// Store the model

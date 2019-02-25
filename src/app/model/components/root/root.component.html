@@ -70,11 +70,6 @@
 							mat-raised-button
 							color="accent"
 							class="mat-elevation-z0 border my-5 d-inline-flex align-items-center"
-							[disabled]="
-								info &&
-								models &&
-								models.length >= info.limits.models
-							"
 							(click)="addingNewModel = true"
 							*ngIf="!addingNewModel"
 						>
