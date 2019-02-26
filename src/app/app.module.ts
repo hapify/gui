@@ -33,6 +33,7 @@ import {
 import { MessageService } from '@app/services/message.service';
 import { InfoService } from '@app/services/info.service';
 import { DocumentationModule } from '@app/documentation/documentation.module';
+import { DialogPremiumComponent } from './components/common/dialog-premium/dialog-premium.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	suppressScrollX: true
@@ -45,7 +46,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ChannelComponent,
 		SidebarComponent,
 		HeaderComponent,
-		DocumentationComponent
+		DocumentationComponent,
+		DialogPremiumComponent
 	],
 	imports: [
 		BrowserModule,
@@ -76,6 +78,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
 		}
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
+	entryComponents: [DialogPremiumComponent]
 })
 export class AppModule {}

@@ -6,6 +6,8 @@ import { InfoService } from '@app/services/info.service';
 import { IInfo } from '@app/interfaces/info';
 import { WebSocketService } from '@app/services/websocket.service';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
+import { MatDialog } from '@angular/material';
+import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
 @Component({
 	selector: 'app-model-root',
 	templateUrl: './root.component.html',
@@ -16,7 +18,8 @@ export class RootComponent implements OnInit {
 	constructor(
 		private storageService: StorageService,
 		private infoService: InfoService,
-		private webSocketService: WebSocketService
+		private webSocketService: WebSocketService,
+		private dialog: MatDialog
 	) {}
 
 	private _saveTimeout;
@@ -71,6 +74,7 @@ export class RootComponent implements OnInit {
 	onCreate(model: IModel): void {
 		// Check length
 		if (this.info && this.models.length >= this.info.limits.models) {
+			this.dialog.open(DialogPremiumComponent);
 			return;
 		}
 		// Store the model
