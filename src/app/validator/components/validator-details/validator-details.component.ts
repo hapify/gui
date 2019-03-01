@@ -39,6 +39,8 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	protected signalSubscription: EventEmitter<void>;
 	/** @type {boolean} Denotes if the process can be ran */
 	protected initialized = false;
+	/** @type {boolean} Denotes if the process is already running */
+	protected running = false;
 	/** @type {string} Errors & warnings details */
 	details: string = null;
 
@@ -135,14 +137,30 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	 */
 	protected async run() {
 		// Check if possible
-		if (!this.initialized) {
+		if (!this.initialized || this.running) {
 			return;
 		}
 
-		// Start process
-		const channels = await this.getChannels();
-		const models = await this.getModels();
+		// Avoid echos
+		this.running = true;
 
+		// Start process
+		try {
+			await this.process(
+				await this.getChannels(),
+				await this.getModels()
+			);
+		} catch (e) {
+			this.running = false;
+			throw e;
+		}
+
+		// Release
+		this.running = false;
+	}
+
+	/** Sub-routine for run function */
+	protected async process(channels: IChannel[], models: IModel[]) {
 		// Stop process on first error
 		this.details = '';
 		for (const channel of channels) {

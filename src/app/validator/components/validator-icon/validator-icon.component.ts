@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IModel } from '@app/model/interfaces/model';
+import { IChannel } from '@app/channel/interfaces/channel';
 import { ValidatorDetailsComponent } from '../validator-details/validator-details.component';
 
 @Component({
@@ -9,19 +11,9 @@ import { ValidatorDetailsComponent } from '../validator-details/validator-detail
 export class ValidatorIconComponent extends ValidatorDetailsComponent {
 	/** @type {string} Pre-computed error level */
 	level = 'undefined';
-	/**
-	 * Run the process for Models x Channels
-	 */
-	protected async run() {
-		// Check if possible
-		if (!this.initialized) {
-			return;
-		}
 
-		// Start process
-		const channels = await this.getChannels();
-		const models = await this.getModels();
-
+	/** @inheritDoc */
+	protected async process(channels: IChannel[], models: IModel[]) {
 		// Stop process on first error
 		let hasError = false;
 		let hasWarning = false;

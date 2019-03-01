@@ -9,6 +9,10 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 export class ValidatorService {
 	/** Cache stack */
 	private cache: { [key: string]: IValidatorResult } = {};
+	/** Processes locks */
+	private locks: { [key: string]: boolean } = {};
+	/** Delay before retry */
+	private lockDelay = 50;
 
 	/**
 	 * Constructor
@@ -37,6 +41,15 @@ export class ValidatorService {
 			return this.cache[hash];
 		}
 
+		// If locked, wait few milliseconds and retry to hit the cache
+		if (this.locks[hash]) {
+			await new Promise(r => setTimeout(r, this.lockDelay));
+			return await this.run(script, model);
+		}
+
+		// Set the lock
+		this.locks[hash] = true;
+
 		const result = await this.webSocketService.send(
 			WebSocketMessages.VALIDATE_MODEL,
 			{
@@ -48,9 +61,13 @@ export class ValidatorService {
 		// Save cache
 		this.cache[hash] = result;
 
+		// Release the lock
+		this.locks[hash] = false;
+
 		return result;
 	}
 
+	/** Compute hash for for context */
 	private hash(script: string, model: IModel): string {
 		const m = model.toObject();
 		delete m.id;
