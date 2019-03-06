@@ -45,7 +45,7 @@
 	"tooltip_searchable": "Is it searchable ?",
 	"tooltip_sortable": "Is it sortable ?",
 	"tooltip_unique": "Is it a unique key ?",
-	"tooltip_isprivate": "Is it private ?",
+	"tooltip_hidden": "Is it private ?",
 	"channel_edit": "Edit boilerplate",
 	"channels_save": "Save",
 	"template_input_all": "All",

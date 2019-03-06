@@ -45,7 +45,7 @@
 	"tooltip_searchable": "Ce champs est recherchable ?",
 	"tooltip_sortable": "Ce champs est triable ?",
 	"tooltip_unique": "Est une clé unique ?",
-	"tooltip_isprivate": "Ce champs est privé ?",
+	"tooltip_hidden": "Ce champs est privé ?",
 	"channel_edit": "Éditer ce boilerplate",
 	"channels_save": "Sauvegarder",
 	"template_input_all": "Tous",

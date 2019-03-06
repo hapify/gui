@@ -45,7 +45,7 @@
 	"tooltip_searchable": "tooltip_searchable",
 	"tooltip_sortable": "tooltip_sortable",
 	"tooltip_unique": "tooltip_unique",
-	"tooltip_isprivate": "tooltip_isprivate",
+	"tooltip_hidden": "tooltip_hidden",
 	"channel_edit": "channel_edit",
 	"channels_save": "channels_save",
 	"template_input_all": "template_input_all",
