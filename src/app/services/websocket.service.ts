@@ -21,7 +21,7 @@ export class WebSocketService {
 		IWebSocketMessage
 	> = this.messageSubject.asObservable();
 	/** @type {boolean} Delay to retry connection */
-	private reconnectDelay = 30 * SECOND;
+	private reconnectDelay = 10 * SECOND;
 
 	/** Constructor */
 	constructor(
