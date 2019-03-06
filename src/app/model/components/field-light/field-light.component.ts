@@ -36,10 +36,10 @@ export class FieldLightComponent implements OnInit {
 		{ property: 'label', icon: 'label', value: false },
 		{ property: 'nullable', icon: 'backspace', value: false },
 		{ property: 'multiple', icon: 'list', value: false },
-		{ property: 'embedded', icon: 'error_outline', value: false },
+		{ property: 'embedded', icon: 'link', value: false },
 		{ property: 'searchable', icon: 'search', value: false },
 		{ property: 'sortable', icon: 'filter_list', value: false },
-		{ property: 'hidden', icon: 'lock', value: false },
+		{ property: 'hidden', icon: 'visibility_off', value: false },
 		{ property: 'internal', icon: 'code', value: false },
 		{ property: 'restricted', icon: 'pan_tool', value: false },
 		{ property: 'ownership', icon: 'copyright', value: false }
