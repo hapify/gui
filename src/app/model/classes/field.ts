@@ -26,7 +26,7 @@ export class Field implements IField {
 	/** @inheritDoc */
 	public multiple = false;
 	/** @inheritDoc */
-	public important = false;
+	public embedded = false;
 	/** @inheritDoc */
 	public searchable = false;
 	/** @inheritDoc */
@@ -51,7 +51,7 @@ export class Field implements IField {
 		this.label = !!(<any>object.label);
 		this.nullable = !!(<any>object.nullable);
 		this.multiple = !!(<any>object.multiple);
-		this.important = !!(<any>object.important);
+		this.embedded = !!(<any>object.embedded);
 		this.searchable = !!(<any>object.searchable);
 		this.sortable = !!(<any>object.sortable);
 		this.hidden = !!(<any>object.hidden);
@@ -72,7 +72,7 @@ export class Field implements IField {
 			label: this.label,
 			nullable: this.nullable,
 			multiple: this.multiple,
-			important: this.important,
+			embedded: this.embedded,
 			searchable: this.searchable,
 			sortable: this.sortable,
 			hidden: this.hidden,

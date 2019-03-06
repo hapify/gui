@@ -34,7 +34,7 @@
 	"tooltip_generic": "Choisissez les attributs pour ce champs",
 	"validator_editor_title": "Validateur {{name}}",
 	"validator_tooltip_autovalidate": "Auto-validation",
-	"tooltip_important": "Est-ce une donnée importante ?",
+	"tooltip_embedded": "Est-ce une donnée embarquée ?",
 	"tooltip_internal": "Cette donnée est définie par le système ?",
 	"tooltip_label": "Cette donnée sert de nom ?",
 	"tooltip_multiple": "Est-une liste de valeurs",

@@ -34,7 +34,7 @@
 	"tooltip_generic": "tooltip_generic",
 	"validator_editor_title": "validator_editor_title",
 	"validator_tooltip_autovalidate": "validator_tooltip_autovalidate",
-	"tooltip_important": "tooltip_important",
+	"tooltip_embedded": "tooltip_embedded",
 	"tooltip_internal": "tooltip_internal",
 	"tooltip_label": "tooltip_label",
 	"tooltip_multiple": "tooltip_multiple",

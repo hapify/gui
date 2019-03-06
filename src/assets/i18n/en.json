@@ -34,7 +34,7 @@
 	"tooltip_generic": "Choose field attributes",
 	"validator_editor_title": "Validator for {{name}}",
 	"validator_tooltip_autovalidate": "Auto-validate",
-	"tooltip_important": "Is it an important data ?",
+	"tooltip_embedded": "Is it an embedded data ?",
 	"tooltip_internal": "Is this defined by the system ?",
 	"tooltip_label": "Is it a label ?",
 	"tooltip_multiple": "Is it a value list ?",
