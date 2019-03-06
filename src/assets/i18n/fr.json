@@ -1,7 +1,7 @@
 {
 	"access_title": "Restrictions d'accès",
 	"channels_generate": "Générer",
-	"channels_intro": "Choisissez un boilerplate pour éditer ces templates",
+	"channels_intro": "Choisissez un boilerplate pour éditer ses templates",
 	"channels_title": "Boilerplates",
 	"channels_tooltip_autogenerate": "Génération automatique à la sauvegarde",
 	"channels_tooltip_autorefresh": "Prévisualiser le code générer",
