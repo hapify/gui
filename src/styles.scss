@@ -279,6 +279,12 @@ body {
 			color: $js;
 		}
 	}
+	.color-php {
+		color: $php;
+		mat-icon {
+			color: $php;
+		}
+	}
 	.color-file,
 	.color-null {
 		color: $file;
@@ -307,6 +313,9 @@ body {
 	}
 	.bg-js {
 		background-color: $bg-js !important;
+	}
+	.bg-php {
+		background-color: $bg-php !important;
 	}
 	.bg-file,
 	.bg-null {
