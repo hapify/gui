@@ -15,8 +15,8 @@
 ### Added
 - Add script to detect fields properties combinations not supported by a channel.
 - Add `important` field property to load linked entity in listings.
-- Add `underscoreUpper` to properties names (Example: FIRST_NAME).
-- Add `hyphenUpper` to properties names (Example: FIRST-NAME).
+- Add `constant` to properties names (Example: FIRST_NAME).
+- Add `big` to properties names (Example: FIRST-NAME).
 - Add subtype `rich` to type `string` for rich text editors.
 - Implement Hapify Syntax.
 - Add ability to clone models.
