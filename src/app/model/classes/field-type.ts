@@ -6,6 +6,8 @@ export class FieldType {
 	static String = 'string';
 	static DateTime = 'datetime';
 	static Entity = 'entity';
+	static Object = 'object';
+	static File = 'file';
 
 	/**
 	 * Get the list of available types with names
@@ -18,6 +20,8 @@ export class FieldType {
 			{ name: 'Number', value: FieldType.Number },
 			{ name: 'Boolean', value: FieldType.Boolean },
 			{ name: 'DateTime', value: FieldType.DateTime },
+			{ name: 'Object', value: FieldType.Object },
+			{ name: 'File', value: FieldType.File },
 			{ name: 'Entity', value: FieldType.Entity }
 		];
 	}

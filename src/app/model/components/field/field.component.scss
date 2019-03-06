@@ -6,6 +6,8 @@ $datetime: #3cbacc;
 $number: #52d19b;
 $boolean: #ffa4a4;
 $entity: #d93c89;
+$object: #d9a251;
+$file: #7273d9;
 
 .badge {
 	cursor: pointer;
@@ -25,6 +27,12 @@ $entity: #d93c89;
 	}
 	&.badge-entity {
 		background-color: $entity;
+	}
+	&.badge-object {
+		background-color: $object;
+	}
+	&.badge-file {
+		background-color: $file;
 	}
 }
 
@@ -130,6 +138,12 @@ mat-icon.inactive {
 		.fieldTitle-entity {
 			color: $entity;
 		}
+		.fieldTitle-object {
+			color: $object;
+		}
+		.fieldTitle-file {
+			color: $file;
+		}
 
 		.field {
 			cursor: pointer;
@@ -152,6 +166,12 @@ mat-icon.inactive {
 					&.field-entity {
 						color: $entity;
 					}
+					&.field-object {
+						color: $object;
+					}
+					&.field-file {
+						color: $file;
+					}
 				}
 
 				&:checked + span,
@@ -171,6 +191,12 @@ mat-icon.inactive {
 					}
 					&.field-entity {
 						background-color: $entity;
+					}
+					&.field-object {
+						background-color: $object;
+					}
+					&.field-file {
+						background-color: $file;
 					}
 				}
 			}

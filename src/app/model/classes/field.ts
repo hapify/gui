@@ -112,6 +112,12 @@ export class Field implements IField {
 		if (this.type === FieldType.Entity) {
 			return FieldSubType.entity();
 		}
+		if (this.type === FieldType.Object) {
+			return FieldSubType.object();
+		}
+		if (this.type === FieldType.File) {
+			return FieldSubType.file();
+		}
 		return [];
 	}
 }

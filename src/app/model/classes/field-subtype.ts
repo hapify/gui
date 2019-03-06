@@ -15,6 +15,7 @@ export class FieldSubType {
 		Default: null,
 		Email: 'email',
 		Password: 'password',
+		Url: 'url',
 		Text: 'text',
 		RichText: 'rich'
 	};
@@ -25,6 +26,16 @@ export class FieldSubType {
 	};
 	static Entity = {
 		Default: null
+	};
+	static Object = {
+		Default: null
+	};
+	static File = {
+		Default: null,
+		Image: 'image',
+		Video: 'video',
+		Audio: 'audio',
+		Document: 'document'
 	};
 
 	/**
@@ -61,6 +72,7 @@ export class FieldSubType {
 			{ name: 'Default', value: FieldSubType.String.Default },
 			{ name: 'Email', value: FieldSubType.String.Email },
 			{ name: 'Password', value: FieldSubType.String.Password },
+			{ name: 'Url', value: FieldSubType.String.Url },
 			{ name: 'Text', value: FieldSubType.String.Text },
 			{ name: 'Rich Text', value: FieldSubType.String.RichText }
 		];
@@ -86,5 +98,29 @@ export class FieldSubType {
 	 */
 	static entity(): ILabelledValue[] {
 		return [{ name: 'Empty', value: FieldSubType.Entity.Default }];
+	}
+
+	/**
+	 * Get the list of sub types for object
+	 *
+	 * @returns {ILabelledValue[]}
+	 */
+	static object(): ILabelledValue[] {
+		return [{ name: 'Default', value: FieldSubType.Object.Default }];
+	}
+
+	/**
+	 * Get the list of sub types for file
+	 *
+	 * @returns {ILabelledValue[]}
+	 */
+	static file(): ILabelledValue[] {
+		return [
+			{ name: 'Default', value: FieldSubType.File.Default },
+			{ name: 'Image', value: FieldSubType.File.Image },
+			{ name: 'Video', value: FieldSubType.File.Video },
+			{ name: 'Audio', value: FieldSubType.File.Audio },
+			{ name: 'Document', value: FieldSubType.File.Document }
+		];
 	}
 }
