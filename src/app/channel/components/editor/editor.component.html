@@ -17,7 +17,7 @@
 						{{ wipPath.value }}
 					</div>
 					<input
-						class="inline-input"
+						class="inline-input path-preview"
 						type="text"
 						#wipPath
 						[value]="wip.path"
@@ -28,7 +28,7 @@
 				<mat-icon class="ml-1 mr-2">arrow_right_alt</mat-icon>
 				<span
 					*ngIf="!template.needsModel() || !!model"
-					class="color-{{ template.type }}"
+					class="color-{{ template.type }} path-preview"
 				>
 					{{ pathResult }}
 				</span>
@@ -122,7 +122,7 @@
 				[readOnly]="true"
 				[autoUpdateContent]="true"
 			></ace-editor>
-			<pre class="m-0 p-2 preError">{{ error }}</pre>
+			<pre *ngIf="error" class="m-0 p-2 preError">{{ error }}</pre>
 		</div>
 	</div>
 </div>
