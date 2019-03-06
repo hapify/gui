@@ -16,11 +16,7 @@
 	<div
 		class="overedState flex-column align-items-center justify-content-center align-content-center"
 	>
-		<a
-			*ngIf="!confirmLoading"
-			href="https://hub.hapify.io/collection/{{ preset.id }}"
-			target="_blank"
-		>
+		<a *ngIf="!confirmLoading" href="https://hub.hapify.io" target="_blank">
 			{{ 'presets_details' | translate }}
 			<mat-icon [inline]="true" class="ml-1">launch</mat-icon>
 		</a>

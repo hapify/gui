@@ -84,11 +84,11 @@ export class Field implements IField {
 
 	/** @inheritDoc */
 	public isEmpty(): boolean {
-		return (
+		const empty =
 			typeof this.name !== 'string' ||
 			this.name === null ||
-			this.name.length === 0
-		);
+			this.name.trim().length === 0;
+		return empty;
 	}
 
 	/**
