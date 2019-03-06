@@ -96,7 +96,7 @@ Here is the list of short-codes available for a field:
 -   `im` for the boolean property `important`
 -   `se` for the boolean property `searchable`
 -   `so` for the boolean property `sortable`
--   `ip` for the boolean property `isPrivate`
+-   `ip` for the boolean property `hidden`
 -   `in` for the boolean property `internal`
 -   `rs` for the boolean property `restricted`
 -   `os` for the boolean property `ownership`
@@ -174,7 +174,7 @@ A complete conditional writing will look like this:
 This code is equivalent to
 
 ```javascript
-if (root.fields.list.filter(f => f.isPrivate).length >= 4) {
+if (root.fields.list.filter(f => f.hidden).length >= 4) {
 	out += '    This model has at least 4 private fields';
 } else if (
 	root.fields.list.filter(f => f.label || f.type === 'boolean').length >= 2
@@ -227,7 +227,7 @@ Is equivalent to
 
 ```javascript
 if (
-	root.fields.list.filter(f => f.searchable && f.sortable && !f.isPrivate)
+	root.fields.list.filter(f => f.searchable && f.sortable && !f.hidden)
 		.length > 0
 ) {
 	out += '...';
@@ -335,7 +335,7 @@ A complete iteration will look like this:
 This code is equivalent to
 
 ```javascript
-for (let f of root.fields.list.filter(f => f.isPrivate).slice(0, 4)) {
+for (let f of root.fields.list.filter(f => f.hidden).slice(0, 4)) {
 	out += '    Do something';
 }
 ```

@@ -32,7 +32,7 @@ export class Field implements IField {
 	/** @inheritDoc */
 	public sortable = false;
 	/** @inheritDoc */
-	public isPrivate = false;
+	public hidden = false;
 	/** @inheritDoc */
 	public internal = false;
 	/** @inheritDoc */
@@ -54,7 +54,7 @@ export class Field implements IField {
 		this.important = !!(<any>object.important);
 		this.searchable = !!(<any>object.searchable);
 		this.sortable = !!(<any>object.sortable);
-		this.isPrivate = !!(<any>object.isPrivate);
+		this.hidden = !!(<any>object.hidden);
 		this.internal = !!(<any>object.internal);
 		this.restricted = !!(<any>object.restricted);
 		this.ownership = !!(<any>object.ownership);
@@ -75,7 +75,7 @@ export class Field implements IField {
 			important: this.important,
 			searchable: this.searchable,
 			sortable: this.sortable,
-			isPrivate: this.isPrivate,
+			hidden: this.hidden,
 			internal: this.internal,
 			restricted: this.restricted,
 			ownership: this.ownership
