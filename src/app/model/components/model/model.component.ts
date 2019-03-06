@@ -32,7 +32,7 @@ const AccessesIndex = {
 const Accesses: ILabelledValue[] = [
 	{ name: 'Admin', value: Access.ADMIN },
 	{ name: 'Owner', value: Access.OWNER },
-	{ name: 'Authenticated', value: Access.AUTHENTICATED },
+	{ name: 'Auth.', value: Access.AUTHENTICATED },
 	{ name: 'Guest', value: Access.GUEST }
 ];
 
