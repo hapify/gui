@@ -1,119 +1,202 @@
-import {Component, OnInit, Input, Output, EventEmitter, Injector} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import {IChannel} from '../../interfaces/channel';
-import {GeneratorService} from '../../services/generator.service';
-import {ITemplate} from '../../interfaces/template';
+import {
+	Component,
+	OnInit,
+	Input,
+	Output,
+	EventEmitter,
+	Injector
+} from '@angular/core';
+import { GeneratorService } from '../../services/generator.service';
+import { IChannel } from '../../interfaces/channel';
+import { ITemplate } from '../../interfaces/template';
+import { TreeBranch } from '../../interfaces/tree-branch';
+import { InfoService } from '@app/services/info.service';
+import { IInfo } from '@app/interfaces/info';
 
 @Component({
-  selector: 'app-channel-channel',
-  templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss']
+	selector: 'app-channel-channel',
+	templateUrl: './channel.component.html',
+	styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
+	/** @type {GeneratorService} The generator service */
+	generatorService: GeneratorService;
+	/** @type {IChannel} Channel instance */
+	@Input() channel: IChannel;
+	/** @type {EventEmitter<ITemplate|null>} On save event */
+	@Output() save = new EventEmitter<ITemplate | null>();
+	/** @type {boolean} */
+	syncing = false;
+	/** Current edited template */
+	currentEditedTemplate: ITemplate;
+	/** @type {boolean} */
+	showValidatorEditor = false;
+	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+	unsavedChanges = false;
+	/** @type {TreeBranch[]} */
+	tree: TreeBranch[];
+	selectedPath = '';
+	templatesToDisplay: { [key: string]: boolean } = {};
+	info: IInfo;
 
-  /** @type {GeneratorService} The generator service */
-  generatorService: GeneratorService;
-  /** @type {IChannel} Channel instance */
-  @Input() channel: IChannel;
-  /** @type {EventEmitter<ITemplate|null>} On save event */
-  @Output() onSave = new EventEmitter<ITemplate|null>();
-  /** @type {FormGroup} */
-  form: FormGroup;
-  /** @type {number} */
-  minLength = 2;
-  /** @type {number} */
-  maxLength = 32;
-  /** @type {string} */
-  defaultTemplateName = 'New template';
-  /** @type {string} */
-  defaultTemplatePath = '/path/to/{model.hyphen}';
-  /** @type {boolean} */
-  syncing = false;
-  /** @type {{minLength: number; maxLength: number}} */
-  translateParams = {
-    minLength: this.minLength,
-    maxLength: this.maxLength,
-  };
-  /** @type {boolean} */
-  showValidatorEditor = false;
+	/** Constructor */
+	constructor(private injector: Injector, private infoService: InfoService) {
+		// Avoid circular dependency
+		this.generatorService = this.injector.get(GeneratorService);
+		this.infoService.info().then(info => {
+			this.info = info;
+		});
+	}
 
-  /**
-   * Constructor
-   * @param {FormBuilder} formBuilder
-   * @param {Injector} injector
-   */
-  constructor(private formBuilder: FormBuilder,
-              private injector: Injector) {
-    // Avoid circular dependency
-    this.generatorService = this.injector.get(GeneratorService);
-  }
+	/**
+	 * @inheritDoc
+	 */
+	ngOnInit() {
+		this.updateTree();
+	}
 
-  /**
-   * @inheritDoc
-   */
-  ngOnInit() {
-    // Form validator
-    this.form = this.formBuilder.group({
-      name: new FormControl(this.channel.name, [
-        Validators.required,
-        Validators.minLength(this.minLength),
-        Validators.maxLength(this.maxLength),
-      ]),
-    });
-  }
+	/**
+	 * Update the tree and filters
+	 */
+	updateTree(): void {
+		this.tree = this.buildTree();
+		this.filterTemplates();
+	}
 
-  /**
-   * Called when the user click on "save"
-   * @param {ITemplate|null} toGenerate
-   */
-  onSubmit(toGenerate: ITemplate|null) {
-    this.onSave.emit(toGenerate);
-  }
+	/**
+	 * Get the tree
+	 */
+	private buildTree(): TreeBranch[] {
+		const tree = [];
 
-  /**
-   * Will sync all templates of the channel
-   */
-  async onGenerate() {
-    this.syncing = true;
-    await this.generatorService.compileChannel(this.channel);
-    this.syncing = false;
-  }
+		this.channel.templates.forEach(template => {
+			const pathParts = template.splitPath();
 
-  /**
-   * Called when the user click on "add template"
-   */
-  addTemplate() {
-    const template = this.channel.newTemplate();
-    template.name = this.defaultTemplateName;
-    template.path = this.defaultTemplatePath;
-    this.channel.addTemplate(template);
-  }
+			let currentLevel = tree;
+			let parentPath = '';
+			pathParts.forEach(pathPart => {
+				if (currentLevel) {
+					const existingPathPart = currentLevel.filter(
+						level => level.name === pathPart
+					);
+					if (existingPathPart.length) {
+						parentPath = parentPath
+							? `${parentPath}/${existingPathPart[0].name}`
+							: existingPathPart[0].name;
+						currentLevel = existingPathPart[0].children;
+					} else {
+						const rootPath = parentPath;
+						parentPath = parentPath
+							? `${parentPath}/${pathPart}`
+							: pathPart;
+						const newPathPart = {
+							name: pathPart,
+							path: parentPath,
+							root: rootPath,
+							children: []
+						};
+						currentLevel.push(newPathPart);
+						currentLevel = newPathPart.children;
+					}
+				}
+			});
+		});
+		return tree;
+	}
 
-  /**
-   * Called when the user click on "clean templates"
-   */
-  cleanTemplates() {
-    this.channel.filter();
-  }
+	/**
+	 * Filters templates to display
+	 */
+	filterTemplates(): void {
+		this.templatesToDisplay = {};
+		for (const template of this.channel.templates) {
+			this.templatesToDisplay[template.path] = template.path.startsWith(
+				this.selectedPath
+			);
+		}
+	}
 
-  /**
-   * Called when the user click on "Open Validator Editor" button
-   */
-  onShowValidatorEditor() {
-    this.showValidatorEditor = true;
-  }
+	/**
+	 * Called when a branch is selected
+	 */
+	onSelectBranch(branch: TreeBranch) {
+		this.selectedPath = branch.children.length
+			? `${branch.path}/`
+			: branch.path;
+		this.filterTemplates();
+	}
 
-  /**
-   * Called when the ValidatorEditor is saved
-   */
-  onValidatorEditorSave() {
-    this.onSave.emit();
-  }
+	/**
+	 * Called when the user click on "save"
+	 * @param {ITemplate|null} toGenerate
+	 */
+	onSave(toGenerate: ITemplate | null) {
+		this.save.emit(toGenerate);
+		this.unsavedChanges = false;
+	}
 
-  /**
-   * Called when the ValidatorEditor is saved
-   */
-  onValidatorEditorClose() {
-    this.showValidatorEditor = false;
-  }
+	/**
+	 * Will sync all templates of the channel
+	 */
+	async onGenerate() {
+		this.syncing = true;
+		await this.generatorService.compileChannel(this.channel);
+		this.syncing = false;
+	}
+
+	/**
+	 * Called when the user click on "add template"
+	 */
+	onAddTemplate(path: string) {
+		const template = this.channel.newTemplate();
+		template.path = path;
+		template.content = '';
+		this.channel.addTemplate(template);
+		this.unsavedChanges = true;
+		this.updateTree();
+	}
+
+	/**
+	 * Called when a template is edited
+	 */
+	onTemplateChanged() {
+		this.unsavedChanges = true;
+	}
+
+	/**
+	 * Called when the user click on "remove templates"
+	 */
+	onRemoveTemplate(branch: TreeBranch) {
+		const template = this.channel.templates.find(
+			t => t.path === branch.path
+		);
+		if (template) {
+			this.channel.removeTemplate(template);
+			this.unsavedChanges = true;
+			// Force selected path to parent path
+			this.selectedPath = branch.root;
+			this.updateTree();
+		}
+	}
+
+	/**
+	 * Called when the ValidatorEditor is saved
+	 */
+	onValidatorEditorClose() {
+		this.showValidatorEditor = false;
+	}
+
+	/**
+	 * Called when the user click on "Open Editor" button
+	 */
+	onShowEditor(template: ITemplate) {
+		this.currentEditedTemplate = template;
+	}
+
+	/**
+	 * Called when the editor is saved
+	 */
+	onEditorClose() {
+		this.currentEditedTemplate = null;
+	}
 }

@@ -1,118 +1,75 @@
-<div [formGroup]="form">
-    <div class="mb-2">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="input-cnt">
-                    <input formControlName="name" class="form-control" [(ngModel)]="template.name" type="text">
-                    <div
-                            *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
-                            class="alert alert-danger mt-2">
-                        <div *ngIf="form.controls['name'].errors.required">
-                            {{ 'error_name_required' | translate }}
-                        </div>
-                        <div *ngIf="form.controls['name'].errors.pattern && !form.controls['name'].errors.required">
-                            {{ 'error_name_format' | translate }}
-                        </div>
-                        <div *ngIf="form.controls['name'].errors.minlength">
-                            {{ 'error_name_min_length' | translate:translateParams }}
-                        </div>
-                        <div *ngIf="form.controls['name'].errors.maxlength">
-                            {{ 'error_name_max_length' | translate:translateParams }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 text-md-right mt-1 mt-md-0">
-                <button type="button" class="btn btn-outline-secondary" (click)="onShowEditor();">
-                    {{ 'template_open_editor' | translate }}
-                </button>
-                <button *ngIf="!showCode" type="button" class="btn btn-outline-secondary" (click)="showCode=true">
-                    {{ 'template_show' | translate }}
-                </button>
-                <button *ngIf="showCode" type="button" class="btn btn-secondary" (click)="showCode=false">
-                    {{ 'template_hide' | translate }}
-                </button>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="showCode" class="mb-2">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="input-cnt">
-                    <input formControlName="path" class="form-control" [(ngModel)]="template.path" type="text">
-                    <div
-                            *ngIf="form.controls['path'].invalid && (form.controls['path'].dirty || form.controls['path'].touched)"
-                            class="alert alert-danger mt-2">
-                        <div *ngIf="form.controls['path'].errors.required">
-                            {{ 'error_path_required' | translate }}
-                        </div>
-                        <div *ngIf="form.controls['path'].errors.pattern && !form.controls['path'].errors.required">
-                            {{ 'error_path_format' | translate }}
-                        </div>
-                        <div *ngIf="form.controls['path'].errors.minlength">
-                            {{ 'error_path_min_length' | translate:translateParams }}
-                        </div>
-                        <div *ngIf="form.controls['path'].errors.maxlength">
-                            {{ 'error_path_max_length' | translate:translateParams }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mt-2 mt-md-0">
-                <select formControlName="engine" class="form-control" [(ngModel)]="template.engine">
-                    <option disabled>{{ 'template_engine' | translate }}</option>
-                    <option *ngFor="let engine of engines" [ngValue]="engine.value">{{engine.name}}</option>
-                </select>
-                <div
-                        *ngIf="form.controls['engine'].invalid && (form.controls['engine'].dirty || form.controls['engine'].touched)"
-                        class="alert alert-danger mt-2">
-                    <div *ngIf="form.controls['engine'].errors.required">
-                        {{ 'error_engine_required' | translate }}
-                    </div>
-                    <div *ngIf="form.controls['engine'].errors.pattern && !form.controls['engine'].errors.required">
-                        {{ 'error_engine_value' | translate }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mt-2 mt-md-0">
-                <select formControlName="input" class="form-control" [(ngModel)]="template.input">
-                    <option disabled>{{ 'template_input' | translate }}</option>
-                    <option *ngFor="let input of inputs" [ngValue]="input.value">{{input.name | translate}}</option>
-                </select>
-                <div
-                        *ngIf="form.controls['input'].invalid && (form.controls['input'].dirty || form.controls['input'].touched)"
-                        class="alert alert-danger mt-2">
-                    <div *ngIf="form.controls['input'].errors.required">
-                        {{ 'error_input_required' | translate }}
-                    </div>
-                    <div *ngIf="form.controls['input'].errors.pattern && !form.controls['input'].errors.required">
-                        {{ 'error_input_value' | translate }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="showCode">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="template-preview">
-                    <pre class="m-0 bg-light p-3 rounded"><code>{{ template.content }}</code></pre>
-                    <div class="open-overlay d-flex align-items-center justify-content-center">
-                        <button type="button" class="btn btn-outline-primary" (click)="onShowEditor();">
-                            {{ 'template_open_editor' | translate }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="showEditor">
-        <app-channel-editor
-                [pathMaxLength]="maxLength"
-                [pathMinLength]="minLength"
-                [template]="template"
-                (onSave)="onEditorSave($event)"
-                (onClose)="onEditorClose()">
-        </app-channel-editor>
-    </div>
-</div>
+<mat-card>
+	<mat-card-content>
+		<div
+			class="d-flex w-100 align-items-center justify-content-between flex-nowrap border-bottom pb-2"
+		>
+			<input
+				autofocus
+				class="title inline-input w-100 flex-shrink-1 mr-2"
+				[value]="template.path"
+				(blur)="onPathChange($event.target.value)"
+				(change)="changed.emit()"
+				type="text"
+			/>
+			<div class="d-flex align-items-center w-25 flex-shrink-0">
+				<mat-select
+					class="mr-3"
+					[(ngModel)]="template.engine"
+					(selectionChange)="changed.emit()"
+					matTooltip="{{ 'template_engine' | translate }}"
+				>
+					<mat-option disabled>{{
+						'template_engine' | translate
+					}}</mat-option>
+					<mat-option
+						*ngFor="let engine of engines"
+						[value]="engine.value"
+						>{{ engine.name }}</mat-option
+					>
+				</mat-select>
+				<!--
+          <span class="d-none">
+            {{ 'template_input_one' | translate }}
+            {{ 'template_input_all' | translate }}
+          </span>
+        -->
+
+				<mat-select
+					[(ngModel)]="template.input"
+					(selectionChange)="changed.emit()"
+					matTooltip="{{ 'template_input' | translate }}"
+				>
+					<mat-option disabled>{{
+						'template_input' | translate
+					}}</mat-option>
+					<mat-option
+						*ngFor="let input of inputs"
+						[value]="input.value"
+						>{{ input.name | translate }}</mat-option
+					>
+				</mat-select>
+			</div>
+		</div>
+		<div class="template-preview mt-2">
+			<pre
+				class="m-0 p-3 rounded {{ 'bg-' + template.type }} {{
+					'gradientoverlay-' + template.type
+				}}"
+			><code>{{ template.content }}</code></pre>
+			<div
+				class="open-overlay d-flex align-items-center justify-content-center"
+			>
+				<button
+					type="button"
+					mat-raised-button
+					color="primary"
+					(click)="onShowEditor()"
+					class="d-flex align-items-center mat-elevation-z0"
+				>
+					<mat-icon [inline]="true" class="mr-1">edit</mat-icon>
+					{{ 'template_open_editor' | translate }}
+				</button>
+			</div>
+		</div>
+	</mat-card-content>
+</mat-card>

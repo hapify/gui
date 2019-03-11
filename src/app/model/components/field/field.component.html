@@ -1,210 +1,242 @@
-<div [formGroup]="form">
-    <div class="row">
-        <div class="col-lg-4 my-1 my-lg-0">
-            <div class="input-group">
-                <span class="input-group-addon" (click)="onUp()">
-                    <span class="oi oi-caret-top"></span>
-                </span>
-                <span class="input-group-addon" (click)="onDown()">
-                    <span class="oi oi-caret-bottom"></span>
-                </span>
-                <input
-                        (keyup)="onDebouncedChange()"
-                        formControlName="name"
-                        class="form-control"
-                        [(ngModel)]="field.name"
-                        type="text">
-                <div
-                        *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
-                        class="alert alert'-danger mt-2">
-                    <div *ngIf="form.controls['name'].errors.required">
-                        {{ 'error_name_required' | translate }}
-                    </div>
-                    <div *ngIf="form.controls['name'].errors.pattern && !form.controls['name'].errors.required">
-                        {{ 'error_name_format' | translate }}
-                    </div>
-                    <div *ngIf="form.controls['name'].errors.minlength">
-                        {{ 'error_name_min_length' | translate:translateParams }}
-                    </div>
-                    <div *ngIf="form.controls['name'].errors.maxlength">
-                        {{ 'error_name_max_length' | translate:translateParams }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-2 my-1 my-lg-0">
-            <select (change)="onInputChange()"
-                    formControlName="type"
-                    class="form-control"
-                    [(ngModel)]="field.type">
-                <option disabled>{{ 'field_type' | translate }}</option>
-                <option *ngFor="let type of types" [ngValue]="type.value">{{type.name}}</option>
-            </select>
-            <div
-                    *ngIf="form.controls['type'].invalid && (form.controls['type'].dirty || form.controls['type'].touched)"
-                    class="alert alert-danger mt-2">
-                <div *ngIf="form.controls['type'].errors.required">
-                    {{ 'error_type_required' | translate }}
-                </div>
-                <div *ngIf="form.controls['type'].errors.pattern && !form.controls['type'].errors.required">
-                    {{ 'error_type_value' | translate }}
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-2 my-1 my-lg-0">
-            <div *ngIf="models && field.type === fieldType.Entity">
-                <select (change)="onDebouncedChange()"
-                        formControlName="reference"
-                        class="form-control"
-                        [(ngModel)]="field.reference">
-                    <option disabled>{{ 'reference' | translate }}</option>
-                    <option *ngFor="let model of models" [ngValue]="model.id">{{model.name}}</option>
-                </select>
-                <div
-                        *ngIf="form.controls['reference'].invalid && (form.controls['reference'].dirty || form.controls['reference'].touched)"
-                        class="alert alert-danger mt-2">
-                    <div *ngIf="form.controls['reference'].errors.required">
-                        {{ 'error_reference_required' | translate }}
-                    </div>
-                    <div *ngIf="form.controls['reference'].errors.pattern && !form.controls['reference'].errors.required">
-                        {{ 'error_reference_value' | translate }}
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="field.type !== fieldType.Entity">
-                <select (change)="onDebouncedChange()"
-                        formControlName="subtype"
-                        class="form-control"
-                        [(ngModel)]="field.subtype">
-                    <option disabled>{{ 'field_subtype' | translate }}</option>
-                    <option *ngFor="let subtype of field.getAvailableSubTypes()" [ngValue]="subtype.value">
-                        {{subtype.name}}
-                    </option>
-                </select>
-                <div
-                        *ngIf="form.controls['subtype'].invalid && (form.controls['subtype'].dirty || form.controls['subtype'].touched)"
-                        class="alert alert-danger mt-2">
-                    <div *ngIf="form.controls['subtype'].errors.required">
-                        {{ 'error_subtype_required' | translate }}
-                    </div>
-                    <div *ngIf="form.controls['subtype'].errors.pattern && !form.controls['subtype'].errors.required">
-                        {{ 'error_subtype_value' | translate }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 my-1 my-lg-0 text-lg-right">
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn" title="{{ 'tooltip_primary' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.primary, 'btn-outline-secondary': !field.primary }">
-                    <input (change)="onInputChange()"
-                           formControlName="primary"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.primary">
-                    <span class="oi oi-key"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_unique' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.unique, 'btn-outline-secondary': !field.unique }">
-                    <input
-                            (change)="onInputChange()"
-                            formControlName="unique"
-                            type="checkbox"
-                            autocomplete="off"
-                            [(ngModel)]="field.unique">
-                    <span class="oi oi-star"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_label' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.label, 'btn-outline-secondary': !field.label }">
-                    <input (change)="onInputChange()"
-                           formControlName="label"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.label">
-                    <span class="oi oi-text"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_nullable' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.nullable, 'btn-outline-secondary': !field.nullable }">
-                    <input (change)="onInputChange()"
-                           formControlName="nullable"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.nullable">
-                    <span class="oi oi-ban"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_multiple' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.multiple, 'btn-outline-secondary': !field.multiple }">
-                    <input (change)="onInputChange()"
-                           formControlName="multiple"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.multiple">
-                    <span class="oi oi-list"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_important' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.important, 'btn-outline-secondary': !field.important }">
-                    <input (change)="onInputChange()"
-                           formControlName="important"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.important">
-                    <span class="oi oi-warning"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_searchable' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.searchable, 'btn-outline-secondary': !field.searchable }">
-                    <input (change)="onInputChange()"
-                           formControlName="searchable"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.searchable">
-                    <span class="oi oi-magnifying-glass"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_sortable' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.sortable, 'btn-outline-secondary': !field.sortable }">
-                    <input (change)="onInputChange()"
-                           formControlName="sortable"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.sortable">
-                    <span class="oi oi-arrow-thick-bottom"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_private' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.isPrivate, 'btn-outline-secondary': !field.isPrivate }">
-                    <input (change)="onInputChange()"
-                           formControlName="isPrivate"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.isPrivate">
-                    <span class="oi oi-shield"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_internal' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.internal, 'btn-outline-secondary': !field.internal }">
-                    <input (change)="onInputChange()"
-                           formControlName="internal"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.internal">
-                    <span class="oi oi-code"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_restricted' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.restricted, 'btn-outline-secondary': !field.restricted }">
-                    <input (change)="onInputChange()"
-                           formControlName="restricted"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.restricted">
-                    <span class="oi oi-lock-locked"></span>
-                </label>
-                <label class="btn" title="{{ 'tooltip_ownership' | translate }}"
-                       [ngClass]="{ 'btn-primary': field.ownership, 'btn-outline-secondary': !field.ownership }">
-                    <input (change)="onInputChange()"
-                           formControlName="ownership"
-                           type="checkbox"
-                           autocomplete="off"
-                           [(ngModel)]="field.ownership">
-                    <span class="oi oi-person"></span>
-                </label>
-            </div>
-        </div>
-    </div>
+<div class="row align-items-center">
+	<div class="col-6 ellipsis">
+		<input
+			class="inline-input w-100"
+			type="text"
+			[(ngModel)]="field.name"
+			(change)="onInputChange()"
+		/>
+	</div>
+	<div
+		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
+	>
+		<div class="badge badge-{{ field.type }}">
+			<span
+				(click)="
+					isTypesTooltipDisplayed = true;
+					isSubtypesTooltipDisplayed = false
+				"
+				>{{
+					field.type === fieldType.Entity
+						? getModelName(field)
+						: field.type
+				}}</span
+			><span
+				*ngIf="field.subtype"
+				(click)="isTypesTooltipDisplayed = true"
+				>:{{ field.subtype }}</span
+			>
+			<div
+				class="typesTooltip d-flex flex-row flex-nowrap justify-content-center align-items-center p-2 border border-hpf-primary"
+				[class.active]="isTypesTooltipDisplayed"
+			>
+				<mat-icon
+					[inline]="true"
+					class="ml-1 mr-2"
+					[class.d-none]="!isSubtypesTooltipDisplayed"
+					(click)="isSubtypesTooltipDisplayed = false"
+					color="primary"
+					>arrow_back</mat-icon
+				>
+				<ul
+					class="list-unstyled flex-nowrap m-0 p-0 typeList"
+					[class.d-none]="isSubtypesTooltipDisplayed"
+					[class.d-flex]="!isSubtypesTooltipDisplayed"
+				>
+					<li
+						*ngFor="let type of types; let i = index"
+						class="m-1"
+						[class.ml-0]="i === 1"
+						[class.mr-0]="i === types.length - 1"
+					>
+						<label class="m-0 field">
+							<input
+								type="radio"
+								class="d-none"
+								[value]="type.value"
+								[(ngModel)]="field.type"
+								(change)="onInputChange(); field.subtype = null"
+								(click)="toggleSubtypesTooltip(type)"
+							/>
+							<span class="p-1 field-{{ type.value }}">
+								{{ type.name }}
+							</span>
+						</label>
+					</li>
+				</ul>
+				<ul
+					class="list-unstyled flex-nowrap m-0 p-0 subtypeList"
+					[class.d-none]="
+						field.type === fieldType.Entity ||
+						!isSubtypesTooltipDisplayed
+					"
+					[class.d-flex]="
+						field.type !== fieldType.Entity &&
+						isSubtypesTooltipDisplayed
+					"
+				>
+					<li
+						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
+					>
+						<span class="p-1 fieldTitle-{{ field.type }}">{{
+							field.type
+						}}</span>
+					</li>
+					<li
+						*ngFor="let subtype of subtypes; let i = index"
+						class="m-1"
+						[class.ml-0]="i === 1"
+						[class.mr-0]="i === subtypes.length - 1"
+					>
+						<label class="m-0 field">
+							<input
+								type="radio"
+								class="d-none"
+								[value]="subtype.value"
+								[(ngModel)]="field.subtype"
+								(change)="onInputChange()"
+							/>
+							<span class="p-1 field-{{ field.type }}">
+								{{ subtype.name }}
+							</span>
+						</label>
+					</li>
+				</ul>
+				<ul
+					class="list-unstyled flex-nowrap m-0 p-0 subtypeList"
+					[class.d-flex]="
+						field.type === fieldType.Entity &&
+						isSubtypesTooltipDisplayed
+					"
+					[class.d-none]="
+						field.type !== fieldType.Entity ||
+						!isSubtypesTooltipDisplayed
+					"
+				>
+					<li
+						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
+					>
+						<span class="fieldTitle-entity">{{ field.type }}</span>
+					</li>
+					<li
+						*ngFor="let model of models; let i = index"
+						class="m-1"
+						[class.ml-0]="i === 1"
+						[class.mr-0]="i === models.length - 1"
+					>
+						<label class="m-0 field">
+							<input
+								type="radio"
+								class="d-none"
+								[value]="model.id"
+								[(ngModel)]="field.reference"
+								(change)="onInputChange(); field.subtype = null"
+							/>
+							<span class="p-1 field-entity">
+								{{ model.name }}
+							</span>
+						</label>
+					</li>
+				</ul>
+				<div
+					class="overlay"
+					(click)="isTypesTooltipDisplayed = false"
+				></div>
+			</div>
+		</div>
+
+		<div class="d-flex align-items-center position-relative">
+			<div
+				class="fieldsTooltip flex-column justify-content-center align-items-center p-2 border border-hpf-primary"
+				[class.active]="isFieldsTooltipDisplayed"
+			>
+				<!--
+ 				  DO NOT REMOVE
+					<span class="d-none">
+						{{ 'tooltip_generic' | translate }}
+						{{ 'tooltip_internal' | translate }}
+						{{ 'tooltip_embedded' | translate }}
+						{{ 'tooltip_label' | translate }}
+						{{ 'tooltip_multiple' | translate }}
+						{{ 'tooltip_nullable' | translate }}
+						{{ 'tooltip_ownership' | translate }}
+						{{ 'tooltip_primary' | translate }}
+						{{ 'tooltip_hidden' | translate }}
+						{{ 'tooltip_restricted' | translate }}
+						{{ 'tooltip_searchable' | translate }}
+						{{ 'tooltip_sortable' | translate }}
+						{{ 'tooltip_unique' | translate }}
+					</span>
+				-->
+				<p
+					class="
+			pb-2 px-2 border-bottom w-100 m-0 d-flex align-items-center justify-content-center"
+					[class.generic]="fieldOvered === 'generic'"
+				>
+					{{ 'tooltip_' + fieldOvered.toLowerCase() | translate }}
+				</p>
+				<ul
+					class="fieldsTooltip__group list-unstyled d-flex flex-nowrap p-0 m-0 mt-2"
+				>
+					<li
+						*ngFor="let pi of propertiesIcons"
+						class="d-flex align-items-center px-1"
+						(mouseover)="fieldOvered = pi.property"
+						(mouseleave)="fieldOvered = 'generic'"
+					>
+						<label
+							class="m-0 p-0 d-flex align-items-center"
+							[class.active]="pi.value"
+						>
+							<input
+								(change)="onInputChange()"
+								[(ngModel)]="field[pi.property]"
+								type="checkbox"
+								autocomplete="off"
+								class="d-none"
+							/>
+							<mat-icon
+								[class.inactive]="!pi.value"
+								color="primary"
+								>{{ pi.icon }}</mat-icon
+							>
+						</label>
+					</li>
+				</ul>
+				<div
+					class="overlay"
+					(click)="isFieldsTooltipDisplayed = false"
+				></div>
+			</div>
+			<ul
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center deletionMode"
+				[class.d-none]="!deletionMode"
+				[class.d-flex]="deletionMode"
+			>
+				<li>
+					<mat-icon [inline]="true" color="warn" (click)="onDelete()">
+						remove_circle
+					</mat-icon>
+				</li>
+			</ul>
+			<ul
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center selectedFields"
+				(click)="isFieldsTooltipDisplayed = true"
+				[class.d-none]="deletionMode"
+				[class.d-flex]="!deletionMode"
+			>
+				<li *ngFor="let pi of filteredPropertiesIcons">
+					<mat-icon [inline]="true">{{ pi.icon }}</mat-icon>
+				</li>
+				<li *ngIf="filteredPropertiesIcons.length === 0">
+					<mat-icon
+						color="primary"
+						[inline]="true"
+						matTooltip="{{ 'tooltip_generic' | translate }}"
+						>settings</mat-icon
+					>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>

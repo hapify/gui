@@ -1,67 +1,56 @@
-import {Component, OnInit} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Model} from '../../classes/model';
-import {StorageService} from '../../services/storage.service';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Output,
+	ViewChild
+} from '@angular/core';
+import { Model } from '../../classes/model';
+import { IModel, IModelBase } from '../../interfaces/model';
+import { WebSocketService } from '@app/services/websocket.service';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
 
 @Component({
-  selector: 'app-model-new',
-  templateUrl: './new.component.html',
-  styleUrls: ['./new.component.scss']
+	selector: 'app-model-new',
+	templateUrl: './new.component.html',
+	styleUrls: ['./new.component.scss']
 })
-export class NewComponent implements OnInit {
+export class NewComponent implements AfterViewInit {
+	/**
+	 * Constructor
+	 */
+	constructor(private webSocketService: WebSocketService) {}
 
-  /**
-   * Constructor
-   */
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private translateService: TranslateService,
-              private storageService: StorageService) {
-  }
+	public name = '';
 
-  /**
-   * New model instance
-   *
-   * @type {Model}
-   */
-  public model: Model;
+	/** @type {EventEmitter<void>} Notify save */
+	@Output() create = new EventEmitter<IModel>();
 
-  /**
-   * @inheritDoc
-   */
-  ngOnInit() {
-    // New model
-    this.model = new Model();
-    // Default field(s)
-    const primary = this.model.newField();
-    primary.name = '_id';
-    primary.primary = true;
-    primary.internal = true;
-    this.model.addField(primary);
-    const creation = this.model.newField();
-    creation.name = 'creation';
-    creation.type = 'datetime';
-    creation.internal = true;
-    creation.sortable = true;
-    this.model.addField(creation);
-    // Get default name
-    this.translateService.get('new_model_name').subscribe((text) => {
-      this.model.name = text;
-    });
-  }
+	@ViewChild('nameInput') nameInput: ElementRef;
 
-  /**
-   * Called when the user save the new model
-   */
-  onSave(): void {
-    // Store the model
-    this.storageService.add(this.model)
-      .then(() => {
-        // Go to edit page
-        this.router.navigate(['../edit', this.model.id], {relativeTo: this.route});
-      });
-  }
+	ngAfterViewInit() {
+		// Avoid "Expression has changed after it was checked" error
+		setTimeout(() => this.nameInput.nativeElement.focus());
+	}
 
+	/**
+	 * Called when the user save the new model
+	 */
+	async save() {
+		// Get model from CLI
+		const modelObject = (await this.webSocketService.send(
+			WebSocketMessages.NEW_MODEL,
+			{
+				name: this.name
+			}
+		)) as IModelBase;
 
+		// Create new model
+		const model = new Model();
+		model.fromObject(modelObject);
+
+		// Send the model
+		this.create.emit(model);
+	}
 }

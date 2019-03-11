@@ -1,17 +1,51 @@
-$h-lg-header: 65px;
+@import '../../../../theme.scss';
+@import '~bootstrap/scss/bootstrap';
 
-.menu {
-  a {
-    &.active {
-      color: #ffffff !important;
-    }
-  }
+* {
+	color: $white;
 }
 
-#brand {
-  height: $h-lg-header;
+small {
+	font-size: 0.7em;
 }
 
-#logo {
-  line-height: 18px;
+p {
+	font-weight: 400;
+}
+
+a {
+	&:hover {
+		text-decoration: none;
+		color: inherit;
+	}
+}
+
+li {
+	width: 100%;
+	.mat-raised-button {
+		background-color: transparent;
+
+		&.active,
+		&.active:hover {
+			background-color: mat-color($hpf-app-primary);
+		}
+
+		&:hover {
+			background-color: mat-color($hpf-app-primary, 900);
+		}
+	}
+}
+
+.sm,
+.md,
+.reduced {
+	li {
+		width: 40px;
+
+		.mat-raised-button {
+			height: 40px;
+			padding: 0;
+			min-width: 0;
+		}
+	}
 }

@@ -1,35 +1,82 @@
-<div id="root-model">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <p class="text-secondary mb-5">
-                    {{ 'models_intro' | translate }}
-                </p>
-            </div>
-        </div>
-        <div class="models-list">
-            <div class="card">
-                <div class="card-header">
-                    <div class="clearfix">
-                        <div class="float-left py-2">{{ 'models_subtitle' | translate:{count: models && models.length ?
-                            models.length : 0} }}
-                        </div>
-                        <div class="float-right">
-                            <a [routerLink]="['/model/2d']" class="btn btn-outline-secondary">
-                              <span class="oi oi-compass"></span>
-                            </a>
-                            <a [routerLink]="['/model/new']" class="btn btn-outline-primary">
-                                <span class="oi oi-plus small"></span> {{ 'common_new_model' | translate }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li *ngFor="let model of models;" class="list-group-item">
-                        <app-model-model-row [model]="model" (onClone)="cloneModel(model)" (onDelete)="deleteModel(model)"></app-model-model-row>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<main class="container-fluid">
+	<app-header
+		(newModel)="onCreate($event)"
+		(newImport)="updateModels()"
+	></app-header>
+	<section class="row px-4 py-5">
+		<div
+			class="col-12 d-flex justify-content-center my-5"
+			*ngIf="!modelsAreLoaded"
+		>
+			<mat-spinner [diameter]="32"></mat-spinner>
+		</div>
+		<div class="col-12">
+			<ul class="row list-unstyled">
+				<li
+					*ngFor="let model of models"
+					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
+				>
+					<div class="editOverlay" (mouseover)="currentModel = model">
+						<app-model-model-light
+							*ngIf="model !== currentModel"
+							[model]="model"
+							[models]="models"
+							[addFieldDisabled]="
+								info &&
+								model.fields.length >= info.limits.fields
+							"
+						></app-model-model-light>
+						<app-model-model
+							*ngIf="model === currentModel"
+							[model]="model"
+							[models]="models"
+							[addFieldDisabled]="
+								info &&
+								model.fields.length >= info.limits.fields
+							"
+							(save)="onSave(model)"
+							(clone)="onClone(model)"
+							(delete)="onDelete(model)"
+						></app-model-model>
+					</div>
+				</li>
+				<li
+					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
+					*ngIf="modelsAreLoaded"
+				>
+					<div
+						class="newModelCallToAction border border-hpf-primary p-5 d-flex w-100 align-items-center justify-content-center"
+					>
+						<div
+							class="d-flex flex-nowrap align-items-center w-75 justify-content-center"
+							*ngIf="addingNewModel"
+						>
+							<app-model-new
+								class="d-block w-100"
+								(create)="onCreate($event)"
+							></app-model-new>
+							<button
+								mat-icon-button
+								color="warn"
+								type="button"
+								(click)="addingNewModel = false"
+							>
+								<mat-icon>close</mat-icon>
+							</button>
+						</div>
+						<button
+							mat-raised-button
+							color="accent"
+							class="mat-elevation-z0 border my-5 d-inline-flex align-items-center"
+							(click)="addingNewModel = true"
+							*ngIf="!addingNewModel"
+						>
+							<mat-icon>add</mat-icon>
+							{{ 'common_new_model' | translate }}
+						</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+</main>

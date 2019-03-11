@@ -13,6 +13,7 @@
 - Add middleware script(s) called before each template within a channel.
 - ~~Create new templating language~~
 - Code formatter/Linter after build.
+- Refactor code using intersection types.
 
 ## Long-term
 
