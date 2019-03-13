@@ -50,11 +50,13 @@ mat-icon.inactive {
 	pointer-events: none;
 	opacity: 0;
 	transition: opacity 0.2s ease, right 0.2s ease;
+	width: 400px;
+	right: -32px;
 
 	&.active {
 		pointer-events: initial;
 		opacity: 1;
-		right: -16px;
+		right: -64px;
 	}
 
 	* {
@@ -73,8 +75,6 @@ mat-icon.inactive {
 }
 
 .fieldsTooltip {
-	right: -32px;
-
 	p {
 		min-height: 48px;
 		font-size: 0.8em;
@@ -106,10 +106,8 @@ mat-icon.inactive {
 }
 
 .typesTooltip {
-	right: 45%;
-
 	&.active {
-		right: 50%;
+		right: -48px;
 	}
 
 	mat-icon {

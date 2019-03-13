@@ -27,29 +27,32 @@
 				>:{{ field.subtype }}</span
 			>
 			<div
-				class="typesTooltip d-flex flex-row flex-nowrap justify-content-center align-items-center p-2 border border-hpf-primary"
+				class="typesTooltip d-flex flex-row flex-nowrap justify-content-center align-items-center py-2 border border-hpf-primary"
 				[class.active]="isTypesTooltipDisplayed"
 			>
-				<mat-icon
-					[inline]="true"
-					class="ml-1 mr-2"
-					[class.d-none]="!isSubtypesTooltipDisplayed"
-					(click)="isSubtypesTooltipDisplayed = false"
-					color="primary"
-					>arrow_back</mat-icon
-				>
+				<div class="pl-2 pr-1 flex-grow-0 flex-shrink-1">
+					<mat-icon
+						[inline]="true"
+						[class.d-none]="!isSubtypesTooltipDisplayed"
+						(click)="isSubtypesTooltipDisplayed = false"
+						color="primary"
+						>arrow_back</mat-icon
+					>
+				</div>
 				<ul
-					class="list-unstyled flex-nowrap m-0 p-0 typeList"
+					class="list-unstyled flex-wrap m-0 p-0 typeList"
 					[class.d-none]="isSubtypesTooltipDisplayed"
 					[class.d-flex]="!isSubtypesTooltipDisplayed"
 				>
 					<li
 						*ngFor="let type of types; let i = index"
 						class="m-1"
-						[class.ml-0]="i === 1"
+						[class.ml-0]="i === 0"
 						[class.mr-0]="i === types.length - 1"
 					>
-						<label class="m-0 field">
+						<label
+							class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
+						>
 							<input
 								type="radio"
 								class="d-none"
@@ -58,14 +61,18 @@
 								(change)="onInputChange(); field.subtype = null"
 								(click)="toggleSubtypesTooltip(type)"
 							/>
-							<span class="p-1 field-{{ type.value }}">
+							<span
+								class="p-1 d-flex justify-content-center align-items-center field-{{
+									type.value
+								}}"
+							>
 								{{ type.name }}
 							</span>
 						</label>
 					</li>
 				</ul>
 				<ul
-					class="list-unstyled flex-nowrap m-0 p-0 subtypeList"
+					class="list-unstyled flex-wrap m-0 p-0 subtypeList w-100 flex-shrink-1 flex-grow-1"
 					[class.d-none]="
 						field.type === fieldType.Entity ||
 						!isSubtypesTooltipDisplayed
@@ -88,7 +95,9 @@
 						[class.ml-0]="i === 1"
 						[class.mr-0]="i === subtypes.length - 1"
 					>
-						<label class="m-0 field">
+						<label
+							class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
+						>
 							<input
 								type="radio"
 								class="d-none"
@@ -96,14 +105,18 @@
 								[(ngModel)]="field.subtype"
 								(change)="onInputChange()"
 							/>
-							<span class="p-1 field-{{ field.type }}">
+							<span
+								class="p-1 d-flex justify-content-center align-items-center field-{{
+									field.type
+								}}"
+							>
 								{{ subtype.name }}
 							</span>
 						</label>
 					</li>
 				</ul>
 				<ul
-					class="list-unstyled flex-nowrap m-0 p-0 subtypeList"
+					class="list-unstyled flex-wrap m-0 p-0 subtypeList  w-100 flex-shrink-1 flex-grow-1"
 					[class.d-flex]="
 						field.type === fieldType.Entity &&
 						isSubtypesTooltipDisplayed
@@ -124,7 +137,9 @@
 						[class.ml-0]="i === 1"
 						[class.mr-0]="i === models.length - 1"
 					>
-						<label class="m-0 field">
+						<label
+							class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
+						>
 							<input
 								type="radio"
 								class="d-none"
@@ -132,7 +147,9 @@
 								[(ngModel)]="field.reference"
 								(change)="onInputChange(); field.subtype = null"
 							/>
-							<span class="p-1 field-entity">
+							<span
+								class="p-1 d-flex justify-content-center align-items-center field-entity"
+							>
 								{{ model.name }}
 							</span>
 						</label>
@@ -151,7 +168,7 @@
 				[class.active]="isFieldsTooltipDisplayed"
 			>
 				<!--
- 				  DO NOT REMOVE
+					  DO NOT REMOVE
 					<span class="d-none">
 						{{ 'tooltip_generic' | translate }}
 						{{ 'tooltip_internal' | translate }}
