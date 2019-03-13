@@ -6,7 +6,7 @@
 export const environment = {
 	production: true,
 	ace: {
-		baseUri: '/assets/ace-builds/src-min',
+		baseUri: '/assets/ace-builds/src-min-noconflict',
 		theme: 'xcode'
 	},
 	cli: {

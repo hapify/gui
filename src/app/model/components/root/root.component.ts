@@ -73,7 +73,11 @@ export class RootComponent implements OnInit {
 	 */
 	onCreate(model: IModel): void {
 		// Check length
-		if (this.info && this.models.length >= this.info.limits.models) {
+		if (
+			this.info &&
+			this.models &&
+			this.models.length >= this.info.limits.models
+		) {
 			this.dialog.open(DialogPremiumComponent);
 			return;
 		}

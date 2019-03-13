@@ -53,7 +53,7 @@ export class ValidatorService {
 		const result = await this.webSocketService.send(
 			WebSocketMessages.VALIDATE_MODEL,
 			{
-				model,
+				model: model.toObject(),
 				content: script
 			}
 		);

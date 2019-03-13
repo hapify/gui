@@ -9,11 +9,15 @@ export class TranslateEntryPipe implements PipeTransform {
 	constructor(private _translateService: TranslateService) {}
 
 	transform(value: any, args?: any): any {
-		return value[
-			args +
-				(this._translateService.currentLang === 'en'
-					? ''
-					: '__' + this._translateService.currentLang)
-		];
+		if (
+			this._translateService.currentLang !==
+			this._translateService.defaultLang
+		) {
+			const key = `${args}__${this._translateService.currentLang}`;
+			if (value[key]) {
+				return value[key];
+			}
+		}
+		return value[args];
 	}
 }

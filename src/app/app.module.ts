@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 import { ModelComponent } from './components/model/model.component';
 import { ChannelComponent } from './components/channel/channel.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component';
-import { DocumentationComponent } from '@app/components/documentation/documentation.component';
 
 // Services
 import { ConfigService } from './services/config.service';
@@ -32,7 +31,6 @@ import {
 } from 'ngx-perfect-scrollbar';
 import { MessageService } from '@app/services/message.service';
 import { InfoService } from '@app/services/info.service';
-import { DocumentationModule } from '@app/documentation/documentation.module';
 import { DialogPremiumComponent } from './components/common/dialog-premium/dialog-premium.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -46,7 +44,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ChannelComponent,
 		SidebarComponent,
 		HeaderComponent,
-		DocumentationComponent,
 		DialogPremiumComponent
 	],
 	imports: [
@@ -62,7 +59,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ChannelModule,
 		ModelModule,
 		SharedModule,
-		DocumentationModule,
 		PerfectScrollbarModule
 	],
 	providers: [

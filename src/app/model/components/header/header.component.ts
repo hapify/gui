@@ -81,39 +81,3 @@ export class HeaderComponent implements OnInit {
 		this.newImport.emit();
 	}
 }
-
-/**
-
-
-
- // @todo Require validation from user
- // await this.modelStorageService.update(
- // 	results.updated.map(m => {
-		// 		const model = new Model();
-		// 		model.fromObject(m);
-		// 		return model;
-		// 	})
- // );
- // await this.modelStorageService.add(
- // 	results.created.map(m => {
-		// 		const model = new Model();
-		// 		model.fromObject(m);
-		// 		return model;
-		// 	})
- // );
-
- // Show message to user...
- let message = results.created.length
- ? `Did create model(s) ${results.created
-					.map(m => m.name)
-					.join(', ')}`
- : 'No model created';
- message += '. ';
- message += results.updated.length
- ? `Did update model(s) ${results.updated
-					.map(m => m.name)
-					.join(', ')}`
- : 'No model updated';
- this.messageService.info(message);
-
- **/

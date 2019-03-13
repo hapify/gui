@@ -26,13 +26,13 @@ export class Field implements IField {
 	/** @inheritDoc */
 	public multiple = false;
 	/** @inheritDoc */
-	public important = false;
+	public embedded = false;
 	/** @inheritDoc */
 	public searchable = false;
 	/** @inheritDoc */
 	public sortable = false;
 	/** @inheritDoc */
-	public isPrivate = false;
+	public hidden = false;
 	/** @inheritDoc */
 	public internal = false;
 	/** @inheritDoc */
@@ -51,10 +51,10 @@ export class Field implements IField {
 		this.label = !!(<any>object.label);
 		this.nullable = !!(<any>object.nullable);
 		this.multiple = !!(<any>object.multiple);
-		this.important = !!(<any>object.important);
+		this.embedded = !!(<any>object.embedded);
 		this.searchable = !!(<any>object.searchable);
 		this.sortable = !!(<any>object.sortable);
-		this.isPrivate = !!(<any>object.isPrivate);
+		this.hidden = !!(<any>object.hidden);
 		this.internal = !!(<any>object.internal);
 		this.restricted = !!(<any>object.restricted);
 		this.ownership = !!(<any>object.ownership);
@@ -72,10 +72,10 @@ export class Field implements IField {
 			label: this.label,
 			nullable: this.nullable,
 			multiple: this.multiple,
-			important: this.important,
+			embedded: this.embedded,
 			searchable: this.searchable,
 			sortable: this.sortable,
-			isPrivate: this.isPrivate,
+			hidden: this.hidden,
 			internal: this.internal,
 			restricted: this.restricted,
 			ownership: this.ownership
@@ -84,11 +84,11 @@ export class Field implements IField {
 
 	/** @inheritDoc */
 	public isEmpty(): boolean {
-		return (
+		const empty =
 			typeof this.name !== 'string' ||
 			this.name === null ||
-			this.name.length === 0
-		);
+			this.name.trim().length === 0;
+		return empty;
 	}
 
 	/**
@@ -111,6 +111,12 @@ export class Field implements IField {
 		}
 		if (this.type === FieldType.Entity) {
 			return FieldSubType.entity();
+		}
+		if (this.type === FieldType.Object) {
+			return FieldSubType.object();
+		}
+		if (this.type === FieldType.File) {
+			return FieldSubType.file();
 		}
 		return [];
 	}

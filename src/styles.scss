@@ -81,19 +81,6 @@ body {
 }
 
 body {
-	p,
-	li,
-	a,
-	span,
-	button,
-	.mat-button,
-	.mat-raised-button {
-		font-family: Monaco, monospace !important;
-		-webkit-font-smoothing: antialiased;
-		text-rendering: optimizeLegibility;
-		-moz-osx-font-smoothing: grayscale;
-	}
-
 	font-size: 1em;
 	font-weight: 400;
 	color: $gray-700;
@@ -133,10 +120,29 @@ body {
 		color: mat-color($hpf-app-primary);
 	}
 
+	p,
+	li,
+	a,
+	span,
+	input,
+	select,
+	optgroup,
+	textarea {
+		font-family: Monaco, monospace;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
 	h1,
 	h2,
 	h3,
-	h4 {
+	h4,
+	button,
+	.mat-button,
+	.mat-raised-button,
+	.mat-button *,
+	.mat-raised-button * {
 		font-family: 'Open Sans', sans-serif;
 	}
 
@@ -273,6 +279,12 @@ body {
 			color: $js;
 		}
 	}
+	.color-php {
+		color: $php;
+		mat-icon {
+			color: $php;
+		}
+	}
 	.color-file,
 	.color-null {
 		color: $file;
@@ -301,6 +313,9 @@ body {
 	}
 	.bg-js {
 		background-color: $bg-js !important;
+	}
+	.bg-php {
+		background-color: $bg-php !important;
 	}
 	.bg-file,
 	.bg-null {
