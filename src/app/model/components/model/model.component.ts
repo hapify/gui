@@ -66,6 +66,7 @@ export class ModelComponent extends ModelLightComponent
 	public currentField: IField;
 
 	accessRightsPanelIsDisplayed = false;
+	notesPanelIsDisplayed = false;
 	cleanRows = false;
 	confirmModelDeletion = false;
 
@@ -85,6 +86,13 @@ export class ModelComponent extends ModelLightComponent
 		);
 		// Get available actions
 		this.updateActions();
+	}
+
+	togglePanel(panel: 'notes' | 'access') {
+		this.accessRightsPanelIsDisplayed =
+			panel === 'access' && !this.accessRightsPanelIsDisplayed;
+		this.notesPanelIsDisplayed =
+			panel === 'notes' && !this.notesPanelIsDisplayed;
 	}
 
 	/**

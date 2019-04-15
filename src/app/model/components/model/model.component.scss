@@ -62,7 +62,8 @@ input[type='text'] {
 	}
 }
 
-.accessRights {
+.accessRights,
+.notes {
 	font-size: 0.9em;
 	background-color: mat-color($hpf-app-primary, 50, 0.3);
 	h4 {
@@ -73,6 +74,8 @@ input[type='text'] {
 		text-transform: uppercase;
 		text-align: center;
 	}
+}
+.accessRights {
 	mat-button-toggle {
 		background-color: transparent;
 		width: inherit;

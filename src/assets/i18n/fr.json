@@ -105,5 +105,7 @@
 	"preset-diff_import-title-updates": "Modèles modifiés",
 	"presets_details": "Détails",
 	"tooltip_embedded": "Est-ce une donnée embarquée ?",
-	"tooltip_hidden": "Ce champs n'est pas visible ?"
+	"tooltip_hidden": "Ce champs n'est pas visible ?",
+	"notes_title": "Notes",
+	"notes_placeholder": ""
 }
