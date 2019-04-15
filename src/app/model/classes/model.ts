@@ -21,6 +21,10 @@ export class Model implements IModel {
 	/**
 	 * @inheritDoc
 	 */
+	public notes: string;
+	/**
+	 * @inheritDoc
+	 */
 	public fields: IField[] = [];
 	/**
 	 * @inheritDoc
@@ -66,6 +70,7 @@ export class Model implements IModel {
 	public fromObject(object: IModelBase): void {
 		this.id = object.id;
 		this.name = object.name;
+		this.notes = object.notes || null;
 		this.fields = object.fields.map(
 			(fieldBase: IFieldBase): IField => {
 				const field = this.newField();
@@ -83,6 +88,7 @@ export class Model implements IModel {
 		return {
 			id: this.id,
 			name: this.name,
+			notes: this.notes || null,
 			fields: this.fields
 				.filter((field: IField): boolean => !field.isEmpty())
 				.map((field: IField): IFieldBase => field.toObject()),

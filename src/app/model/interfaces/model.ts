@@ -10,6 +10,12 @@ export interface IModelBase extends IStorableBase {
 	 */
 	name: string;
 	/**
+	 * The model's notes
+	 *
+	 * @type {string}
+	 */
+	notes?: string;
+	/**
 	 * The fields of the model
 	 *
 	 * @type {IFieldBase[]}

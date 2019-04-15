@@ -3,6 +3,8 @@ import { ILabelledValue } from './labelled-value';
 export interface IFieldBase {
 	/** @type {string} The field's name */
 	name: string;
+	/** @type {string} The field's notes */
+	notes?: string;
 	/** @type {string} The field's type */
 	type: string;
 	/** @type {string} The field's subtype */
