@@ -11,6 +11,7 @@ import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Field } from '@app/model/classes/field';
 import { ModelLightComponent } from '../model-light/model-light.component';
+import { IField } from '@app/model/interfaces/field';
 
 interface IAccessValue {
 	selected: boolean;
@@ -62,6 +63,7 @@ export class ModelComponent extends ModelLightComponent
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** @type {IActionValue[]} List available actions */
 	actions: IActionValue[] = [];
+	public currentField: IField;
 
 	accessRightsPannelIsDisplayed = false;
 	cleanRows = false;

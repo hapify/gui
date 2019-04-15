@@ -105,6 +105,8 @@
 				<li
 					*ngFor="let field of model.fields"
 					class="row border-bottom border-light py-1 position-relative"
+					[class.active]="field === currentField"
+					(mouseenter)="currentField = field"
 					cdkDrag
 				>
 					<mat-icon
@@ -113,7 +115,14 @@
 						cdkDragHandle=""
 						>more_vert</mat-icon
 					>
+					<app-model-field-light
+						*ngIf="field !== currentField"
+						[models]="models"
+						[field]="field"
+						class="col-12"
+					></app-model-field-light>
 					<app-model-field
+						*ngIf="field === currentField"
 						[models]="models"
 						[field]="field"
 						[deletionMode]="cleanRows"

@@ -16,7 +16,10 @@
 					*ngFor="let model of models"
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
 				>
-					<div class="editOverlay" (mouseover)="currentModel = model">
+					<div
+						class="editOverlay"
+						(mouseenter)="currentModel = model"
+					>
 						<app-model-model-light
 							*ngIf="model !== currentModel"
 							[model]="model"

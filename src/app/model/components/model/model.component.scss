@@ -30,14 +30,18 @@ mat-card {
 			cursor: grabbing;
 		}
 	}
-
 	&:hover {
+		background-color: transparent;
+	}
+
+	&.active {
 		background-color: $gray-100;
 		.dndHandler {
 			opacity: 1;
 		}
 	}
 }
+
 input[type='text'] {
 	&:focus {
 		color: mat-color($hpf-app-primary);
@@ -52,7 +56,6 @@ input[type='text'] {
 		cursor: default;
 	}
 }
-
 ::ng-deep {
 	.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
 		line-height: 32px !important;
