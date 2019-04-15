@@ -14,7 +14,11 @@
 				<button mat-icon-button type="button">
 					<mat-icon>fingerprint</mat-icon>
 				</button>
-				<button mat-icon-button type="button">
+				<button
+					mat-icon-button
+					type="button"
+					[color]="model.notes ? 'primary' : ''"
+				>
 					<mat-icon>notes</mat-icon>
 				</button>
 				<button mat-icon-button type="button">

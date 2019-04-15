@@ -32,7 +32,9 @@
 					mat-icon-button
 					matTooltip="{{ 'notes_title' | translate }}"
 					(click)="togglePanel('notes')"
-					[color]="notesPanelIsDisplayed ? 'primary' : ''"
+					[color]="
+						notesPanelIsDisplayed || model.notes ? 'primary' : ''
+					"
 					type="button"
 				>
 					<mat-icon>notes</mat-icon>
