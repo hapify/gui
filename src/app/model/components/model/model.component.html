@@ -23,9 +23,9 @@
 					mat-icon-button
 					matTooltip="{{ 'access_title' | translate }}"
 					(click)="
-						accessRightsPannelIsDisplayed = !accessRightsPannelIsDisplayed
+						accessRightsPanelIsDisplayed = !accessRightsPanelIsDisplayed
 					"
-					[color]="accessRightsPannelIsDisplayed ? 'primary' : ''"
+					[color]="accessRightsPanelIsDisplayed ? 'primary' : ''"
 					type="button"
 				>
 					<mat-icon>fingerprint</mat-icon>
@@ -65,7 +65,7 @@
 		<mat-card-content class="mb-0">
 			<div
 				class="container-fluid accessRights pt-3"
-				[class.d-none]="!accessRightsPannelIsDisplayed"
+				[class.d-none]="!accessRightsPanelIsDisplayed"
 			>
 				<div class="row">
 					<div class="col-12">

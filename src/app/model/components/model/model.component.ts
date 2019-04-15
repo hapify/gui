@@ -65,7 +65,7 @@ export class ModelComponent extends ModelLightComponent
 	actions: IActionValue[] = [];
 	public currentField: IField;
 
-	accessRightsPannelIsDisplayed = false;
+	accessRightsPanelIsDisplayed = false;
 	cleanRows = false;
 	confirmModelDeletion = false;
 
