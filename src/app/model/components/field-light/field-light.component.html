@@ -1,16 +1,13 @@
 <div class="row align-items-center">
-	<div class="col-6 ellipsis">{{ field.name }}</div>
+	<div class="col-5 ellipsis">{{ field.name }}</div>
+	<div class="col-1">
+		<div class="notes" *ngIf="field.notes">
+			<mat-icon color="primary" [inline]="true">info</mat-icon>
+		</div>
+	</div>
 	<div
 		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
 	>
-		<div class="notes">
-			<mat-icon
-				color="primary"
-				[class.inactive]="!field.notes"
-				[inline]="true"
-				>speaker_notes</mat-icon
-			>
-		</div>
 		<div class="badge badge-{{ field.type }}">
 			<span>{{
 				field.type === fieldType.Entity
