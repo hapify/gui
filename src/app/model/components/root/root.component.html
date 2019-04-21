@@ -39,6 +39,7 @@
 							"
 							(save)="onSave(model)"
 							(clone)="onClone(model)"
+							(copy)="onCopy(model)"
 							(delete)="onDelete(model)"
 						></app-model-model>
 					</div>
@@ -83,3 +84,11 @@
 		</div>
 	</section>
 </main>
+
+<!--
+      DO NOT REMOVE
+    <span class="d-none">
+        {{ 'clipboard_not_supported' | translate }}
+        {{ 'clipboard_success' | translate }}
+    </span>
+-->

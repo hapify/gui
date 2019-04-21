@@ -107,5 +107,7 @@
 	"tooltip_embedded": "tooltip_embedded",
 	"tooltip_hidden": "tooltip_hidden",
 	"notes_title": "notes_title",
-	"notes_placeholder": "notes_placeholder"
+	"model_copy_clipboard": "model_copy_clipboard",
+	"clipboard_not_supported": "clipboard_not_supported",
+	"clipboard_success": "clipboard_success"
 }

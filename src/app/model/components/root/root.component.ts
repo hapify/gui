@@ -8,6 +8,9 @@ import { WebSocketService } from '@app/services/websocket.service';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { MatDialog } from '@angular/material';
 import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
+import { MessageService } from '@app/services/message.service';
+import { ClipboardService } from 'ngx-clipboard';
+
 @Component({
 	selector: 'app-model-root',
 	templateUrl: './root.component.html',
@@ -19,7 +22,9 @@ export class RootComponent implements OnInit {
 		private storageService: StorageService,
 		private infoService: InfoService,
 		private webSocketService: WebSocketService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private messageService: MessageService,
+		private clipboardService: ClipboardService
 	) {}
 
 	private _saveTimeout;
@@ -92,6 +97,26 @@ export class RootComponent implements OnInit {
 			// Update the model
 			this.storageService.update(model);
 		}, this.dTime);
+	}
+
+	/** Called when the user copy the model */
+	async onCopy(model: IModel): void {
+		if (this.clipboardService.isSupported) {
+			this.clipboardService.copyFromContent(
+				JSON.stringify(model.toObject(), null, 2)
+			);
+			this.messageService.info(
+				await this.messageService.translateKey('clipboard_success', {
+					model: model.name
+				})
+			);
+		} else {
+			this.messageService.warning(
+				await this.messageService.translateKey(
+					'clipboard_not_supported'
+				)
+			);
+		}
 	}
 
 	/**

@@ -57,6 +57,8 @@ export class ModelComponent extends ModelLightComponent
 	@Output() change = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify cloning */
 	@Output() clone = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Notify copy */
+	@Output() copy = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify deletion */
 	@Output() delete = new EventEmitter<void>();
 	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
