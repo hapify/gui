@@ -41,7 +41,8 @@ mat-icon.inactive {
 }
 
 .fieldsTooltip,
-.typesTooltip {
+.typesTooltip,
+.notesTooltip {
 	position: absolute;
 	z-index: 99999;
 	bottom: 110%;
@@ -200,6 +201,10 @@ mat-icon.inactive {
 			}
 		}
 	}
+}
+
+.notes {
+	cursor: pointer;
 }
 
 .selectedFields {

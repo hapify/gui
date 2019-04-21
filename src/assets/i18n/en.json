@@ -35,9 +35,9 @@
 	"tooltip_label": "Is it a label?",
 	"tooltip_multiple": "Is it a value list?",
 	"tooltip_nullable": "Can this field be empty?",
-	"tooltip_ownership": "Does it contains the owner id?",
+	"tooltip_ownership": "Does it contain the owner id?",
 	"tooltip_primary": "Is it the primary key?",
-	"tooltip_restricted": "Is the access constraints?",
+	"tooltip_restricted": "Is the access constrained?",
 	"tooltip_searchable": "Is it searchable?",
 	"tooltip_sortable": "Is it sortable?",
 	"tooltip_unique": "Is it a unique key?",
@@ -97,7 +97,7 @@
 	"error_code-4007": "",
 	"nav_account": "My account",
 	"preset-confirm_import-card-h2": "Sure?",
-	"preset-confirm_import-h2": "Collection import",
+	"preset-confirm_import-h2": "Import a collection",
 	"preset-confirm_import-p": "This action will add or edit some models",
 	"preset-diff_import-field": "field",
 	"preset-diff_import-fields": "fields",
@@ -105,5 +105,7 @@
 	"preset-diff_import-title-updates": "Updated models",
 	"presets_details": "Details",
 	"tooltip_embedded": "Is it an embedded data?",
-	"tooltip_hidden": "Is it hidden?"
+	"tooltip_hidden": "Is it hidden?",
+	"notes_title": "Notes",
+	"notes_placeholder": ""
 }

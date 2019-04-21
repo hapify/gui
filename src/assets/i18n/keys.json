@@ -105,5 +105,7 @@
 	"preset-diff_import-title-updates": "preset-diff_import-title-updates",
 	"presets_details": "presets_details",
 	"tooltip_embedded": "tooltip_embedded",
-	"tooltip_hidden": "tooltip_hidden"
+	"tooltip_hidden": "tooltip_hidden",
+	"notes_title": "notes_title",
+	"notes_placeholder": "notes_placeholder"
 }

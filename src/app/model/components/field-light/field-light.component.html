@@ -1,5 +1,10 @@
 <div class="row align-items-center">
-	<div class="col-6 ellipsis">{{ field.name }}</div>
+	<div class="col-5 ellipsis">{{ field.name }}</div>
+	<div class="col-1">
+		<div class="notes" *ngIf="field.notes">
+			<mat-icon color="primary" [inline]="true">info</mat-icon>
+		</div>
+	</div>
 	<div
 		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
 	>

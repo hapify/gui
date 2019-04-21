@@ -1,11 +1,46 @@
 <div class="row align-items-center">
-	<div class="col-6 ellipsis">
+	<div class="col-5 ellipsis">
 		<input
 			class="inline-input w-100"
 			type="text"
 			[(ngModel)]="field.name"
 			(change)="onInputChange()"
 		/>
+	</div>
+	<div class="col-1">
+		<div class="notes">
+			<mat-icon
+				color="primary"
+				(click)="isNotesTooltipDisplayed = true"
+				[class.inactive]="!field.notes"
+				[inline]="true"
+				>info</mat-icon
+			>
+		</div>
+		<div
+			class="notesTooltip flex-column justify-content-center align-items-center p-2 border border-hpf-primary"
+			[class.active]="isNotesTooltipDisplayed"
+		>
+			<div class="row">
+				<div class="col-12">
+					<mat-form-field class="w-100">
+						<textarea
+							matInput
+							matTextareaAutosize
+							[matAutosizeMinRows]="4"
+							[matAutosizeMaxRows]="8"
+							[(ngModel)]="field.notes"
+							(change)="onInputChange()"
+							placeholder="{{ 'notes_title' | translate }}"
+						></textarea>
+					</mat-form-field>
+				</div>
+			</div>
+			<div
+				class="overlay"
+				(click)="isNotesTooltipDisplayed = false"
+			></div>
+		</div>
 	</div>
 	<div
 		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
