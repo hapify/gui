@@ -109,5 +109,6 @@
 	"notes_title": "notes_title",
 	"model_copy_clipboard": "model_copy_clipboard",
 	"clipboard_not_supported": "clipboard_not_supported",
-	"clipboard_success": "clipboard_success"
+	"clipboard_success": "clipboard_success",
+	"common_paste_model": "common_paste_model"
 }

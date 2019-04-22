@@ -119,6 +119,9 @@ export class RootComponent implements OnInit {
 		}
 	}
 
+	/** Called when the user paste the model */
+	async onPaste(): void {}
+
 	/**
 	 * Update models with storage
 	 *
