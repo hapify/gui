@@ -5,6 +5,8 @@
 ### Added
 
 -   Handle scenarios.
+-   Add copy/paste feature
+-   Add notes for model and fields
 
 ### Changed
 
@@ -14,6 +16,8 @@
 -   Add type `string:url`
 -   Add type `object`
 -   Add type `file` with sub-types `image`, `video`, `audio` and `document`
+-   Handle self references while duplicating model
+-   Prefix name while duplicating model
 
 ### Removed
 
