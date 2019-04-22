@@ -63,11 +63,12 @@ export class RootComponent implements OnInit {
 		const modelObject = (await this.webSocketService.send(
 			WebSocketMessages.NEW_MODEL,
 			{
-				name: model.name
+				name: `Copy of ${model.name}`
 			}
 		)) as IModelBase;
 		// Create clone and copy temp id
 		const clone = model.clone();
+		clone.name = modelObject.name;
 		clone.id = modelObject.id;
 		// Clone the model
 		this.storageService.add(clone).then(() => this.updateModels());
