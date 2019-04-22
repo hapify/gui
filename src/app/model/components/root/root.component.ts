@@ -8,6 +8,10 @@ import { WebSocketService } from '@app/services/websocket.service';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { MatDialog } from '@angular/material';
 import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
+import { MessageService } from '@app/services/message.service';
+
+declare const navigator: any;
+
 @Component({
 	selector: 'app-model-root',
 	templateUrl: './root.component.html',
@@ -19,7 +23,8 @@ export class RootComponent implements OnInit {
 		private storageService: StorageService,
 		private infoService: InfoService,
 		private webSocketService: WebSocketService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private messageService: MessageService
 	) {}
 
 	private _saveTimeout;
@@ -54,16 +59,26 @@ export class RootComponent implements OnInit {
 	 * Called when the user update the model
 	 */
 	async onClone(model: IModel): Promise<void> {
-		// Get model from CLI
+		// Create a clone
+		const clone = model.clone();
+
+		// Create new model from CLI
 		const modelObject = (await this.webSocketService.send(
 			WebSocketMessages.NEW_MODEL,
 			{
-				name: model.name
+				name: `Copy of ${model.name}`
 			}
 		)) as IModelBase;
-		// Create clone and copy temp id
-		const clone = model.clone();
+
+		// Replace self reference
+		clone.fields
+			.filter(f => f.type === 'entity' && f.reference === clone.id)
+			.forEach(f => (f.reference = modelObject.id));
+
+		// Copy temp id and new name
+		clone.name = modelObject.name;
 		clone.id = modelObject.id;
+
 		// Clone the model
 		this.storageService.add(clone).then(() => this.updateModels());
 	}
@@ -92,6 +107,102 @@ export class RootComponent implements OnInit {
 			// Update the model
 			this.storageService.update(model);
 		}, this.dTime);
+	}
+
+	/** Called when the user copy the model */
+	async onCopy(model: IModel): void {
+		if (navigator.clipboard) {
+			await navigator.clipboard
+				.writeText(JSON.stringify(model.toObject(), null, 2))
+				.then(async () => {
+					this.messageService.info(
+						await this.messageService.translateKey(
+							'clipboard_copy-success',
+							{
+								model: model.name
+							}
+						)
+					);
+				})
+				.catch(error => {
+					this.messageService.error(error);
+				});
+		} else {
+			this.messageService.warning(
+				await this.messageService.translateKey(
+					'clipboard_not_supported'
+				)
+			);
+		}
+	}
+
+	/** Called when the user paste the model */
+	async onPaste(): void {
+		if (navigator.clipboard) {
+			await navigator.clipboard
+				.readText()
+				.then(async text => {
+					// Convert string to model
+					const data: IModelBase = JSON.parse(text);
+					const clone = this.storageService.instance();
+					clone.fromObject(data);
+
+					// Create a new model from CLI
+					const modelObject = (await this.webSocketService.send(
+						WebSocketMessages.NEW_MODEL,
+						{
+							name: clone.name
+						}
+					)) as IModelBase;
+
+					// Replace self reference
+					clone.fields
+						.filter(
+							f => f.type === 'entity' && f.reference === clone.id
+						)
+						.forEach(f => (f.reference = modelObject.id));
+
+					// Remove non-existing references
+					const fieldsIds = (await this.storageService.list()).map(
+						m => m.id
+					);
+					fieldsIds.push(modelObject.id);
+					clone.fields
+						.filter(
+							f =>
+								f.type === 'entity' &&
+								!fieldsIds.includes(f.reference)
+						)
+						.forEach(f => (f.reference = null));
+
+					// Copy new id
+					clone.id = modelObject.id;
+
+					// Clone the model
+					await this.storageService.add(clone);
+					await this.updateModels();
+					return clone;
+				})
+				.then(async (model: IModel) => {
+					this.messageService.info(
+						await this.messageService.translateKey(
+							'clipboard_paste-success',
+							{
+								model: model.name
+							}
+						)
+					);
+				})
+				.catch(error => {
+					this.messageService.error(error);
+				});
+		} else {
+			this.messageService.warning(
+				await this.messageService.translateKey(
+					'clipboard_not-supported'
+				)
+			);
+		}
 	}
 
 	/**

@@ -37,7 +37,7 @@
 					"
 					type="button"
 				>
-					<mat-icon>info</mat-icon>
+					<mat-icon>info_outline</mat-icon>
 				</button>
 				<button
 					mat-icon-button
@@ -59,6 +59,10 @@
 					<button mat-menu-item (click)="clone.emit()" type="button">
 						<mat-icon>filter_none</mat-icon>
 						{{ 'model_duplicate' | translate }}
+					</button>
+					<button mat-menu-item (click)="copy.emit()" type="button">
+						<mat-icon>file_copy_outline</mat-icon>
+						{{ 'model_copy_clipboard' | translate }}
 					</button>
 					<button
 						mat-menu-item

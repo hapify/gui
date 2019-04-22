@@ -107,5 +107,9 @@
 	"tooltip_embedded": "Is it an embedded data?",
 	"tooltip_hidden": "Is it hidden?",
 	"notes_title": "Notes",
-	"notes_placeholder": ""
+	"model_copy_clipboard": "Copy",
+	"common_paste_model": "Paste from clipboard",
+	"clipboard_copy-success": "Model {{model}} copied to clipboard",
+	"clipboard_not-supported": "Cannot access clipboard",
+	"clipboard_paste-success": "Model {{model}} pasted from clipboard"
 }

@@ -39,6 +39,7 @@
 							"
 							(save)="onSave(model)"
 							(clone)="onClone(model)"
+							(copy)="onCopy(model)"
 							(delete)="onDelete(model)"
 						></app-model-model>
 					</div>
@@ -48,7 +49,7 @@
 					*ngIf="modelsAreLoaded"
 				>
 					<div
-						class="newModelCallToAction border border-hpf-primary p-5 d-flex w-100 align-items-center justify-content-center"
+						class="newModelCallToAction border border-hpf-primary p-5 d-flex w-100 align-items-center justify-content-center flex-column"
 					>
 						<div
 							class="d-flex flex-nowrap align-items-center w-75 justify-content-center"
@@ -70,12 +71,21 @@
 						<button
 							mat-raised-button
 							color="accent"
-							class="mat-elevation-z0 border my-5 d-inline-flex align-items-center"
+							class="mat-elevation-z0 border mt-5 d-inline-flex align-items-center"
 							(click)="addingNewModel = true"
 							*ngIf="!addingNewModel"
 						>
 							<mat-icon>add</mat-icon>
 							{{ 'common_new_model' | translate }}
+						</button>
+						<button
+							mat-raised-button
+							class="mat-elevation-z0 border mt-2 mb-5 d-inline-flex align-items-center"
+							(click)="onPaste()"
+							*ngIf="!addingNewModel"
+						>
+							<mat-icon>save_alt</mat-icon>
+							{{ 'common_paste_model' | translate }}
 						</button>
 					</div>
 				</li>
@@ -83,3 +93,12 @@
 		</div>
 	</section>
 </main>
+
+<!--
+      DO NOT REMOVE
+    <span class="d-none">
+        {{ 'clipboard_not-supported' | translate }}
+        {{ 'clipboard_copy-success' | translate }}
+        {{ 'clipboard_paste-success' | translate }}
+    </span>
+-->
