@@ -59,17 +59,26 @@ export class RootComponent implements OnInit {
 	 * Called when the user update the model
 	 */
 	async onClone(model: IModel): Promise<void> {
-		// Get model from CLI
+		// Create a clone
+		const clone = model.clone();
+
+		// Create new model from CLI
 		const modelObject = (await this.webSocketService.send(
 			WebSocketMessages.NEW_MODEL,
 			{
 				name: `Copy of ${model.name}`
 			}
 		)) as IModelBase;
-		// Create clone and copy temp id
-		const clone = model.clone();
+
+		// Replace self reference
+		clone.fields
+			.filter(f => f.type === 'entity' && f.reference === clone.id)
+			.forEach(f => (f.reference = modelObject.id));
+
+		// Copy temp id and new name
 		clone.name = modelObject.name;
 		clone.id = modelObject.id;
+
 		// Clone the model
 		this.storageService.add(clone).then(() => this.updateModels());
 	}
@@ -133,17 +142,42 @@ export class RootComponent implements OnInit {
 			await navigator.clipboard
 				.readText()
 				.then(async text => {
+					// Convert string to model
 					const data: IModelBase = JSON.parse(text);
 					const clone = this.storageService.instance();
 					clone.fromObject(data);
-					// Get model from CLI
+
+					// Create a new model from CLI
 					const modelObject = (await this.webSocketService.send(
 						WebSocketMessages.NEW_MODEL,
 						{
 							name: clone.name
 						}
 					)) as IModelBase;
+
+					// Replace self reference
+					clone.fields
+						.filter(
+							f => f.type === 'entity' && f.reference === clone.id
+						)
+						.forEach(f => (f.reference = modelObject.id));
+
+					// Remove non-existing references
+					const fieldsIds = (await this.storageService.list()).map(
+						m => m.id
+					);
+					fieldsIds.push(modelObject.id);
+					clone.fields
+						.filter(
+							f =>
+								f.type === 'entity' &&
+								!fieldsIds.includes(f.reference)
+						)
+						.forEach(f => (f.reference = null));
+
+					// Copy new id
 					clone.id = modelObject.id;
+
 					// Clone the model
 					await this.storageService.add(clone);
 					await this.updateModels();
