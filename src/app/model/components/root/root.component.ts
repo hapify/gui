@@ -30,6 +30,7 @@ export class RootComponent implements OnInit {
 	private _saveTimeout;
 	dTime = environment.debounceTime;
 	public models: IModel[];
+	public visibleModels: IModel[];
 	public currentModel: IModel;
 	public info: IInfo;
 
@@ -37,6 +38,8 @@ export class RootComponent implements OnInit {
 	modelsAreLoaded = false;
 	/** Used new model atom to toggle */
 	addingNewModel = false;
+	/** Current filter for models */
+	modelFilter: string;
 
 	/**
 	 * @inheritDoc
@@ -213,7 +216,18 @@ export class RootComponent implements OnInit {
 	async updateModels(): Promise<void> {
 		this.modelsAreLoaded = false;
 		this.models = await this.storageService.list();
+		this.updateVisibleModels();
 		this.modelsAreLoaded = true;
 		this.addingNewModel = false;
+	}
+	/** Denotes if the model should be shown regarding the active filter */
+	updateVisibleModels(): void {
+		if (!this.modelFilter) {
+			this.visibleModels = this.models;
+			return;
+		}
+		this.visibleModels = this.models.filter(m =>
+			m.name.toLowerCase().includes(this.modelFilter.toLowerCase())
+		);
 	}
 }

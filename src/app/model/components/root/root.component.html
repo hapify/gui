@@ -3,17 +3,32 @@
 		(newModel)="onCreate($event)"
 		(newImport)="updateModels()"
 	></app-header>
-	<section class="row px-4 py-5">
+	<section class="row px-4 pb-5 pt-3">
 		<div
 			class="col-12 d-flex justify-content-center my-5"
 			*ngIf="!modelsAreLoaded"
 		>
 			<mat-spinner [diameter]="32"></mat-spinner>
 		</div>
+		<div class="col-12" *ngIf="modelsAreLoaded">
+			<div class="mb-3">
+				<mat-form-field class="w-100">
+					<input
+						matInput
+						[(ngModel)]="modelFilter"
+						(keyup)="updateVisibleModels()"
+						(keyup.esc)="modelFilter = ''; updateVisibleModels()"
+						autocomplete="off"
+						placeholder="{{ 'common_model_search' | translate }}"
+					/>
+					<mat-icon matSuffix>search</mat-icon>
+				</mat-form-field>
+			</div>
+		</div>
 		<div class="col-12">
 			<ul class="row list-unstyled">
 				<li
-					*ngFor="let model of models"
+					*ngFor="let model of visibleModels"
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
 				>
 					<div

@@ -111,5 +111,6 @@
 	"common_paste_model": "common_paste_model",
 	"clipboard_copy-success": "clipboard_copy-success",
 	"clipboard_not-supported": "clipboard_not-supported",
-	"clipboard_paste-success": "clipboard_paste-success"
+	"clipboard_paste-success": "clipboard_paste-success",
+	"common_model_search": "common_model_search"
 }

@@ -111,5 +111,6 @@
 	"common_paste_model": "Paste from clipboard",
 	"clipboard_copy-success": "Model {{model}} copied to clipboard",
 	"clipboard_not-supported": "Cannot access clipboard",
-	"clipboard_paste-success": "Model {{model}} pasted from clipboard"
+	"clipboard_paste-success": "Model {{model}} pasted from clipboard",
+	"common_model_search": "Search models"
 }
