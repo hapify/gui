@@ -108,7 +108,8 @@
 	"tooltip_hidden": "Ce champs n'est pas visible ?",
 	"notes_title": "Notes",
 	"model_copy_clipboard": "Copier",
-	"clipboard_not_supported": "Presse-papier non supporté",
-	"clipboard_success": "Modèle {{model}} copié dans le presse-papier",
-	"common_paste_model": "Coller depuis le presse-papier"
+	"common_paste_model": "Coller depuis le presse-papier",
+	"clipboard_copy-success": "Modèle {{model}} copié dans le presse-papier",
+	"clipboard_not-supported": "Presse-papier non supporté",
+	"clipboard_paste-success": "Modèle {{model}} collé depuis le presse-papier"
 }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AlertModule, TooltipModule } from 'ngx-bootstrap';
-import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModuleLoad } from '../translate-import';
 import { ValidatorIconComponent } from '../validator/components/validator-icon/validator-icon.component';
 import { ValidatorDetailsComponent } from '../validator/components/validator-details/validator-details.component';
@@ -35,8 +34,7 @@ import { MessageService } from '@app/services/message.service';
 		TooltipModule.forRoot(),
 		AlertModule.forRoot(),
 		SharedModule,
-		PresetModule,
-		ClipboardModule
+		PresetModule
 	],
 	declarations: [
 		ModelComponent,

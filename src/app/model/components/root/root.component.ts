@@ -9,7 +9,8 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { MatDialog } from '@angular/material';
 import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
 import { MessageService } from '@app/services/message.service';
-import { ClipboardService } from 'ngx-clipboard';
+
+declare const navigator: any;
 
 @Component({
 	selector: 'app-model-root',
@@ -23,8 +24,7 @@ export class RootComponent implements OnInit {
 		private infoService: InfoService,
 		private webSocketService: WebSocketService,
 		private dialog: MatDialog,
-		private messageService: MessageService,
-		private clipboardService: ClipboardService
+		private messageService: MessageService
 	) {}
 
 	private _saveTimeout;
@@ -101,15 +101,22 @@ export class RootComponent implements OnInit {
 
 	/** Called when the user copy the model */
 	async onCopy(model: IModel): void {
-		if (this.clipboardService.isSupported) {
-			this.clipboardService.copyFromContent(
-				JSON.stringify(model.toObject(), null, 2)
-			);
-			this.messageService.info(
-				await this.messageService.translateKey('clipboard_success', {
-					model: model.name
+		if (navigator.clipboard) {
+			await navigator.clipboard
+				.writeText(JSON.stringify(model.toObject(), null, 2))
+				.then(async () => {
+					this.messageService.info(
+						await this.messageService.translateKey(
+							'clipboard_copy-success',
+							{
+								model: model.name
+							}
+						)
+					);
 				})
-			);
+				.catch(error => {
+					this.messageService.error(error);
+				});
 		} else {
 			this.messageService.warning(
 				await this.messageService.translateKey(
@@ -120,7 +127,48 @@ export class RootComponent implements OnInit {
 	}
 
 	/** Called when the user paste the model */
-	async onPaste(): void {}
+	async onPaste(): void {
+		if (navigator.clipboard) {
+			await navigator.clipboard
+				.readText()
+				.then(async text => {
+					const data: IModelBase = JSON.parse(text);
+					const clone = this.storageService.instance();
+					clone.fromObject(data);
+					// Get model from CLI
+					const modelObject = (await this.webSocketService.send(
+						WebSocketMessages.NEW_MODEL,
+						{
+							name: clone.name
+						}
+					)) as IModelBase;
+					clone.id = modelObject.id;
+					// Clone the model
+					await this.storageService.add(clone);
+					await this.updateModels();
+					return clone;
+				})
+				.then(async (model: IModel) => {
+					this.messageService.info(
+						await this.messageService.translateKey(
+							'clipboard_paste-success',
+							{
+								model: model.name
+							}
+						)
+					);
+				})
+				.catch(error => {
+					this.messageService.error(error);
+				});
+		} else {
+			this.messageService.warning(
+				await this.messageService.translateKey(
+					'clipboard_not-supported'
+				)
+			);
+		}
+	}
 
 	/**
 	 * Update models with storage
