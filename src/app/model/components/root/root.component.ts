@@ -9,6 +9,7 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { MatDialog } from '@angular/material';
 import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
 import { MessageService } from '@app/services/message.service';
+import { Model } from '../../classes/model';
 
 declare const navigator: any;
 
@@ -144,7 +145,7 @@ export class RootComponent implements OnInit {
 				.then(async text => {
 					// Convert string to model
 					const data: IModelBase = JSON.parse(text);
-					const clone = this.storageService.instance();
+					const clone = new Model();
 					clone.fromObject(data);
 
 					// Create a new model from CLI
