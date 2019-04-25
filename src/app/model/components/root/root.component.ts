@@ -9,6 +9,7 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { MatDialog } from '@angular/material';
 import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
 import { MessageService } from '@app/services/message.service';
+import { Model } from '../../classes/model';
 
 declare const navigator: any;
 
@@ -113,7 +114,7 @@ export class RootComponent implements OnInit {
 	}
 
 	/** Called when the user copy the model */
-	async onCopy(model: IModel): Promse<void> {
+	async onCopy(model: IModel): Promise<void> {
 		if (navigator.clipboard) {
 			await navigator.clipboard
 				.writeText(JSON.stringify(model.toObject(), null, 2))
@@ -140,14 +141,14 @@ export class RootComponent implements OnInit {
 	}
 
 	/** Called when the user paste the model */
-	async onPaste(): Promse<void> {
+	async onPaste(): Promise<void> {
 		if (navigator.clipboard) {
 			await navigator.clipboard
 				.readText()
 				.then(async text => {
 					// Convert string to model
 					const data: IModelBase = JSON.parse(text);
-					const clone = this.storageService.instance();
+					const clone = new Model();
 					clone.fromObject(data);
 
 					// Create a new model from CLI

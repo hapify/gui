@@ -7,6 +7,7 @@
 -   Handle scenarios.
 -   Add copy/paste feature
 -   Add notes for model and fields
+-   Confirm exit editor with unsaved changes
 
 ### Changed
 
