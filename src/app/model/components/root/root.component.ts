@@ -110,7 +110,7 @@ export class RootComponent implements OnInit {
 	}
 
 	/** Called when the user copy the model */
-	async onCopy(model: IModel): Promse<void> {
+	async onCopy(model: IModel): Promise<void> {
 		if (navigator.clipboard) {
 			await navigator.clipboard
 				.writeText(JSON.stringify(model.toObject(), null, 2))
@@ -137,7 +137,7 @@ export class RootComponent implements OnInit {
 	}
 
 	/** Called when the user paste the model */
-	async onPaste(): Promse<void> {
+	async onPaste(): Promise<void> {
 		if (navigator.clipboard) {
 			await navigator.clipboard
 				.readText()
