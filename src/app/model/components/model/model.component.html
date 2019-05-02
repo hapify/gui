@@ -32,12 +32,16 @@
 					mat-icon-button
 					matTooltip="{{ 'notes_title' | translate }}"
 					(click)="togglePanel('notes')"
-					[color]="
-						notesPanelIsDisplayed || model.notes ? 'primary' : ''
-					"
+					[color]="notesPanelIsDisplayed ? 'primary' : ''"
 					type="button"
+					matBadge="1"
+					[matBadgeHidden]="!model.notes"
+					matBadgePosition="after"
+					matBadgeColor="primary"
+					matBadgeSize="small"
+					matBadgeOverlap="true"
 				>
-					<mat-icon>info_outline</mat-icon>
+					<mat-icon>speaker_notes</mat-icon>
 				</button>
 				<button
 					mat-icon-button

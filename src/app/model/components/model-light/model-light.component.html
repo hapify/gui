@@ -17,9 +17,14 @@
 				<button
 					mat-icon-button
 					type="button"
-					[color]="model.notes ? 'primary' : ''"
+					matBadge="1"
+					[matBadgeHidden]="!model.notes"
+					matBadgePosition="after"
+					matBadgeColor="primary"
+					matBadgeSize="small"
+					matBadgeOverlap="true"
 				>
-					<mat-icon>info_outline</mat-icon>
+					<mat-icon>speaker_notes</mat-icon>
 				</button>
 				<button mat-icon-button type="button">
 					<mat-icon>delete_sweep</mat-icon>
