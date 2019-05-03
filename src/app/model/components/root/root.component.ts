@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 import { DialogPremiumComponent } from '@app/components/common/dialog-premium/dialog-premium.component';
 import { MessageService } from '@app/services/message.service';
 import { Model } from '../../classes/model';
+import { FieldType } from '../../classes/field-type';
 
 declare const navigator: any;
 
@@ -39,8 +40,12 @@ export class RootComponent implements OnInit {
 	modelsAreLoaded = false;
 	/** Used new model atom to toggle */
 	addingNewModel = false;
-	/** Current filter for models */
-	modelFilter: string;
+	/** Current filter by name */
+	nameFilter: string;
+	/** Current filter by field */
+	fieldFilter: string;
+	/** Current filter by link */
+	linkFilter: string;
 
 	/**
 	 * @inheritDoc
@@ -223,12 +228,38 @@ export class RootComponent implements OnInit {
 	}
 	/** Denotes if the model should be shown regarding the active filter */
 	updateVisibleModels(): void {
-		if (!this.modelFilter) {
-			this.visibleModels = this.models;
-			return;
-		}
-		this.visibleModels = this.models.filter(m =>
-			m.name.toLowerCase().includes(this.modelFilter.toLowerCase())
-		);
+		this.visibleModels = this.models
+			// Name filter
+			.filter(m => {
+				if (!this.nameFilter) return true;
+				return m.name
+					.toLowerCase()
+					.includes(this.nameFilter.toLowerCase());
+			})
+			// Field filter
+			.filter(m => {
+				if (!this.fieldFilter) return true;
+
+				const fields = m.fields.map(f => f.name.toLowerCase());
+				const filter = this.fieldFilter.toLowerCase();
+
+				for (const field of fields) {
+					if (field.includes(filter)) {
+						return true;
+					}
+				}
+				return false;
+			})
+			// Link filter
+			.filter(m => {
+				if (!this.linkFilter) return true;
+
+				const references = m.fields
+					.filter(f => f.type === FieldType.Entity)
+					.map(f => f.reference)
+					.filter(r => r);
+
+				return references.includes(this.linkFilter);
+			});
 	}
 }
