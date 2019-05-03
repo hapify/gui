@@ -54,6 +54,10 @@ mat-icon.inactive {
 	width: 400px;
 	right: -32px;
 
+	&.notesTooltip {
+		left: -170px;
+	}
+
 	&.active {
 		pointer-events: initial;
 		opacity: 1;

@@ -2,7 +2,7 @@
 	<div class="col-5 ellipsis">{{ field.name }}</div>
 	<div class="col-1">
 		<div class="notes" *ngIf="field.notes">
-			<mat-icon color="primary" [inline]="true">info</mat-icon>
+			<mat-icon color="primary" [inline]="true">speaker_notes</mat-icon>
 		</div>
 	</div>
 	<div
@@ -37,7 +37,20 @@
 
 		<div class="d-flex align-items-center position-relative">
 			<ul
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center deletionMode"
+				[class.d-none]="!deletionMode"
+				[class.d-flex]="deletionMode"
+			>
+				<li>
+					<mat-icon [inline]="true" color="warn">
+						remove_circle
+					</mat-icon>
+				</li>
+			</ul>
+			<ul
 				class="list-unstyled m-0 p-0 flex-nowrap align-items-center selectedFields d-flex"
+				[class.d-none]="deletionMode"
+				[class.d-flex]="!deletionMode"
 			>
 				<li *ngFor="let pi of filteredPropertiesIcons">
 					<mat-icon [inline]="true">{{ pi.icon }}</mat-icon>

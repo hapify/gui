@@ -3,17 +3,64 @@
 		(newModel)="onCreate($event)"
 		(newImport)="updateModels()"
 	></app-header>
-	<section class="row px-4 py-5">
+	<section class="row px-4 pb-5 pt-3">
 		<div
 			class="col-12 d-flex justify-content-center my-5"
 			*ngIf="!modelsAreLoaded"
 		>
 			<mat-spinner [diameter]="32"></mat-spinner>
 		</div>
+		<div class="col-12" *ngIf="modelsAreLoaded">
+			<div class="row mb-2">
+				<mat-form-field class="col-12 col-md-4">
+					<input
+						matInput
+						[(ngModel)]="nameFilter"
+						(keyup)="updateVisibleModels()"
+						(keyup.esc)="nameFilter = null; updateVisibleModels()"
+						autocomplete="off"
+						placeholder="{{
+							'common_model_filter-name' | translate
+						}}"
+					/>
+					<mat-icon matSuffix>search</mat-icon>
+				</mat-form-field>
+				<mat-form-field class="col-12 col-md-4">
+					<input
+						matInput
+						[(ngModel)]="fieldFilter"
+						(keyup)="updateVisibleModels()"
+						(keyup.esc)="fieldFilter = null; updateVisibleModels()"
+						autocomplete="off"
+						placeholder="{{
+							'common_model_filter-field' | translate
+						}}"
+					/>
+					<mat-icon matSuffix>search</mat-icon>
+				</mat-form-field>
+				<mat-form-field class="col-12 col-md-4">
+					<mat-select
+						[(ngModel)]="linkFilter"
+						(selectionChange)="updateVisibleModels()"
+						(keyup.esc)="linkFilter = null; updateVisibleModels()"
+						[placeholder]="'common_model_filter-ref' | translate"
+					>
+						<mat-option [value]="null">{{
+							'common_model_filter-ref-none' | translate
+						}}</mat-option>
+						<mat-option
+							*ngFor="let model of models"
+							[value]="model.id"
+							>{{ model.name }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
 		<div class="col-12">
 			<ul class="row list-unstyled">
 				<li
-					*ngFor="let model of models"
+					*ngFor="let model of visibleModels"
 					class="col-12 col-md-6 col-lg-6 col-xl-4 mb-4"
 				>
 					<div
