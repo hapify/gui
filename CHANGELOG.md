@@ -8,6 +8,7 @@
 -   Add copy/paste feature
 -   Add notes for model and fields
 -   Confirm exit editor with unsaved changes
+-   Add filters on model view
 
 ### Changed
 
