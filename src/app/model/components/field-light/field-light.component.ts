@@ -19,6 +19,8 @@ export class FieldLightComponent implements OnInit {
 	/** Constructor */
 	constructor() {}
 
+	/** @type {boolean} Rows deletion mode */
+	@Input() deletionMode = false;
 	/** @type {IModel[]} Available Models */
 	@Input() models: IModel[];
 	/** @type {IField} New field instance */
