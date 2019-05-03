@@ -11,8 +11,8 @@
 			<mat-spinner [diameter]="32"></mat-spinner>
 		</div>
 		<div class="col-12" *ngIf="modelsAreLoaded">
-			<div class="row">
-				<mat-form-field class="col-12 col-md-4 mb-3">
+			<div class="row mb-2">
+				<mat-form-field class="col-12 col-md-4">
 					<input
 						matInput
 						[(ngModel)]="nameFilter"
@@ -25,7 +25,7 @@
 					/>
 					<mat-icon matSuffix>search</mat-icon>
 				</mat-form-field>
-				<mat-form-field class="col-12 col-md-4 mb-3">
+				<mat-form-field class="col-12 col-md-4">
 					<input
 						matInput
 						[(ngModel)]="fieldFilter"
@@ -38,7 +38,7 @@
 					/>
 					<mat-icon matSuffix>search</mat-icon>
 				</mat-form-field>
-				<mat-form-field class="col-12 col-md-4 mb-3">
+				<mat-form-field class="col-12 col-md-4">
 					<mat-select
 						[(ngModel)]="linkFilter"
 						(selectionChange)="updateVisibleModels()"
