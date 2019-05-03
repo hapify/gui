@@ -11,50 +11,70 @@
 			<mat-spinner [diameter]="32"></mat-spinner>
 		</div>
 		<div class="col-12" *ngIf="modelsAreLoaded">
-			<div class="row mb-2">
-				<mat-form-field class="col-12 col-md-4">
-					<input
-						matInput
-						[(ngModel)]="nameFilter"
-						(keyup)="updateVisibleModels()"
-						(keyup.esc)="nameFilter = null; updateVisibleModels()"
-						autocomplete="off"
-						placeholder="{{
-							'common_model_filter-name' | translate
-						}}"
-					/>
-					<mat-icon matSuffix>search</mat-icon>
-				</mat-form-field>
-				<mat-form-field class="col-12 col-md-4">
-					<input
-						matInput
-						[(ngModel)]="fieldFilter"
-						(keyup)="updateVisibleModels()"
-						(keyup.esc)="fieldFilter = null; updateVisibleModels()"
-						autocomplete="off"
-						placeholder="{{
-							'common_model_filter-field' | translate
-						}}"
-					/>
-					<mat-icon matSuffix>search</mat-icon>
-				</mat-form-field>
-				<mat-form-field class="col-12 col-md-4">
-					<mat-select
-						[(ngModel)]="linkFilter"
-						(selectionChange)="updateVisibleModels()"
-						(keyup.esc)="linkFilter = null; updateVisibleModels()"
-						[placeholder]="'common_model_filter-ref' | translate"
-					>
-						<mat-option [value]="null">{{
-							'common_model_filter-ref-none' | translate
-						}}</mat-option>
-						<mat-option
-							*ngFor="let model of models"
-							[value]="model.id"
-							>{{ model.name }}</mat-option
-						>
-					</mat-select>
-				</mat-form-field>
+			<div class="row mb-3 filters">
+				<div class="col-12 col-lg-6 offset-0 offset-lg-6">
+					<div class="small">
+						<div class="row">
+							<mat-form-field class="col-12 col-md-4">
+								<input
+									matInput
+									[(ngModel)]="nameFilter"
+									(keyup)="updateVisibleModels()"
+									(keyup.esc)="
+										nameFilter = null; updateVisibleModels()
+									"
+									autocomplete="off"
+									placeholder="{{
+										'common_model_filter-name' | translate
+									}}"
+								/>
+								<mat-icon matSuffix [inline]="true"
+									>search</mat-icon
+								>
+							</mat-form-field>
+							<mat-form-field class="col-12 col-md-4">
+								<input
+									matInput
+									[(ngModel)]="fieldFilter"
+									(keyup)="updateVisibleModels()"
+									(keyup.esc)="
+										fieldFilter = null;
+										updateVisibleModels()
+									"
+									autocomplete="off"
+									placeholder="{{
+										'common_model_filter-field' | translate
+									}}"
+								/>
+								<mat-icon matSuffix [inline]="true"
+									>search</mat-icon
+								>
+							</mat-form-field>
+							<mat-form-field class="col-12 col-md-4">
+								<mat-select
+									[(ngModel)]="linkFilter"
+									(selectionChange)="updateVisibleModels()"
+									(keyup.esc)="
+										linkFilter = null; updateVisibleModels()
+									"
+									[placeholder]="
+										'common_model_filter-ref' | translate
+									"
+								>
+									<mat-option [value]="null">{{
+										'common_model_filter-ref-none'
+											| translate
+									}}</mat-option>
+									<mat-option
+										*ngFor="let model of models"
+										[value]="model.id"
+										>{{ model.name }}</mat-option
+									>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="col-12">
