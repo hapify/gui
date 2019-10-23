@@ -139,7 +139,7 @@ export class RootComponent implements OnInit {
 		} else {
 			this.messageService.warning(
 				await this.messageService.translateKey(
-					'clipboard_not_supported'
+					'clipboard_not-supported'
 				)
 			);
 		}
