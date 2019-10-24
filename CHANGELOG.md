@@ -23,6 +23,8 @@
 
 ### Removed
 
+-   Remove model copy keyboard shortcut
+
 ## [0.3.0] - 2018-11-15
 
 ### Added
