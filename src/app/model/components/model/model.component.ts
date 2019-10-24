@@ -11,6 +11,7 @@ import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Field } from '@app/model/classes/field';
 import { ModelLightComponent } from '../model-light/model-light.component';
+import { IField } from '@app/model/interfaces/field';
 
 interface IAccessValue {
 	selected: boolean;
@@ -56,14 +57,18 @@ export class ModelComponent extends ModelLightComponent
 	@Output() change = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify cloning */
 	@Output() clone = new EventEmitter<void>();
+	/** @type {EventEmitter<void>} Notify copy. Cannot be called copy, otherwise it will be called on Meta+C */
+	@Output() copyModel = new EventEmitter<void>();
 	/** @type {EventEmitter<void>} Notify deletion */
 	@Output() delete = new EventEmitter<void>();
 	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** @type {IActionValue[]} List available actions */
 	actions: IActionValue[] = [];
+	public currentField: IField;
 
-	accessRightsPannelIsDisplayed = false;
+	accessRightsPanelIsDisplayed = false;
+	notesPanelIsDisplayed = false;
 	cleanRows = false;
 	confirmModelDeletion = false;
 
@@ -83,6 +88,13 @@ export class ModelComponent extends ModelLightComponent
 		);
 		// Get available actions
 		this.updateActions();
+	}
+
+	togglePanel(panel: 'notes' | 'access') {
+		this.accessRightsPanelIsDisplayed =
+			panel === 'access' && !this.accessRightsPanelIsDisplayed;
+		this.notesPanelIsDisplayed =
+			panel === 'notes' && !this.notesPanelIsDisplayed;
 	}
 
 	/**

@@ -30,14 +30,18 @@ mat-card {
 			cursor: grabbing;
 		}
 	}
-
 	&:hover {
+		background-color: transparent;
+	}
+
+	&.active {
 		background-color: $gray-100;
 		.dndHandler {
 			opacity: 1;
 		}
 	}
 }
+
 input[type='text'] {
 	&:focus {
 		color: mat-color($hpf-app-primary);
@@ -52,14 +56,14 @@ input[type='text'] {
 		cursor: default;
 	}
 }
-
 ::ng-deep {
 	.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
 		line-height: 32px !important;
 	}
 }
 
-.accessRights {
+.accessRights,
+.notes {
 	font-size: 0.9em;
 	background-color: mat-color($hpf-app-primary, 50, 0.3);
 	h4 {
@@ -70,6 +74,8 @@ input[type='text'] {
 		text-transform: uppercase;
 		text-align: center;
 	}
+}
+.accessRights {
 	mat-button-toggle {
 		background-color: transparent;
 		width: inherit;
@@ -136,4 +142,8 @@ input[type='text'] {
 .cdk-drop-list-dragging * *,
 .cdk-drop-list-dragging * * * {
 	cursor: grabbing !important;
+}
+
+.mat-badge-content {
+	transition: none !important;
 }

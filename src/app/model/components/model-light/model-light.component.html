@@ -14,6 +14,18 @@
 				<button mat-icon-button type="button">
 					<mat-icon>fingerprint</mat-icon>
 				</button>
+				<button
+					mat-icon-button
+					type="button"
+					matBadge="1"
+					[matBadgeHidden]="!model.notes"
+					matBadgePosition="after"
+					matBadgeColor="primary"
+					matBadgeSize="small"
+					matBadgeOverlap="true"
+				>
+					<mat-icon>speaker_notes</mat-icon>
+				</button>
 				<button mat-icon-button type="button">
 					<mat-icon>delete_sweep</mat-icon>
 				</button>

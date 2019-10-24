@@ -4,7 +4,19 @@
 
 ### Added
 
+### Changed
+
+### Removed
+
+## [0.4.1] - 2019-10-24
+
+### Added
+
 -   Handle scenarios.
+-   Add copy/paste feature
+-   Add notes for model and fields
+-   Confirm exit editor with unsaved changes
+-   Add filters on model view
 
 ### Changed
 
@@ -14,8 +26,12 @@
 -   Add type `string:url`
 -   Add type `object`
 -   Add type `file` with sub-types `image`, `video`, `audio` and `document`
+-   Handle self references while duplicating model
+-   Prefix name while duplicating model
 
 ### Removed
+
+-   Remove model copy keyboard shortcut
 
 ## [0.3.0] - 2018-11-15
 

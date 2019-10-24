@@ -25,6 +25,7 @@ export class FieldComponent extends FieldLightComponent
 
 	isTypesTooltipDisplayed = false;
 	isSubtypesTooltipDisplayed = false;
+	isNotesTooltipDisplayed = false;
 
 	fieldOvered = 'generic';
 	isFieldsTooltipDisplayed = false;

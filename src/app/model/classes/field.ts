@@ -9,6 +9,8 @@ export class Field implements IField {
 
 	/** @inheritDoc */
 	public name = '';
+	/** @type {string} The field's notes */
+	public notes: string;
 	/** @inheritDoc */
 	public type = FieldType.String;
 	/** @inheritDoc */
@@ -43,6 +45,7 @@ export class Field implements IField {
 	/** @inheritDoc */
 	public fromObject(object: IFieldBase): void {
 		this.name = object.name;
+		this.notes = object.notes || null;
 		this.type = object.type;
 		this.subtype = object.subtype;
 		this.reference = object.reference;
@@ -64,6 +67,7 @@ export class Field implements IField {
 	public toObject(): IFieldBase {
 		return {
 			name: this.name,
+			notes: this.notes || null,
 			type: this.type,
 			subtype: this.subtype,
 			reference: this.type === FieldType.Entity ? this.reference : null,

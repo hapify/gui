@@ -78,6 +78,14 @@ export class MessageService {
 		console.log(message);
 	}
 
+	/** Helper to translate key */
+	translateKey(
+		key: string | Array<string>,
+		interpolateParams?: Object
+	): Promise<string> {
+		return this.translateService.get(key, interpolateParams).toPromise();
+	}
+
 	/** Show the snackbar with the message */
 	private _show(message: string, level: MessageLevel): void {
 		this.translateService

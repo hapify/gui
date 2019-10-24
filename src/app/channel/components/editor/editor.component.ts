@@ -153,7 +153,9 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 	/** Called when the user click on close */
 	didClickClose() {
-		this.close.emit();
+		if (!this.unsavedChanges || confirm(this.beforeUnloadWarning)) {
+			this.close.emit();
+		}
 	}
 	/**
 	 * Runs the content generation
