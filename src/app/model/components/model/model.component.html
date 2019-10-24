@@ -64,7 +64,11 @@
 						<mat-icon>filter_none</mat-icon>
 						{{ 'model_duplicate' | translate }}
 					</button>
-					<button mat-menu-item (click)="copy.emit()" type="button">
+					<button
+						mat-menu-item
+						(click)="copyModel.emit()"
+						type="button"
+					>
 						<mat-icon>file_copy_outline</mat-icon>
 						{{ 'model_copy_clipboard' | translate }}
 					</button>
