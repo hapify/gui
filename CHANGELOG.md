@@ -4,6 +4,14 @@
 
 ### Added
 
+### Changed
+
+### Removed
+
+## [0.4.1] - 2019-10-24
+
+### Added
+
 -   Handle scenarios.
 -   Add copy/paste feature
 -   Add notes for model and fields
