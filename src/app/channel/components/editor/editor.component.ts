@@ -61,7 +61,17 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** Error codes to display in editor */
-	private handledCodes = [1003, 1004, 1005, 2004, 2005];
+	private handledCodes = [
+		1003,
+		1004,
+		1005,
+		2004,
+		2005,
+		6001,
+		6002,
+		6003,
+		6004
+	];
 	/** Left editor */
 	@ViewChild('editorInput') editorInput;
 	/** Constructor */
