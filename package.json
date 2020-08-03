@@ -1,5 +1,5 @@
 {
-	"name": "hapify-cli-console",
+	"name": "hapify-gui",
 	"version": "0.4.1",
 	"license": "MIT",
 	"scripts": {

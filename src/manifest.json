@@ -1,6 +1,6 @@
 {
-	"name": "hapify-cli-console",
-	"short_name": "hapify-cli-console",
+	"name": "hapify-gui",
+	"short_name": "hapify-gui",
 	"theme_color": "#874CC4",
 	"background_color": "#874CC4",
 	"display": "standalone",
