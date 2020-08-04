@@ -34,15 +34,15 @@ export class MessageService {
 	}
 	/** Show info */
 	info(message: string): void {
-		this._show(message, 'info');
+		this.show(message, 'info');
 	}
 	/** Show success */
 	success(message: string): void {
-		this._show(message, 'success');
+		this.show(message, 'success');
 	}
 	/** Show warning */
 	warning(message: string): void {
-		this._show(message, 'warning');
+		this.show(message, 'warning');
 	}
 	/** Handle an error */
 	error(error: Error, asWarning = false): void {
@@ -57,10 +57,10 @@ export class MessageService {
 			const key = `error_code-${error.data.code}`;
 			this.translateService.get(key).subscribe((errorDetails) => {
 				const message = errorDetails !== key && errorDetails.trim().length ? errorDetails : `${error.message}\n${error.data.type}: ${error.data.code}`;
-				this._show(message, asWarning ? 'warning' : 'error');
+				this.show(message, asWarning ? 'warning' : 'error');
 			});
 		} else {
-			this._show(error.message, asWarning ? 'warning' : 'error');
+			this.show(error.message, asWarning ? 'warning' : 'error');
 		}
 		// Dump in console anyway
 		console.error(error);
@@ -76,7 +76,7 @@ export class MessageService {
 	}
 
 	/** Show the snackbar with the message */
-	private _show(message: string, level: MessageLevel): void {
+	private show(message: string, level: MessageLevel): void {
 		this.translateService.get('error_dismiss-action').subscribe((dismissText) => {
 			this.snackBar.open(message, dismissText, {
 				duration: level === 'error' ? this.errorDuration : this.defaultDuration,

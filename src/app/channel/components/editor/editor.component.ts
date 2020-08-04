@@ -105,11 +105,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	 * Bind Ctrl-S inside the editors
 	 */
 	ngAfterViewInit(): void {
-		this.editorInput.getEditor().commands.addCommand(this._getEditorSaveCommand());
+		this.editorInput.getEditor().commands.addCommand(this.getEditorSaveCommand());
 		this.cd.detectChanges();
 	}
 	/** Get the save command for the editors */
-	private _getEditorSaveCommand(): any {
+	private getEditorSaveCommand(): any {
 		return {
 			name: 'saveCommand',
 			bindKey: {
