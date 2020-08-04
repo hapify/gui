@@ -9,7 +9,7 @@ import { Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@ang
 })
 export class ContentEditableModelDirective implements OnInit {
 	@Input('contentEditableModel') model: string;
-	@Input('contentChangeDelay') delay: number = 0;
+	@Input('contentChangeDelay') delay = 0;
 	@Output('contentChange') change = new EventEmitter();
 	@Output('contentBlur') blur = new EventEmitter();
 

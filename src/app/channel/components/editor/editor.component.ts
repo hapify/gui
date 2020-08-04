@@ -172,7 +172,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** Format an error to be displayed */
 	private _formatError(error: Error) {
 		if (this._handledError(error)) {
-			this.error = (<RichError>error).details();
+			this.error = (error as RichError).details();
 		}
 	}
 	/** Format an error to be displayed */

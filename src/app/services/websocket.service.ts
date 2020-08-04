@@ -58,7 +58,7 @@ export class WebSocketService {
 		// Bind events
 		this.ws.onmessage = (event: MessageEvent) => {
 			try {
-				const decoded = <IWebSocketMessage>JSON.parse(event.data);
+				const decoded = JSON.parse(event.data) as IWebSocketMessage;
 				this.messageSubject.next(decoded);
 			} catch (error) {
 				this.messageService.error(error);
@@ -167,7 +167,7 @@ export class WebSocketService {
 		const response = await fetch(this.configService.getWebSocketInfoUrl(), {
 			cache: 'no-store',
 		});
-		return <IWebSocketInfo>await response.json();
+		return (await response.json()) as IWebSocketInfo;
 	}
 
 	/**

@@ -193,12 +193,16 @@ export class RootComponent implements OnInit {
 		this.visibleModels = this.models
 			// Name filter
 			.filter((m) => {
-				if (!this.nameFilter) return true;
+				if (!this.nameFilter) {
+					return true;
+				}
 				return m.name.toLowerCase().includes(this.nameFilter.toLowerCase());
 			})
 			// Field filter
 			.filter((m) => {
-				if (!this.fieldFilter) return true;
+				if (!this.fieldFilter) {
+					return true;
+				}
 
 				const fields = m.fields.map((f) => f.name.toLowerCase());
 				const filter = this.fieldFilter.toLowerCase();
@@ -212,7 +216,9 @@ export class RootComponent implements OnInit {
 			})
 			// Link filter
 			.filter((m) => {
-				if (!this.linkFilter) return true;
+				if (!this.linkFilter) {
+					return true;
+				}
 
 				const references = m.fields
 					.filter((f) => f.type === FieldType.Entity)

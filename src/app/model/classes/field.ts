@@ -49,18 +49,18 @@ export class Field implements IField {
 		this.type = object.type;
 		this.subtype = object.subtype;
 		this.reference = object.reference;
-		this.primary = !!(<any>object.primary);
-		this.unique = !!(<any>object.unique);
-		this.label = !!(<any>object.label);
-		this.nullable = !!(<any>object.nullable);
-		this.multiple = !!(<any>object.multiple);
-		this.embedded = !!(<any>object.embedded);
-		this.searchable = !!(<any>object.searchable);
-		this.sortable = !!(<any>object.sortable);
-		this.hidden = !!(<any>object.hidden);
-		this.internal = !!(<any>object.internal);
-		this.restricted = !!(<any>object.restricted);
-		this.ownership = !!(<any>object.ownership);
+		this.primary = !!(object.primary as any);
+		this.unique = !!(object.unique as any);
+		this.label = !!(object.label as any);
+		this.nullable = !!(object.nullable as any);
+		this.multiple = !!(object.multiple as any);
+		this.embedded = !!(object.embedded as any);
+		this.searchable = !!(object.searchable as any);
+		this.sortable = !!(object.sortable as any);
+		this.hidden = !!(object.hidden as any);
+		this.internal = !!(object.internal as any);
+		this.restricted = !!(object.restricted as any);
+		this.ownership = !!(object.ownership as any);
 	}
 
 	/** @inheritDoc */

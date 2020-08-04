@@ -29,7 +29,7 @@ export class ConfigService {
 	 * @return {string}
 	 */
 	getWebSocketInfoUrl(): string {
-		const uri = <string>environment.cli.wsInfoUri;
+		const uri = environment.cli.wsInfoUri as string;
 		return uri.startsWith('http') ? uri : `${location.protocol}//${location.host}${uri}`;
 	}
 }
