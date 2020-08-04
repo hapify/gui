@@ -19,11 +19,11 @@ export class FieldLightComponent implements OnInit {
 	/** Constructor */
 	constructor() {}
 
-	/** @type {boolean} Rows deletion mode */
+	/** Rows deletion mode */
 	@Input() deletionMode = false;
-	/** @type {IModel[]} Available Models */
+	/** Available Models */
 	@Input() models: IModel[];
-	/** @type {IField} New field instance */
+	/** New field instance */
 	@Input() field: IField;
 	/** Link to FieldType class */
 	fieldType = FieldType;
@@ -48,20 +48,12 @@ export class FieldLightComponent implements OnInit {
 	];
 	filteredPropertiesIcons: IPropertyIcon[] = [];
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 	}
 
-	/**
-	 * Get the model name for an entity reference
-	 *
-	 * @param {IField} field
-	 * @return {string|null}
-	 */
+	/** Get the model name for an entity reference */
 	getModelName(field: IField) {
 		if (field.type !== FieldType.Entity || !this.models) {
 			return null;

@@ -52,7 +52,7 @@ export class TreeComponent implements OnInit {
 		}
 	}
 
-	/** Get File extension*/
+	/** Get File extension */
 	private getType(branch: TreeBranch): string {
 		if (branch.children.length) {
 			return 'folder';

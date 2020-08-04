@@ -13,29 +13,25 @@ import { Subscription } from 'rxjs';
 	styleUrls: ['./validator-details.component.scss'],
 })
 export class ValidatorDetailsComponent implements OnInit, OnDestroy {
-	/** @type {ChannelStorageService} The channel storage service */
+	/** The channel storage service */
 	protected channelStorageService: ChannelStorageService;
-	/** @type {ModelStorageService} The model storage service */
+	/** The model storage service */
 	protected modelStorageService: ModelStorageService;
-	/** @type {ValidatorService} The validator service */
+	/** The validator service */
 	protected validatorService: ValidatorService;
-	/** @type {MessageService} The message service */
+	/** The message service */
 	protected messageService: MessageService;
-	/** @type {IModel} */
 	protected modelValue: IModel;
-	/** @type {IModel[]} */
 	protected models: IModel[];
-	/** @type {IChannel} */
 	protected channelValue: IChannel;
-	/** @type {IChannel[]} */
 	protected channels: IChannel[];
-	/** @type {EventEmitter<void>} Notify changes */
+	/** Notify changes */
 	protected signalSubscription: Subscription;
-	/** @type {boolean} Denotes if the process can be ran */
+	/** Denotes if the process can be ran */
 	protected initialized = false;
-	/** @type {boolean} Denotes if the process is already running */
+	/** Denotes if the process is already running */
 	protected running = false;
-	/** @type {string} Errors & warnings details */
+	/** Errors & warnings details */
 	details: string = null;
 
 	/** Model getter */
@@ -43,26 +39,22 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		return this.modelValue;
 	}
 
-	/** @param val Model setter */
 	@Input()
 	set model(val: IModel) {
 		this.modelValue = val;
 		this.run();
 	}
 
-	/** Channel getter */
 	get channel() {
 		return this.channelValue;
 	}
 
-	/** @param val Channel setter */
 	@Input()
 	set channel(val: IChannel) {
 		this.channelValue = val;
 		this.run();
 	}
 
-	/** @param val Set signal */
 	@Input()
 	set signal(val: EventEmitter<void>) {
 		// Unsubscribe previous
@@ -74,16 +66,10 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	/**
-	 * Constructor
-	 *
-	 * @param {Injector} injector
-	 */
+	/** Constructor */
 	constructor(protected injector: Injector) {}
 
-	/**
-	 * On init
-	 */
+	/** On init */
 	ngOnInit() {
 		// Avoid circular dependency
 		this.channelStorageService = this.injector.get(ChannelStorageService);
@@ -95,9 +81,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		this.run().catch((error) => this.messageService.error(error));
 	}
 
-	/**
-	 * Destroy
-	 */
+	/** Destroy */
 	ngOnDestroy() {
 		if (this.signalSubscription) {
 			this.signalSubscription.unsubscribe();
@@ -126,9 +110,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		return this.models;
 	}
 
-	/**
-	 * Run the process for Models x Channels
-	 */
+	/** Run the process for Models x Channels */
 	protected async run() {
 		// Check if possible
 		if (!this.initialized || this.running) {

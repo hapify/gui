@@ -14,18 +14,10 @@ export class ValidatorService {
 	/** Delay before retry */
 	private lockDelay = 50;
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	constructor(private webSocketService: WebSocketService) {}
 
-	/**
-	 * Run validation on a single model for a single channel
-	 *
-	 * @param {string} script
-	 * @param {IModel} model
-	 * @return {Promise<IValidatorResult>}
-	 */
+	/** Run validation on a single model for a single channel */
 	async run(script: string, model: IModel): Promise<IValidatorResult> {
 		// No script, no error
 		if (typeof script === 'undefined' || script.length === 0) {

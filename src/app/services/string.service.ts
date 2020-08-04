@@ -2,17 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class StringService {
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	constructor() {}
 
-	/**
-	 * Extract extension from a path
-	 *
-	 * @param {string} value
-	 * @return {string|null}
-	 */
+	/** Extract extension from a path */
 	public extension(value: string): string {
 		// If nothing
 		if (!value) {

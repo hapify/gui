@@ -9,11 +9,7 @@ export class FieldType {
 	static Object = 'object';
 	static File = 'file';
 
-	/**
-	 * Get the list of available types with names
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of available types with names */
 	static list(): ILabelledValue[] {
 		return [
 			{ name: 'String', value: FieldType.String },

@@ -37,26 +37,24 @@ const Accesses: ILabelledValue[] = [
 	styleUrls: ['./model.component.scss'],
 })
 export class ModelComponent extends ModelLightComponent implements OnInit, OnDestroy {
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	constructor(private hotKeysService: HotkeysService) {
 		super();
 	}
 
-	/** @type {EventEmitter<void>} Notify save */
+	/** Notify save */
 	@Output() save = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify changes */
+	/** Notify changes */
 	@Output() change = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify cloning */
+	/** Notify cloning */
 	@Output() clone = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify copy. Cannot be called copy, otherwise it will be called on Meta+C */
+	/** Notify copy. Cannot be called copy, otherwise it will be called on Meta+C */
 	@Output() copyModel = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify deletion */
+	/** Notify deletion */
 	@Output() delete = new EventEmitter<void>();
-	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
+	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
-	/** @type {IActionValue[]} List available actions */
+	/** List available actions */
 	actions: IActionValue[] = [];
 	public currentField: IField;
 
@@ -65,9 +63,6 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 	cleanRows = false;
 	confirmModelDeletion = false;
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
@@ -85,32 +80,24 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 		this.notesPanelIsDisplayed = panel === 'notes' && !this.notesPanelIsDisplayed;
 	}
 
-	/**
-	 * Destroy
-	 */
+	/** Destroy */
 	ngOnDestroy() {
 		this.hotKeysService.remove(this.saveHotKeys);
 	}
 
-	/**
-	 * Called when the user click on "add field"
-	 */
+	/** Called when the user click on "add field" */
 	addField() {
 		this.model.addField(this.model.newField());
 		this.onModelChange();
 	}
 
-	/**
-	 * Called when the user click on "clean fields"
-	 */
+	/** Called when the user click on "clean fields" */
 	deleteField(field: Field) {
 		this.model.removeField(field);
 		this.onModelChange();
 	}
 
-	/**
-	 * Called when a field change
-	 */
+	/** Called when a field change */
 	onModelChange() {
 		this.updateActions();
 		this.change.emit();
@@ -118,17 +105,12 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 		this.save.emit();
 	}
 
-	/**
-	 * Called when the user changes a access
-	 */
+	/** Called when the user changes a access */
 	onAccessChange(action: string, access: ILabelledValue): void {
 		this.model.accesses[action] = access.value;
 		this.onModelChange();
 	}
-	/**
-	 * Denotes if the access should be highlighted
-	 * @return {boolean}
-	 */
+	/** Denotes if the access should be highlighted */
 	private isAccessSelected(action: string, access: ILabelledValue): boolean {
 		return AccessesIndex[this.model.accesses[action]] >= AccessesIndex[access.value];
 	}

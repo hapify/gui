@@ -6,41 +6,27 @@ declare const ace: any;
 
 @Injectable()
 export class AceService {
-	/**
-	 * Map between file extension and ace mode
-	 *
-	 * @private
-	 */
+	/** Map between file extension and ace mode */
 	private modeMap: { [key: string]: string } = {
 		js: 'javascript',
 		ts: 'typescript',
 		md: 'markdown',
 	};
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	constructor(private stringService: StringService, private configService: ConfigService) {
 		// Set base url for ace
 		ace.config.set('basePath', this.configService.getAceBaseUri());
 	}
 
-	/**
-	 * Returns the main theme
-	 *
-	 * @return {string}
-	 */
+	/** Returns the main theme */
 	theme(): string {
 		return this.configService.getAceTheme();
 	}
 
 	/**
 	 * Returns the mode for a path
-	 *
-	 * @param {string} path
-	 * @param {boolean} parse
-	 *  Should parse path to extract extension (default: true)
-	 * @return {string}
+	 * Should parse path to extract extension (default: true)
 	 */
 	mode(path: string, parse: boolean = true): string {
 		const ext = parse ? this.stringService.extension(path) : path;

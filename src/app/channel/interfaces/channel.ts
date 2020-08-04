@@ -2,87 +2,37 @@ import { ITemplate, ITemplateBase } from './template';
 import { IStorableBase, IStorable } from '../../interfaces/storable';
 
 export interface IChannelBase extends IStorableBase {
-	/**
-	 * The channel's name
-	 *
-	 * @type {string}
-	 */
+	/** The channel's name */
 	name: string;
-	/**
-	 * The channel's description
-	 *
-	 * @type {string}
-	 */
+	/** The channel's description */
 	description: string;
-	/**
-	 * The channel's logo
-	 *
-	 * @type {string}
-	 */
+	/** The channel's logo */
 	logo: string;
-	/**
-	 * The templates of the channel
-	 *
-	 * @type {ITemplateBase[]}
-	 */
+	/** The templates of the channel */
 	templates: ITemplateBase[];
-	/**
-	 * The channel's validation script
-	 *
-	 * @type {string}
-	 */
+	/** The channel's validation script */
 	validator: string;
 }
 
 export interface IChannel extends IChannelBase, IStorable {
-	/**
-	 * The templates of the channel
-	 *
-	 * @type {ITemplate[]}
-	 */
+	/** The templates of the channel */
 	templates: ITemplate[];
 
-	/**
-	 * Denotes if the template should be considered as empty
-	 *
-	 * @returns {boolean}
-	 */
+	/** Denotes if the template should be considered as empty */
 	isEmpty(): boolean;
 
-	/**
-	 * Returns a new template instance
-	 *
-	 * @returns {ITemplate}
-	 */
+	/** Returns a new template instance */
 	newTemplate(): ITemplate;
 
-	/**
-	 * Push a new template
-	 *
-	 * @param {ITemplate} template
-	 * @returns {void}
-	 */
+	/** Push a new template */
 	addTemplate(template: ITemplate): void;
 
-	/**
-	 * Remove a template
-	 *
-	 * @param {ITemplate} template
-	 * @returns {void}
-	 */
+	/** Remove a template */
 	removeTemplate(template: ITemplate): void;
 
-	/**
-	 * Remove empty templates
-	 *
-	 * @returns {void}
-	 */
+	/** Remove empty templates */
 	filter(): void;
 
-	/**
-	 * Convert the instance to an object
-	 *
-	 * @returns {IChannelBase}
-	 */
+	/** Convert the instance to an object */
 	toObject(): IChannelBase;
 }

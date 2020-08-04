@@ -19,25 +19,14 @@ export class RootComponent implements OnInit {
 	/** Constructor */
 	constructor(private storageService: StorageService) {}
 
-	/**
-	 * Preset instances
-	 *
-	 * @type {IPreset[]}
-	 */
+	/** Preset instances */
 	public presets: IPreset[];
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		this.updatePresets();
 	}
 
-	/**
-	 * Update presets with storage
-	 *
-	 * @returns {Promise<void>}
-	 */
+	/** Update presets with storage */
 	protected async updatePresets(): Promise<void> {
 		this.presets = await this.storageService.list();
 	}

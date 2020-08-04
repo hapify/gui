@@ -5,27 +5,18 @@ export class Preset implements IPreset {
 	/** Constructor */
 	constructor() {}
 
-	/**  @inheritDoc */
 	public id = '';
-	/**  @inheritDoc */
 	public icon = '';
-	/**  @inheritDoc */
 	public name = '';
-	/**  @inheritDoc */
 	public name__fr = '';
-	/**  @inheritDoc */
 	public description = '';
-	/**  @inheritDoc */
 	public description__fr = '';
-	/**  @inheritDoc */
 	public models: IModel[] = [];
 
-	/**  @inheritDoc */
 	public newModel(): IModel {
 		return new Model();
 	}
 
-	/**  @inheritDoc */
 	public fromObject(object: IPresetBase): void {
 		this.id = object.id;
 		this.icon = object.icon;
@@ -42,7 +33,6 @@ export class Preset implements IPreset {
 		);
 	}
 
-	/**  @inheritDoc */
 	public toObject(): IPresetBase {
 		return {
 			id: this.id,

@@ -9,11 +9,8 @@ import { IChannel } from '../../interfaces/channel';
 export class ChannelCardComponent implements OnInit {
 	/** Constructor */
 	constructor() {}
-	/** @type {IChannel} Channel instance */
+	/** Channel instance */
 	@Input() channel: IChannel;
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {}
 }

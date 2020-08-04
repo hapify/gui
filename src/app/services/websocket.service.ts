@@ -13,12 +13,12 @@ const MINUTE = 60 * SECOND;
 
 @Injectable()
 export class WebSocketService {
-	/** @type {WebSocket} The current websocket */
+	/** The current websocket */
 	private ws: WebSocket;
 	/** Incoming messages/orders from server */
 	private messageSubject = new Subject<IWebSocketMessage>();
 	private messageObservable: Observable<IWebSocketMessage> = this.messageSubject.asObservable();
-	/** @type {boolean} Delay to retry connection */
+	/** Delay to retry connection */
 	private reconnectDelay = 10 * SECOND;
 
 	/** Constructor */
@@ -27,9 +27,6 @@ export class WebSocketService {
 	/**
 	 * If the websocket connection in not running,
 	 * get a new JWT token and open a new connection
-	 *
-	 * @param {number} delay
-	 * @return {Promise<void>}
 	 */
 	async handshake(delay = 0) {
 		// Leave early
@@ -89,23 +86,12 @@ export class WebSocketService {
 		});
 	}
 
-	/**
-	 * Get the observable for messages
-	 *
-	 * @return {Observable<IWebSocketMessage>}
-	 */
+	/** Get the observable for messages */
 	messages(): Observable<IWebSocketMessage> {
 		return this.messageObservable;
 	}
 
-	/**
-	 * Send a message to the server and wait for a response
-	 *
-	 * @param {string} id
-	 * @param {{}} data
-	 * @param {number} timeout
-	 * @return {Promise<any>}
-	 */
+	/** Send a message to the server and wait for a response */
 	async send(id: string, data = {}, timeout = MINUTE): Promise<any> {
 		await this.waitOpened();
 		return await new Promise((resolve, reject) => {
@@ -158,11 +144,7 @@ export class WebSocketService {
 		});
 	}
 
-	/**
-	 * Get the info to connect to the websocket
-	 *
-	 * @return {IWebSocketInfo}
-	 */
+	/** Get the info to connect to the websocket */
 	private async wsInfo(): Promise<IWebSocketInfo> {
 		const response = await fetch(this.configService.getWebSocketInfoUrl(), {
 			cache: 'no-store',
@@ -170,18 +152,12 @@ export class WebSocketService {
 		return (await response.json()) as IWebSocketInfo;
 	}
 
-	/**
-	 * Denotes if the server is connected
-	 * @return {boolean}
-	 */
+	/** Denotes if the server is connected */
 	opened(): boolean {
 		return this.ws && this.ws.readyState === WebSocket.OPEN;
 	}
 
-	/**
-	 * Create a unique id
-	 * @return {string}
-	 */
+	/** Create a unique id */
 	private makeTag(): string {
 		let text = '';
 		const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -191,10 +167,7 @@ export class WebSocketService {
 		return text;
 	}
 
-	/**
-	 * Resolves when the client is ready
-	 * @return {Promise<any>}
-	 */
+	/** Resolves when the client is ready */
 	private async waitOpened() {
 		if (this.opened()) {
 			return;

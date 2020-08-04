@@ -9,10 +9,9 @@ import { ValidatorDetailsComponent } from '../validator-details/validator-detail
 	styleUrls: ['./validator-icon.component.scss'],
 })
 export class ValidatorIconComponent extends ValidatorDetailsComponent {
-	/** @type {string} Pre-computed error level */
+	/** Pre-computed error level */
 	level = 'undefined';
 
-	/** @inheritDoc */
 	protected async process(channels: IChannel[], models: IModel[]) {
 		// Stop process on first error
 		let hasError = false;

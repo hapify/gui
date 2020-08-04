@@ -10,14 +10,12 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 	styleUrls: ['./new.component.scss'],
 })
 export class NewComponent implements AfterViewInit {
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	constructor(private webSocketService: WebSocketService) {}
 
 	public name = '';
 
-	/** @type {EventEmitter<void>} Notify save */
+	/** Notify save */
 	@Output() create = new EventEmitter<IModel>();
 
 	@ViewChild('nameInput') nameInput: ElementRef;
@@ -27,9 +25,7 @@ export class NewComponent implements AfterViewInit {
 		setTimeout(() => this.nameInput.nativeElement.focus());
 	}
 
-	/**
-	 * Called when the user save the new model
-	 */
+	/** Called when the user save the new model */
 	async save() {
 		// Get model from CLI
 		const modelObject = (await this.webSocketService.send(WebSocketMessages.NEW_MODEL, {

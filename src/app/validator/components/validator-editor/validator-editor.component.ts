@@ -15,39 +15,39 @@ import { RichError } from '@app/class/RichError';
 	styleUrls: ['./validator-editor.component.scss'],
 })
 export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewInit {
-	/** @type {ModelStorageService} The model storage service */
+	/** The model storage service */
 	modelStorageService: ModelStorageService;
-	/** @type {ValidatorService} The validator service */
+	/** The validator service */
 	validatorService: ValidatorService;
-	/** @type {IChannel} The calling channel */
+	/** The calling channel */
 	@Input() channel: IChannel;
-	/** @type {EventEmitter<void>} On save event */
+	/** On save event */
 	@Output() save = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} On save event */
+	/** On save event */
 	@Output() close = new EventEmitter<void>();
-	/** @type {string} The edited template */
+	/** The edited template */
 	content: string;
-	/** @type {string} The content mode for ACE */
+	/** The content mode for ACE */
 	aceMode = 'js';
-	/** @type {IModel[]} Models for auto-check */
+	/** Models for auto-check */
 	models: IModel[];
-	/** @type {IModel} Checked model */
+	/** Checked model */
 	model: IModel;
-	/** @type {IValidatorResult} Validation result */
+	/** Validation result */
 	result: IValidatorResult;
-	/** @type {string} Validation error */
+	/** Validation error */
 	error: string;
-	/** @type {string} Result summary */
+	/** Result summary */
 	summary = '';
-	/** @type {boolean} Denotes if should auto-check on change */
+	/** Denotes if should auto-check on change */
 	autoValidate = true;
 	/** Error codes to display in editor */
 	private handledCodes = [4005, 4006, 4007];
-	/** @type {string} Text display to prevent reloading */
+	/** Text display to prevent reloading */
 	private beforeUnloadWarning: string;
-	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+	/** Denotes if the user has unsaved changes (to prevent reload) */
 	unsavedChanges = false;
-	/** @type {Hotkey|Hotkey[]} Hotkeys to unbind */
+	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** Main editor */
 	@ViewChild('editorInput') editorInput;
@@ -61,9 +61,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		private messageService: MessageService
 	) {}
 
-	/**
-	 * On init
-	 */
+	/** On init */
 	ngOnInit() {
 		// Avoid circular dependency
 		this.modelStorageService = this.injector.get(ModelStorageService);
@@ -97,9 +95,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		});
 	}
 
-	/**
-	 * Destroy
-	 */
+	/** Destroy */
 	ngOnDestroy() {
 		this.hotKeysService.remove(this.saveHotKeys);
 		this.messageService.removeErrorHandler('validator-editor');
@@ -118,9 +114,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		return error instanceof RichError && this.handledCodes.includes(error.data.code);
 	}
 
-	/**
-	 * Get the save command for the editors
-	 */
+	/** Get the save command for the editors */
 	private _getEditorSaveCommand(): any {
 		return {
 			name: 'saveCommand',
@@ -135,27 +129,19 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		};
 	}
 
-	/**
-	 * Called when the user click on save
-	 */
+	/** Called when the user click on save */
 	didClickSave() {
 		this.channel.validator = this.content;
 		this.unsavedChanges = false;
 		this.save.emit();
 	}
 
-	/**
-	 * Called when the user click on close
-	 */
+	/** Called when the user click on close */
 	didClickClose() {
 		this.close.emit();
 	}
 
-	/**
-	 * Runs the content generation
-	 *
-	 * @private
-	 */
+	/** Runs the content generation */
 	private async validate() {
 		// Clean error
 		this.error = null;
@@ -178,28 +164,18 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		}
 	}
 
-	/**
-	 * Call when the selected model is changed
-	 */
+	/** Call when the selected model is changed */
 	onModelChange() {
 		this.validate();
 	}
 
-	/**
-	 * Call when the content is left
-	 *
-	 * @param {string} content
-	 */
+	/** Call when the content is left */
 	onBlur(content: string) {
 		this.content = content;
 		this.validate();
 	}
 
-	/**
-	 * Call when the content changes
-	 *
-	 * @param {string} content
-	 */
+	/** Call when the content changes */
 	onChange(content: string) {
 		this.content = content;
 		this.unsavedChanges = true;
@@ -208,19 +184,12 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		}
 	}
 
-	/**
-	 * Call when the user click on "dump"
-	 */
+	/** Call when the user click on "dump" */
 	async didClickDump() {
 		this.messageService.log(this.model.toObject());
 	}
 
-	/**
-	 * Prevent reloading
-	 *
-	 * @param event
-	 * @return {string|null}
-	 */
+	/** Prevent reloading */
 	@HostListener('window:beforeunload', ['$event'])
 	beforeUnloadHandler(event: any): string {
 		if (!this.unsavedChanges) {

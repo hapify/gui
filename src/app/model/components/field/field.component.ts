@@ -8,11 +8,11 @@ import { FieldLightComponent } from '../field-light/field-light.component';
 	styleUrls: ['./field.component.scss'],
 })
 export class FieldComponent extends FieldLightComponent implements OnInit, OnDestroy {
-	/** @type {boolean} Rows deletion mode */
+	/** Rows deletion mode */
 	@Input() deletionMode = false;
-	/** @type {EventEmitter<void>} Notify changes */
+	/** Notify changes */
 	@Output() change = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for delete field */
+	/** Request for delete field */
 	@Output() delete = new EventEmitter<void>();
 
 	isTypesTooltipDisplayed = false;
@@ -23,9 +23,6 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	isFieldsTooltipDisplayed = false;
 	noSelectedField = false;
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		super.ngOnInit();
 		this.areSelectedFields();
@@ -52,7 +49,7 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 		this.areSelectedFields();
 	}
 
-	/** Detect if at least one field attribute has been defined*/
+	/** Detect if at least one field attribute has been defined */
 	private areSelectedFields(): void {
 		this.noSelectedField = true;
 		for (const pi of this.propertiesIcons) {

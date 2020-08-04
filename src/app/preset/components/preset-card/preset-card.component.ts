@@ -16,16 +16,10 @@ interface PresetMergeResults {
 	styleUrls: ['./preset-card.component.scss'],
 })
 export class PresetCardComponent implements OnInit {
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	constructor(private renderer: Renderer2, private modelService: ModelService, private webSocketService: WebSocketService) {}
 
-	/**
-	 * Preset instance
-	 *
-	 * @type {IPreset}
-	 */
+	/** Preset instance */
 	@Input() preset: IPreset;
 
 	@ViewChild('description') description: ElementRef;
@@ -34,9 +28,6 @@ export class PresetCardComponent implements OnInit {
 
 	diffPreset: PresetMergeResults;
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {}
 
 	async previewDiffPresetApllied(): Promise<void> {
@@ -45,9 +36,7 @@ export class PresetCardComponent implements OnInit {
 		})) as PresetMergeResults;
 	}
 
-	/**
-	 * Called when the user click on "apply"
-	 */
+	/** Called when the user click on "apply" */
 	async applyDiffPreset(): Promise<void> {
 		this.modelService.presetApplied.next(this.diffPreset);
 	}

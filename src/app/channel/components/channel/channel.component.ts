@@ -12,21 +12,18 @@ import { IInfo } from '@app/interfaces/info';
 	styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent implements OnInit {
-	/** @type {GeneratorService} The generator service */
+	/** The generator service */
 	generatorService: GeneratorService;
-	/** @type {IChannel} Channel instance */
+	/** Channel instance */
 	@Input() channel: IChannel;
-	/** @type {EventEmitter<ITemplate|null>} On save event */
+	/** On save event */
 	@Output() save = new EventEmitter<ITemplate | null>();
-	/** @type {boolean} */
 	syncing = false;
 	/** Current edited template */
 	currentEditedTemplate: ITemplate;
-	/** @type {boolean} */
 	showValidatorEditor = false;
-	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+	/** Denotes if the user has unsaved changes (to prevent reload) */
 	unsavedChanges = false;
-	/** @type {TreeBranch[]} */
 	tree: TreeBranch[];
 	selectedPath = '';
 	templatesToDisplay: { [key: string]: boolean } = {};
@@ -41,24 +38,17 @@ export class ChannelComponent implements OnInit {
 		});
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		this.updateTree();
 	}
 
-	/**
-	 * Update the tree and filters
-	 */
+	/** Update the tree and filters */
 	updateTree(): void {
 		this.tree = this.buildTree();
 		this.filterTemplates();
 	}
 
-	/**
-	 * Get the tree
-	 */
+	/** Get the tree */
 	private buildTree(): TreeBranch[] {
 		const tree = [];
 
@@ -91,9 +81,7 @@ export class ChannelComponent implements OnInit {
 		return tree;
 	}
 
-	/**
-	 * Filters templates to display
-	 */
+	/** Filters templates to display */
 	filterTemplates(): void {
 		this.templatesToDisplay = {};
 		for (const template of this.channel.templates) {
@@ -101,35 +89,26 @@ export class ChannelComponent implements OnInit {
 		}
 	}
 
-	/**
-	 * Called when a branch is selected
-	 */
+	/** Called when a branch is selected */
 	onSelectBranch(branch: TreeBranch) {
 		this.selectedPath = branch.children.length ? `${branch.path}/` : branch.path;
 		this.filterTemplates();
 	}
 
-	/**
-	 * Called when the user click on "save"
-	 * @param {ITemplate|null} toGenerate
-	 */
+	/** Called when the user click on "save" */
 	onSave(toGenerate: ITemplate | null) {
 		this.save.emit(toGenerate);
 		this.unsavedChanges = false;
 	}
 
-	/**
-	 * Will sync all templates of the channel
-	 */
+	/** Will sync all templates of the channel */
 	async onGenerate() {
 		this.syncing = true;
 		await this.generatorService.compileChannel(this.channel);
 		this.syncing = false;
 	}
 
-	/**
-	 * Called when the user click on "add template"
-	 */
+	/** Called when the user click on "add template" */
 	onAddTemplate(path: string) {
 		const template = this.channel.newTemplate();
 		template.path = path;
@@ -139,16 +118,12 @@ export class ChannelComponent implements OnInit {
 		this.updateTree();
 	}
 
-	/**
-	 * Called when a template is edited
-	 */
+	/** Called when a template is edited */
 	onTemplateChanged() {
 		this.unsavedChanges = true;
 	}
 
-	/**
-	 * Called when the user click on "remove templates"
-	 */
+	/** Called when the user click on "remove templates" */
 	onRemoveTemplate(branch: TreeBranch) {
 		const template = this.channel.templates.find((t) => t.path === branch.path);
 		if (template) {
@@ -160,23 +135,17 @@ export class ChannelComponent implements OnInit {
 		}
 	}
 
-	/**
-	 * Called when the ValidatorEditor is saved
-	 */
+	/** Called when the ValidatorEditor is saved */
 	onValidatorEditorClose() {
 		this.showValidatorEditor = false;
 	}
 
-	/**
-	 * Called when the user click on "Open Editor" button
-	 */
+	/** Called when the user click on "Open Editor" button */
 	onShowEditor(template: ITemplate) {
 		this.currentEditedTemplate = template;
 	}
 
-	/**
-	 * Called when the editor is saved
-	 */
+	/** Called when the editor is saved */
 	onEditorClose() {
 		this.currentEditedTemplate = null;
 	}

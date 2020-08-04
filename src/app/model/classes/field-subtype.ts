@@ -38,20 +38,12 @@ export class FieldSubType {
 		Document: 'document',
 	};
 
-	/**
-	 * Get the list of sub types for boolean
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for boolean */
 	static boolean(): ILabelledValue[] {
 		return [{ name: 'Default', value: FieldSubType.Boolean.Default }];
 	}
 
-	/**
-	 * Get the list of sub types for number
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for number */
 	static number(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.Number.Default },
@@ -62,11 +54,7 @@ export class FieldSubType {
 		];
 	}
 
-	/**
-	 * Get the list of sub types for string
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for string */
 	static string(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.String.Default },
@@ -78,11 +66,7 @@ export class FieldSubType {
 		];
 	}
 
-	/**
-	 * Get the list of sub types for datetime
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for datetime */
 	static datetime(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.DateTime.Default },
@@ -91,29 +75,17 @@ export class FieldSubType {
 		];
 	}
 
-	/**
-	 * Get the list of sub types for entity
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for entity */
 	static entity(): ILabelledValue[] {
 		return [{ name: 'Empty', value: FieldSubType.Entity.Default }];
 	}
 
-	/**
-	 * Get the list of sub types for object
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for object */
 	static object(): ILabelledValue[] {
 		return [{ name: 'Default', value: FieldSubType.Object.Default }];
 	}
 
-	/**
-	 * Get the list of sub types for file
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for file */
 	static file(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.File.Default },

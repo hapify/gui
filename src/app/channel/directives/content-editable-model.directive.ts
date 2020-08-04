@@ -13,34 +13,22 @@ export class ContentEditableModelDirective implements OnInit {
 	@Output('contentChange') change = new EventEmitter();
 	@Output('contentBlur') blur = new EventEmitter();
 
-	/**
-	 * Stores the last value
-	 */
+	/** Stores the last value */
 	private _lastValue: string;
 
-	/**
-	 * Stores the last change timeout
-	 */
+	/** Stores the last change timeout */
 	private _lastChangeTimeout: any;
 
-	/**
-	 * Constructor
-	 *
-	 * @param {ElementRef} elRef
-	 */
+	/** Constructor */
 	constructor(private elRef: ElementRef) {}
 
-	/**
-	 * On Init
-	 */
+	/** On Init */
 	ngOnInit() {
 		this.elRef.nativeElement.innerText = this.model;
 		this._lastValue = this.model;
 	}
 
-	/**
-	 * Called on keyup
-	 */
+	/** Called on keyup */
 	onChange() {
 		const value = this._getValue();
 		if (value !== this._lastValue) {
@@ -54,21 +42,14 @@ export class ContentEditableModelDirective implements OnInit {
 		}
 	}
 
-	/**
-	 * Called on blur
-	 */
+	/** Called on blur */
 	onBlur() {
 		const value = this._getValue();
 		this._lastValue = value;
 		this.blur.emit(value);
 	}
 
-	/**
-	 * Get the current value
-	 *
-	 * @return {string}
-	 * @private
-	 */
+	/** Get the current value */
 	private _getValue() {
 		return this.elRef.nativeElement.innerText;
 	}

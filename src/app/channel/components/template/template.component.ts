@@ -27,9 +27,7 @@ export class TemplateComponent {
 		{ name: 'Hapify', value: TemplateEngine.Hpf },
 		{ name: 'JavaScript', value: TemplateEngine.JavaScript },
 	];
-	/**
-	 * Available inputs
-	 */
+	/** Available inputs */
 	inputs: {
 		value: string;
 		name: string;

@@ -11,37 +11,14 @@ export class Channel implements IChannel {
 		this.id = this.guid();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public id: string;
-	/**
-	 * @inheritDoc
-	 */
 	public name = '';
-	/**
-	 * @inheritDoc
-	 */
 	public description = null;
-	/**
-	 * @inheritDoc
-	 */
 	public logo = null;
-	/**
-	 * @inheritDoc
-	 */
 	public validator = '';
-	/**
-	 * @inheritDoc
-	 */
 	public templates: ITemplate[] = [];
 
-	/**
-	 * Randomly generate id
-	 *
-	 * @example af8a8416-6e18-a307-bd9c-f2c947bbb3aa
-	 * @returns {string}
-	 */
+	/** Randomly generate id */
 	protected guid(): string {
 		function _p8(s?: boolean) {
 			const p = (Math.random().toString(16) + '000000000').substr(2, 8);
@@ -51,30 +28,18 @@ export class Channel implements IChannel {
 		return _p8() + _p8(true) + _p8(true) + _p8();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public newTemplate(): ITemplate {
 		return new Template(this);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public addTemplate(template: ITemplate): void {
 		this.templates.push(template);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public removeTemplate(template: ITemplate): void {
 		this.templates = this.templates.filter((t: ITemplate) => t !== template);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public fromObject(object: IChannelBase): void {
 		this.id = object.id;
 		this.name = object.name;
@@ -90,9 +55,6 @@ export class Channel implements IChannel {
 		this.validator = object.validator;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public toObject(): IChannelBase {
 		return {
 			id: this.id,
@@ -106,9 +68,6 @@ export class Channel implements IChannel {
 		};
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public isEmpty(): boolean {
 		const nameIsEmpty = typeof this.name !== 'string' || this.name === null || this.name.length === 0;
 		const templatesAreEmpty = this.templates.every((template: ITemplate): boolean => template.isEmpty());
@@ -116,9 +75,6 @@ export class Channel implements IChannel {
 		return nameIsEmpty || templatesAreEmpty;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public filter(): void {
 		this.templates = this.templates.filter((template: ITemplate): boolean => {
 			return !template.isEmpty();

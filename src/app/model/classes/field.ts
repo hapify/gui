@@ -7,42 +7,25 @@ export class Field implements IField {
 	/** Constructor */
 	constructor() {}
 
-	/** @inheritDoc */
 	public name = '';
-	/** @type {string} The field's notes */
+	/** The field's notes */
 	public notes: string;
-	/** @inheritDoc */
 	public type = FieldType.String;
-	/** @inheritDoc */
 	public subtype = FieldSubType.String.Default;
-	/** @inheritDoc */
 	public reference = null;
-	/** @inheritDoc */
 	public primary = false;
-	/** @inheritDoc */
 	public unique = false;
-	/** @inheritDoc */
 	public label = false;
-	/** @inheritDoc */
 	public nullable = false;
-	/** @inheritDoc */
 	public multiple = false;
-	/** @inheritDoc */
 	public embedded = false;
-	/** @inheritDoc */
 	public searchable = false;
-	/** @inheritDoc */
 	public sortable = false;
-	/** @inheritDoc */
 	public hidden = false;
-	/** @inheritDoc */
 	public internal = false;
-	/** @inheritDoc */
 	public restricted = false;
-	/** @inheritDoc */
 	public ownership = false;
 
-	/** @inheritDoc */
 	public fromObject(object: IFieldBase): void {
 		this.name = object.name;
 		this.notes = object.notes || null;
@@ -63,7 +46,6 @@ export class Field implements IField {
 		this.ownership = !!(object.ownership as any);
 	}
 
-	/** @inheritDoc */
 	public toObject(): IFieldBase {
 		return {
 			name: this.name,
@@ -86,17 +68,12 @@ export class Field implements IField {
 		};
 	}
 
-	/** @inheritDoc */
 	public isEmpty(): boolean {
 		const empty = typeof this.name !== 'string' || this.name === null || this.name.trim().length === 0;
 		return empty;
 	}
 
-	/**
-	 * Get the available sub types for the current type
-	 *
-	 * @return {ILabelledValue[]}
-	 */
+	/** Get the available sub types for the current type */
 	public getAvailableSubTypes(): ILabelledValue[] {
 		if (this.type === FieldType.String) {
 			return FieldSubType.string();

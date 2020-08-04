@@ -47,26 +47,19 @@ export class RootComponent implements OnInit {
 	/** Current filter by link */
 	linkFilter: string;
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		this.updateModels();
 		this.infoService.info().then((info) => {
 			this.info = info;
 		});
 	}
-	/**
-	 * Called when the user update the model
-	 */
+	/** Called when the user update the model */
 	onDelete(model: IModel): void {
 		// Delete the model
 		this.storageService.remove(model).then(() => this.updateModels());
 	}
 
-	/**
-	 * Called when the user update the model
-	 */
+	/** Called when the user update the model */
 	async onClone(model: IModel): Promise<void> {
 		// Create a clone
 		const clone = model.clone();
@@ -87,9 +80,7 @@ export class RootComponent implements OnInit {
 		this.storageService.add(clone).then(() => this.updateModels());
 	}
 
-	/**
-	 * Called when the user update the model
-	 */
+	/** Called when the user update the model */
 	onCreate(model: IModel): void {
 		// Check length
 		if (this.info && this.models && this.models.length >= this.info.limits.models) {
@@ -176,11 +167,7 @@ export class RootComponent implements OnInit {
 		}
 	}
 
-	/**
-	 * Update models with storage
-	 *
-	 * @returns {Promise<void>}
-	 */
+	/** Update models with storage */
 	async updateModels(): Promise<void> {
 		this.modelsAreLoaded = false;
 		this.models = await this.storageService.list();

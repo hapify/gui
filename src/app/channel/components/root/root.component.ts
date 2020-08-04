@@ -8,18 +8,14 @@ import { IChannel } from '../../interfaces/channel';
 	styleUrls: ['./root.component.scss'],
 })
 export class RootComponent implements OnInit {
-	/** @type {IChannel[]} Channel instances */
+	/** Channel instances */
 	public channels: IChannel[] = [];
 	/** Constructor */
 	constructor(private storageService: StorageService) {}
-	/** @inheritDoc */
 	ngOnInit() {
 		this.updateChannels();
 	}
-	/**
-	 * Update channels with storage
-	 * @returns {Promise<void>}
-	 */
+	/** Update channels with storage */
 	protected async updateChannels(): Promise<void> {
 		this.channels = await this.storageService.list();
 	}

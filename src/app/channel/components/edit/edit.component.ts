@@ -12,11 +12,11 @@ import { GeneratorService } from '../../services/generator.service';
 	styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit, OnDestroy {
-	/** @type {GeneratorService} The generator service */
+	/** The generator service */
 	generatorService: GeneratorService;
-	/** @type {Subscription} Route params subscription */
+	/** Route params subscription */
 	private _paramsSub: Subscription;
-	/** @type {IChannel} Channel instance*/
+	/** Channel instance */
 	public channel: IChannel;
 	/** Constructor */
 	constructor(private router: Router, private route: ActivatedRoute, private storageService: StorageService, private injector: Injector) {
@@ -24,9 +24,6 @@ export class EditComponent implements OnInit, OnDestroy {
 		this.generatorService = this.injector.get(GeneratorService);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	ngOnInit() {
 		this._paramsSub = this.route.params.subscribe(async (params) => {
 			// Get channel id
@@ -40,17 +37,12 @@ export class EditComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	/**
-	 * On destroy
-	 */
+	/** On destroy */
 	ngOnDestroy() {
 		this._paramsSub.unsubscribe();
 	}
 
-	/**
-	 * Called when the user update the channel
-	 * @param {ITemplate} toGenerate
-	 */
+	/** Called when the user update the channel */
 	async onSave(toGenerate: ITemplate | null): Promise<void> {
 		// Store the channel
 		await this.storageService.update(this.channel);

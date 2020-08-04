@@ -15,17 +15,17 @@ import { RichError } from '@app/class/RichError';
 	styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
-	/** @type {GeneratorService} The generator service */
+	/** The generator service */
 	generatorService: GeneratorService;
-	/** @type {ModelStorageService} The generator service */
+	/** The generator service */
 	modelStorageService: ModelStorageService;
-	/** @type {ITemplate} Template to edit instance */
+	/** Template to edit instance */
 	@Input() template: ITemplate;
-	/** @type {EventEmitter<ITemplate|null>} On save event */
+	/** On save event */
 	@Output() save = new EventEmitter<ITemplate | null>();
-	/** @type {EventEmitter<void>} On save event */
+	/** On save event */
 	@Output() close = new EventEmitter<void>();
-	/** @type {ITemplate} The edited template */
+	/** The edited template */
 	wip: ITemplate;
 	/** Preview models */
 	models: IModel[];
@@ -41,7 +41,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	autoRefresh = true;
 	/** Text display to prevent reloading */
 	private beforeUnloadWarning: string;
-	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+	/** Denotes if the user has unsaved changes (to prevent reload) */
 	unsavedChanges = false;
 	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
@@ -135,10 +135,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			this.close.emit();
 		}
 	}
-	/**
-	 * Runs the content generation
-	 * @private
-	 */
+	/** Runs the content generation */
 	private _generate() {
 		// Clean results and error
 		// Run generation
@@ -154,10 +151,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 				this._formatError(e);
 			});
 	}
-	/**
-	 * Runs the path generation
-	 * @private
-	 */
+	/** Runs the path generation */
 	private _generatePath() {
 		// Run generation
 		this.generatorService
@@ -189,18 +183,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.wip.path = value;
 		this._generatePath();
 	}
-	/**
-	 * Call when the content is left
-	 * @param {string} content
-	 */
+	/** Call when the content is left */
 	onBlur(content: string) {
 		this.wip.content = content;
 		this._generate();
 	}
-	/**
-	 * Call when the content changes
-	 * @param {string} content
-	 */
+	/** Call when the content changes */
 	onChange(content: string) {
 		this.wip.content = content;
 		this.unsavedChanges = true;
@@ -213,11 +201,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		// @todo Dump in popin
 		this.messageService.info('To be implemented');
 	}
-	/**
-	 * Prevent reloading
-	 * @param event
-	 * @return {string|null}
-	 */
+	/** Prevent reloading */
 	@HostListener('window:beforeunload', ['$event'])
 	beforeUnloadHandler(event: any): string {
 		if (!this.unsavedChanges) {

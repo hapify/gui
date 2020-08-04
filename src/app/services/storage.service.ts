@@ -4,18 +4,15 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export abstract class StorageService<T extends IStorable> {
-	/** @type {T[]} Cached instances */
+	/** Cached instances */
 	private _instances: T[] = null;
-	/** @type {Boolean} Pending reading */
+	/** Pending reading */
 	private _locked = false;
 
 	/** Constructor */
 	constructor(protected _websocketService: WebSocketService) {}
 
-	/**
-	 * Returns the current instances
-	 * @returns {Promise<T[]>}
-	 */
+	/** Returns the current instances */
 	async list(): Promise<T[]> {
 		// If the instances are loaded, returns directly
 		if (this._instances) {
@@ -43,12 +40,7 @@ export abstract class StorageService<T extends IStorable> {
 		return this._instances;
 	}
 
-	/**
-	 * Save current instances to storage
-	 * @protected
-	 * @param {T[]} instances
-	 * @returns {Promise<void>}
-	 */
+	/** Save current instances to storage */
 	protected async save(instances: T[]): Promise<void> {
 		// Sort the instances
 		this.sort(instances);
@@ -60,11 +52,7 @@ export abstract class StorageService<T extends IStorable> {
 		this._instances = null;
 	}
 
-	/**
-	 * Push a instance into the storage
-	 * @param {T | T[]} instance
-	 * @returns {Promise<void>}
-	 */
+	/** Push a instance into the storage */
 	async add(instance: T | T[]): Promise<void> {
 		// Add the instance to the list
 		const instances = await this.list();
@@ -76,11 +64,7 @@ export abstract class StorageService<T extends IStorable> {
 		}
 	}
 
-	/**
-	 * Find a instance and remove it
-	 * @param {T | T[]} instance
-	 * @returns {Promise<void>}
-	 */
+	/** Find a instance and remove it */
 	async remove(instance: T | T[]): Promise<void> {
 		// Remove the instance from the list
 		const instances =
@@ -91,11 +75,7 @@ export abstract class StorageService<T extends IStorable> {
 		await this.save(instances);
 	}
 
-	/**
-	 * Find a instance and replace it with its new version
-	 * @param {T | T[]} instance
-	 * @returns {Promise<void>}
-	 */
+	/** Find a instance and replace it with its new version */
 	async update(instance: T | T[]): Promise<void> {
 		// Remove the instance from the list
 		const instances =
@@ -111,11 +91,7 @@ export abstract class StorageService<T extends IStorable> {
 		}
 	}
 
-	/**
-	 * Find a instance with its id
-	 * @param {string} id
-	 * @returns {Promise<T>}
-	 */
+	/** Find a instance with its id */
 	async find(id: string): Promise<T> {
 		// Add the instance to the list
 		const instances = await this.list();
@@ -123,18 +99,12 @@ export abstract class StorageService<T extends IStorable> {
 		return instances.find((instance) => instance.id === id);
 	}
 
-	/**
-	 * Clear all the storage
-	 * @returns {Promise<void>}
-	 */
+	/** Clear all the storage */
 	async clear(): Promise<void> {
 		await this.save([]);
 	}
 
-	/**
-	 * Resolves when the client is ready
-	 * @return {Promise<void>}
-	 */
+	/** Resolves when the client is ready */
 	private async lock() {
 		if (!this._locked) {
 			this._locked = true;
@@ -144,40 +114,20 @@ export abstract class StorageService<T extends IStorable> {
 			setTimeout(() => resolve(this.lock()), 10);
 		});
 	}
-	/**
-	 * Resolves when the client is ready
-	 * @return {Promise<void>}
-	 */
+	/** Resolves when the client is ready */
 	private release() {
 		this._locked = false;
 	}
 
-	/**
-	 * Returns a new instance
-	 * @protected
-	 * @returns {T}
-	 */
+	/** Returns a new instance */
 	protected abstract instance(): T;
 
-	/**
-	 * Returns the name of the websocket set message id
-	 * @protected
-	 * @returns {string}
-	 */
+	/** Returns the name of the websocket set message id */
 	protected abstract setMessageId(): string;
 
-	/**
-	 * Returns the name of the websocket set message id
-	 * @protected
-	 * @returns {string}
-	 */
+	/** Returns the name of the websocket set message id */
 	protected abstract getMessageId(): string;
 
-	/**
-	 * Sort the instances
-	 * @protected
-	 * @param {T[]} instances
-	 * @returns {string}
-	 */
+	/** Sort the instances */
 	protected abstract sort(instances: T[]): void;
 }
