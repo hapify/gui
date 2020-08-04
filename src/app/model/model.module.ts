@@ -15,13 +15,10 @@ import { RootComponent } from './components/root/root.component';
 import { ModelLightComponent } from './components/model-light/model-light.component';
 import { FieldLightComponent } from './components/field-light/field-light.component';
 import { HeaderComponent } from './components/header/header.component';
-
 // Services
 import { StorageService } from './services/storage.service';
 import { SharedModule } from '@app/shared/shared.module';
-import { PresetModule } from '@app/preset/preset.module';
-
-import { RootComponent as PresetRootComponent } from '@app/preset/preset.module';
+import { PresetModule, RootComponent as PresetRootComponent } from '@app/preset/preset.module';
 import { ModelService } from '@app/preset/services/model.service';
 import { MessageService } from '@app/services/message.service';
 

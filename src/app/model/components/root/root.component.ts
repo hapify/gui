@@ -29,7 +29,7 @@ export class RootComponent implements OnInit {
 		private messageService: MessageService
 	) {}
 
-	private _saveTimeout;
+	private saveTimeout;
 	dTime = environment.debounceTime;
 	public models: IModel[];
 	public visibleModels: IModel[];
@@ -47,8 +47,8 @@ export class RootComponent implements OnInit {
 	/** Current filter by link */
 	linkFilter: string;
 
-	ngOnInit() {
-		this.updateModels();
+	ngOnInit(): void {
+		this.updateModels().catch((error) => this.messageService.error(error));
 		this.infoService.info().then((info) => {
 			this.info = info;
 		});
@@ -77,7 +77,10 @@ export class RootComponent implements OnInit {
 		clone.id = modelObject.id;
 
 		// Clone the model
-		this.storageService.add(clone).then(() => this.updateModels());
+		this.storageService
+			.add(clone)
+			.then(() => this.updateModels())
+			.catch((error) => this.messageService.error(error));
 	}
 
 	/** Called when the user update the model */
@@ -88,15 +91,18 @@ export class RootComponent implements OnInit {
 			return;
 		}
 		// Store the model
-		this.storageService.add(model).then(() => this.updateModels());
+		this.storageService
+			.add(model)
+			.then(() => this.updateModels())
+			.catch((error) => this.messageService.error(error));
 	}
 
 	/** Called when the user save the model (For now, autosaving on any changes is activated) */
 	onSave(model: IModel): void {
-		clearTimeout(this._saveTimeout);
-		this._saveTimeout = setTimeout(() => {
+		clearTimeout(this.saveTimeout);
+		this.saveTimeout = setTimeout(() => {
 			// Update the model
-			this.storageService.update(model);
+			this.storageService.update(model).catch((error) => this.messageService.error(error));
 		}, this.dTime);
 	}
 

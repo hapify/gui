@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IField } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
@@ -48,13 +48,13 @@ export class FieldLightComponent implements OnInit {
 	];
 	filteredPropertiesIcons: IPropertyIcon[] = [];
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 	}
 
 	/** Get the model name for an entity reference */
-	getModelName(field: IField) {
+	getModelName(field: IField): string {
 		if (field.type !== FieldType.Entity || !this.models) {
 			return null;
 		}

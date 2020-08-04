@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { IPreset } from '../../interfaces/preset';
 import { IModel } from '@app/model/interfaces/model';
+import { MessageService } from '@app/services/message.service';
 
 interface PresetMergeResults {
 	created: IModel[];
@@ -17,13 +18,13 @@ export class RootComponent implements OnInit {
 	@Output() presetApplied = new EventEmitter<PresetMergeResults>();
 
 	/** Constructor */
-	constructor(private storageService: StorageService) {}
+	constructor(private storageService: StorageService, private messageService: MessageService) {}
 
 	/** Preset instances */
 	public presets: IPreset[];
 
-	ngOnInit() {
-		this.updatePresets();
+	ngOnInit(): void {
+		this.updatePresets().catch((error) => this.messageService.error(error));
 	}
 
 	/** Update presets with storage */

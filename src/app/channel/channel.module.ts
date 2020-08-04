@@ -14,14 +14,11 @@ import { RootComponent } from './components/root/root.component';
 import { EditComponent } from './components/edit/edit.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { ValidatorEditorComponent } from '../validator/components/validator-editor/validator-editor.component';
-
 // Services
 import { StorageService } from './services/storage.service';
 import { GeneratorService } from './services/generator.service';
 import { HotkeyModule } from 'angular2-hotkeys';
-
 // Directives
-import { ContentEditableModelDirective } from './directives/content-editable-model.directive';
 import { SharedModule } from '@app/shared/shared.module';
 import { TreeComponent } from './components/tree/tree.component';
 
@@ -45,7 +42,6 @@ import { TreeComponent } from './components/tree/tree.component';
 		EditComponent,
 		ChannelCardComponent,
 		EditorComponent,
-		ContentEditableModelDirective,
 		ValidatorEditorComponent,
 		TreeComponent,
 	],

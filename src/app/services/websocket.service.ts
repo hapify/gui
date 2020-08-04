@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { IWebSocketInfo } from '../interfaces/websocket-info';
 import { IWebSocketMessage } from '../interfaces/websocket-message';
 import { ConfigService } from './config.service';
@@ -13,6 +11,8 @@ const MINUTE = 60 * SECOND;
 
 @Injectable()
 export class WebSocketService {
+	/** Constructor */
+	constructor(private configService: ConfigService, private messageService: MessageService) {}
 	/** The current websocket */
 	private ws: WebSocket;
 	/** Incoming messages/orders from server */
@@ -21,14 +21,21 @@ export class WebSocketService {
 	/** Delay to retry connection */
 	private reconnectDelay = 10 * SECOND;
 
-	/** Constructor */
-	constructor(private configService: ConfigService, private messageService: MessageService) {}
+	/** Create a unique id */
+	private static makeTag(): string {
+		let text = '';
+		const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		for (let i = 0; i < 16; i++) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		return text;
+	}
 
 	/**
 	 * If the websocket connection in not running,
 	 * get a new JWT token and open a new connection
 	 */
-	async handshake(delay = 0) {
+	async handshake(delay = 0): Promise<void> {
 		// Leave early
 		if (this.opened()) {
 			return;
@@ -61,7 +68,7 @@ export class WebSocketService {
 				this.messageService.error(error);
 			}
 		};
-		this.ws.onclose = (event: CloseEvent) => {
+		this.ws.onclose = () => {
 			this.messageService.error(
 				new RichError(`WebSocket connection lost. Try again in ${this.reconnectDelay}ms`, {
 					code: 5005,
@@ -80,7 +87,7 @@ export class WebSocketService {
 		};
 		// Wait for opening
 		await new Promise((resolve) => {
-			this.ws.onopen = (event: Event) => {
+			this.ws.onopen = () => {
 				resolve();
 			};
 		});
@@ -102,7 +109,7 @@ export class WebSocketService {
 			const message: IWebSocketMessage = {
 				id,
 				data,
-				tag: this.makeTag(),
+				tag: WebSocketService.makeTag(),
 			};
 			// Create listener
 			subscription = this.messageObservable.subscribe((response: IWebSocketMessage) => {
@@ -115,13 +122,12 @@ export class WebSocketService {
 				clearTimeout(timeoutSub);
 				// On error
 				if (response.type === 'error') {
-					const error =
-						response.data && response.data.data
-							? RichError.from(response.data)
-							: new RichError(response.data ? response.data.message : 'Error from WebSocket server', {
-									code: 5006,
-									type: 'ConsoleWebSocketResponseError',
-							  });
+					const richErrorData = {
+						code: 5006,
+						type: 'ConsoleWebSocketResponseError',
+					};
+					const richErrorMessage = response.data ? response.data.message : 'Error from WebSocket server';
+					const error = response.data && response.data.data ? RichError.from(response.data) : new RichError(richErrorMessage, richErrorData);
 					this.messageService.error(error);
 					reject(error);
 					return;
@@ -157,18 +163,8 @@ export class WebSocketService {
 		return this.ws && this.ws.readyState === WebSocket.OPEN;
 	}
 
-	/** Create a unique id */
-	private makeTag(): string {
-		let text = '';
-		const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		for (let i = 0; i < 16; i++) {
-			text += possible.charAt(Math.floor(Math.random() * possible.length));
-		}
-		return text;
-	}
-
 	/** Resolves when the client is ready */
-	private async waitOpened() {
+	private async waitOpened(): Promise<void> {
 		if (this.opened()) {
 			return;
 		}

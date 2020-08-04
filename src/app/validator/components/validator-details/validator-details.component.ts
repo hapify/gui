@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Injector, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import { ValidatorService } from '../../services/validator.service';
 import { StorageService as ChannelStorageService } from '@app/channel/services/storage.service';
 import { StorageService as ModelStorageService } from '@app/model/services/storage.service';
@@ -35,24 +35,24 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	details: string = null;
 
 	/** Model getter */
-	get model() {
+	get model(): IModel {
 		return this.modelValue;
 	}
 
 	@Input()
 	set model(val: IModel) {
 		this.modelValue = val;
-		this.run();
+		this.run().catch((error) => this.messageService.error(error));
 	}
 
-	get channel() {
+	get channel(): IChannel {
 		return this.channelValue;
 	}
 
 	@Input()
 	set channel(val: IChannel) {
 		this.channelValue = val;
-		this.run();
+		this.run().catch((error) => this.messageService.error(error));
 	}
 
 	@Input()
@@ -62,7 +62,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 			this.signalSubscription.unsubscribe();
 		}
 		this.signalSubscription = val.subscribe(() => {
-			this.run();
+			this.run().catch((error) => this.messageService.error(error));
 		});
 	}
 
@@ -70,7 +70,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	constructor(protected injector: Injector) {}
 
 	/** On init */
-	ngOnInit() {
+	ngOnInit(): void {
 		// Avoid circular dependency
 		this.channelStorageService = this.injector.get(ChannelStorageService);
 		this.modelStorageService = this.injector.get(ModelStorageService);
@@ -82,7 +82,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	/** Destroy */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		if (this.signalSubscription) {
 			this.signalSubscription.unsubscribe();
 		}
@@ -111,7 +111,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	/** Run the process for Models x Channels */
-	protected async run() {
+	protected async run(): Promise<void> {
 		// Check if possible
 		if (!this.initialized || this.running) {
 			return;
@@ -133,7 +133,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	/** Sub-routine for run function */
-	protected async process(channels: IChannel[], models: IModel[]) {
+	protected async process(channels: IChannel[], models: IModel[]): Promise<void> {
 		// Stop process on first error
 		this.details = '';
 		for (const channel of channels) {

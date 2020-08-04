@@ -69,8 +69,7 @@ export class Field implements IField {
 	}
 
 	public isEmpty(): boolean {
-		const empty = typeof this.name !== 'string' || this.name === null || this.name.trim().length === 0;
-		return empty;
+		return typeof this.name !== 'string' || this.name.trim().length === 0;
 	}
 
 	/** Get the available sub types for the current type */

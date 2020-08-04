@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 	constructor(private resizeService: ResizeService, private infoService: InfoService) {}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.resizeService.breakpointChanges.pipe(takeUntil(this.unsubscribe)).subscribe((breakpointInfo) => {
 			this.breakpoint = breakpointInfo.current;
 		});
@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.unsubscribe.next();
 	}
 }

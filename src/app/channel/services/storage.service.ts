@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { StorageService as BaseStorageService } from '../../services/storage.service';
 import { Channel } from '../classes/channel';
 import { IChannel } from '../interfaces/channel';
-import { WebSocketMessages } from '../../interfaces/websocket-message';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
 
 @Injectable()
 export class StorageService extends BaseStorageService<IChannel> {

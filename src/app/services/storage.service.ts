@@ -5,39 +5,39 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export abstract class StorageService<T extends IStorable> {
 	/** Cached instances */
-	private _instances: T[] = null;
+	private instances: T[] = null;
 	/** Pending reading */
-	private _locked = false;
+	private locked = false;
 
 	/** Constructor */
-	constructor(protected _websocketService: WebSocketService) {}
+	constructor(protected websocketService: WebSocketService) {}
 
 	/** Returns the current instances */
 	async list(): Promise<T[]> {
 		// If the instances are loaded, returns directly
-		if (this._instances) {
-			return this._instances;
+		if (this.instances) {
+			return this.instances;
 		}
 		// Wait for other process to be finished and recheck if it is still necessary to get instances
 		await this.lock();
 		// Create the cached instances if not created
-		if (this._instances === null) {
-			const result = await this._websocketService.send(this.getMessageId()).catch(() => []);
+		if (this.instances === null) {
+			const result = await this.websocketService.send(this.getMessageId()).catch(() => []);
 			// If the instances are not created yet, use []
 			const objects = result instanceof Array ? result : [];
 			// Create instances from objects
-			this._instances = objects.map((object) => {
+			this.instances = objects.map((object) => {
 				const instance = this.instance();
 				instance.fromObject(object);
 				return instance;
 			});
 			// Sort the instances
-			this.sort(this._instances);
+			this.sort(this.instances);
 		}
 		// Release the lock
 		this.release();
 		// Returns instances
-		return this._instances;
+		return this.instances;
 	}
 
 	/** Save current instances to storage */
@@ -47,9 +47,9 @@ export abstract class StorageService<T extends IStorable> {
 		// Convert instances
 		const objects = instances.map((instance) => instance.toObject());
 		// Store
-		await this._websocketService.send(this.setMessageId(), objects);
+		await this.websocketService.send(this.setMessageId(), objects);
 		// Clear cache
-		this._instances = null;
+		this.instances = null;
 	}
 
 	/** Push a instance into the storage */
@@ -105,9 +105,9 @@ export abstract class StorageService<T extends IStorable> {
 	}
 
 	/** Resolves when the client is ready */
-	private async lock() {
-		if (!this._locked) {
-			this._locked = true;
+	private async lock(): Promise<void> {
+		if (!this.locked) {
+			this.locked = true;
 			return;
 		}
 		await new Promise((resolve) => {
@@ -115,8 +115,8 @@ export abstract class StorageService<T extends IStorable> {
 		});
 	}
 	/** Resolves when the client is ready */
-	private release() {
-		this._locked = false;
+	private release(): void {
+		this.locked = false;
 	}
 
 	/** Returns a new instance */

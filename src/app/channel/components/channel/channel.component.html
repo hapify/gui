@@ -56,14 +56,14 @@
 	*ngIf="showValidatorEditor"
 	[channel]="channel"
 	(save)="onSave(null)"
-	(close)="onValidatorEditorClose()"
+  (exit)="onValidatorEditorClose()"
 >
 </app-validator-editor>
 <app-channel-editor
 	*ngIf="currentEditedTemplate"
 	[template]="currentEditedTemplate"
 	(save)="onSave($event); updateTree()"
-	(close)="onEditorClose()"
+    (exit)="onEditorClose()"
 	class="d-block"
 >
 </app-channel-editor>

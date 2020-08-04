@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, HostListener, Injector, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { StorageService as ModelStorageService, IModel } from '@app/model/model.module';
+import { IModel, StorageService as ModelStorageService } from '@app/model/model.module';
 import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
@@ -24,7 +24,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 	/** On save event */
 	@Output() save = new EventEmitter<void>();
 	/** On save event */
-	@Output() close = new EventEmitter<void>();
+	@Output() exit = new EventEmitter<void>();
 	/** The edited template */
 	content: string;
 	/** The content mode for ACE */
@@ -62,7 +62,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 	) {}
 
 	/** On init */
-	ngOnInit() {
+	ngOnInit(): void {
 		// Avoid circular dependency
 		this.modelStorageService = this.injector.get(ModelStorageService);
 		this.validatorService = this.injector.get(ValidatorService);
@@ -70,7 +70,7 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 		// Handle generation messages
 		this.messageService.addErrorHandler({
 			name: 'validator-editor',
-			handle: (error: Error) => this._handledError(error),
+			handle: (error: Error) => this.handledError(error),
 		});
 
 		this.translateService.get('common_unload_warning').subscribe((value) => (this.beforeUnloadWarning = value));
@@ -91,12 +91,12 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 			this.models = models;
 			this.model = this.models[0];
 			// Re validate
-			this.validate();
+			this.validate().catch((error) => this.messageService.error(error));
 		});
 	}
 
 	/** Destroy */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.hotKeysService.remove(this.saveHotKeys);
 		this.messageService.removeErrorHandler('validator-editor');
 	}
@@ -105,17 +105,17 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 	 * After init
 	 * Bind Ctrl-S inside the editors
 	 */
-	ngAfterViewInit() {
-		this.editorInput.getEditor().commands.addCommand(this._getEditorSaveCommand());
+	ngAfterViewInit(): void {
+		this.editorInput.getEditor().commands.addCommand(this.getEditorSaveCommand());
 	}
 
 	/** Format an error to be displayed */
-	private _handledError(error: Error): boolean {
+	private handledError(error: Error): boolean {
 		return error instanceof RichError && this.handledCodes.includes(error.data.code);
 	}
 
 	/** Get the save command for the editors */
-	private _getEditorSaveCommand(): any {
+	private getEditorSaveCommand(): any {
 		return {
 			name: 'saveCommand',
 			bindKey: {
@@ -130,19 +130,19 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 	}
 
 	/** Called when the user click on save */
-	didClickSave() {
+	didClickSave(): void {
 		this.channel.validator = this.content;
 		this.unsavedChanges = false;
 		this.save.emit();
 	}
 
 	/** Called when the user click on close */
-	didClickClose() {
-		this.close.emit();
+	didClickClose(): void {
+		this.exit.emit();
 	}
 
 	/** Runs the content generation */
-	private async validate() {
+	private async validate(): Promise<void> {
 		// Clean error
 		this.error = null;
 		// Run validation
@@ -165,27 +165,27 @@ export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewIni
 	}
 
 	/** Call when the selected model is changed */
-	onModelChange() {
-		this.validate();
+	onModelChange(): void {
+		this.validate().catch((error) => this.messageService.error(error));
 	}
 
 	/** Call when the content is left */
-	onBlur(content: string) {
+	onBlur(content: string): void {
 		this.content = content;
-		this.validate();
+		this.validate().catch((error) => this.messageService.error(error));
 	}
 
 	/** Call when the content changes */
-	onChange(content: string) {
+	onChange(content: string): void {
 		this.content = content;
 		this.unsavedChanges = true;
 		if (this.autoValidate) {
-			this.validate();
+			this.validate().catch((error) => this.messageService.error(error));
 		}
 	}
 
 	/** Call when the user click on "dump" */
-	async didClickDump() {
+	async didClickDump(): Promise<void> {
 		this.messageService.log(this.model.toObject());
 	}
 

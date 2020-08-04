@@ -23,13 +23,13 @@ export class MessageService {
 	/** Constructor */
 	constructor(private translateService: TranslateService, public snackBar: MatSnackBar) {}
 	/** Push an error handler to the set */
-	addErrorHandler(handler: ErrorHandler) {
+	addErrorHandler(handler: ErrorHandler): void {
 		// Avoid conflict
 		this.removeErrorHandler(handler.name);
 		this.errorHandlers.push(handler);
 	}
 	/** Remove an error handler to the set */
-	removeErrorHandler(name: string) {
+	removeErrorHandler(name: string): void {
 		this.errorHandlers = this.errorHandlers.filter((h) => h.name !== name);
 	}
 	/** Show info */
@@ -71,7 +71,7 @@ export class MessageService {
 	}
 
 	/** Helper to translate key */
-	translateKey(key: string | Array<string>, interpolateParams?: Object): Promise<string> {
+	translateKey(key: string | Array<string>, interpolateParams?: object): Promise<string> {
 		return this.translateService.get(key, interpolateParams).toPromise();
 	}
 

@@ -8,13 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModuleLoad } from './translate-import';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { ValidatorService } from './validator/services/validator.service';
-
 // Components
 import { AppComponent } from './app.component';
 import { ModelComponent } from './components/model/model.component';
 import { ChannelComponent } from './components/channel/channel.component';
 import { SidebarComponent } from './components/common/sidebar/sidebar.component';
-
 // Services
 import { ConfigService } from './services/config.service';
 import { StringService } from './services/string.service';
@@ -25,7 +23,7 @@ import { ChannelModule } from './channel/channel.module';
 import { ModelModule } from './model/model.module';
 import { WebSocketService } from './services/websocket.service';
 import { SharedModule } from '@app/shared/shared.module';
-import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { MessageService } from '@app/services/message.service';
 import { InfoService } from '@app/services/info.service';
 import { DialogPremiumComponent } from './components/common/dialog-premium/dialog-premium.component';

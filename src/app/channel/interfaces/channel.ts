@@ -1,5 +1,5 @@
 import { ITemplate, ITemplateBase } from './template';
-import { IStorableBase, IStorable } from '../../interfaces/storable';
+import { IStorable, IStorableBase } from '@app/interfaces/storable';
 
 export interface IChannelBase extends IStorableBase {
 	/** The channel's name */

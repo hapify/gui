@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, HostListener, Injector, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ITemplate } from '../../interfaces/template';
 import { GeneratorService } from '../../services/generator.service';
-import { StorageService as ModelStorageService, IModel } from '../../../model/model.module';
+import { IModel, StorageService as ModelStorageService } from '../../../model/model.module';
 import { IGeneratorResult } from '../../interfaces/generator-result';
 import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,8 +23,8 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() template: ITemplate;
 	/** On save event */
 	@Output() save = new EventEmitter<ITemplate | null>();
-	/** On save event */
-	@Output() close = new EventEmitter<void>();
+	/** On close event */
+	@Output() exit = new EventEmitter<void>();
 	/** The edited template */
 	wip: ITemplate;
 	/** Preview models */
@@ -63,11 +63,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.modelStorageService = this.injector.get(ModelStorageService);
 	}
 	/** On init */
-	ngOnInit() {
+	ngOnInit(): void {
 		// Handle generation messages
 		this.messageService.addErrorHandler({
 			name: 'template-editor',
-			handle: (error: Error) => this._handledError(error),
+			handle: (error: Error) => this.handledError(error),
 		});
 
 		// Unloading message
@@ -75,7 +75,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+			new Hotkey('meta+s', (): boolean => {
 				this.didClickSave();
 				return false;
 			})
@@ -91,12 +91,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 				this.model = this.models[0];
 			}
 			// Generate
-			this._generate();
+			this.generate();
 		});
 	}
 
 	/** Destroy */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.hotKeysService.remove(this.saveHotKeys);
 		this.messageService.removeErrorHandler('template-editor');
 	}
@@ -104,7 +104,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	 * After init
 	 * Bind Ctrl-S inside the editors
 	 */
-	ngAfterViewInit() {
+	ngAfterViewInit(): void {
 		this.editorInput.getEditor().commands.addCommand(this._getEditorSaveCommand());
 		this.cd.detectChanges();
 	}
@@ -123,20 +123,20 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		};
 	}
 	/** Called when the user click on save */
-	didClickSave() {
+	didClickSave(): void {
 		this.template.content = this.wip.content;
 		this.template.path = this.wip.path;
 		this.unsavedChanges = false;
 		this.save.emit(this.generatorService.autoSyncEnabled ? this.wip : null);
 	}
 	/** Called when the user click on close */
-	didClickClose() {
+	didClickClose(): void {
 		if (!this.unsavedChanges || confirm(this.beforeUnloadWarning)) {
-			this.close.emit();
+			this.exit.emit();
 		}
 	}
 	/** Runs the content generation */
-	private _generate() {
+	private generate(): void {
 		// Clean results and error
 		// Run generation
 		this.generatorService
@@ -148,11 +148,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			})
 			.catch((e) => {
 				this.result = null;
-				this._formatError(e);
+				this.formatError(e);
 			});
 	}
 	/** Runs the path generation */
-	private _generatePath() {
+	private generatePath(): void {
 		// Run generation
 		this.generatorService
 			.path(this.wip, this.model)
@@ -160,44 +160,44 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 				this.pathResult = result;
 			})
 			.catch((e) => {
-				this._formatError(e);
+				this.formatError(e);
 			});
 	}
 	/** Format an error to be displayed */
-	private _formatError(error: Error) {
-		if (this._handledError(error)) {
+	private formatError(error: Error): void {
+		if (this.handledError(error)) {
 			this.error = (error as RichError).details();
 		}
 	}
 	/** Format an error to be displayed */
-	private _handledError(error: Error): boolean {
+	private handledError(error: Error): boolean {
 		return error instanceof RichError && this.handledCodes.includes(error.data.code);
 	}
 
 	/** Call when the selected model is changed */
-	onModelChange() {
-		this._generate();
+	onModelChange(): void {
+		this.generate();
 	}
 	/** Call when the path is changed */
-	onPathChange(value: string) {
+	onPathChange(value: string): void {
 		this.wip.path = value;
-		this._generatePath();
+		this.generatePath();
 	}
 	/** Call when the content is left */
-	onBlur(content: string) {
+	onBlur(content: string): void {
 		this.wip.content = content;
-		this._generate();
+		this.generate();
 	}
 	/** Call when the content changes */
-	onChange(content: string) {
+	onChange(content: string): void {
 		this.wip.content = content;
 		this.unsavedChanges = true;
 		if (this.autoRefresh) {
-			this._generate();
+			this.generate();
 		}
 	}
 	/** Call when the user click on "dump" */
-	async didClickDump() {
+	async didClickDump(): Promise<void> {
 		// @todo Dump in popin
 		this.messageService.info('To be implemented');
 	}

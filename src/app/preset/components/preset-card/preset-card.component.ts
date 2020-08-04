@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { IPreset } from '../../interfaces/preset';
 import { WebSocketMessages } from '@app/interfaces/websocket-message';
 import { IModel } from '@app/model/interfaces/model';
@@ -28,7 +28,7 @@ export class PresetCardComponent implements OnInit {
 
 	diffPreset: PresetMergeResults;
 
-	ngOnInit() {}
+	ngOnInit(): void {}
 
 	async previewDiffPresetApllied(): Promise<void> {
 		this.diffPreset = (await this.webSocketService.send(WebSocketMessages.APPLY_PRESETS, {
@@ -49,7 +49,7 @@ export class PresetCardComponent implements OnInit {
 	}
 
 	@HostListener('mouseleave', ['$event'])
-	mouseLeave() {
+	mouseLeave(): void {
 		this.renderer.removeClass(this.description.nativeElement, 'd-block');
 		this.renderer.addClass(this.description.nativeElement, 'd-none');
 	}

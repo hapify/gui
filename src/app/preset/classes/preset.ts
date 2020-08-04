@@ -1,5 +1,5 @@
 import { IPreset, IPresetBase } from '../interfaces/preset';
-import { Model, IModel, IModelBase } from '../../model/model.module';
+import { IModel, IModelBase, Model } from '../../model/model.module';
 
 export class Preset implements IPreset {
 	/** Constructor */
@@ -8,8 +8,10 @@ export class Preset implements IPreset {
 	public id = '';
 	public icon = '';
 	public name = '';
+	// tslint:disable-next-line:variable-name
 	public name__fr = '';
 	public description = '';
+	// tslint:disable-next-line:variable-name
 	public description__fr = '';
 	public models: IModel[] = [];
 

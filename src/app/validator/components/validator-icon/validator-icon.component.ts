@@ -12,7 +12,7 @@ export class ValidatorIconComponent extends ValidatorDetailsComponent {
 	/** Pre-computed error level */
 	level = 'undefined';
 
-	protected async process(channels: IChannel[], models: IModel[]) {
+	protected async process(channels: IChannel[], models: IModel[]): Promise<void> {
 		// Stop process on first error
 		let hasError = false;
 		let hasWarning = false;

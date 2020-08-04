@@ -7,6 +7,8 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 
 @Injectable()
 export class ValidatorService {
+	/** Constructor */
+	constructor(private webSocketService: WebSocketService) {}
 	/** Cache stack */
 	private cache: { [key: string]: IValidatorResult } = {};
 	/** Processes locks */
@@ -14,8 +16,14 @@ export class ValidatorService {
 	/** Delay before retry */
 	private lockDelay = 50;
 
-	/** Constructor */
-	constructor(private webSocketService: WebSocketService) {}
+	/** Compute hash for for context */
+	private static hash(script: string, model: IModel): string {
+		const m = model.toObject();
+		delete m.id;
+		const modelHash = md5(JSON.stringify(m));
+		const scriptHash = md5(script);
+		return `${modelHash}-${scriptHash}`;
+	}
 
 	/** Run validation on a single model for a single channel */
 	async run(script: string, model: IModel): Promise<IValidatorResult> {
@@ -28,7 +36,7 @@ export class ValidatorService {
 		}
 
 		// Get cache
-		const hash = this.hash(script, model);
+		const hash = ValidatorService.hash(script, model);
 		if (typeof this.cache[hash] !== 'undefined') {
 			return this.cache[hash];
 		}
@@ -54,14 +62,5 @@ export class ValidatorService {
 		this.locks[hash] = false;
 
 		return result;
-	}
-
-	/** Compute hash for for context */
-	private hash(script: string, model: IModel): string {
-		const m = model.toObject();
-		delete m.id;
-		const modelHash = md5(JSON.stringify(m));
-		const scriptHash = md5(script);
-		return `${modelHash}-${scriptHash}`;
 	}
 }

@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { WebSocketService } from './services/websocket.service';
 import { ResizeService } from '@app/services/resize.service';
+import { MessageService } from '@app/services/message.service';
 
 @Component({
 	selector: 'app-root',
@@ -15,7 +16,13 @@ export class AppComponent implements OnInit {
 	@ViewChild('scrollzone') scrollzone: ElementRef;
 	scrollTimeout;
 
-	constructor(translate: TranslateService, webSocketService: WebSocketService, private resizeService: ResizeService, private renderer: Renderer2) {
+	constructor(
+		private translate: TranslateService,
+		private webSocketService: WebSocketService,
+		private resizeService: ResizeService,
+		private renderer: Renderer2,
+		private messageService: MessageService
+	) {
 		// this language will be used as a fallback when a translation isn't found in the current language
 		translate.setDefaultLang('en');
 
@@ -23,16 +30,16 @@ export class AppComponent implements OnInit {
 		translate.use(translate.getBrowserLang());
 
 		// Init websocket
-		webSocketService.handshake();
+		webSocketService.handshake().catch((error) => this.messageService.error(error));
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.resizeService.breakpointChanges.subscribe((breakpointInfo) => {
 			this.breakpoint = breakpointInfo.current;
 		});
 	}
 
-	disablePointerEvents() {
+	disablePointerEvents(): void {
 		this.renderer.addClass(this.scrollzone.nativeElement, 'scrolling');
 		clearTimeout(this.scrollTimeout);
 		this.scrollTimeout = setTimeout(() => {

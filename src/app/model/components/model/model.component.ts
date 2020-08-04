@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
@@ -45,7 +45,7 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 	/** Notify save */
 	@Output() save = new EventEmitter<void>();
 	/** Notify changes */
-	@Output() change = new EventEmitter<void>();
+	@Output() update = new EventEmitter<void>();
 	/** Notify cloning */
 	@Output() clone = new EventEmitter<void>();
 	/** Notify copy. Cannot be called copy, otherwise it will be called on Meta+C */
@@ -63,10 +63,10 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 	cleanRows = false;
 	confirmModelDeletion = false;
 
-	ngOnInit() {
+	ngOnInit(): void {
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+			new Hotkey('meta+s', (): boolean => {
 				this.save.emit();
 				return false;
 			})
@@ -75,32 +75,32 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 		this.updateActions();
 	}
 
-	togglePanel(panel: 'notes' | 'access') {
+	togglePanel(panel: 'notes' | 'access'): void {
 		this.accessRightsPanelIsDisplayed = panel === 'access' && !this.accessRightsPanelIsDisplayed;
 		this.notesPanelIsDisplayed = panel === 'notes' && !this.notesPanelIsDisplayed;
 	}
 
 	/** Destroy */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.hotKeysService.remove(this.saveHotKeys);
 	}
 
 	/** Called when the user click on "add field" */
-	addField() {
+	addField(): void {
 		this.model.addField(this.model.newField());
 		this.onModelChange();
 	}
 
 	/** Called when the user click on "clean fields" */
-	deleteField(field: Field) {
+	deleteField(field: Field): void {
 		this.model.removeField(field);
 		this.onModelChange();
 	}
 
 	/** Called when a field change */
-	onModelChange() {
+	onModelChange(): void {
 		this.updateActions();
-		this.change.emit();
+		this.update.emit();
 		// Auto-save
 		this.save.emit();
 	}
@@ -131,7 +131,7 @@ export class ModelComponent extends ModelLightComponent implements OnInit, OnDes
 	}
 
 	/** Drag and drop fields list */
-	dropped(event: CdkDragDrop<string[]>) {
+	dropped(event: CdkDragDrop<string[]>): void {
 		this.model.moveField(this.model.fields[event.previousIndex], event.currentIndex - event.previousIndex);
 		this.onModelChange();
 	}

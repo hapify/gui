@@ -20,13 +20,13 @@ export class NewComponent implements AfterViewInit {
 
 	@ViewChild('nameInput') nameInput: ElementRef;
 
-	ngAfterViewInit() {
+	ngAfterViewInit(): void {
 		// Avoid "Expression has changed after it was checked" error
 		setTimeout(() => this.nameInput.nativeElement.focus());
 	}
 
 	/** Called when the user save the new model */
-	async save() {
+	async save(): Promise<void> {
 		// Get model from CLI
 		const modelObject = (await this.webSocketService.send(WebSocketMessages.NEW_MODEL, {
 			name: this.name,

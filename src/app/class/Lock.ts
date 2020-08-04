@@ -4,7 +4,7 @@ export class Lock {
 	private locks: { [key: string]: boolean } = {};
 
 	/** Wait to be unlocked */
-	protected async wait(key: string) {
+	protected async wait(key: string): Promise<void> {
 		if (!this.locks[key]) {
 			return;
 		}
@@ -13,11 +13,11 @@ export class Lock {
 		});
 	}
 	/** Wait to be unlocked */
-	protected lock(key: string) {
+	protected lock(key: string): void {
 		this.locks[key] = true;
 	}
 	/** Wait to be unlocked */
-	protected unlock(key: string) {
+	protected unlock(key: string): void {
 		this.locks[key] = false;
 	}
 }

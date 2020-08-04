@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { GeneratorService } from '../../services/generator.service';
 import { IChannel } from '../../interfaces/channel';
 import { ITemplate } from '../../interfaces/template';
@@ -38,7 +38,7 @@ export class ChannelComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.updateTree();
 	}
 
@@ -90,26 +90,26 @@ export class ChannelComponent implements OnInit {
 	}
 
 	/** Called when a branch is selected */
-	onSelectBranch(branch: TreeBranch) {
+	onSelectBranch(branch: TreeBranch): void {
 		this.selectedPath = branch.children.length ? `${branch.path}/` : branch.path;
 		this.filterTemplates();
 	}
 
 	/** Called when the user click on "save" */
-	onSave(toGenerate: ITemplate | null) {
+	onSave(toGenerate: ITemplate | null): void {
 		this.save.emit(toGenerate);
 		this.unsavedChanges = false;
 	}
 
 	/** Will sync all templates of the channel */
-	async onGenerate() {
+	async onGenerate(): Promise<void> {
 		this.syncing = true;
 		await this.generatorService.compileChannel(this.channel);
 		this.syncing = false;
 	}
 
 	/** Called when the user click on "add template" */
-	onAddTemplate(path: string) {
+	onAddTemplate(path: string): void {
 		const template = this.channel.newTemplate();
 		template.path = path;
 		template.content = '';
@@ -119,12 +119,12 @@ export class ChannelComponent implements OnInit {
 	}
 
 	/** Called when a template is edited */
-	onTemplateChanged() {
+	onTemplateChanged(): void {
 		this.unsavedChanges = true;
 	}
 
 	/** Called when the user click on "remove templates" */
-	onRemoveTemplate(branch: TreeBranch) {
+	onRemoveTemplate(branch: TreeBranch): void {
 		const template = this.channel.templates.find((t) => t.path === branch.path);
 		if (template) {
 			this.channel.removeTemplate(template);
@@ -136,17 +136,17 @@ export class ChannelComponent implements OnInit {
 	}
 
 	/** Called when the ValidatorEditor is saved */
-	onValidatorEditorClose() {
+	onValidatorEditorClose(): void {
 		this.showValidatorEditor = false;
 	}
 
 	/** Called when the user click on "Open Editor" button */
-	onShowEditor(template: ITemplate) {
+	onShowEditor(template: ITemplate): void {
 		this.currentEditedTemplate = template;
 	}
 
 	/** Called when the editor is saved */
-	onEditorClose() {
+	onEditorClose(): void {
 		this.currentEditedTemplate = null;
 	}
 }

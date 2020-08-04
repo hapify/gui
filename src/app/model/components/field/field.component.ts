@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 import { FieldLightComponent } from '../field-light/field-light.component';
 
@@ -11,7 +11,7 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	/** Rows deletion mode */
 	@Input() deletionMode = false;
 	/** Notify changes */
-	@Output() change = new EventEmitter<void>();
+	@Output() update = new EventEmitter<void>();
 	/** Request for delete field */
 	@Output() delete = new EventEmitter<void>();
 
@@ -23,18 +23,18 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	isFieldsTooltipDisplayed = false;
 	noSelectedField = false;
 
-	ngOnInit() {
+	ngOnInit(): void {
 		super.ngOnInit();
 		this.areSelectedFields();
 	}
 
 	/** Destroy */
-	ngOnDestroy() {}
+	ngOnDestroy(): void {}
 
 	/** Called when a value change */
-	onInputChange() {
+	onInputChange(): void {
 		this.updateField();
-		this.change.emit();
+		this.update.emit();
 	}
 
 	/** Called when the user delete the field */
@@ -61,7 +61,7 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	}
 
 	/** Display subtypes in tooltip */
-	toggleSubtypesTooltip(type: ILabelledValue) {
+	toggleSubtypesTooltip(type: ILabelledValue): void {
 		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
 	}
 }

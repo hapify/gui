@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ITemplate } from '../../interfaces/template';
 import { TemplateEngine } from '../../interfaces/template-engine.enum';
 import { TemplateInput } from '../../interfaces/template-input.enum';
@@ -36,11 +36,11 @@ export class TemplateComponent {
 		{ name: 'template_input_all', value: TemplateInput.All },
 	];
 	/** Called when the user click on "Open Editor" button */
-	onShowEditor() {
+	onShowEditor(): void {
 		this.showEditor.emit();
 	}
 	/** Called when the user click on "Open Editor" button */
-	onPathChange(value: string) {
+	onPathChange(value: string): void {
 		this.template.path = value;
 		this.pathChanged.emit();
 	}

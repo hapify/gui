@@ -1,5 +1,5 @@
 import { IField, IFieldBase } from './field';
-import { IStorableBase, IStorable } from '../../interfaces/storable';
+import { IStorable, IStorableBase } from '@app/interfaces/storable';
 import { IAccesses } from './access';
 
 export interface IModelBase extends IStorableBase {

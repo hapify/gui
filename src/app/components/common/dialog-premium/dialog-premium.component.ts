@@ -9,5 +9,5 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DialogPremiumComponent implements OnInit {
 	constructor(public dialogRef: MatDialogRef<DialogPremiumComponent>) {}
 
-	ngOnInit() {}
+	ngOnInit(): void {}
 }

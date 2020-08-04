@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TranslateModuleLoad } from '../translate-import';
 
 import { RootComponent } from './components/root/root.component';
-
 // Services
 import { StorageService } from './services/storage.service';
 import { SharedModule } from '@app/shared/shared.module';
@@ -25,7 +23,6 @@ import { ModelService } from '@app/preset/services/model.service';
 })
 export class PresetModule {}
 
-/*export { PRESET_ROUTES } from './preset.routing';*/
 export { Preset } from './classes/preset';
 export { IPreset, IPresetBase } from './interfaces/preset';
 export { StorageService } from './services/storage.service';

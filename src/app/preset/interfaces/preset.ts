@@ -1,5 +1,5 @@
 import { IModel, IModelBase } from '../../model/model.module';
-import { IStorableBase, IStorable } from '../../interfaces/storable';
+import { IStorable, IStorableBase } from '@app/interfaces/storable';
 
 export interface IPresetBase extends IStorableBase {
 	/** The preset icon */

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IModel } from '@app/model/interfaces/model';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 		private messageService: MessageService
 	) {}
 
-	ngOnInit() {}
+	ngOnInit(): void {}
 
 	openPresetDialog(): void {
 		this.dialog.open(PresetRootComponent, {
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
 		});
 
 		this.modelServiceSubscription = this.modelService.presetApplied.subscribe((results) => {
-			this.updateModel(results);
+			this.updateModel(results).catch((error) => this.messageService.error(error));
 		});
 
 		this.dialogSubscription = this.dialog.afterAllClosed.subscribe(() => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { StorageService as BaseStorageService } from '../../services/storage.service';
 import { Preset } from '../classes/preset';
 import { IPreset } from '../interfaces/preset';
-import { WebSocketMessages } from '../../interfaces/websocket-message';
+import { WebSocketMessages } from '@app/interfaces/websocket-message';
 
 @Injectable()
 export class StorageService extends BaseStorageService<IPreset> {

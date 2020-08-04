@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IChannel } from '../../interfaces/channel';
 import { ITemplate } from '../../interfaces/template';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 import { GeneratorService } from '../../services/generator.service';
 
@@ -15,7 +15,7 @@ export class EditComponent implements OnInit, OnDestroy {
 	/** The generator service */
 	generatorService: GeneratorService;
 	/** Route params subscription */
-	private _paramsSub: Subscription;
+	private paramsSubcription: Subscription;
 	/** Channel instance */
 	public channel: IChannel;
 	/** Constructor */
@@ -24,8 +24,8 @@ export class EditComponent implements OnInit, OnDestroy {
 		this.generatorService = this.injector.get(GeneratorService);
 	}
 
-	ngOnInit() {
-		this._paramsSub = this.route.params.subscribe(async (params) => {
+	ngOnInit(): void {
+		this.paramsSubcription = this.route.params.subscribe(async (params) => {
 			// Get channel id
 			const id = params.id;
 			// Load channel
@@ -38,8 +38,8 @@ export class EditComponent implements OnInit, OnDestroy {
 	}
 
 	/** On destroy */
-	ngOnDestroy() {
-		this._paramsSub.unsubscribe();
+	ngOnDestroy(): void {
+		this.paramsSubcription.unsubscribe();
 	}
 
 	/** Called when the user update the channel */

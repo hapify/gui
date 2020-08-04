@@ -59,7 +59,7 @@ export class Model implements IModel {
 	}
 
 	public isEmpty(): boolean {
-		const nameIsEmpty = typeof this.name !== 'string' || this.name === null || this.name.length === 0;
+		const nameIsEmpty = typeof this.name !== 'string' || this.name.length === 0;
 		const fieldsAreEmpty = this.fields.every((field: IField): boolean => field.isEmpty());
 
 		return nameIsEmpty || fieldsAreEmpty;
