@@ -7,10 +7,10 @@ import { RootComponent } from './components/root/root.component';
 export const MODEL_ROUTES: Routes = [
 	{
 		path: '',
-		component: RootComponent
+		component: RootComponent,
 	},
 	{
 		path: 'new',
-		component: NewComponent
-	}
+		component: NewComponent,
+	},
 ];

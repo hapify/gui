@@ -13,7 +13,7 @@ interface IPropertyIcon {
 @Component({
 	selector: 'app-model-field-light',
 	templateUrl: './field-light.component.html',
-	styleUrls: ['../field/field.component.scss']
+	styleUrls: ['../field/field.component.scss'],
 })
 export class FieldLightComponent implements OnInit {
 	/** Constructor */
@@ -44,7 +44,7 @@ export class FieldLightComponent implements OnInit {
 		{ property: 'hidden', icon: 'visibility_off', value: false },
 		{ property: 'internal', icon: 'code', value: false },
 		{ property: 'restricted', icon: 'pan_tool', value: false },
-		{ property: 'ownership', icon: 'copyright', value: false }
+		{ property: 'ownership', icon: 'copyright', value: false },
 	];
 	filteredPropertiesIcons: IPropertyIcon[] = [];
 
@@ -66,7 +66,7 @@ export class FieldLightComponent implements OnInit {
 		if (field.type !== FieldType.Entity || !this.models) {
 			return null;
 		}
-		const model = this.models.find(m => m.id === field.reference);
+		const model = this.models.find((m) => m.id === field.reference);
 		return model ? model.name : '-';
 	}
 
@@ -75,8 +75,6 @@ export class FieldLightComponent implements OnInit {
 		for (const p of this.propertiesIcons) {
 			p.value = !!this.field[p.property];
 		}
-		this.filteredPropertiesIcons = this.propertiesIcons.filter(
-			i => i.value
-		);
+		this.filteredPropertiesIcons = this.propertiesIcons.filter((i) => i.value);
 	}
 }

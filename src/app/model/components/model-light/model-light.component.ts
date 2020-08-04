@@ -4,7 +4,7 @@ import { IModel } from '../../interfaces/model';
 @Component({
 	selector: 'app-model-model-light',
 	templateUrl: './model-light.component.html',
-	styleUrls: ['../model/model.component.scss']
+	styleUrls: ['../model/model.component.scss'],
 })
 export class ModelLightComponent {
 	/** Constructor */

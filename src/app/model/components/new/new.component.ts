@@ -1,11 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Output,
-	ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Model } from '../../classes/model';
 import { IModel, IModelBase } from '../../interfaces/model';
 import { WebSocketService } from '@app/services/websocket.service';
@@ -14,7 +7,7 @@ import { WebSocketMessages } from '@app/interfaces/websocket-message';
 @Component({
 	selector: 'app-model-new',
 	templateUrl: './new.component.html',
-	styleUrls: ['./new.component.scss']
+	styleUrls: ['./new.component.scss'],
 })
 export class NewComponent implements AfterViewInit {
 	/**
@@ -39,12 +32,9 @@ export class NewComponent implements AfterViewInit {
 	 */
 	async save() {
 		// Get model from CLI
-		const modelObject = (await this.webSocketService.send(
-			WebSocketMessages.NEW_MODEL,
-			{
-				name: this.name
-			}
-		)) as IModelBase;
+		const modelObject = (await this.webSocketService.send(WebSocketMessages.NEW_MODEL, {
+			name: this.name,
+		})) as IModelBase;
 
 		// Create new model
 		const model = new Model();

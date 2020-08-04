@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AlertModule, TooltipModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { TranslateModuleLoad } from '../translate-import';
 
@@ -35,7 +36,7 @@ import { TreeComponent } from './components/tree/tree.component';
 		TooltipModule.forRoot(),
 		AlertModule.forRoot(),
 		HotkeyModule,
-		SharedModule
+		SharedModule,
 	],
 	declarations: [
 		ChannelComponent,
@@ -46,9 +47,9 @@ import { TreeComponent } from './components/tree/tree.component';
 		EditorComponent,
 		ContentEditableModelDirective,
 		ValidatorEditorComponent,
-		TreeComponent
+		TreeComponent,
 	],
-	providers: [StorageService, GeneratorService]
+	providers: [StorageService, GeneratorService],
 })
 export class ChannelModule {}
 

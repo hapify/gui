@@ -4,7 +4,7 @@ import { TreeBranch } from '../../interfaces/tree-branch';
 @Component({
 	selector: 'app-channel-tree',
 	templateUrl: './tree.component.html',
-	styleUrls: ['./tree.component.scss']
+	styleUrls: ['./tree.component.scss'],
 })
 export class TreeComponent implements OnInit {
 	@Input()
@@ -20,10 +20,9 @@ export class TreeComponent implements OnInit {
 			return a.name.localeCompare(b.name);
 		});
 		this._tree = value;
-		this._tree.map(branch => {
+		this._tree.map((branch) => {
 			this.isOpen[branch.path] = this.isOpen[branch.path] || false;
-			this.types[branch.path] =
-				this.types[branch.path] || this.getType(branch); // Avoid re-compute
+			this.types[branch.path] = this.types[branch.path] || this.getType(branch); // Avoid re-compute
 		});
 	}
 	get tree(): TreeBranch[] {
@@ -47,10 +46,8 @@ export class TreeComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.selectedPath.length) {
-			this._tree.map(branch => {
-				this.isOpen[branch.path] = this.selectedPath.startsWith(
-					branch.path
-				);
+			this._tree.map((branch) => {
+				this.isOpen[branch.path] = this.selectedPath.startsWith(branch.path);
 			});
 		}
 	}
@@ -80,9 +77,7 @@ export class TreeComponent implements OnInit {
 		if (this.addTemplateDisabled || this.newTemplatePath.length === 0) {
 			return;
 		}
-		const path = this.rootPath.length
-			? `${this.rootPath}/${this.newTemplatePath}`
-			: this.newTemplatePath;
+		const path = this.rootPath.length ? `${this.rootPath}/${this.newTemplatePath}` : this.newTemplatePath;
 		this.addTemplate.emit(path);
 		this.newTemplatePath = '';
 	}

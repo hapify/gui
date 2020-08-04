@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app.routing';
-import { AlertModule, TooltipModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule } from '@angular/forms';
 import { TranslateModuleLoad } from './translate-import';
 import { AceEditorModule } from 'ng2-ace-editor';
@@ -24,28 +25,18 @@ import { ChannelModule } from './channel/channel.module';
 import { ModelModule } from './model/model.module';
 import { WebSocketService } from './services/websocket.service';
 import { SharedModule } from '@app/shared/shared.module';
-import {
-	PERFECT_SCROLLBAR_CONFIG,
-	PerfectScrollbarModule,
-	PerfectScrollbarConfigInterface
-} from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MessageService } from '@app/services/message.service';
 import { InfoService } from '@app/services/info.service';
 import { DialogPremiumComponent } from './components/common/dialog-premium/dialog-premium.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-	suppressScrollX: true
+	suppressScrollX: true,
 };
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		ModelComponent,
-		ChannelComponent,
-		SidebarComponent,
-		HeaderComponent,
-		DialogPremiumComponent
-	],
+	declarations: [AppComponent, ModelComponent, ChannelComponent, SidebarComponent, HeaderComponent, DialogPremiumComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -59,7 +50,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ChannelModule,
 		ModelModule,
 		SharedModule,
-		PerfectScrollbarModule
+		PerfectScrollbarModule,
+		BrowserAnimationsModule,
 	],
 	providers: [
 		ConfigService,
@@ -71,10 +63,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		InfoService,
 		{
 			provide: PERFECT_SCROLLBAR_CONFIG,
-			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-		}
+			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+		},
 	],
 	bootstrap: [AppComponent],
-	entryComponents: [DialogPremiumComponent]
+	entryComponents: [DialogPremiumComponent],
 })
 export class AppModule {}

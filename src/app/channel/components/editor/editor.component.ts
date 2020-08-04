@@ -1,22 +1,7 @@
-import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	HostListener,
-	Injector,
-	Input,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, HostListener, Injector, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ITemplate } from '../../interfaces/template';
 import { GeneratorService } from '../../services/generator.service';
-import {
-	StorageService as ModelStorageService,
-	IModel
-} from '../../../model/model.module';
+import { StorageService as ModelStorageService, IModel } from '../../../model/model.module';
 import { IGeneratorResult } from '../../interfaces/generator-result';
 import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +12,7 @@ import { RichError } from '@app/class/RichError';
 @Component({
 	selector: 'app-channel-editor',
 	templateUrl: './editor.component.html',
-	styleUrls: ['./editor.component.scss']
+	styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** @type {GeneratorService} The generator service */
@@ -61,17 +46,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** Error codes to display in editor */
-	private handledCodes = [
-		1003,
-		1004,
-		1005,
-		2004,
-		2005,
-		6001,
-		6002,
-		6003,
-		6004
-	];
+	private handledCodes = [1003, 1004, 1005, 2004, 2005, 6001, 6002, 6003, 6004];
 	/** Left editor */
 	@ViewChild('editorInput') editorInput;
 	/** Constructor */
@@ -92,30 +67,25 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		// Handle generation messages
 		this.messageService.addErrorHandler({
 			name: 'template-editor',
-			handle: (error: Error) => this._handledError(error)
+			handle: (error: Error) => this._handledError(error),
 		});
 
 		// Unloading message
-		this.translateService
-			.get('common_unload_warning')
-			.subscribe(value => (this.beforeUnloadWarning = value));
+		this.translateService.get('common_unload_warning').subscribe((value) => (this.beforeUnloadWarning = value));
 
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey(
-				'meta+s',
-				(event: KeyboardEvent): boolean => {
-					this.didClickSave();
-					return false;
-				}
-			)
+			new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+				this.didClickSave();
+				return false;
+			})
 		);
 
 		// Clone input template
 		this.wip = this.template.clone();
 
 		// Get all models
-		this.modelStorageService.list().then(models => {
+		this.modelStorageService.list().then((models) => {
 			this.models = models;
 			if (this.wip.needsModel()) {
 				this.model = this.models[0];
@@ -135,9 +105,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	 * Bind Ctrl-S inside the editors
 	 */
 	ngAfterViewInit() {
-		this.editorInput
-			.getEditor()
-			.commands.addCommand(this._getEditorSaveCommand());
+		this.editorInput.getEditor().commands.addCommand(this._getEditorSaveCommand());
 		this.cd.detectChanges();
 	}
 	/** Get the save command for the editors */
@@ -147,11 +115,11 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 			bindKey: {
 				win: 'Ctrl-S',
 				mac: 'Command-S',
-				sender: 'editor|cli'
+				sender: 'editor|cli',
 			},
 			exec: () => {
 				this.didClickSave();
-			}
+			},
 		};
 	}
 	/** Called when the user click on save */
@@ -176,12 +144,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		// Run generation
 		this.generatorService
 			.run(this.wip, this.model)
-			.then(result => {
+			.then((result) => {
 				this.result = result;
 				this.error = null;
 				this.pathResult = result.path;
 			})
-			.catch(e => {
+			.catch((e) => {
 				this.result = null;
 				this._formatError(e);
 			});
@@ -194,10 +162,10 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		// Run generation
 		this.generatorService
 			.path(this.wip, this.model)
-			.then(result => {
+			.then((result) => {
 				this.pathResult = result;
 			})
-			.catch(e => {
+			.catch((e) => {
 				this._formatError(e);
 			});
 	}
@@ -209,10 +177,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 	/** Format an error to be displayed */
 	private _handledError(error: Error): boolean {
-		return (
-			error instanceof RichError &&
-			this.handledCodes.includes(error.data.code)
-		);
+		return error instanceof RichError && this.handledCodes.includes(error.data.code);
 	}
 
 	/** Call when the selected model is changed */

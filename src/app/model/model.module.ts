@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AlertModule, TooltipModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TranslateModuleLoad } from '../translate-import';
 import { ValidatorIconComponent } from '../validator/components/validator-icon/validator-icon.component';
 import { ValidatorDetailsComponent } from '../validator/components/validator-details/validator-details.component';
@@ -34,7 +35,7 @@ import { MessageService } from '@app/services/message.service';
 		TooltipModule.forRoot(),
 		AlertModule.forRoot(),
 		SharedModule,
-		PresetModule
+		PresetModule,
 	],
 	declarations: [
 		ModelComponent,
@@ -45,10 +46,10 @@ import { MessageService } from '@app/services/message.service';
 		RootComponent,
 		ValidatorIconComponent,
 		ValidatorDetailsComponent,
-		HeaderComponent
+		HeaderComponent,
 	],
 	providers: [StorageService, ModelService, MessageService],
-	entryComponents: [PresetRootComponent]
+	entryComponents: [PresetRootComponent],
 })
 export class ModelModule {}
 

@@ -11,22 +11,22 @@ export const routes: Routes = [
 	{
 		path: '',
 		redirectTo: '/model',
-		pathMatch: 'full'
+		pathMatch: 'full',
 	},
 	{
 		path: 'model',
 		component: ModelComponent,
-		children: MODEL_ROUTES
+		children: MODEL_ROUTES,
 	},
 	{
 		path: 'channel',
 		component: ChannelComponent,
-		children: CHANNEL_ROUTES
-	}
+		children: CHANNEL_ROUTES,
+	},
 ];
 
 @NgModule({
 	imports: [ModelModule, ChannelModule, RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

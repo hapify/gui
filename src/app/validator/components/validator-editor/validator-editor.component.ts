@@ -1,19 +1,5 @@
-import {
-	AfterViewInit,
-	Component,
-	EventEmitter,
-	HostListener,
-	Injector,
-	Input,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from '@angular/core';
-import {
-	StorageService as ModelStorageService,
-	IModel
-} from '@app/model/model.module';
+import { AfterViewInit, Component, EventEmitter, HostListener, Injector, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { StorageService as ModelStorageService, IModel } from '@app/model/model.module';
 import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
@@ -26,10 +12,9 @@ import { RichError } from '@app/class/RichError';
 @Component({
 	selector: 'app-validator-editor',
 	templateUrl: './validator-editor.component.html',
-	styleUrls: ['./validator-editor.component.scss']
+	styleUrls: ['./validator-editor.component.scss'],
 })
-export class ValidatorEditorComponent
-	implements OnInit, OnDestroy, AfterViewInit {
+export class ValidatorEditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	/** @type {ModelStorageService} The model storage service */
 	modelStorageService: ModelStorageService;
 	/** @type {ValidatorService} The validator service */
@@ -87,29 +72,24 @@ export class ValidatorEditorComponent
 		// Handle generation messages
 		this.messageService.addErrorHandler({
 			name: 'validator-editor',
-			handle: (error: Error) => this._handledError(error)
+			handle: (error: Error) => this._handledError(error),
 		});
 
-		this.translateService
-			.get('common_unload_warning')
-			.subscribe(value => (this.beforeUnloadWarning = value));
+		this.translateService.get('common_unload_warning').subscribe((value) => (this.beforeUnloadWarning = value));
 
 		// Clone content
 		this.content = this.channel.validator;
 
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey(
-				'meta+s',
-				(event: KeyboardEvent): boolean => {
-					this.didClickSave();
-					return false;
-				}
-			)
+			new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+				this.didClickSave();
+				return false;
+			})
 		);
 
 		// Get all models
-		this.modelStorageService.list().then(models => {
+		this.modelStorageService.list().then((models) => {
 			this.models = models;
 			this.model = this.models[0];
 			// Re validate
@@ -130,17 +110,12 @@ export class ValidatorEditorComponent
 	 * Bind Ctrl-S inside the editors
 	 */
 	ngAfterViewInit() {
-		this.editorInput
-			.getEditor()
-			.commands.addCommand(this._getEditorSaveCommand());
+		this.editorInput.getEditor().commands.addCommand(this._getEditorSaveCommand());
 	}
 
 	/** Format an error to be displayed */
 	private _handledError(error: Error): boolean {
-		return (
-			error instanceof RichError &&
-			this.handledCodes.includes(error.data.code)
-		);
+		return error instanceof RichError && this.handledCodes.includes(error.data.code);
 	}
 
 	/**
@@ -152,11 +127,11 @@ export class ValidatorEditorComponent
 			bindKey: {
 				win: 'Ctrl-S',
 				mac: 'Command-S',
-				sender: 'editor|cli'
+				sender: 'editor|cli',
 			},
 			exec: () => {
 				this.didClickSave();
-			}
+			},
 		};
 	}
 
@@ -186,22 +161,13 @@ export class ValidatorEditorComponent
 		this.error = null;
 		// Run validation
 		try {
-			this.result = await this.validatorService.run(
-				this.content,
-				this.model
-			);
+			this.result = await this.validatorService.run(this.content, this.model);
 
 			const { errors, warnings } = this.result;
 
-			this.summary = `${errors.length} error${
-				errors.length > 1 ? 's' : ''
-			}`;
-			this.summary = `${this.summary}\n    ${errors.join('\n    ')}${
-				errors.length ? '\n' : ''
-			}`;
-			this.summary = `${this.summary}\n${warnings.length} warning${
-				warnings.length > 1 ? 's' : ''
-			}`;
+			this.summary = `${errors.length} error${errors.length > 1 ? 's' : ''}`;
+			this.summary = `${this.summary}\n    ${errors.join('\n    ')}${errors.length ? '\n' : ''}`;
+			this.summary = `${this.summary}\n${warnings.length} warning${warnings.length > 1 ? 's' : ''}`;
 			this.summary = `${this.summary}\n    ${warnings.join('\n    ')}`;
 		} catch (error) {
 			if (error instanceof RichError) {

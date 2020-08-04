@@ -31,7 +31,7 @@ export class ValidatorService {
 		if (typeof script === 'undefined' || script.length === 0) {
 			return {
 				errors: [],
-				warnings: []
+				warnings: [],
 			};
 		}
 
@@ -43,20 +43,17 @@ export class ValidatorService {
 
 		// If locked, wait few milliseconds and retry to hit the cache
 		if (this.locks[hash]) {
-			await new Promise(r => setTimeout(r, this.lockDelay));
+			await new Promise((r) => setTimeout(r, this.lockDelay));
 			return await this.run(script, model);
 		}
 
 		// Set the lock
 		this.locks[hash] = true;
 
-		const result = await this.webSocketService.send(
-			WebSocketMessages.VALIDATE_MODEL,
-			{
-				model: model.toObject(),
-				content: script
-			}
-		);
+		const result = await this.webSocketService.send(WebSocketMessages.VALIDATE_MODEL, {
+			model: model.toObject(),
+			content: script,
+		});
 
 		// Save cache
 		this.cache[hash] = result;

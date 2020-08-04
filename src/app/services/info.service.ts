@@ -19,9 +19,7 @@ export class InfoService extends Lock {
 		await this.wait('info');
 		if (!this._info) {
 			this.lock('info');
-			this._info = await this.webSocketService.send(
-				WebSocketMessages.GET_INFO
-			);
+			this._info = await this.webSocketService.send(WebSocketMessages.GET_INFO);
 			this.unlock('info');
 		}
 		return this._info;

@@ -8,7 +8,7 @@ export class Lock {
 		if (!this.locks[key]) {
 			return;
 		}
-		await new Promise(resolve => {
+		await new Promise((resolve) => {
 			setTimeout(() => resolve(this.wait(key)), 10);
 		});
 	}

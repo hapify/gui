@@ -1,12 +1,4 @@
-import {
-	AfterViewInit,
-	Component,
-	ElementRef,
-	HostListener,
-	OnInit,
-	Renderer2,
-	ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { WebSocketService } from './services/websocket.service';
 import { ResizeService } from '@app/services/resize.service';
@@ -14,7 +6,7 @@ import { ResizeService } from '@app/services/resize.service';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
 	sidebarIsReduced = false;
@@ -23,12 +15,7 @@ export class AppComponent implements OnInit {
 	@ViewChild('scrollzone') scrollzone: ElementRef;
 	scrollTimeout;
 
-	constructor(
-		translate: TranslateService,
-		webSocketService: WebSocketService,
-		private resizeService: ResizeService,
-		private renderer: Renderer2
-	) {
+	constructor(translate: TranslateService, webSocketService: WebSocketService, private resizeService: ResizeService, private renderer: Renderer2) {
 		// this language will be used as a fallback when a translation isn't found in the current language
 		translate.setDefaultLang('en');
 
@@ -40,7 +27,7 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.resizeService.breakpointChanges.subscribe(breakpointInfo => {
+		this.resizeService.breakpointChanges.subscribe((breakpointInfo) => {
 			this.breakpoint = breakpointInfo.current;
 		});
 	}
@@ -49,10 +36,7 @@ export class AppComponent implements OnInit {
 		this.renderer.addClass(this.scrollzone.nativeElement, 'scrolling');
 		clearTimeout(this.scrollTimeout);
 		this.scrollTimeout = setTimeout(() => {
-			this.renderer.removeClass(
-				this.scrollzone.nativeElement,
-				'scrolling'
-			);
+			this.renderer.removeClass(this.scrollzone.nativeElement, 'scrolling');
 		}, 500);
 	}
 }

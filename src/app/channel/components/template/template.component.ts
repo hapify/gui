@@ -6,7 +6,7 @@ import { TemplateInput } from '../../interfaces/template-input.enum';
 @Component({
 	selector: 'app-channel-template',
 	templateUrl: './template.component.html',
-	styleUrls: ['./template.component.scss']
+	styleUrls: ['./template.component.scss'],
 })
 export class TemplateComponent {
 	/** Constructor */
@@ -25,7 +25,7 @@ export class TemplateComponent {
 		name: string;
 	}[] = [
 		{ name: 'Hapify', value: TemplateEngine.Hpf },
-		{ name: 'JavaScript', value: TemplateEngine.JavaScript }
+		{ name: 'JavaScript', value: TemplateEngine.JavaScript },
 	];
 	/**
 	 * Available inputs
@@ -35,7 +35,7 @@ export class TemplateComponent {
 		name: string;
 	}[] = [
 		{ name: 'template_input_one', value: TemplateInput.One },
-		{ name: 'template_input_all', value: TemplateInput.All }
+		{ name: 'template_input_all', value: TemplateInput.All },
 	];
 	/** Called when the user click on "Open Editor" button */
 	onShowEditor() {

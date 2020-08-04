@@ -15,16 +15,13 @@ export class AceService {
 	private _modeMap: any = {
 		js: 'javascript',
 		ts: 'typescript',
-		md: 'markdown'
+		md: 'markdown',
 	};
 
 	/**
 	 * Constructor
 	 */
-	constructor(
-		private stringService: StringService,
-		private configService: ConfigService
-	) {
+	constructor(private stringService: StringService, private configService: ConfigService) {
 		// Set base url for ace
 		ace.config.set('basePath', this.configService.getAceBaseUri());
 	}

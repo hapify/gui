@@ -82,16 +82,13 @@ export class Field implements IField {
 			hidden: this.hidden,
 			internal: this.internal,
 			restricted: this.restricted,
-			ownership: this.ownership
+			ownership: this.ownership,
 		};
 	}
 
 	/** @inheritDoc */
 	public isEmpty(): boolean {
-		const empty =
-			typeof this.name !== 'string' ||
-			this.name === null ||
-			this.name.trim().length === 0;
+		const empty = typeof this.name !== 'string' || this.name === null || this.name.trim().length === 0;
 		return empty;
 	}
 

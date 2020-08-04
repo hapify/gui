@@ -30,7 +30,7 @@ export class GeneratorService {
 	async compileTempate(template: ITemplate): Promise<void> {
 		await this.webSocketService.send(WebSocketMessages.GENERATE_TEMPLATE, {
 			channel: template.channel().id,
-			template: template.path
+			template: template.path,
 		});
 	}
 
@@ -41,7 +41,7 @@ export class GeneratorService {
 	 */
 	async compileChannel(channel: IChannel): Promise<void> {
 		await this.webSocketService.send(WebSocketMessages.GENERATE_CHANNEL, {
-			channel: channel.id
+			channel: channel.id,
 		});
 	}
 
@@ -54,13 +54,10 @@ export class GeneratorService {
 	 * @throws {Error}
 	 *  If the template needs a model and no model is passed
 	 */
-	async run(
-		template: ITemplate,
-		model: IModel | null
-	): Promise<IGeneratorResult> {
+	async run(template: ITemplate, model: IModel | null): Promise<IGeneratorResult> {
 		const data: any = {
 			template: template.toObject(),
-			channel: template.channel().id
+			channel: template.channel().id,
 		};
 		if (template.needsModel()) {
 			if (!model) {
@@ -68,10 +65,7 @@ export class GeneratorService {
 			}
 			data.model = model.id;
 		}
-		return await this.webSocketService.send(
-			WebSocketMessages.PREVIEW_TEMPLATE,
-			data
-		);
+		return await this.webSocketService.send(WebSocketMessages.PREVIEW_TEMPLATE, data);
 	}
 
 	/**
@@ -91,9 +85,6 @@ export class GeneratorService {
 			}
 			data.model = model.id;
 		}
-		return await this.webSocketService.send(
-			WebSocketMessages.PREVIEW_PATH,
-			data
-		);
+		return await this.webSocketService.send(WebSocketMessages.PREVIEW_PATH, data);
 	}
 }

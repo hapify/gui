@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ResizeService } from '@app/services/resize.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InfoService } from '@app/services/info.service';
 import { IInfo } from '@app/interfaces/info';
@@ -8,7 +8,7 @@ import { IInfo } from '@app/interfaces/info';
 @Component({
 	selector: 'app-sidebar',
 	templateUrl: './sidebar.component.html',
-	styleUrls: ['./sidebar.component.scss']
+	styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 	@Input() reduced = false;
@@ -16,18 +16,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
 	breakpoint = this.resizeService.currentBreakpoint;
 	info: IInfo;
 
-	constructor(
-		private resizeService: ResizeService,
-		private infoService: InfoService
-	) {}
+	constructor(private resizeService: ResizeService, private infoService: InfoService) {}
 
 	ngOnInit() {
-		this.resizeService.breakpointChanges
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(breakpointInfo => {
-				this.breakpoint = breakpointInfo.current;
-			});
-		this.infoService.info().then(info => {
+		this.resizeService.breakpointChanges.pipe(takeUntil(this.unsubscribe)).subscribe((breakpointInfo) => {
+			this.breakpoint = breakpointInfo.current;
+		});
+		this.infoService.info().then((info) => {
 			this.info = info;
 		});
 	}

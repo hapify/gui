@@ -1,21 +1,13 @@
-import {
-	Component,
-	OnInit,
-	OnDestroy,
-	Input,
-	Output,
-	EventEmitter
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 import { FieldLightComponent } from '../field-light/field-light.component';
 
 @Component({
 	selector: 'app-model-field',
 	templateUrl: './field.component.html',
-	styleUrls: ['./field.component.scss']
+	styleUrls: ['./field.component.scss'],
 })
-export class FieldComponent extends FieldLightComponent
-	implements OnInit, OnDestroy {
+export class FieldComponent extends FieldLightComponent implements OnInit, OnDestroy {
 	/** @type {boolean} Rows deletion mode */
 	@Input() deletionMode = false;
 	/** @type {EventEmitter<void>} Notify changes */

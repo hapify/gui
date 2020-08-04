@@ -1,25 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-	MatInputModule,
-	MatFormFieldModule,
-	MatButtonModule,
-	MatButtonToggleModule,
-	MatCardModule,
-	MatIconModule,
-	MatMenuModule,
-	MatProgressSpinnerModule,
-	MatSelectModule,
-	MatTooltipModule,
-	MatSnackBarModule,
-	MatTreeModule,
-	MatCheckboxModule,
-	MatDialogModule,
-	MatBadgeModule
-} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
 	declarations: [TranslateEntryPipe],
@@ -41,7 +39,7 @@ import { TranslateEntryPipe } from '@app/pipes/translate-entry.pipe';
 		MatTreeModule,
 		MatCheckboxModule,
 		MatDialogModule,
-		MatBadgeModule
-	]
+		MatBadgeModule,
+	],
 })
 export class SharedModule {}

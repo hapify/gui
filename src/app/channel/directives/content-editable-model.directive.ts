@@ -1,18 +1,11 @@
-import {
-	Directive,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output
-} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Directive({
 	selector: '[contentEditableModel]',
 	host: {
 		'(blur)': 'onBlur()',
-		'(keyup)': 'onChange()'
-	}
+		'(keyup)': 'onChange()',
+	},
 })
 export class ContentEditableModelDirective implements OnInit {
 	@Input('contentEditableModel') model: string;

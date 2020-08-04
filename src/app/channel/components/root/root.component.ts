@@ -5,7 +5,7 @@ import { IChannel } from '../../interfaces/channel';
 @Component({
 	selector: 'app-channel-root',
 	templateUrl: './root.component.html',
-	styleUrls: ['./root.component.scss']
+	styleUrls: ['./root.component.scss'],
 })
 export class RootComponent implements OnInit {
 	/** @type {IChannel[]} Channel instances */

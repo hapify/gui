@@ -22,7 +22,7 @@ export class FieldType {
 			{ name: 'DateTime', value: FieldType.DateTime },
 			{ name: 'Object', value: FieldType.Object },
 			{ name: 'File', value: FieldType.File },
-			{ name: 'Entity', value: FieldType.Entity }
+			{ name: 'Entity', value: FieldType.Entity },
 		];
 	}
 }

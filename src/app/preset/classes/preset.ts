@@ -51,9 +51,7 @@ export class Preset implements IPreset {
 			name__fr: this.name__fr,
 			description: this.description,
 			description__fr: this.description__fr,
-			models: this.models.map(
-				(model: IModel): IModelBase => model.toObject()
-			)
+			models: this.models.map((model: IModel): IModelBase => model.toObject()),
 		};
 	}
 }

@@ -40,7 +40,7 @@ export class Template implements ITemplate {
 		return path
 			.trim()
 			.split(/[\/\\]/g)
-			.filter(x => x.length);
+			.filter((x) => x.length);
 	}
 
 	/**
@@ -84,7 +84,7 @@ export class Template implements ITemplate {
 			path: this.path,
 			engine: this.engine,
 			input: this.input,
-			content: this.content
+			content: this.content,
 		};
 	}
 
@@ -112,11 +112,7 @@ export class Template implements ITemplate {
 	 * @inheritDoc
 	 */
 	public isEmpty(): boolean {
-		return (
-			typeof this.content !== 'string' ||
-			this.content === null ||
-			this.content.trim().length === 0
-		);
+		return typeof this.content !== 'string' || this.content === null || this.content.trim().length === 0;
 	}
 
 	/**

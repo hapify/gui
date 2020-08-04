@@ -57,10 +57,7 @@ export class Model implements IModel {
 	 */
 	public moveField(field: IField, indexDelta: number): void {
 		const index = this.fields.indexOf(field);
-		const newIndex = Math.max(
-			0,
-			Math.min(this.fields.length, index + indexDelta)
-		);
+		const newIndex = Math.max(0, Math.min(this.fields.length, index + indexDelta));
 		this.fields.splice(newIndex, 0, this.fields.splice(index, 1)[0]);
 	}
 
@@ -89,10 +86,8 @@ export class Model implements IModel {
 			id: this.id,
 			name: this.name,
 			notes: this.notes || null,
-			fields: this.fields
-				.filter((field: IField): boolean => !field.isEmpty())
-				.map((field: IField): IFieldBase => field.toObject()),
-			accesses: this.accesses
+			fields: this.fields.filter((field: IField): boolean => !field.isEmpty()).map((field: IField): IFieldBase => field.toObject()),
+			accesses: this.accesses,
 		};
 	}
 
@@ -100,13 +95,8 @@ export class Model implements IModel {
 	 * @inheritDoc
 	 */
 	public isEmpty(): boolean {
-		const nameIsEmpty =
-			typeof this.name !== 'string' ||
-			this.name === null ||
-			this.name.length === 0;
-		const fieldsAreEmpty = this.fields.every(
-			(field: IField): boolean => field.isEmpty()
-		);
+		const nameIsEmpty = typeof this.name !== 'string' || this.name === null || this.name.length === 0;
+		const fieldsAreEmpty = this.fields.every((field: IField): boolean => field.isEmpty());
 
 		return nameIsEmpty || fieldsAreEmpty;
 	}
@@ -115,11 +105,9 @@ export class Model implements IModel {
 	 * @inheritDoc
 	 */
 	public filter(): void {
-		this.fields = this.fields.filter(
-			(field: IField): boolean => {
-				return !field.isEmpty();
-			}
-		);
+		this.fields = this.fields.filter((field: IField): boolean => {
+			return !field.isEmpty();
+		});
 	}
 
 	/**

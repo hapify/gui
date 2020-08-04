@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IWebSocketInfo } from '../interfaces/websocket-info';
 import { IWebSocketMessage } from '../interfaces/websocket-message';
 import { ConfigService } from './config.service';
@@ -17,17 +17,12 @@ export class WebSocketService {
 	private ws: WebSocket;
 	/** Incoming messages/orders from server */
 	private messageSubject = new Subject<IWebSocketMessage>();
-	private messageObservable: Observable<
-		IWebSocketMessage
-	> = this.messageSubject.asObservable();
+	private messageObservable: Observable<IWebSocketMessage> = this.messageSubject.asObservable();
 	/** @type {boolean} Delay to retry connection */
 	private reconnectDelay = 10 * SECOND;
 
 	/** Constructor */
-	constructor(
-		private configService: ConfigService,
-		private messageService: MessageService
-	) {}
+	constructor(private configService: ConfigService, private messageService: MessageService) {}
 
 	/**
 	 * If the websocket connection in not running,
@@ -43,7 +38,7 @@ export class WebSocketService {
 		}
 		// Wait a while before handshake
 		if (delay) {
-			await new Promise(r => setTimeout(r, delay));
+			await new Promise((r) => setTimeout(r, delay));
 		}
 		// Get JWT & url
 		let wsInfo;
@@ -51,15 +46,10 @@ export class WebSocketService {
 			wsInfo = await this.wsInfo();
 		} catch (error) {
 			this.messageService.error(
-				new RichError(
-					`Cannot fetch connection info. Try again in ${
-						this.reconnectDelay
-					}ms`,
-					{
-						code: 5004,
-						type: 'ConsoleWebSocketFetchError'
-					}
-				)
+				new RichError(`Cannot fetch connection info. Try again in ${this.reconnectDelay}ms`, {
+					code: 5004,
+					type: 'ConsoleWebSocketFetchError',
+				})
 			);
 			return await this.handshake(this.reconnectDelay);
 		}
@@ -76,15 +66,10 @@ export class WebSocketService {
 		};
 		this.ws.onclose = (event: CloseEvent) => {
 			this.messageService.error(
-				new RichError(
-					`WebSocket connection lost. Try again in ${
-						this.reconnectDelay
-					}ms`,
-					{
-						code: 5005,
-						type: 'ConsoleWebSocketConnectionError'
-					}
-				)
+				new RichError(`WebSocket connection lost. Try again in ${this.reconnectDelay}ms`, {
+					code: 5005,
+					type: 'ConsoleWebSocketConnectionError',
+				})
 			);
 			this.handshake(this.reconnectDelay);
 		};
@@ -92,12 +77,12 @@ export class WebSocketService {
 			this.messageService.error(
 				new RichError(event.message, {
 					code: 5002,
-					type: 'ConsoleWebSocketError'
+					type: 'ConsoleWebSocketError',
 				})
 			);
 		};
 		// Wait for opening
-		await new Promise(resolve => {
+		await new Promise((resolve) => {
 			this.ws.onopen = (event: Event) => {
 				resolve();
 			};
@@ -131,51 +116,40 @@ export class WebSocketService {
 			const message: IWebSocketMessage = {
 				id,
 				data,
-				tag: this.makeTag()
+				tag: this.makeTag(),
 			};
 			// Create listener
-			subscription = this.messageObservable.subscribe(
-				(response: IWebSocketMessage) => {
-					// Wait for the same response
-					if (response.tag !== message.tag) {
-						return;
-					}
-					// Auto remove
-					subscription.unsubscribe();
-					clearTimeout(timeoutSub);
-					// On error
-					if (response.type === 'error') {
-						const error =
-							response.data && response.data.data
-								? RichError.from(response.data)
-								: new RichError(
-										response.data
-											? response.data.message
-											: 'Error from WebSocket server',
-										{
-											code: 5006,
-											type:
-												'ConsoleWebSocketResponseError'
-										}
-								  );
-						this.messageService.error(error);
-						reject(error);
-						return;
-					}
-					// On success
-					resolve(response.data);
+			subscription = this.messageObservable.subscribe((response: IWebSocketMessage) => {
+				// Wait for the same response
+				if (response.tag !== message.tag) {
+					return;
 				}
-			);
+				// Auto remove
+				subscription.unsubscribe();
+				clearTimeout(timeoutSub);
+				// On error
+				if (response.type === 'error') {
+					const error =
+						response.data && response.data.data
+							? RichError.from(response.data)
+							: new RichError(response.data ? response.data.message : 'Error from WebSocket server', {
+									code: 5006,
+									type: 'ConsoleWebSocketResponseError',
+							  });
+					this.messageService.error(error);
+					reject(error);
+					return;
+				}
+				// On success
+				resolve(response.data);
+			});
 			// Set timeout
 			timeoutSub = setTimeout(() => {
 				subscription.unsubscribe();
-				const error = new RichError(
-					'No response from WebSocket server',
-					{
-						code: 5003,
-						type: 'ConsoleWebSocketTimeoutError'
-					}
-				);
+				const error = new RichError('No response from WebSocket server', {
+					code: 5003,
+					type: 'ConsoleWebSocketTimeoutError',
+				});
 				this.messageService.error(error);
 				reject(error);
 			}, timeout);
@@ -191,7 +165,7 @@ export class WebSocketService {
 	 */
 	private async wsInfo(): Promise<IWebSocketInfo> {
 		const response = await fetch(this.configService.getWebSocketInfoUrl(), {
-			cache: 'no-store'
+			cache: 'no-store',
 		});
 		return <IWebSocketInfo>await response.json();
 	}
@@ -210,12 +184,9 @@ export class WebSocketService {
 	 */
 	private makeTag(): string {
 		let text = '';
-		const possible =
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		for (let i = 0; i < 16; i++) {
-			text += possible.charAt(
-				Math.floor(Math.random() * possible.length)
-			);
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 		return text;
 	}
@@ -228,7 +199,7 @@ export class WebSocketService {
 		if (this.opened()) {
 			return;
 		}
-		await new Promise(resolve => {
+		await new Promise((resolve) => {
 			setTimeout(() => resolve(this.waitOpened()), 500);
 		});
 	}

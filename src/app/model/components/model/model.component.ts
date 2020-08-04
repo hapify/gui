@@ -1,10 +1,4 @@
-import {
-	Component,
-	OnInit,
-	OnDestroy,
-	Output,
-	EventEmitter
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
@@ -27,23 +21,22 @@ const AccessesIndex = {
 	[Access.ADMIN]: 0,
 	[Access.OWNER]: 1,
 	[Access.AUTHENTICATED]: 2,
-	[Access.GUEST]: 3
+	[Access.GUEST]: 3,
 };
 /** Store available accesses */
 const Accesses: ILabelledValue[] = [
 	{ name: 'Admin', value: Access.ADMIN },
 	{ name: 'Owner', value: Access.OWNER },
 	{ name: 'Auth.', value: Access.AUTHENTICATED },
-	{ name: 'Guest', value: Access.GUEST }
+	{ name: 'Guest', value: Access.GUEST },
 ];
 
 @Component({
 	selector: 'app-model-model',
 	templateUrl: './model.component.html',
-	styleUrls: ['./model.component.scss']
+	styleUrls: ['./model.component.scss'],
 })
-export class ModelComponent extends ModelLightComponent
-	implements OnInit, OnDestroy {
+export class ModelComponent extends ModelLightComponent implements OnInit, OnDestroy {
 	/**
 	 * Constructor
 	 */
@@ -78,23 +71,18 @@ export class ModelComponent extends ModelLightComponent
 	ngOnInit() {
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey(
-				'meta+s',
-				(event: KeyboardEvent): boolean => {
-					this.save.emit();
-					return false;
-				}
-			)
+			new Hotkey('meta+s', (event: KeyboardEvent): boolean => {
+				this.save.emit();
+				return false;
+			})
 		);
 		// Get available actions
 		this.updateActions();
 	}
 
 	togglePanel(panel: 'notes' | 'access') {
-		this.accessRightsPanelIsDisplayed =
-			panel === 'access' && !this.accessRightsPanelIsDisplayed;
-		this.notesPanelIsDisplayed =
-			panel === 'notes' && !this.notesPanelIsDisplayed;
+		this.accessRightsPanelIsDisplayed = panel === 'access' && !this.accessRightsPanelIsDisplayed;
+		this.notesPanelIsDisplayed = panel === 'notes' && !this.notesPanelIsDisplayed;
 	}
 
 	/**
@@ -142,10 +130,7 @@ export class ModelComponent extends ModelLightComponent
 	 * @return {boolean}
 	 */
 	private isAccessSelected(action: string, access: ILabelledValue): boolean {
-		return (
-			AccessesIndex[this.model.accesses[action]] >=
-			AccessesIndex[access.value]
-		);
+		return AccessesIndex[this.model.accesses[action]] >= AccessesIndex[access.value];
 	}
 
 	/** Compute actions selected actions for this model */
@@ -154,10 +139,10 @@ export class ModelComponent extends ModelLightComponent
 			(action: string): IActionValue => {
 				return {
 					name: action,
-					accesses: Accesses.map(access => ({
+					accesses: Accesses.map((access) => ({
 						selected: this.isAccessSelected(action, access),
-						value: access
-					}))
+						value: access,
+					})),
 				};
 			}
 		);
@@ -165,10 +150,7 @@ export class ModelComponent extends ModelLightComponent
 
 	/** Drag and drop fields list */
 	dropped(event: CdkDragDrop<string[]>) {
-		this.model.moveField(
-			this.model.fields[event.previousIndex],
-			event.currentIndex - event.previousIndex
-		);
+		this.model.moveField(this.model.fields[event.previousIndex], event.currentIndex - event.previousIndex);
 		this.onModelChange();
 	}
 }

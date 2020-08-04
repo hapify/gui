@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AlertModule, TooltipModule } from 'ngx-bootstrap';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TranslateModuleLoad } from '../translate-import';
 
 import { RootComponent } from './components/root/root.component';
@@ -16,19 +17,11 @@ import { WebSocketService } from '@app/services/websocket.service';
 import { ModelService } from '@app/preset/services/model.service';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		TranslateModuleLoad(),
-		TooltipModule.forRoot(),
-		AlertModule.forRoot(),
-		SharedModule
-	],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModuleLoad(), TooltipModule.forRoot(), AlertModule.forRoot(), SharedModule],
 	declarations: [RootComponent, PresetCardComponent],
 	providers: [StorageService, MessageService, WebSocketService, ModelService],
 	exports: [RootComponent],
-	entryComponents: [RootComponent]
+	entryComponents: [RootComponent],
 })
 export class PresetModule {}
 

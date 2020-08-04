@@ -4,7 +4,7 @@ import { IChannel } from '../../interfaces/channel';
 @Component({
 	selector: 'app-channel-channel-card',
 	templateUrl: './channel-card.component.html',
-	styleUrls: ['./channel-card.component.scss']
+	styleUrls: ['./channel-card.component.scss'],
 })
 export class ChannelCardComponent implements OnInit {
 	/** Constructor */

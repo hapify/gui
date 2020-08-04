@@ -1,11 +1,4 @@
-import {
-	Component,
-	OnInit,
-	Input,
-	Output,
-	EventEmitter,
-	Injector
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
 import { GeneratorService } from '../../services/generator.service';
 import { IChannel } from '../../interfaces/channel';
 import { ITemplate } from '../../interfaces/template';
@@ -16,7 +9,7 @@ import { IInfo } from '@app/interfaces/info';
 @Component({
 	selector: 'app-channel-channel',
 	templateUrl: './channel.component.html',
-	styleUrls: ['./channel.component.scss']
+	styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent implements OnInit {
 	/** @type {GeneratorService} The generator service */
@@ -43,7 +36,7 @@ export class ChannelComponent implements OnInit {
 	constructor(private injector: Injector, private infoService: InfoService) {
 		// Avoid circular dependency
 		this.generatorService = this.injector.get(GeneratorService);
-		this.infoService.info().then(info => {
+		this.infoService.info().then((info) => {
 			this.info = info;
 		});
 	}
@@ -69,31 +62,25 @@ export class ChannelComponent implements OnInit {
 	private buildTree(): TreeBranch[] {
 		const tree = [];
 
-		this.channel.templates.forEach(template => {
+		this.channel.templates.forEach((template) => {
 			const pathParts = template.splitPath();
 
 			let currentLevel = tree;
 			let parentPath = '';
-			pathParts.forEach(pathPart => {
+			pathParts.forEach((pathPart) => {
 				if (currentLevel) {
-					const existingPathPart = currentLevel.filter(
-						level => level.name === pathPart
-					);
+					const existingPathPart = currentLevel.filter((level) => level.name === pathPart);
 					if (existingPathPart.length) {
-						parentPath = parentPath
-							? `${parentPath}/${existingPathPart[0].name}`
-							: existingPathPart[0].name;
+						parentPath = parentPath ? `${parentPath}/${existingPathPart[0].name}` : existingPathPart[0].name;
 						currentLevel = existingPathPart[0].children;
 					} else {
 						const rootPath = parentPath;
-						parentPath = parentPath
-							? `${parentPath}/${pathPart}`
-							: pathPart;
+						parentPath = parentPath ? `${parentPath}/${pathPart}` : pathPart;
 						const newPathPart = {
 							name: pathPart,
 							path: parentPath,
 							root: rootPath,
-							children: []
+							children: [],
 						};
 						currentLevel.push(newPathPart);
 						currentLevel = newPathPart.children;
@@ -110,9 +97,7 @@ export class ChannelComponent implements OnInit {
 	filterTemplates(): void {
 		this.templatesToDisplay = {};
 		for (const template of this.channel.templates) {
-			this.templatesToDisplay[template.path] = template.path.startsWith(
-				this.selectedPath
-			);
+			this.templatesToDisplay[template.path] = template.path.startsWith(this.selectedPath);
 		}
 	}
 
@@ -120,9 +105,7 @@ export class ChannelComponent implements OnInit {
 	 * Called when a branch is selected
 	 */
 	onSelectBranch(branch: TreeBranch) {
-		this.selectedPath = branch.children.length
-			? `${branch.path}/`
-			: branch.path;
+		this.selectedPath = branch.children.length ? `${branch.path}/` : branch.path;
 		this.filterTemplates();
 	}
 
@@ -167,9 +150,7 @@ export class ChannelComponent implements OnInit {
 	 * Called when the user click on "remove templates"
 	 */
 	onRemoveTemplate(branch: TreeBranch) {
-		const template = this.channel.templates.find(
-			t => t.path === branch.path
-		);
+		const template = this.channel.templates.find((t) => t.path === branch.path);
 		if (template) {
 			this.channel.removeTemplate(template);
 			this.unsavedChanges = true;

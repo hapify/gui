@@ -25,13 +25,11 @@ export abstract class StorageService<T extends IStorable> {
 		await this.lock();
 		// Create the cached instances if not created
 		if (this._instances === null) {
-			const result = await this._websocketService
-				.send(this.getMessageId())
-				.catch(() => []);
+			const result = await this._websocketService.send(this.getMessageId()).catch(() => []);
 			// If the instances are not created yet, use []
 			const objects = result instanceof Array ? result : [];
 			// Create instances from objects
-			this._instances = objects.map(object => {
+			this._instances = objects.map((object) => {
 				const instance = this.instance();
 				instance.fromObject(object);
 				return instance;
@@ -55,7 +53,7 @@ export abstract class StorageService<T extends IStorable> {
 		// Sort the instances
 		this.sort(instances);
 		// Convert instances
-		const objects = instances.map(instance => instance.toObject());
+		const objects = instances.map((instance) => instance.toObject());
 		// Store
 		await this._websocketService.send(this.setMessageId(), objects);
 		// Clear cache
@@ -87,10 +85,8 @@ export abstract class StorageService<T extends IStorable> {
 		// Remove the instance from the list
 		const instances =
 			instance instanceof Array
-				? (await this.list()).filter(
-						m => !instance.some(i => m.id === i.id)
-				  )
-				: (await this.list()).filter(m => m.id !== instance.id);
+				? (await this.list()).filter((m) => !instance.some((i) => m.id === i.id))
+				: (await this.list()).filter((m) => m.id !== instance.id);
 		// Find instance
 		await this.save(instances);
 	}
@@ -104,10 +100,8 @@ export abstract class StorageService<T extends IStorable> {
 		// Remove the instance from the list
 		const instances =
 			instance instanceof Array
-				? (await this.list()).filter(
-						m => !instance.some(i => m.id === i.id)
-				  )
-				: (await this.list()).filter(m => m.id !== instance.id);
+				? (await this.list()).filter((m) => !instance.some((i) => m.id === i.id))
+				: (await this.list()).filter((m) => m.id !== instance.id);
 		// Add the instance to the list
 		if (instance instanceof Array) {
 			await this.save(instances.concat(instance));
@@ -126,7 +120,7 @@ export abstract class StorageService<T extends IStorable> {
 		// Add the instance to the list
 		const instances = await this.list();
 		// Find instance
-		return instances.find(instance => instance.id === id);
+		return instances.find((instance) => instance.id === id);
 	}
 
 	/**
@@ -146,7 +140,7 @@ export abstract class StorageService<T extends IStorable> {
 			this._locked = true;
 			return;
 		}
-		await new Promise(resolve => {
+		await new Promise((resolve) => {
 			setTimeout(() => resolve(this.lock()), 10);
 		});
 	}

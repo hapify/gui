@@ -1,22 +1,16 @@
-import {
-	Component,
-	OnInit,
-	OnDestroy,
-	Input,
-	Injector,
-	EventEmitter
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Injector, EventEmitter } from '@angular/core';
 import { ValidatorService } from '../../services/validator.service';
 import { StorageService as ChannelStorageService } from '@app/channel/services/storage.service';
 import { StorageService as ModelStorageService } from '@app/model/services/storage.service';
 import { IModel } from '@app/model/interfaces/model';
 import { IChannel } from '@app/channel/interfaces/channel';
 import { MessageService } from '@app/services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-validator-details',
 	templateUrl: './validator-details.component.html',
-	styleUrls: ['./validator-details.component.scss']
+	styleUrls: ['./validator-details.component.scss'],
 })
 export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	/** @type {ChannelStorageService} The channel storage service */
@@ -36,7 +30,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	/** @type {IChannel[]} */
 	protected channels: IChannel[];
 	/** @type {EventEmitter<void>} Notify changes */
-	protected signalSubscription: EventEmitter<void>;
+	protected signalSubscription: Subscription;
 	/** @type {boolean} Denotes if the process can be ran */
 	protected initialized = false;
 	/** @type {boolean} Denotes if the process is already running */
@@ -98,7 +92,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		this.messageService = this.injector.get(MessageService);
 
 		this.initialized = true;
-		this.run().catch(error => this.messageService.error(error));
+		this.run().catch((error) => this.messageService.error(error));
 	}
 
 	/**
@@ -146,10 +140,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 
 		// Start process
 		try {
-			await this.process(
-				await this.getChannels(),
-				await this.getModels()
-			);
+			await this.process(await this.getChannels(), await this.getModels());
 		} catch (e) {
 			this.running = false;
 			throw e;
@@ -165,10 +156,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		this.details = '';
 		for (const channel of channels) {
 			for (const model of models) {
-				const { errors, warnings } = await this.validatorService.run(
-					channel.validator,
-					model
-				);
+				const { errors, warnings } = await this.validatorService.run(channel.validator, model);
 				// Ignore details
 				if (errors.length === 0 && warnings.length === 0) {
 					continue;
@@ -176,20 +164,12 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 				// Title
 				this.details += `${channel.name} x ${model.name}:\n`;
 				if (errors.length > 0) {
-					this.details += `  ${errors.length} error${
-						errors.length > 1 ? 's' : ''
-					}\n`;
-					this.details += `    ${errors.join('\n    ')}${
-						errors.length ? '\n' : ''
-					}\n`;
+					this.details += `  ${errors.length} error${errors.length > 1 ? 's' : ''}\n`;
+					this.details += `    ${errors.join('\n    ')}${errors.length ? '\n' : ''}\n`;
 				}
 				if (warnings.length > 0) {
-					this.details += `  ${warnings.length} warning${
-						warnings.length > 1 ? 's' : ''
-					}\n`;
-					this.details += `    ${warnings.join('\n    ')}${
-						warnings.length ? '\n' : ''
-					}\n`;
+					this.details += `  ${warnings.length} warning${warnings.length > 1 ? 's' : ''}\n`;
+					this.details += `    ${warnings.join('\n    ')}${warnings.length ? '\n' : ''}\n`;
 				}
 			}
 		}

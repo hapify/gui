@@ -30,8 +30,6 @@ export class ConfigService {
 	 */
 	getWebSocketInfoUrl(): string {
 		const uri = <string>environment.cli.wsInfoUri;
-		return uri.startsWith('http')
-			? uri
-			: `${location.protocol}//${location.host}${uri}`;
+		return uri.startsWith('http') ? uri : `${location.protocol}//${location.host}${uri}`;
 	}
 }

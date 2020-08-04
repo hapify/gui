@@ -9,7 +9,7 @@ import { GeneratorService } from '../../services/generator.service';
 @Component({
 	selector: 'app-channel-edit',
 	templateUrl: './edit.component.html',
-	styleUrls: ['./edit.component.scss']
+	styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit, OnDestroy {
 	/** @type {GeneratorService} The generator service */
@@ -19,12 +19,7 @@ export class EditComponent implements OnInit, OnDestroy {
 	/** @type {IChannel} Channel instance*/
 	public channel: IChannel;
 	/** Constructor */
-	constructor(
-		private router: Router,
-		private route: ActivatedRoute,
-		private storageService: StorageService,
-		private injector: Injector
-	) {
+	constructor(private router: Router, private route: ActivatedRoute, private storageService: StorageService, private injector: Injector) {
 		// Avoid circular dependency
 		this.generatorService = this.injector.get(GeneratorService);
 	}
@@ -33,7 +28,7 @@ export class EditComponent implements OnInit, OnDestroy {
 	 * @inheritDoc
 	 */
 	ngOnInit() {
-		this._paramsSub = this.route.params.subscribe(async params => {
+		this._paramsSub = this.route.params.subscribe(async (params) => {
 			// Get channel id
 			const id = params['id'];
 			// Load channel

@@ -11,7 +11,7 @@ interface PresetMergeResults {
 @Component({
 	selector: 'app-preset-root',
 	templateUrl: './root.component.html',
-	styleUrls: ['./root.component.scss']
+	styleUrls: ['./root.component.scss'],
 })
 export class RootComponent implements OnInit {
 	@Output() presetApplied = new EventEmitter<PresetMergeResults>();

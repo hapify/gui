@@ -16,7 +16,7 @@ export function TranslateModuleLoad() {
 		loader: {
 			provide: TranslateLoader,
 			useFactory: HttpLoaderFactory,
-			deps: [HttpClient]
-		}
+			deps: [HttpClient],
+		},
 	});
 }

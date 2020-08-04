@@ -69,9 +69,7 @@ export class Channel implements IChannel {
 	 * @inheritDoc
 	 */
 	public removeTemplate(template: ITemplate): void {
-		this.templates = this.templates.filter(
-			(t: ITemplate) => t !== template
-		);
+		this.templates = this.templates.filter((t: ITemplate) => t !== template);
 	}
 
 	/**
@@ -103,10 +101,8 @@ export class Channel implements IChannel {
 			logo: this.logo,
 			templates: this.templates
 				.filter((template: ITemplate): boolean => !template.isEmpty())
-				.map(
-					(template: ITemplate): ITemplateBase => template.toObject()
-				),
-			validator: this.validator
+				.map((template: ITemplate): ITemplateBase => template.toObject()),
+			validator: this.validator,
 		};
 	}
 
@@ -114,13 +110,8 @@ export class Channel implements IChannel {
 	 * @inheritDoc
 	 */
 	public isEmpty(): boolean {
-		const nameIsEmpty =
-			typeof this.name !== 'string' ||
-			this.name === null ||
-			this.name.length === 0;
-		const templatesAreEmpty = this.templates.every(
-			(template: ITemplate): boolean => template.isEmpty()
-		);
+		const nameIsEmpty = typeof this.name !== 'string' || this.name === null || this.name.length === 0;
+		const templatesAreEmpty = this.templates.every((template: ITemplate): boolean => template.isEmpty());
 
 		return nameIsEmpty || templatesAreEmpty;
 	}
@@ -129,10 +120,8 @@ export class Channel implements IChannel {
 	 * @inheritDoc
 	 */
 	public filter(): void {
-		this.templates = this.templates.filter(
-			(template: ITemplate): boolean => {
-				return !template.isEmpty();
-			}
-		);
+		this.templates = this.templates.filter((template: ITemplate): boolean => {
+			return !template.isEmpty();
+		});
 	}
 }
