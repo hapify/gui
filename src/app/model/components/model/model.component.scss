@@ -4,7 +4,7 @@
 
 @import '~bootstrap/scss/_functions.scss';
 @import '~bootstrap/scss/_variables.scss';
-@import '../../../../theme.scss';
+@import '../../../../palette.scss';
 mat-card {
 	&.active {
 		outline: solid 1px mat-color($hpf-app-primary);

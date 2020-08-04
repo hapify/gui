@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+
 $md-primary: (
 	50: #f1e9fc,
 	100: #dcc8f7,
@@ -97,19 +98,8 @@ $md-accent: (
 		A700: #ac89ff
 	)
 );
-
-@include mat-core();
 $hpf-app-primary: mat-palette($md-primary);
 $hpf-app-accent: mat-palette($md-accent);
 $hpf-app-warn: mat-palette($md-warn);
-$hpf-app-theme: mat-light-theme(
-	$hpf-app-primary,
-	$hpf-app-accent,
-	$hpf-app-warn
-);
-@include angular-material-theme($hpf-app-theme);
 
-$custom-typography: mat-typography-config(
-	$font-family: 'Open Sans'
-);
-@include angular-material-typography($custom-typography);
+

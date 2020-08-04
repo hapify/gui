@@ -1,5 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
-@import '../theme.scss';
+@import '~bootstrap/scss/_functions.scss';
+@import '~bootstrap/scss/_variables.scss';
+@import '../palette.scss';
 
 app-sidebar {
 	flex-basis: 224px;
