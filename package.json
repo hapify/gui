@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build --prod --configuration=production",
     "test": "ng test",
-    "lint": "prettier --write '**/*.ts'",
+    "lint": "prettier --write '**/*.{ts,js}'",
     "e2e": "ng e2e",
     "update": "npm-check -u",
     "sync-i18n": "node ./src/i18n/index.js && ./node_modules/.bin/prettier --write \"src/assets/i18n/*.json\"",
@@ -75,7 +75,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged --pattern '**/*.{ts,js}'"
     }
   }
 }

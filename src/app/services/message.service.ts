@@ -63,7 +63,7 @@ export class MessageService {
 			this.show(error.message, asWarning ? 'warning' : 'error');
 		}
 		// Dump in console anyway
-		console.error(error);
+		console.error(error.message);
 	}
 	/** Log a message */
 	log(message: string | any): void {

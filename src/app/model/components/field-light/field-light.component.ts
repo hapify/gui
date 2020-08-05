@@ -27,9 +27,9 @@ export class FieldLightComponent implements OnInit {
 	@Input() field: IField;
 	/** Link to FieldType class */
 	fieldType = FieldType;
-	/** Availables types */
+	/** Available types */
 	types = this.fieldType.list();
-	/** Availables subtypes */
+	/** Available subtypes */
 	subtypes: ILabelledValue[] = [];
 
 	propertiesIcons: IPropertyIcon[] = [

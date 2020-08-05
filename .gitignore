@@ -46,3 +46,6 @@ Thumbs.db
 
 # i18n script files
 /src/i18n
+
+# Cloned files
+/src/assets/ace-builds/src-min-noconflict
