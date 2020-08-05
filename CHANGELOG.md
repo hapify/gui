@@ -8,6 +8,12 @@
 
 ### Removed
 
+## [0.5.0] - 2020-08-05
+
+### Changed
+
+- Upgrade to Angular 10
+
 ## [0.4.1] - 2019-10-24
 
 ### Added
