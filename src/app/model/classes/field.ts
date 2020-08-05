@@ -7,63 +7,45 @@ export class Field implements IField {
 	/** Constructor */
 	constructor() {}
 
-	/** @inheritDoc */
 	public name = '';
-	/** @type {string} The field's notes */
+	/** The field's notes */
 	public notes: string;
-	/** @inheritDoc */
 	public type = FieldType.String;
-	/** @inheritDoc */
 	public subtype = FieldSubType.String.Default;
-	/** @inheritDoc */
 	public reference = null;
-	/** @inheritDoc */
 	public primary = false;
-	/** @inheritDoc */
 	public unique = false;
-	/** @inheritDoc */
 	public label = false;
-	/** @inheritDoc */
 	public nullable = false;
-	/** @inheritDoc */
 	public multiple = false;
-	/** @inheritDoc */
 	public embedded = false;
-	/** @inheritDoc */
 	public searchable = false;
-	/** @inheritDoc */
 	public sortable = false;
-	/** @inheritDoc */
 	public hidden = false;
-	/** @inheritDoc */
 	public internal = false;
-	/** @inheritDoc */
 	public restricted = false;
-	/** @inheritDoc */
 	public ownership = false;
 
-	/** @inheritDoc */
 	public fromObject(object: IFieldBase): void {
 		this.name = object.name;
 		this.notes = object.notes || null;
 		this.type = object.type;
 		this.subtype = object.subtype;
 		this.reference = object.reference;
-		this.primary = !!(<any>object.primary);
-		this.unique = !!(<any>object.unique);
-		this.label = !!(<any>object.label);
-		this.nullable = !!(<any>object.nullable);
-		this.multiple = !!(<any>object.multiple);
-		this.embedded = !!(<any>object.embedded);
-		this.searchable = !!(<any>object.searchable);
-		this.sortable = !!(<any>object.sortable);
-		this.hidden = !!(<any>object.hidden);
-		this.internal = !!(<any>object.internal);
-		this.restricted = !!(<any>object.restricted);
-		this.ownership = !!(<any>object.ownership);
+		this.primary = !!(object.primary as any);
+		this.unique = !!(object.unique as any);
+		this.label = !!(object.label as any);
+		this.nullable = !!(object.nullable as any);
+		this.multiple = !!(object.multiple as any);
+		this.embedded = !!(object.embedded as any);
+		this.searchable = !!(object.searchable as any);
+		this.sortable = !!(object.sortable as any);
+		this.hidden = !!(object.hidden as any);
+		this.internal = !!(object.internal as any);
+		this.restricted = !!(object.restricted as any);
+		this.ownership = !!(object.ownership as any);
 	}
 
-	/** @inheritDoc */
 	public toObject(): IFieldBase {
 		return {
 			name: this.name,
@@ -82,24 +64,15 @@ export class Field implements IField {
 			hidden: this.hidden,
 			internal: this.internal,
 			restricted: this.restricted,
-			ownership: this.ownership
+			ownership: this.ownership,
 		};
 	}
 
-	/** @inheritDoc */
 	public isEmpty(): boolean {
-		const empty =
-			typeof this.name !== 'string' ||
-			this.name === null ||
-			this.name.trim().length === 0;
-		return empty;
+		return typeof this.name !== 'string' || this.name.trim().length === 0;
 	}
 
-	/**
-	 * Get the available sub types for the current type
-	 *
-	 * @return {ILabelledValue[]}
-	 */
+	/** Get the available sub types for the current type */
 	public getAvailableSubTypes(): ILabelledValue[] {
 		if (this.type === FieldType.String) {
 			return FieldSubType.string();

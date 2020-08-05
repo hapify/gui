@@ -17,7 +17,7 @@ export class RichError implements Error {
 			this.data = data;
 		}
 	}
-	static from(payload: any) {
+	static from(payload: any): RichError {
 		return new this(payload.message, payload.data);
 	}
 	details(): string {

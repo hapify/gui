@@ -6,14 +6,13 @@ import { ValidatorDetailsComponent } from '../validator-details/validator-detail
 @Component({
 	selector: 'app-validator-icon',
 	templateUrl: './validator-icon.component.html',
-	styleUrls: ['./validator-icon.component.scss']
+	styleUrls: ['./validator-icon.component.scss'],
 })
 export class ValidatorIconComponent extends ValidatorDetailsComponent {
-	/** @type {string} Pre-computed error level */
+	/** Pre-computed error level */
 	level = 'undefined';
 
-	/** @inheritDoc */
-	protected async process(channels: IChannel[], models: IModel[]) {
+	protected async process(channels: IChannel[], models: IModel[]): Promise<void> {
 		// Stop process on first error
 		let hasError = false;
 		let hasWarning = false;
@@ -25,10 +24,7 @@ export class ValidatorIconComponent extends ValidatorDetailsComponent {
 				if (hasError) {
 					break;
 				}
-				const result = await this.validatorService.run(
-					channel.validator,
-					model
-				);
+				const result = await this.validatorService.run(channel.validator, model);
 				hasError = hasError || result.errors.length > 0;
 				hasWarning = hasWarning || result.warnings.length > 0;
 			}

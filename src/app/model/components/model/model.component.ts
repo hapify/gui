@@ -1,10 +1,4 @@
-import {
-	Component,
-	OnInit,
-	OnDestroy,
-	Output,
-	EventEmitter
-} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Access } from '../../interfaces/access';
 import { ILabelledValue } from '../../interfaces/labelled-value';
 import { Hotkey, HotkeysService } from 'angular2-hotkeys';
@@ -27,43 +21,40 @@ const AccessesIndex = {
 	[Access.ADMIN]: 0,
 	[Access.OWNER]: 1,
 	[Access.AUTHENTICATED]: 2,
-	[Access.GUEST]: 3
+	[Access.GUEST]: 3,
 };
 /** Store available accesses */
 const Accesses: ILabelledValue[] = [
 	{ name: 'Admin', value: Access.ADMIN },
 	{ name: 'Owner', value: Access.OWNER },
 	{ name: 'Auth.', value: Access.AUTHENTICATED },
-	{ name: 'Guest', value: Access.GUEST }
+	{ name: 'Guest', value: Access.GUEST },
 ];
 
 @Component({
 	selector: 'app-model-model',
 	templateUrl: './model.component.html',
-	styleUrls: ['./model.component.scss']
+	styleUrls: ['./model.component.scss'],
 })
-export class ModelComponent extends ModelLightComponent
-	implements OnInit, OnDestroy {
-	/**
-	 * Constructor
-	 */
+export class ModelComponent extends ModelLightComponent implements OnInit, OnDestroy {
+	/** Constructor */
 	constructor(private hotKeysService: HotkeysService) {
 		super();
 	}
 
-	/** @type {EventEmitter<void>} Notify save */
+	/** Notify save */
 	@Output() save = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify changes */
-	@Output() change = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify cloning */
+	/** Notify changes */
+	@Output() update = new EventEmitter<void>();
+	/** Notify cloning */
 	@Output() clone = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify copy. Cannot be called copy, otherwise it will be called on Meta+C */
+	/** Notify copy. Cannot be called copy, otherwise it will be called on Meta+C */
 	@Output() copyModel = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Notify deletion */
+	/** Notify deletion */
 	@Output() delete = new EventEmitter<void>();
-	/** @type{Hotkey|Hotkey[]} Hotkeys to unbind */
+	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
-	/** @type {IActionValue[]} List available actions */
+	/** List available actions */
 	actions: IActionValue[] = [];
 	public currentField: IField;
 
@@ -72,80 +63,56 @@ export class ModelComponent extends ModelLightComponent
 	cleanRows = false;
 	confirmModelDeletion = false;
 
-	/**
-	 * @inheritDoc
-	 */
-	ngOnInit() {
+	ngOnInit(): void {
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey(
-				'meta+s',
-				(event: KeyboardEvent): boolean => {
-					this.save.emit();
-					return false;
-				}
-			)
+			new Hotkey('meta+s', (): boolean => {
+				this.save.emit();
+				return false;
+			})
 		);
 		// Get available actions
 		this.updateActions();
 	}
 
-	togglePanel(panel: 'notes' | 'access') {
-		this.accessRightsPanelIsDisplayed =
-			panel === 'access' && !this.accessRightsPanelIsDisplayed;
-		this.notesPanelIsDisplayed =
-			panel === 'notes' && !this.notesPanelIsDisplayed;
+	togglePanel(panel: 'notes' | 'access'): void {
+		this.accessRightsPanelIsDisplayed = panel === 'access' && !this.accessRightsPanelIsDisplayed;
+		this.notesPanelIsDisplayed = panel === 'notes' && !this.notesPanelIsDisplayed;
 	}
 
-	/**
-	 * Destroy
-	 */
-	ngOnDestroy() {
+	/** Destroy */
+	ngOnDestroy(): void {
 		this.hotKeysService.remove(this.saveHotKeys);
 	}
 
-	/**
-	 * Called when the user click on "add field"
-	 */
-	addField() {
+	/** Called when the user click on "add field" */
+	addField(): void {
 		this.model.addField(this.model.newField());
 		this.onModelChange();
 	}
 
-	/**
-	 * Called when the user click on "clean fields"
-	 */
-	deleteField(field: Field) {
+	/** Called when the user click on "clean fields" */
+	deleteField(field: Field): void {
 		this.model.removeField(field);
 		this.onModelChange();
 	}
 
-	/**
-	 * Called when a field change
-	 */
-	onModelChange() {
+	/** Called when a field change */
+	onModelChange(): void {
 		this.updateActions();
-		this.change.emit();
+		this.update.emit();
 		// Auto-save
 		this.save.emit();
 	}
 
-	/**
-	 * Called when the user changes a access
-	 */
+	/** Called when the user changes a access */
 	onAccessChange(action: string, access: ILabelledValue): void {
 		this.model.accesses[action] = access.value;
 		this.onModelChange();
 	}
-	/**
-	 * Denotes if the access should be highlighted
-	 * @return {boolean}
-	 */
+	/** Denotes if the access should be highlighted */
 	private isAccessSelected(action: string, access: ILabelledValue): boolean {
-		return (
-			AccessesIndex[this.model.accesses[action]] >=
-			AccessesIndex[access.value]
-		);
+		return AccessesIndex[this.model.accesses[action]] >= AccessesIndex[access.value];
 	}
 
 	/** Compute actions selected actions for this model */
@@ -154,21 +121,18 @@ export class ModelComponent extends ModelLightComponent
 			(action: string): IActionValue => {
 				return {
 					name: action,
-					accesses: Accesses.map(access => ({
+					accesses: Accesses.map((access) => ({
 						selected: this.isAccessSelected(action, access),
-						value: access
-					}))
+						value: access,
+					})),
 				};
 			}
 		);
 	}
 
 	/** Drag and drop fields list */
-	dropped(event: CdkDragDrop<string[]>) {
-		this.model.moveField(
-			this.model.fields[event.previousIndex],
-			event.currentIndex - event.previousIndex
-		);
+	dropped(event: CdkDragDrop<string[]>): void {
+		this.model.moveField(this.model.fields[event.previousIndex], event.currentIndex - event.previousIndex);
 		this.onModelChange();
 	}
 }

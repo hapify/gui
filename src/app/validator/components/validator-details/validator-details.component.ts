@@ -1,74 +1,60 @@
-import {
-	Component,
-	OnInit,
-	OnDestroy,
-	Input,
-	Injector,
-	EventEmitter
-} from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit } from '@angular/core';
 import { ValidatorService } from '../../services/validator.service';
 import { StorageService as ChannelStorageService } from '@app/channel/services/storage.service';
 import { StorageService as ModelStorageService } from '@app/model/services/storage.service';
 import { IModel } from '@app/model/interfaces/model';
 import { IChannel } from '@app/channel/interfaces/channel';
 import { MessageService } from '@app/services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-validator-details',
 	templateUrl: './validator-details.component.html',
-	styleUrls: ['./validator-details.component.scss']
+	styleUrls: ['./validator-details.component.scss'],
 })
 export class ValidatorDetailsComponent implements OnInit, OnDestroy {
-	/** @type {ChannelStorageService} The channel storage service */
+	/** The channel storage service */
 	protected channelStorageService: ChannelStorageService;
-	/** @type {ModelStorageService} The model storage service */
+	/** The model storage service */
 	protected modelStorageService: ModelStorageService;
-	/** @type {ValidatorService} The validator service */
+	/** The validator service */
 	protected validatorService: ValidatorService;
-	/** @type {MessageService} The message service */
+	/** The message service */
 	protected messageService: MessageService;
-	/** @type {IModel} */
 	protected modelValue: IModel;
-	/** @type {IModel[]} */
 	protected models: IModel[];
-	/** @type {IChannel} */
 	protected channelValue: IChannel;
-	/** @type {IChannel[]} */
 	protected channels: IChannel[];
-	/** @type {EventEmitter<void>} Notify changes */
-	protected signalSubscription: EventEmitter<void>;
-	/** @type {boolean} Denotes if the process can be ran */
+	/** Notify changes */
+	protected signalSubscription: Subscription;
+	/** Denotes if the process can be ran */
 	protected initialized = false;
-	/** @type {boolean} Denotes if the process is already running */
+	/** Denotes if the process is already running */
 	protected running = false;
-	/** @type {string} Errors & warnings details */
+	/** Errors & warnings details */
 	details: string = null;
 
 	/** Model getter */
-	get model() {
+	get model(): IModel {
 		return this.modelValue;
 	}
 
-	/** @param val Model setter */
 	@Input()
 	set model(val: IModel) {
 		this.modelValue = val;
-		this.run();
+		this.run().catch((error) => this.messageService.error(error));
 	}
 
-	/** Channel getter */
-	get channel() {
+	get channel(): IChannel {
 		return this.channelValue;
 	}
 
-	/** @param val Channel setter */
 	@Input()
 	set channel(val: IChannel) {
 		this.channelValue = val;
-		this.run();
+		this.run().catch((error) => this.messageService.error(error));
 	}
 
-	/** @param val Set signal */
 	@Input()
 	set signal(val: EventEmitter<void>) {
 		// Unsubscribe previous
@@ -76,21 +62,15 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 			this.signalSubscription.unsubscribe();
 		}
 		this.signalSubscription = val.subscribe(() => {
-			this.run();
+			this.run().catch((error) => this.messageService.error(error));
 		});
 	}
 
-	/**
-	 * Constructor
-	 *
-	 * @param {Injector} injector
-	 */
+	/** Constructor */
 	constructor(protected injector: Injector) {}
 
-	/**
-	 * On init
-	 */
-	ngOnInit() {
+	/** On init */
+	ngOnInit(): void {
 		// Avoid circular dependency
 		this.channelStorageService = this.injector.get(ChannelStorageService);
 		this.modelStorageService = this.injector.get(ModelStorageService);
@@ -98,13 +78,11 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		this.messageService = this.injector.get(MessageService);
 
 		this.initialized = true;
-		this.run().catch(error => this.messageService.error(error));
+		this.run().catch((error) => this.messageService.error(error));
 	}
 
-	/**
-	 * Destroy
-	 */
-	ngOnDestroy() {
+	/** Destroy */
+	ngOnDestroy(): void {
 		if (this.signalSubscription) {
 			this.signalSubscription.unsubscribe();
 		}
@@ -132,10 +110,8 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 		return this.models;
 	}
 
-	/**
-	 * Run the process for Models x Channels
-	 */
-	protected async run() {
+	/** Run the process for Models x Channels */
+	protected async run(): Promise<void> {
 		// Check if possible
 		if (!this.initialized || this.running) {
 			return;
@@ -146,10 +122,7 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 
 		// Start process
 		try {
-			await this.process(
-				await this.getChannels(),
-				await this.getModels()
-			);
+			await this.process(await this.getChannels(), await this.getModels());
 		} catch (e) {
 			this.running = false;
 			throw e;
@@ -160,15 +133,12 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	/** Sub-routine for run function */
-	protected async process(channels: IChannel[], models: IModel[]) {
+	protected async process(channels: IChannel[], models: IModel[]): Promise<void> {
 		// Stop process on first error
 		this.details = '';
 		for (const channel of channels) {
 			for (const model of models) {
-				const { errors, warnings } = await this.validatorService.run(
-					channel.validator,
-					model
-				);
+				const { errors, warnings } = await this.validatorService.run(channel.validator, model);
 				// Ignore details
 				if (errors.length === 0 && warnings.length === 0) {
 					continue;
@@ -176,20 +146,12 @@ export class ValidatorDetailsComponent implements OnInit, OnDestroy {
 				// Title
 				this.details += `${channel.name} x ${model.name}:\n`;
 				if (errors.length > 0) {
-					this.details += `  ${errors.length} error${
-						errors.length > 1 ? 's' : ''
-					}\n`;
-					this.details += `    ${errors.join('\n    ')}${
-						errors.length ? '\n' : ''
-					}\n`;
+					this.details += `  ${errors.length} error${errors.length > 1 ? 's' : ''}\n`;
+					this.details += `    ${errors.join('\n    ')}${errors.length ? '\n' : ''}\n`;
 				}
 				if (warnings.length > 0) {
-					this.details += `  ${warnings.length} warning${
-						warnings.length > 1 ? 's' : ''
-					}\n`;
-					this.details += `    ${warnings.join('\n    ')}${
-						warnings.length ? '\n' : ''
-					}\n`;
+					this.details += `  ${warnings.length} warning${warnings.length > 1 ? 's' : ''}\n`;
+					this.details += `    ${warnings.join('\n    ')}${warnings.length ? '\n' : ''}\n`;
 				}
 			}
 		}

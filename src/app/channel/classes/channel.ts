@@ -2,6 +2,11 @@ import { IChannel, IChannelBase } from '../interfaces/channel';
 import { ITemplate, ITemplateBase } from '../interfaces/template';
 import { Template } from './template';
 
+function p8(s?: boolean): string {
+	const p = (Math.random().toString(16) + '000000000').substr(2, 8);
+	return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
+}
+
 export class Channel implements IChannel {
 	/**
 	 * Constructor
@@ -11,72 +16,30 @@ export class Channel implements IChannel {
 		this.id = this.guid();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public id: string;
-	/**
-	 * @inheritDoc
-	 */
 	public name = '';
-	/**
-	 * @inheritDoc
-	 */
 	public description = null;
-	/**
-	 * @inheritDoc
-	 */
 	public logo = null;
-	/**
-	 * @inheritDoc
-	 */
 	public validator = '';
-	/**
-	 * @inheritDoc
-	 */
 	public templates: ITemplate[] = [];
 
-	/**
-	 * Randomly generate id
-	 *
-	 * @example af8a8416-6e18-a307-bd9c-f2c947bbb3aa
-	 * @returns {string}
-	 */
+	/** Randomly generate id */
 	protected guid(): string {
-		function _p8(s?: boolean) {
-			const p = (Math.random().toString(16) + '000000000').substr(2, 8);
-			return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
-		}
-
-		return _p8() + _p8(true) + _p8(true) + _p8();
+		return p8() + p8(true) + p8(true) + p8();
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public newTemplate(): ITemplate {
 		return new Template(this);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public addTemplate(template: ITemplate): void {
 		this.templates.push(template);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public removeTemplate(template: ITemplate): void {
-		this.templates = this.templates.filter(
-			(t: ITemplate) => t !== template
-		);
+		this.templates = this.templates.filter((t: ITemplate) => t !== template);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public fromObject(object: IChannelBase): void {
 		this.id = object.id;
 		this.name = object.name;
@@ -92,9 +55,6 @@ export class Channel implements IChannel {
 		this.validator = object.validator;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public toObject(): IChannelBase {
 		return {
 			id: this.id,
@@ -103,36 +63,21 @@ export class Channel implements IChannel {
 			logo: this.logo,
 			templates: this.templates
 				.filter((template: ITemplate): boolean => !template.isEmpty())
-				.map(
-					(template: ITemplate): ITemplateBase => template.toObject()
-				),
-			validator: this.validator
+				.map((template: ITemplate): ITemplateBase => template.toObject()),
+			validator: this.validator,
 		};
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public isEmpty(): boolean {
-		const nameIsEmpty =
-			typeof this.name !== 'string' ||
-			this.name === null ||
-			this.name.length === 0;
-		const templatesAreEmpty = this.templates.every(
-			(template: ITemplate): boolean => template.isEmpty()
-		);
+		const nameIsEmpty = typeof this.name !== 'string' || this.name.length === 0;
+		const templatesAreEmpty = this.templates.every((template: ITemplate): boolean => template.isEmpty());
 
 		return nameIsEmpty || templatesAreEmpty;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public filter(): void {
-		this.templates = this.templates.filter(
-			(template: ITemplate): boolean => {
-				return !template.isEmpty();
-			}
-		);
+		this.templates = this.templates.filter((template: ITemplate): boolean => {
+			return !template.isEmpty();
+		});
 	}
 }

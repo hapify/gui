@@ -5,7 +5,7 @@
 		>
 			<div class="d-flex align-items-center w-100">
 				<app-validator-icon
-					[signal]="change"
+					[signal]="update"
 					[model]="model"
 					class="flex-shrink-0 mr-2 d-flex align-items-center"
 				></app-validator-icon>
@@ -169,7 +169,7 @@
 						[field]="field"
 						[deletionMode]="cleanRows"
 						(delete)="deleteField(field)"
-						(change)="onModelChange()"
+                        (update)="onModelChange()"
 						class="col-12"
 					></app-model-field>
 				</li>
@@ -185,7 +185,7 @@
 			</ul>
 
 			<app-validator-details
-				[signal]="change"
+				[signal]="update"
 				[model]="model"
 				class="d-block"
 			></app-validator-details>

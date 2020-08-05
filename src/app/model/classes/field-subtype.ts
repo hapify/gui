@@ -2,14 +2,14 @@ import { ILabelledValue } from '../interfaces/labelled-value';
 
 export class FieldSubType {
 	static Boolean = {
-		Default: null
+		Default: null,
 	};
 	static Number = {
 		Default: null,
 		Integer: 'integer',
 		Float: 'float',
 		Latitude: 'latitude',
-		Longitude: 'longitude'
+		Longitude: 'longitude',
 	};
 	static String = {
 		Default: null,
@@ -17,56 +17,44 @@ export class FieldSubType {
 		Password: 'password',
 		Url: 'url',
 		Text: 'text',
-		RichText: 'rich'
+		RichText: 'rich',
 	};
 	static DateTime = {
 		Default: null,
 		Date: 'date',
-		Time: 'time'
+		Time: 'time',
 	};
 	static Entity = {
-		Default: null
+		Default: null,
 	};
 	static Object = {
-		Default: null
+		Default: null,
 	};
 	static File = {
 		Default: null,
 		Image: 'image',
 		Video: 'video',
 		Audio: 'audio',
-		Document: 'document'
+		Document: 'document',
 	};
 
-	/**
-	 * Get the list of sub types for boolean
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for boolean */
 	static boolean(): ILabelledValue[] {
 		return [{ name: 'Default', value: FieldSubType.Boolean.Default }];
 	}
 
-	/**
-	 * Get the list of sub types for number
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for number */
 	static number(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.Number.Default },
 			{ name: 'Integer', value: FieldSubType.Number.Integer },
 			{ name: 'Float', value: FieldSubType.Number.Float },
 			{ name: 'Latitude', value: FieldSubType.Number.Latitude },
-			{ name: 'Longitude', value: FieldSubType.Number.Longitude }
+			{ name: 'Longitude', value: FieldSubType.Number.Longitude },
 		];
 	}
 
-	/**
-	 * Get the list of sub types for string
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for string */
 	static string(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.String.Default },
@@ -74,53 +62,37 @@ export class FieldSubType {
 			{ name: 'Password', value: FieldSubType.String.Password },
 			{ name: 'Url', value: FieldSubType.String.Url },
 			{ name: 'Text', value: FieldSubType.String.Text },
-			{ name: 'Rich Text', value: FieldSubType.String.RichText }
+			{ name: 'Rich Text', value: FieldSubType.String.RichText },
 		];
 	}
 
-	/**
-	 * Get the list of sub types for datetime
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for datetime */
 	static datetime(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.DateTime.Default },
 			{ name: 'Date', value: FieldSubType.DateTime.Date },
-			{ name: 'Time', value: FieldSubType.DateTime.Time }
+			{ name: 'Time', value: FieldSubType.DateTime.Time },
 		];
 	}
 
-	/**
-	 * Get the list of sub types for entity
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for entity */
 	static entity(): ILabelledValue[] {
 		return [{ name: 'Empty', value: FieldSubType.Entity.Default }];
 	}
 
-	/**
-	 * Get the list of sub types for object
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for object */
 	static object(): ILabelledValue[] {
 		return [{ name: 'Default', value: FieldSubType.Object.Default }];
 	}
 
-	/**
-	 * Get the list of sub types for file
-	 *
-	 * @returns {ILabelledValue[]}
-	 */
+	/** Get the list of sub types for file */
 	static file(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.File.Default },
 			{ name: 'Image', value: FieldSubType.File.Image },
 			{ name: 'Video', value: FieldSubType.File.Video },
 			{ name: 'Audio', value: FieldSubType.File.Audio },
-			{ name: 'Document', value: FieldSubType.File.Document }
+			{ name: 'Document', value: FieldSubType.File.Document },
 		];
 	}
 }

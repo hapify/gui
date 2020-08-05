@@ -1,22 +1,7 @@
-import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	EventEmitter,
-	HostListener,
-	Injector,
-	Input,
-	OnDestroy,
-	OnInit,
-	Output,
-	ViewChild
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, HostListener, Injector, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ITemplate } from '../../interfaces/template';
 import { GeneratorService } from '../../services/generator.service';
-import {
-	StorageService as ModelStorageService,
-	IModel
-} from '../../../model/model.module';
+import { IModel, StorageService as ModelStorageService } from '../../../model/model.module';
 import { IGeneratorResult } from '../../interfaces/generator-result';
 import { AceService } from '@app/services/ace.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,20 +12,20 @@ import { RichError } from '@app/class/RichError';
 @Component({
 	selector: 'app-channel-editor',
 	templateUrl: './editor.component.html',
-	styleUrls: ['./editor.component.scss']
+	styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
-	/** @type {GeneratorService} The generator service */
+	/** The generator service */
 	generatorService: GeneratorService;
-	/** @type {ModelStorageService} The generator service */
+	/** The generator service */
 	modelStorageService: ModelStorageService;
-	/** @type {ITemplate} Template to edit instance */
+	/** Template to edit instance */
 	@Input() template: ITemplate;
-	/** @type {EventEmitter<ITemplate|null>} On save event */
+	/** On save event */
 	@Output() save = new EventEmitter<ITemplate | null>();
-	/** @type {EventEmitter<void>} On save event */
-	@Output() close = new EventEmitter<void>();
-	/** @type {ITemplate} The edited template */
+	/** On close event */
+	@Output() exit = new EventEmitter<void>();
+	/** The edited template */
 	wip: ITemplate;
 	/** Preview models */
 	models: IModel[];
@@ -56,22 +41,12 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	autoRefresh = true;
 	/** Text display to prevent reloading */
 	private beforeUnloadWarning: string;
-	/** @type {boolean} Denotes if the user has unsaved changes (to prevent reload) */
+	/** Denotes if the user has unsaved changes (to prevent reload) */
 	unsavedChanges = false;
 	/** Hotkeys to unbind */
 	private saveHotKeys: Hotkey | Hotkey[];
 	/** Error codes to display in editor */
-	private handledCodes = [
-		1003,
-		1004,
-		1005,
-		2004,
-		2005,
-		6001,
-		6002,
-		6003,
-		6004
-	];
+	private handledCodes = [1003, 1004, 1005, 2004, 2005, 6001, 6002, 6003, 6004];
 	/** Left editor */
 	@ViewChild('editorInput') editorInput;
 	/** Constructor */
@@ -88,45 +63,40 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.modelStorageService = this.injector.get(ModelStorageService);
 	}
 	/** On init */
-	ngOnInit() {
+	ngOnInit(): void {
 		// Handle generation messages
 		this.messageService.addErrorHandler({
 			name: 'template-editor',
-			handle: (error: Error) => this._handledError(error)
+			handle: (error: Error) => this.handledError(error),
 		});
 
 		// Unloading message
-		this.translateService
-			.get('common_unload_warning')
-			.subscribe(value => (this.beforeUnloadWarning = value));
+		this.translateService.get('common_unload_warning').subscribe((value) => (this.beforeUnloadWarning = value));
 
 		// Save on Ctrl+S
 		this.saveHotKeys = this.hotKeysService.add(
-			new Hotkey(
-				'meta+s',
-				(event: KeyboardEvent): boolean => {
-					this.didClickSave();
-					return false;
-				}
-			)
+			new Hotkey('meta+s', (): boolean => {
+				this.didClickSave();
+				return false;
+			})
 		);
 
 		// Clone input template
 		this.wip = this.template.clone();
 
 		// Get all models
-		this.modelStorageService.list().then(models => {
+		this.modelStorageService.list().then((models) => {
 			this.models = models;
 			if (this.wip.needsModel()) {
 				this.model = this.models[0];
 			}
 			// Generate
-			this._generate();
+			this.generate();
 		});
 	}
 
 	/** Destroy */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.hotKeysService.remove(this.saveHotKeys);
 		this.messageService.removeErrorHandler('template-editor');
 	}
@@ -134,125 +104,104 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 	 * After init
 	 * Bind Ctrl-S inside the editors
 	 */
-	ngAfterViewInit() {
-		this.editorInput
-			.getEditor()
-			.commands.addCommand(this._getEditorSaveCommand());
+	ngAfterViewInit(): void {
+		this.editorInput.getEditor().commands.addCommand(this.getEditorSaveCommand());
 		this.cd.detectChanges();
 	}
 	/** Get the save command for the editors */
-	private _getEditorSaveCommand(): any {
+	private getEditorSaveCommand(): any {
 		return {
 			name: 'saveCommand',
 			bindKey: {
 				win: 'Ctrl-S',
 				mac: 'Command-S',
-				sender: 'editor|cli'
+				sender: 'editor|cli',
 			},
 			exec: () => {
 				this.didClickSave();
-			}
+			},
 		};
 	}
 	/** Called when the user click on save */
-	didClickSave() {
+	didClickSave(): void {
 		this.template.content = this.wip.content;
 		this.template.path = this.wip.path;
 		this.unsavedChanges = false;
 		this.save.emit(this.generatorService.autoSyncEnabled ? this.wip : null);
 	}
 	/** Called when the user click on close */
-	didClickClose() {
+	didClickClose(): void {
 		if (!this.unsavedChanges || confirm(this.beforeUnloadWarning)) {
-			this.close.emit();
+			this.exit.emit();
 		}
 	}
-	/**
-	 * Runs the content generation
-	 * @private
-	 */
-	private _generate() {
+	/** Runs the content generation */
+	private generate(): void {
 		// Clean results and error
 		// Run generation
 		this.generatorService
 			.run(this.wip, this.model)
-			.then(result => {
+			.then((result) => {
 				this.result = result;
 				this.error = null;
 				this.pathResult = result.path;
 			})
-			.catch(e => {
+			.catch((e) => {
 				this.result = null;
-				this._formatError(e);
+				this.formatError(e);
 			});
 	}
-	/**
-	 * Runs the path generation
-	 * @private
-	 */
-	private _generatePath() {
+	/** Runs the path generation */
+	private generatePath(): void {
 		// Run generation
 		this.generatorService
 			.path(this.wip, this.model)
-			.then(result => {
+			.then((result) => {
 				this.pathResult = result;
 			})
-			.catch(e => {
-				this._formatError(e);
+			.catch((e) => {
+				this.formatError(e);
 			});
 	}
 	/** Format an error to be displayed */
-	private _formatError(error: Error) {
-		if (this._handledError(error)) {
-			this.error = (<RichError>error).details();
+	private formatError(error: Error): void {
+		if (this.handledError(error)) {
+			this.error = (error as RichError).details();
 		}
 	}
 	/** Format an error to be displayed */
-	private _handledError(error: Error): boolean {
-		return (
-			error instanceof RichError &&
-			this.handledCodes.includes(error.data.code)
-		);
+	private handledError(error: Error): boolean {
+		return error instanceof RichError && this.handledCodes.includes(error.data.code);
 	}
 
 	/** Call when the selected model is changed */
-	onModelChange() {
-		this._generate();
+	onModelChange(): void {
+		this.generate();
 	}
 	/** Call when the path is changed */
-	onPathChange(value: string) {
+	onPathChange(value: string): void {
 		this.wip.path = value;
-		this._generatePath();
+		this.generatePath();
 	}
-	/**
-	 * Call when the content is left
-	 * @param {string} content
-	 */
-	onBlur(content: string) {
+	/** Call when the content is left */
+	onBlur(content: string): void {
 		this.wip.content = content;
-		this._generate();
+		this.generate();
 	}
-	/**
-	 * Call when the content changes
-	 * @param {string} content
-	 */
-	onChange(content: string) {
+	/** Call when the content changes */
+	onChange(content: string): void {
 		this.wip.content = content;
 		this.unsavedChanges = true;
 		if (this.autoRefresh) {
-			this._generate();
+			this.generate();
 		}
 	}
 	/** Call when the user click on "dump" */
-	async didClickDump() {
+	async didClickDump(): Promise<void> {
 		// @todo Dump in popin
 		this.messageService.info('To be implemented');
 	}
-	/**
-	 * Prevent reloading
-	 * @param event
-	 * @return {string|null}
-	 */
+	/** Prevent reloading */
 	@HostListener('window:beforeunload', ['$event'])
 	beforeUnloadHandler(event: any): string {
 		if (!this.unsavedChanges) {

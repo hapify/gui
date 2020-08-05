@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 export interface Breakpoint {
@@ -9,7 +9,7 @@ export interface Breakpoint {
 }
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class ResizeService {
 	wait = new Subject<void>();
@@ -24,28 +24,28 @@ export class ResizeService {
 		{
 			label: 'xs',
 			minWidth: 0,
-			maxWidth: 576
+			maxWidth: 576,
 		},
 		{
 			label: 'sm',
 			minWidth: 576,
-			maxWidth: 768
+			maxWidth: 768,
 		},
 		{
 			label: 'md',
 			minWidth: 768,
-			maxWidth: 992
+			maxWidth: 992,
 		},
 		{
 			label: 'lg',
 			minWidth: 992,
-			maxWidth: 1200
+			maxWidth: 1200,
 		},
 		{
 			label: 'xl',
 			minWidth: 1200,
-			maxWidth: Number.MAX_SAFE_INTEGER
-		}
+			maxWidth: Number.MAX_SAFE_INTEGER,
+		},
 	];
 	currentBreakpoint: Breakpoint = this.getCurrentBreakpoint();
 
@@ -55,19 +55,12 @@ export class ResizeService {
 		});
 
 		this.wait.pipe(debounceTime(50)).subscribe(() => {
-			const breakPoint = this.breakpoints.find(
-				b =>
-					window.innerWidth >= b.minWidth &&
-					window.innerWidth < b.maxWidth
-			);
+			const breakPoint = this.breakpoints.find((b) => window.innerWidth >= b.minWidth && window.innerWidth < b.maxWidth);
 			if (this.currentBreakpoint.label !== breakPoint.label) {
 				this.breakpointChanges.next({
 					previous: this.currentBreakpoint,
 					current: breakPoint,
-					evolution:
-						this.currentBreakpoint.minWidth > breakPoint.minWidth
-							? 'shrink'
-							: 'grow'
+					evolution: this.currentBreakpoint.minWidth > breakPoint.minWidth ? 'shrink' : 'grow',
 				});
 				this.currentBreakpoint = breakPoint;
 			}
@@ -76,10 +69,6 @@ export class ResizeService {
 	}
 
 	getCurrentBreakpoint(): Breakpoint {
-		return this.breakpoints.find(
-			b =>
-				window.innerWidth > b.minWidth &&
-				window.innerWidth <= b.maxWidth
-		);
+		return this.breakpoints.find((b) => window.innerWidth > b.minWidth && window.innerWidth <= b.maxWidth);
 	}
 }

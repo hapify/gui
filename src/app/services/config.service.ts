@@ -5,33 +5,19 @@ import { environment } from '@env/environment';
 export class ConfigService {
 	constructor() {}
 
-	/**
-	 * Get the base path for ace
-	 *
-	 * @return {string}
-	 */
+	/** Get the base path for ace */
 	getAceBaseUri(): string {
 		return environment.ace.baseUri;
 	}
 
-	/**
-	 * Get the theme for ace
-	 *
-	 * @return {string}
-	 */
+	/** Get the theme for ace */
 	getAceTheme(): string {
 		return environment.ace.theme;
 	}
 
-	/**
-	 * Returns the ws info url
-	 *
-	 * @return {string}
-	 */
+	/** Returns the ws info url */
 	getWebSocketInfoUrl(): string {
-		const uri = <string>environment.cli.wsInfoUri;
-		return uri.startsWith('http')
-			? uri
-			: `${location.protocol}//${location.host}${uri}`;
+		const uri = environment.cli.wsInfoUri as string;
+		return uri.startsWith('http') ? uri : `${location.protocol}//${location.host}${uri}`;
 	}
 }

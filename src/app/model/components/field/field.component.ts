@@ -1,26 +1,18 @@
-import {
-	Component,
-	OnInit,
-	OnDestroy,
-	Input,
-	Output,
-	EventEmitter
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 import { FieldLightComponent } from '../field-light/field-light.component';
 
 @Component({
 	selector: 'app-model-field',
 	templateUrl: './field.component.html',
-	styleUrls: ['./field.component.scss']
+	styleUrls: ['./field.component.scss'],
 })
-export class FieldComponent extends FieldLightComponent
-	implements OnInit, OnDestroy {
-	/** @type {boolean} Rows deletion mode */
+export class FieldComponent extends FieldLightComponent implements OnInit, OnDestroy {
+	/** Rows deletion mode */
 	@Input() deletionMode = false;
-	/** @type {EventEmitter<void>} Notify changes */
-	@Output() change = new EventEmitter<void>();
-	/** @type {EventEmitter<void>} Request for delete field */
+	/** Notify changes */
+	@Output() update = new EventEmitter<void>();
+	/** Request for delete field */
 	@Output() delete = new EventEmitter<void>();
 
 	isTypesTooltipDisplayed = false;
@@ -31,21 +23,18 @@ export class FieldComponent extends FieldLightComponent
 	isFieldsTooltipDisplayed = false;
 	noSelectedField = false;
 
-	/**
-	 * @inheritDoc
-	 */
-	ngOnInit() {
+	ngOnInit(): void {
 		super.ngOnInit();
 		this.areSelectedFields();
 	}
 
 	/** Destroy */
-	ngOnDestroy() {}
+	ngOnDestroy(): void {}
 
 	/** Called when a value change */
-	onInputChange() {
+	onInputChange(): void {
 		this.updateField();
-		this.change.emit();
+		this.update.emit();
 	}
 
 	/** Called when the user delete the field */
@@ -60,7 +49,7 @@ export class FieldComponent extends FieldLightComponent
 		this.areSelectedFields();
 	}
 
-	/** Detect if at least one field attribute has been defined*/
+	/** Detect if at least one field attribute has been defined */
 	private areSelectedFields(): void {
 		this.noSelectedField = true;
 		for (const pi of this.propertiesIcons) {
@@ -72,7 +61,7 @@ export class FieldComponent extends FieldLightComponent
 	}
 
 	/** Display subtypes in tooltip */
-	toggleSubtypesTooltip(type: ILabelledValue) {
+	toggleSubtypesTooltip(type: ILabelledValue): void {
 		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
 	}
 }

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IModel } from '@app/model/interfaces/model';
-import { MatDialog } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 import { RootComponent as PresetRootComponent } from '@app/preset/preset.module';
 import { ModelService } from '@app/preset/services/model.service';
@@ -12,7 +12,7 @@ import { StorageService } from '@app/model/services/storage.service';
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
 	addingNewModel = false;
@@ -28,18 +28,16 @@ export class HeaderComponent implements OnInit {
 		private messageService: MessageService
 	) {}
 
-	ngOnInit() {}
+	ngOnInit(): void {}
 
 	openPresetDialog(): void {
 		this.dialog.open(PresetRootComponent, {
-			panelClass: 'wideDialog'
+			panelClass: 'wideDialog',
 		});
 
-		this.modelServiceSubscription = this.modelService.presetApplied.subscribe(
-			results => {
-				this.updateModel(results);
-			}
-		);
+		this.modelServiceSubscription = this.modelService.presetApplied.subscribe((results) => {
+			this.updateModel(results).catch((error) => this.messageService.error(error));
+		});
 
 		this.dialogSubscription = this.dialog.afterAllClosed.subscribe(() => {
 			this.dialogSubscription.unsubscribe();
@@ -50,14 +48,14 @@ export class HeaderComponent implements OnInit {
 	private async updateModel(results): Promise<void> {
 		// @todo Require validation from user
 		await this.storageService.update(
-			results.updated.map(m => {
+			results.updated.map((m) => {
 				const model = new Model();
 				model.fromObject(m);
 				return model;
 			})
 		);
 		await this.storageService.add(
-			results.created.map(m => {
+			results.created.map((m) => {
 				const model = new Model();
 				model.fromObject(m);
 				return model;
@@ -65,17 +63,9 @@ export class HeaderComponent implements OnInit {
 		);
 
 		// Show message to user...
-		let message = results.created.length
-			? `Did create model(s) ${results.created
-					.map(m => m.name)
-					.join(', ')}`
-			: 'No model created';
+		let message = results.created.length ? `Did create model(s) ${results.created.map((m) => m.name).join(', ')}` : 'No model created';
 		message += '. ';
-		message += results.updated.length
-			? `Did update model(s) ${results.updated
-					.map(m => m.name)
-					.join(', ')}`
-			: 'No model updated';
+		message += results.updated.length ? `Did update model(s) ${results.updated.map((m) => m.name).join(', ')}` : 'No model updated';
 		this.messageService.info(message);
 
 		this.newImport.emit();

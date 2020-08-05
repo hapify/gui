@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IField } from '../../interfaces/field';
 import { FieldType } from '../../classes/field-type';
 import { IModel } from '../../interfaces/model';
@@ -13,23 +13,23 @@ interface IPropertyIcon {
 @Component({
 	selector: 'app-model-field-light',
 	templateUrl: './field-light.component.html',
-	styleUrls: ['../field/field.component.scss']
+	styleUrls: ['../field/field.component.scss'],
 })
 export class FieldLightComponent implements OnInit {
 	/** Constructor */
 	constructor() {}
 
-	/** @type {boolean} Rows deletion mode */
+	/** Rows deletion mode */
 	@Input() deletionMode = false;
-	/** @type {IModel[]} Available Models */
+	/** Available Models */
 	@Input() models: IModel[];
-	/** @type {IField} New field instance */
+	/** New field instance */
 	@Input() field: IField;
 	/** Link to FieldType class */
 	fieldType = FieldType;
-	/** Availables types */
+	/** Available types */
 	types = this.fieldType.list();
-	/** Availables subtypes */
+	/** Available subtypes */
 	subtypes: ILabelledValue[] = [];
 
 	propertiesIcons: IPropertyIcon[] = [
@@ -44,29 +44,21 @@ export class FieldLightComponent implements OnInit {
 		{ property: 'hidden', icon: 'visibility_off', value: false },
 		{ property: 'internal', icon: 'code', value: false },
 		{ property: 'restricted', icon: 'pan_tool', value: false },
-		{ property: 'ownership', icon: 'copyright', value: false }
+		{ property: 'ownership', icon: 'copyright', value: false },
 	];
 	filteredPropertiesIcons: IPropertyIcon[] = [];
 
-	/**
-	 * @inheritDoc
-	 */
-	ngOnInit() {
+	ngOnInit(): void {
 		this.updatePropertiesIcons();
 		this.subtypes = this.field.getAvailableSubTypes();
 	}
 
-	/**
-	 * Get the model name for an entity reference
-	 *
-	 * @param {IField} field
-	 * @return {string|null}
-	 */
-	getModelName(field: IField) {
+	/** Get the model name for an entity reference */
+	getModelName(field: IField): string {
 		if (field.type !== FieldType.Entity || !this.models) {
 			return null;
 		}
-		const model = this.models.find(m => m.id === field.reference);
+		const model = this.models.find((m) => m.id === field.reference);
 		return model ? model.name : '-';
 	}
 
@@ -75,8 +67,6 @@ export class FieldLightComponent implements OnInit {
 		for (const p of this.propertiesIcons) {
 			p.value = !!this.field[p.property];
 		}
-		this.filteredPropertiesIcons = this.propertiesIcons.filter(
-			i => i.value
-		);
+		this.filteredPropertiesIcons = this.propertiesIcons.filter((i) => i.value);
 	}
 }

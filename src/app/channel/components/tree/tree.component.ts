@@ -4,7 +4,7 @@ import { TreeBranch } from '../../interfaces/tree-branch';
 @Component({
 	selector: 'app-channel-tree',
 	templateUrl: './tree.component.html',
-	styleUrls: ['./tree.component.scss']
+	styleUrls: ['./tree.component.scss'],
 })
 export class TreeComponent implements OnInit {
 	@Input()
@@ -19,16 +19,17 @@ export class TreeComponent implements OnInit {
 			}
 			return a.name.localeCompare(b.name);
 		});
-		this._tree = value;
-		this._tree.map(branch => {
+		this.treeValue = value;
+		this.treeValue.map((branch) => {
 			this.isOpen[branch.path] = this.isOpen[branch.path] || false;
-			this.types[branch.path] =
-				this.types[branch.path] || this.getType(branch); // Avoid re-compute
+			this.types[branch.path] = this.types[branch.path] || TreeComponent.getType(branch); // Avoid re-compute
 		});
 	}
 	get tree(): TreeBranch[] {
-		return this._tree;
+		return this.treeValue;
 	}
+
+	constructor() {}
 	@Input() rootPath = '';
 	@Input() selectedPath = '';
 	@Input() addTemplateDisabled = false;
@@ -37,26 +38,14 @@ export class TreeComponent implements OnInit {
 	@Output() removeTemplate = new EventEmitter<TreeBranch>();
 
 	newTemplatePath = '';
-	private _tree: TreeBranch[];
+	private treeValue: TreeBranch[];
 	isOpen: { [key: string]: boolean } = {};
 	types: { [key: string]: string } = {};
 
 	confirmDeletion = false;
 
-	constructor() {}
-
-	ngOnInit() {
-		if (this.selectedPath.length) {
-			this._tree.map(branch => {
-				this.isOpen[branch.path] = this.selectedPath.startsWith(
-					branch.path
-				);
-			});
-		}
-	}
-
-	/** Get File extension*/
-	private getType(branch: TreeBranch): string {
+	/** Get File extension */
+	private static getType(branch: TreeBranch): string {
 		if (branch.children.length) {
 			return 'folder';
 		}
@@ -67,6 +56,14 @@ export class TreeComponent implements OnInit {
 			return 'file';
 		}
 		return parts[parts.length - 1];
+	}
+
+	ngOnInit(): void {
+		if (this.selectedPath.length) {
+			this.treeValue.map((branch) => {
+				this.isOpen[branch.path] = this.selectedPath.startsWith(branch.path);
+			});
+		}
 	}
 
 	isSelected(branch: TreeBranch): boolean {
@@ -80,9 +77,7 @@ export class TreeComponent implements OnInit {
 		if (this.addTemplateDisabled || this.newTemplatePath.length === 0) {
 			return;
 		}
-		const path = this.rootPath.length
-			? `${this.rootPath}/${this.newTemplatePath}`
-			: this.newTemplatePath;
+		const path = this.rootPath.length ? `${this.rootPath}/${this.newTemplatePath}` : this.newTemplatePath;
 		this.addTemplate.emit(path);
 		this.newTemplatePath = '';
 	}

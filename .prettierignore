@@ -1,4 +1,3 @@
 dist
 vendor
-utils/scaffolds
-assets/ace-builds
+src/assets

@@ -7,7 +7,7 @@ import { Lock } from '@app/class/Lock';
 @Injectable()
 export class InfoService extends Lock {
 	/** Stores the infos */
-	private _info: IInfo;
+	private infoValue: IInfo;
 
 	/** Constructor */
 	constructor(private webSocketService: WebSocketService) {
@@ -17,13 +17,11 @@ export class InfoService extends Lock {
 	/** Get info once and store them */
 	async info(): Promise<IInfo> {
 		await this.wait('info');
-		if (!this._info) {
+		if (!this.infoValue) {
 			this.lock('info');
-			this._info = await this.webSocketService.send(
-				WebSocketMessages.GET_INFO
-			);
+			this.infoValue = await this.webSocketService.send(WebSocketMessages.GET_INFO);
 			this.unlock('info');
 		}
-		return this._info;
+		return this.infoValue;
 	}
 }

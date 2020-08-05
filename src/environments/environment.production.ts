@@ -7,10 +7,10 @@ export const environment = {
 	production: true,
 	ace: {
 		baseUri: '/assets/ace-builds/src-min-noconflict',
-		theme: 'xcode'
+		theme: 'xcode',
 	},
 	cli: {
-		wsInfoUri: '/ws.json'
+		wsInfoUri: '/ws.json',
 	},
-	debounceTime: 1000
+	debounceTime: 1000,
 };
