@@ -1,9 +1,9 @@
 {
   "name": "@hapify/gui",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "license": "MIT",
   "scripts": {
-    "install": "./post-install.sh",
+    "prepare": "./post-install.sh",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --configuration=production",
