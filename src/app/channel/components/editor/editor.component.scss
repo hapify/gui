@@ -3,7 +3,11 @@
 $c-string: #df0002;
 $c-comment: #008e00;
 $c-bullet: #cccccc;
-$op-meta: 0.4;
+
+$c-cond: #4c8e47;
+$c-iter: #666bc3;
+$c-inter: #d77c81;
+$c-eval: #555555;
 
 header {
 	position: relative;
@@ -36,26 +40,52 @@ ace-editor {
 		background-color: rgba(255, 255, 255, 0.7);
 	}
 	.ace_hpf {
-		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+		border-bottom: 1px solid;
+    font-weight: bold;
+    &.ace_start,
+    &.ace_end {
+      font-weight: normal;
+    }
 		&.ace_inter {
-			background-color: rgba(220, 153, 153, 0.3);
-			opacity: $op-meta;
-			&.ace_nqme {
-				background-color: rgba(220, 153, 153, 0.3);
-			}
+			background-color: transparentize($c-inter, .90);
+      color: darken($c-inter, 10%);
+      border-color: transparentize($c-inter, .80);
+      &.ace_start,
+      &.ace_end,
+      &.ace_word {
+        color: $c-inter;
+      }
 		}
 		&.ace_cond {
-			background-color: rgba(180, 220, 180, 0.7);
-			opacity: $op-meta;
+      background-color: transparentize($c-cond, .90);
+      color: darken($c-cond, 10%);
+      border-color: transparentize($c-cond, .80);
+      &.ace_start,
+      &.ace_end,
+      &.ace_word {
+        color: $c-cond;
+      }
 		}
 		&.ace_iter {
-			background-color: rgba(220, 220, 255, 0.7);
-			opacity: $op-meta;
+      background-color: transparentize($c-iter, .90);
+      color: darken($c-iter, 20%);
+      border-color: transparentize($c-iter, .80);
+      &.ace_start,
+      &.ace_end,
+      &.ace_word {
+        color: $c-iter;
+      }
 		}
 		&.ace_eval,
 		&.ace_cmt {
-			background-color: rgba(153, 153, 153, 0.3);
-			opacity: $op-meta;
+      background-color: transparentize($c-eval, .90);
+      color: darken($c-eval, 30%);
+      border-color: transparentize($c-eval, .80);
+      &.ace_start,
+      &.ace_end,
+      &.ace_word {
+        color: $c-eval;
+      }
 		}
 		&.ace_blank {
 			border-bottom: none;
