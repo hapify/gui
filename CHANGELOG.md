@@ -4,7 +4,11 @@
 
 ### Added
 
+-   Handle HPF long syntax
+
 ### Changed
+
+-   Improve syntax highlighting
 
 ### Removed
 
@@ -12,7 +16,7 @@
 
 ### Changed
 
-- Upgrade to Angular 10
+-   Upgrade to Angular 10
 
 ## [0.4.1] - 2019-10-24
 
