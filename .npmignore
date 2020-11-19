@@ -16,6 +16,7 @@ karma.conf.js
 ngsw-config.json
 post-install.sh
 ROADMAP.md
+syntax-patterns.hpf
 tsconfig.app.json
 tsconfig.base.json
 tsconfig.json
