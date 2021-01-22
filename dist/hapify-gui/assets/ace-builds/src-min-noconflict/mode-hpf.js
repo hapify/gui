@@ -487,7 +487,7 @@ ace.define("ace/mode/javascript_highlight_rules",["require","exports","module","
       },
       jsxTag
     ];
-    this.$rules.reference = [{
+    this.$rules.value = [{
       token : "constant.language.escape.reference.xml",
       regex : "(?:&#[0-9]+;)|(?:&#x[0-9a-fA-F]+;)|(?:&[a-zA-Z0-9_:\\.-]+;)"
     }];
