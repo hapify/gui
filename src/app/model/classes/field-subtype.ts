@@ -27,6 +27,9 @@ export class FieldSubType {
 	static Entity = {
 		Default: null,
 	};
+	static Enum = {
+		Default: null,
+	};
 	static Object = {
 		Default: null,
 	};
@@ -77,7 +80,12 @@ export class FieldSubType {
 
 	/** Get the list of sub types for entity */
 	static entity(): ILabelledValue[] {
-		return [{ name: 'Empty', value: FieldSubType.Entity.Default }];
+		return [{ name: 'Default', value: FieldSubType.Entity.Default }];
+	}
+
+	/** Get the list of sub types for enum */
+	static enum(): ILabelledValue[] {
+		return [{ name: 'Default', value: FieldSubType.Enum.Default }];
 	}
 
 	/** Get the list of sub types for object */

@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ILabelledValue } from '@app/model/interfaces/labelled-value';
 import { FieldLightComponent } from '../field-light/field-light.component';
+import { FieldType } from '@app/model/classes/field-type';
 
 @Component({
 	selector: 'app-model-field',
@@ -16,12 +19,14 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	@Output() delete = new EventEmitter<void>();
 
 	isTypesTooltipDisplayed = false;
-	isSubtypesTooltipDisplayed = false;
+	displayedSubTypesTooltip: 'subtype' | 'entity' | 'enum' | null = null;
 	isNotesTooltipDisplayed = false;
 
-	fieldOvered = 'generic';
+	fieldHovered = 'generic';
 	isFieldsTooltipDisplayed = false;
 	noSelectedField = false;
+
+	readonly chipsListSeparatorKeysCodes: number[] = [ENTER, COMMA];
 
 	ngOnInit(): void {
 		super.ngOnInit();
@@ -45,7 +50,6 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	/** Update models properties from inputs values */
 	private updateField(): void {
 		this.updatePropertiesIcons();
-		this.subtypes = this.field.getAvailableSubTypes();
 		this.areSelectedFields();
 	}
 
@@ -61,7 +65,64 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 	}
 
 	/** Display subtypes in tooltip */
-	toggleSubtypesTooltip(type: ILabelledValue): void {
-		this.isSubtypesTooltipDisplayed = type.value !== 'boolean';
+	toggleSubtypesTooltip(): void {
+		const hasSubTypes = this.field.getAvailableSubTypes().filter((subType) => subType.value !== null).length > 0;
+
+		const isEntity = this.field.type === FieldType.Entity;
+		const isEnum = this.field.type === FieldType.Enum;
+
+		if (isEnum) {
+			this.displayedSubTypesTooltip = 'enum';
+			this.subtypes = null;
+		} else if (isEntity) {
+			this.displayedSubTypesTooltip = 'entity';
+			this.subtypes = null;
+		} else if (hasSubTypes) {
+			this.displayedSubTypesTooltip = 'subtype';
+			this.subtypes = this.field.getAvailableSubTypes();
+		} else {
+			this.displayedSubTypesTooltip = null;
+			this.subtypes = null;
+		}
+	}
+
+	toggleSubtypesTooltipIfSameValue(type: ILabelledValue): boolean {
+		if (this.field.type === type.value) {
+			this.toggleSubtypesTooltip();
+			return false;
+		}
+		return true;
+	}
+
+	resetSubtypeAndTriggerInputChange(): void {
+		this.field.subtype = null;
+		this.onInputChange();
+		this.toggleSubtypesTooltip();
+	}
+
+	addEnumToChipList({ value, input }: { value: string; input: HTMLInputElement }): void {
+		if (this.field.type === FieldType.Enum) {
+			if (!Array.isArray(this.field.value)) {
+				this.field.value = [];
+			}
+			(this.field.value as string[]).push(value.trim());
+			this.field.value = (this.field.value as string[]).filter((v) => v.trim().length > 0);
+			input.value = '';
+			this.onInputChange();
+		}
+	}
+
+	removeEnumFromChipList(value: string): void {
+		if (this.field.type === FieldType.Enum) {
+			this.field.value = (this.field.value as string[]).filter((v) => v !== value).filter((v) => v.trim().length > 0);
+			this.onInputChange();
+		}
+	}
+
+	dropEnumInChipList(event: CdkDragDrop<string[]>) {
+		if (this.field.type === FieldType.Enum) {
+			moveItemInArray(this.field.value as string[], event.previousIndex, event.currentIndex);
+			this.onInputChange();
+		}
 	}
 }

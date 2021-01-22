@@ -9,8 +9,12 @@ export interface IFieldBase {
 	type: string;
 	/** The field's subtype */
 	subtype: string | null;
-	/** The field's reference if the type is entity. The GUID string of the targeted model */
-	reference: string | null;
+	/**
+	 * Value of the fields. Used if the type is entity or enum.
+	 *  - Entity: The UUID string of the targeted model
+	 *  - Enum: list of enum values
+	 */
+	value: string | string[] | null;
 	/** Should be used as a primary key or not */
 	primary: boolean;
 	/** Should be used as a unique key or not */

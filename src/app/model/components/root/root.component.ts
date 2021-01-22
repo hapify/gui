@@ -70,7 +70,7 @@ export class RootComponent implements OnInit {
 		})) as IModelBase;
 
 		// Replace self reference
-		clone.fields.filter((f) => f.type === 'entity' && f.reference === clone.id).forEach((f) => (f.reference = modelObject.id));
+		clone.fields.filter((f) => f.type === 'entity' && f.value === clone.id).forEach((f) => (f.value = modelObject.id));
 
 		// Copy temp id and new name
 		clone.name = modelObject.name;
@@ -143,12 +143,12 @@ export class RootComponent implements OnInit {
 					})) as IModelBase;
 
 					// Replace self reference
-					clone.fields.filter((f) => f.type === 'entity' && f.reference === clone.id).forEach((f) => (f.reference = modelObject.id));
+					clone.fields.filter((f) => f.type === 'entity' && (f.value as string) === clone.id).forEach((f) => (f.value = modelObject.id));
 
 					// Remove non-existing references
 					const fieldsIds = (await this.storageService.list()).map((m) => m.id);
 					fieldsIds.push(modelObject.id);
-					clone.fields.filter((f) => f.type === 'entity' && !fieldsIds.includes(f.reference)).forEach((f) => (f.reference = null));
+					clone.fields.filter((f) => f.type === 'entity' && !fieldsIds.includes(f.value as string)).forEach((f) => (f.value = null));
 
 					// Copy new id
 					clone.id = modelObject.id;
@@ -215,7 +215,7 @@ export class RootComponent implements OnInit {
 
 				const references = m.fields
 					.filter((f) => f.type === FieldType.Entity)
-					.map((f) => f.reference)
+					.map((f) => f.value)
 					.filter((r) => r);
 
 				return references.includes(this.linkFilter);
