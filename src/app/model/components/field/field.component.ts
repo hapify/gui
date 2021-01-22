@@ -119,7 +119,7 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 		}
 	}
 
-	dropEnumInChipList(event: CdkDragDrop<string[]>) {
+	dropEnumInChipList(event: CdkDragDrop<string[]>): void {
 		if (this.field.type === FieldType.Enum) {
 			moveItemInArray(this.field.value as string[], event.previousIndex, event.currentIndex);
 			this.onInputChange();
