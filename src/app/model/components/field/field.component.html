@@ -193,7 +193,7 @@
               cdkDropListOrientation="horizontal"
               (cdkDropListDropped)="dropEnumInChipList($event)"
             >
-              <input placeholder="Enter value..."
+              <input placeholder="{{ 'enum_placeholder' | translate }}"
                      [matChipInputFor]="enumChipList"
                      [matChipInputSeparatorKeyCodes]="chipsListSeparatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
