@@ -58,7 +58,7 @@ export class FieldLightComponent implements OnInit {
 		if (field.type !== FieldType.Entity || !this.models) {
 			return null;
 		}
-		const model = this.models.find((m) => m.id === field.reference);
+		const model = this.models.find((m) => m.id === field.value);
 		return model ? model.name : '-';
 	}
 

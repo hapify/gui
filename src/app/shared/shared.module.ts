@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
 	declarations: [TranslateEntryPipe],
@@ -40,6 +41,7 @@ import { MatMenuModule } from '@angular/material/menu';
 		MatCheckboxModule,
 		MatDialogModule,
 		MatBadgeModule,
+		MatChipsModule,
 	],
 })
 export class SharedModule {}

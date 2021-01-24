@@ -49,7 +49,7 @@
 			<span
 				(click)="
 					isTypesTooltipDisplayed = true;
-					isSubtypesTooltipDisplayed = false
+					displayedSubTypesTooltip = null
 				"
 				>{{
 					field.type === fieldType.Entity
@@ -68,16 +68,15 @@
 				<div class="pl-2 pr-1 flex-grow-0 flex-shrink-1">
 					<mat-icon
 						[inline]="true"
-						[class.d-none]="!isSubtypesTooltipDisplayed"
-						(click)="isSubtypesTooltipDisplayed = false"
+						*ngIf="displayedSubTypesTooltip !== null"
+						(click)="displayedSubTypesTooltip = null"
 						color="primary"
 						>arrow_back</mat-icon
 					>
 				</div>
 				<ul
-					class="list-unstyled flex-wrap m-0 p-0 typeList"
-					[class.d-none]="isSubtypesTooltipDisplayed"
-					[class.d-flex]="!isSubtypesTooltipDisplayed"
+					class="list-unstyled flex-wrap m-0 p-0 typeList d-flex"
+					*ngIf="displayedSubTypesTooltip === null"
 				>
 					<li
 						*ngFor="let type of types; let i = index"
@@ -93,8 +92,8 @@
 								class="d-none"
 								[value]="type.value"
 								[(ngModel)]="field.type"
-								(change)="onInputChange(); field.subtype = null"
-								(click)="toggleSubtypesTooltip(type)"
+								(change)="resetSubtypeAndTriggerInputChange()"
+                (click)="toggleSubtypesTooltipIfSameValue(type)"
 							/>
 							<span
 								class="p-1 d-flex justify-content-center align-items-center field-{{
@@ -107,15 +106,8 @@
 					</li>
 				</ul>
 				<ul
-					class="list-unstyled flex-wrap m-0 p-0 subtypeList w-100 flex-shrink-1 flex-grow-1"
-					[class.d-none]="
-						field.type === fieldType.Entity ||
-						!isSubtypesTooltipDisplayed
-					"
-					[class.d-flex]="
-						field.type !== fieldType.Entity &&
-						isSubtypesTooltipDisplayed
-					"
+					class="list-unstyled flex-wrap m-0 p-0 subtypeList w-100 flex-shrink-1 flex-grow-1 d-flex"
+					*ngIf="displayedSubTypesTooltip === 'subtype'"
 				>
 					<li
 						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
@@ -151,15 +143,8 @@
 					</li>
 				</ul>
 				<ul
-					class="list-unstyled flex-wrap m-0 p-0 subtypeList  w-100 flex-shrink-1 flex-grow-1"
-					[class.d-flex]="
-						field.type === fieldType.Entity &&
-						isSubtypesTooltipDisplayed
-					"
-					[class.d-none]="
-						field.type !== fieldType.Entity ||
-						!isSubtypesTooltipDisplayed
-					"
+					class="list-unstyled flex-wrap m-0 p-0 subtypeList  w-100 flex-shrink-1 flex-grow-1 d-flex"
+          *ngIf="displayedSubTypesTooltip === 'entity'"
 				>
 					<li
 						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
@@ -179,7 +164,7 @@
 								type="radio"
 								class="d-none"
 								[value]="model.id"
-								[(ngModel)]="field.reference"
+								[(ngModel)]="field.value"
 								(change)="onInputChange(); field.subtype = null"
 							/>
 							<span
@@ -190,6 +175,43 @@
 						</label>
 					</li>
 				</ul>
+        <ul
+          class="list-unstyled flex-wrap m-0 p-0 subtypeList  w-100 flex-shrink-1 flex-grow-1 d-flex"
+          *ngIf="displayedSubTypesTooltip === 'enum'"
+        >
+          <li
+            class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
+          >
+            <span class="fieldTitle-enum">{{ field.type }}</span>
+          </li>
+
+          <li>
+            <mat-chip-list
+              #enumChipList
+              class="chipsList-enum d-flex flex-shrink-1 flex-grow-1 flex-wrap"
+              cdkDropList
+              cdkDropListOrientation="horizontal"
+              (cdkDropListDropped)="dropEnumInChipList($event)"
+            >
+              <input placeholder="Enter value..."
+                     [matChipInputFor]="enumChipList"
+                     [matChipInputSeparatorKeyCodes]="chipsListSeparatorKeysCodes"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="addEnumToChipList($event)">
+              <div class="chip-list d-flex flex-shrink-1 flex-grow-1 flex-wrap">
+                <mat-chip class="chip-enum"
+                          *ngFor="let value of field.value"
+                          cdkDrag
+                          [selectable]="false"
+                          [removable]="true"
+                          (removed)="removeEnumFromChipList(value)">
+                  {{value}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </div>
+            </mat-chip-list>
+          </li>
+        </ul>
 				<div
 					class="overlay"
 					(click)="isTypesTooltipDisplayed = false"
@@ -223,9 +245,9 @@
 				<p
 					class="
 			pb-2 px-2 border-bottom w-100 m-0 d-flex align-items-center justify-content-center"
-					[class.generic]="fieldOvered === 'generic'"
+					[class.generic]="fieldHovered === 'generic'"
 				>
-					{{ 'tooltip_' + fieldOvered.toLowerCase() | translate }}
+					{{ 'tooltip_' + fieldHovered.toLowerCase() | translate }}
 				</p>
 				<ul
 					class="fieldsTooltip__group list-unstyled d-flex flex-nowrap p-0 m-0 mt-2"
@@ -233,8 +255,8 @@
 					<li
 						*ngFor="let pi of propertiesIcons"
 						class="d-flex align-items-center px-1"
-						(mouseover)="fieldOvered = pi.property"
-						(mouseleave)="fieldOvered = 'generic'"
+						(mouseover)="fieldHovered = pi.property"
+						(mouseleave)="fieldHovered = 'generic'"
 					>
 						<label
 							class="m-0 p-0 d-flex align-items-center"
@@ -261,9 +283,8 @@
 				></div>
 			</div>
 			<ul
-				class="list-unstyled m-0 p-0 flex-nowrap align-items-center deletionMode"
-				[class.d-none]="!deletionMode"
-				[class.d-flex]="deletionMode"
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center deletionMode d-flex"
+				*ngIf="deletionMode"
 			>
 				<li>
 					<mat-icon [inline]="true" color="warn" (click)="onDelete()">
@@ -272,10 +293,9 @@
 				</li>
 			</ul>
 			<ul
-				class="list-unstyled m-0 p-0 flex-nowrap align-items-center selectedFields"
+				class="list-unstyled m-0 p-0 flex-nowrap align-items-center selectedFields d-flex"
 				(click)="isFieldsTooltipDisplayed = true"
-				[class.d-none]="deletionMode"
-				[class.d-flex]="!deletionMode"
+        *ngIf="!deletionMode"
 			>
 				<li *ngFor="let pi of filteredPropertiesIcons">
 					<mat-icon [inline]="true">{{ pi.icon }}</mat-icon>

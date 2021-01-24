@@ -12,7 +12,7 @@ export class Field implements IField {
 	public notes: string;
 	public type = FieldType.String;
 	public subtype = FieldSubType.String.Default;
-	public reference = null;
+	public value = null;
 	public primary = false;
 	public unique = false;
 	public label = false;
@@ -31,7 +31,7 @@ export class Field implements IField {
 		this.notes = object.notes || null;
 		this.type = object.type;
 		this.subtype = object.subtype;
-		this.reference = object.reference;
+		this.value = object.value;
 		this.primary = !!(object.primary as any);
 		this.unique = !!(object.unique as any);
 		this.label = !!(object.label as any);
@@ -52,7 +52,7 @@ export class Field implements IField {
 			notes: this.notes || null,
 			type: this.type,
 			subtype: this.subtype,
-			reference: this.type === FieldType.Entity ? this.reference : null,
+			value: this.getValueProperty(),
 			primary: this.primary,
 			unique: this.unique,
 			label: this.label,
@@ -83,6 +83,9 @@ export class Field implements IField {
 		if (this.type === FieldType.Boolean) {
 			return FieldSubType.boolean();
 		}
+		if (this.type === FieldType.Enum) {
+			return FieldSubType.enum();
+		}
 		if (this.type === FieldType.DateTime) {
 			return FieldSubType.datetime();
 		}
@@ -96,5 +99,15 @@ export class Field implements IField {
 			return FieldSubType.file();
 		}
 		return [];
+	}
+
+	private getValueProperty(): string | string[] | null {
+		if (this.type === FieldType.Entity) {
+			return typeof this.value === 'string' ? this.value : null;
+		} else if (this.type === FieldType.Enum) {
+			return this.value instanceof Array ? this.value : [];
+		} else {
+			return null;
+		}
 	}
 }
