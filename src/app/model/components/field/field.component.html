@@ -45,7 +45,7 @@
 	<div
 		class="col-6 d-flex flex-nowrap align-items-center justify-content-between"
 	>
-		<div class="badge badge-{{ field.type }}">
+		<div class="badge field-{{ field.type }}">
 			<span
 				(click)="
 					isTypesTooltipDisplayed = true;
@@ -62,156 +62,45 @@
 				>:{{ field.subtype }}</span
 			>
 			<div
-				class="typesTooltip d-flex flex-row flex-nowrap justify-content-center align-items-center py-2 border border-hpf-primary"
+				class="typesTooltip d-flex justify-content-between align-items-center py-2 border border-hpf-primary"
 				[class.active]="isTypesTooltipDisplayed"
 			>
-				<div class="pl-2 pr-1 flex-grow-0 flex-shrink-1">
+				<div class="pl-1 backIcon">
 					<mat-icon
-						[inline]="true"
 						*ngIf="displayedSubTypesTooltip !== null"
 						(click)="displayedSubTypesTooltip = null"
 						color="primary"
 						>arrow_back</mat-icon
 					>
 				</div>
-				<ul
-					class="list-unstyled flex-wrap m-0 p-0 typeList d-flex"
-					*ngIf="displayedSubTypesTooltip === null"
-				>
-					<li
-						*ngFor="let type of types; let i = index"
-						class="m-1"
-						[class.ml-0]="i === 0"
-						[class.mr-0]="i === types.length - 1"
-					>
-						<label
-							class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
-						>
-							<input
-								type="radio"
-								class="d-none"
-								[value]="type.value"
-								[(ngModel)]="field.type"
-								(change)="resetSubtypeAndTriggerInputChange()"
-                (click)="toggleSubtypesTooltipIfSameValue(type)"
-							/>
-							<span
-								class="p-1 d-flex justify-content-center align-items-center field-{{
-									type.value
-								}}"
-							>
-								{{ type.name }}
-							</span>
-						</label>
-					</li>
-				</ul>
-				<ul
-					class="list-unstyled flex-wrap m-0 p-0 subtypeList w-100 flex-shrink-1 flex-grow-1 d-flex"
+        <div class="pr-2 w-100 flex-shrink-1 flex-grow-1 d-flex"
+             *ngIf="displayedSubTypesTooltip === null"
+        >
+          <ng-container *ngTemplateOutlet="typesList"></ng-container>
+        </div>
+				<div class="pr-2 w-100 flex-shrink-1 flex-grow-1 d-flex "
 					*ngIf="displayedSubTypesTooltip === 'subtype'"
 				>
-					<li
-						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
-					>
-						<span class="p-1 fieldTitle-{{ field.type }}">{{
-							field.type
-						}}</span>
-					</li>
-					<li
-						*ngFor="let subtype of subtypes; let i = index"
-						class="m-1"
-						[class.ml-0]="i === 1"
-						[class.mr-0]="i === subtypes.length - 1"
-					>
-						<label
-							class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
-						>
-							<input
-								type="radio"
-								class="d-none"
-								[value]="subtype.value"
-								[(ngModel)]="field.subtype"
-								(change)="onInputChange()"
-							/>
-							<span
-								class="p-1 d-flex justify-content-center align-items-center field-{{
-									field.type
-								}}"
-							>
-								{{ subtype.name }}
-							</span>
-						</label>
-					</li>
-				</ul>
-				<ul
-					class="list-unstyled flex-wrap m-0 p-0 subtypeList  w-100 flex-shrink-1 flex-grow-1 d-flex"
+          <ng-container *ngTemplateOutlet="subtypeTitle"></ng-container>
+          <ng-container *ngTemplateOutlet="subtypesList"></ng-container>
+				</div>
+        <div class="pr-2 w-100 flex-shrink-1 flex-grow-1 d-flex"
           *ngIf="displayedSubTypesTooltip === 'entity'"
 				>
-					<li
-						class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
-					>
-						<span class="fieldTitle-entity">{{ field.type }}</span>
-					</li>
-					<li
-						*ngFor="let model of models; let i = index"
-						class="m-1"
-						[class.ml-0]="i === 1"
-						[class.mr-0]="i === models.length - 1"
-					>
-						<label
-							class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
-						>
-							<input
-								type="radio"
-								class="d-none"
-								[value]="model.id"
-								[(ngModel)]="field.value"
-								(change)="onInputChange(); field.subtype = null"
-							/>
-							<span
-								class="p-1 d-flex justify-content-center align-items-center field-entity"
-							>
-								{{ model.name }}
-							</span>
-						</label>
-					</li>
-				</ul>
-        <ul
-          class="list-unstyled flex-wrap m-0 p-0 subtypeList  w-100 flex-shrink-1 flex-grow-1 d-flex"
+          <ng-container *ngTemplateOutlet="subtypeTitle"></ng-container>
+          <div class="w-100">
+            <div class="border-bottom entity-subtypes">
+              <ng-container *ngTemplateOutlet="subtypesList"></ng-container>
+            </div>
+            <ng-container *ngTemplateOutlet="modelsList"></ng-container>
+          </div>
+				</div>
+          <div class="pr-2 w-100 flex-shrink-1 flex-grow-1 d-flex"
           *ngIf="displayedSubTypesTooltip === 'enum'"
         >
-          <li
-            class="d-flex align-items-center pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize"
-          >
-            <span class="fieldTitle-enum">{{ field.type }}</span>
-          </li>
-
-          <li>
-            <mat-chip-list
-              #enumChipList
-              class="chipsList-enum d-flex flex-shrink-1 flex-grow-1 flex-wrap"
-              cdkDropList
-              cdkDropListOrientation="horizontal"
-              (cdkDropListDropped)="dropEnumInChipList($event)"
-            >
-              <input placeholder="{{ 'enum_placeholder' | translate }}"
-                     [matChipInputFor]="enumChipList"
-                     [matChipInputSeparatorKeyCodes]="chipsListSeparatorKeysCodes"
-                     [matChipInputAddOnBlur]="true"
-                     (matChipInputTokenEnd)="addEnumToChipList($event)">
-              <div class="chip-list d-flex flex-shrink-1 flex-grow-1 flex-wrap">
-                <mat-chip class="chip-enum"
-                          *ngFor="let value of field.value"
-                          cdkDrag
-                          [selectable]="false"
-                          [removable]="true"
-                          (removed)="removeEnumFromChipList(value)">
-                  {{value}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </div>
-            </mat-chip-list>
-          </li>
-        </ul>
+          <ng-container *ngTemplateOutlet="subtypeTitle"></ng-container>
+          <ng-container *ngTemplateOutlet="enumList"></ng-container>
+        </div>
 				<div
 					class="overlay"
 					(click)="isTypesTooltipDisplayed = false"
@@ -312,3 +201,124 @@
 		</div>
 	</div>
 </div>
+
+<ng-template #typesList>
+  <ul
+    class="list-unstyled flex-wrap m-0 p-0 typeList d-flex"
+  >
+    <li
+      *ngFor="let type of types; let i = index"
+      class="m-1"
+      [class.ml-0]="i === 0"
+      [class.mr-0]="i === types.length - 1"
+    >
+      <label
+        class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
+      >
+        <input
+          type="radio"
+          class="d-none"
+          [value]="type.value"
+          [(ngModel)]="field.type"
+          (change)="resetSubtypeAndTriggerInputChange()"
+          (click)="toggleSubtypesTooltipIfSameValue(type)"
+        />
+        <span
+          class="p-1 d-flex justify-content-center align-items-center field-{{type.value}} typeBadge"
+          [class.selected]="field.type === type.value"
+        >
+								{{ type.name }}
+							</span>
+      </label>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #subtypeTitle>
+  <div class="p-1 pr-2 mr-2 border-right border-hpf-primary font-weight-bold text-capitalize subtypeTitle d-flex align-items-center">
+    <span class="field-{{ field.type }}">{{ field.type }}</span>
+  </div>
+</ng-template>
+<ng-template #subtypesList>
+  <ul class="list-unstyled m-0 p-0 subtypeList d-flex flex-shrink-1 flex-grow-1 flex-wrap">
+    <li
+      *ngFor="let subtype of subtypes; let i = index"
+      class="m-1"
+      [class.ml-0]="i === 1"
+      [class.mr-0]="i === subtypes.length - 1"
+    >
+      <label
+        class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
+      >
+        <input
+          type="radio"
+          class="d-none"
+          [value]="subtype.value"
+          [(ngModel)]="field.subtype"
+          (change)="onInputChange()"
+        />
+        <span
+          class="p-1 d-flex justify-content-center align-items-center field-{{
+                    field.type
+                  }} typeBadge"
+          [class.selected]="field.subtype === subtype.value"
+        >
+                  {{ subtype.name }}
+                </span>
+      </label>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #modelsList>
+  <ul class="list-unstyled m-0 p-0 subtypeList d-flex flex-shrink-1 flex-grow-1 flex-wrap">
+    <li
+      *ngFor="let model of models; let i = index"
+      class="m-1"
+      [class.ml-0]="i === 1"
+      [class.mr-0]="i === models.length - 1"
+    >
+      <label
+        class="d-flex m-0 p-0 align-content-stretch align-items-stretch field"
+      >
+        <input
+          type="radio"
+          class="d-none"
+          [value]="model.id"
+          [(ngModel)]="field.value"
+          (change)="onInputChange();"
+        />
+        <span
+          class="p-1 d-flex justify-content-center align-items-center field-entity typeBadge"
+          [class.selected]="field.value === model.id"
+        >
+                  {{ model.name }}
+                </span>
+      </label>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #enumList>
+  <mat-chip-list
+    #enumChipList
+    class="chipsList-enum d-flex align-items-center"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="dropEnumInChipList($event)"
+  >
+    <input placeholder="{{ 'enum_placeholder' | translate }}"
+           [matChipInputFor]="enumChipList"
+           [matChipInputSeparatorKeyCodes]="chipsListSeparatorKeysCodes"
+           [matChipInputAddOnBlur]="true"
+           (matChipInputTokenEnd)="addEnumToChipList($event)">
+    <div class="chip-list d-flex flex-shrink-1 flex-grow-1 flex-wrap">
+      <mat-chip class="chip-enum"
+                *ngFor="let value of field.value"
+                cdkDrag
+                [selectable]="false"
+                [removable]="true"
+                (removed)="removeEnumFromChipList(value)">
+        {{value}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </div>
+  </mat-chip-list>
+</ng-template>

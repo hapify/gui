@@ -10,35 +10,54 @@ $entity: #d93c89;
 $object: #d9a251;
 $file: #7273d9;
 
+$typesTooltipWidth: 340px;
+
+.field-string {
+  color: $string;
+  background-color: $string;
+  border-color: $string;
+}
+.field-enum {
+  color: $enum;
+  background-color: $enum;
+  border-color: $enum;
+}
+.field-datetime {
+  color: $datetime;
+  background-color: $datetime;
+  border-color: $datetime;
+}
+.field-number {
+  color: $number;
+  background-color: $number;
+  border-color: $number;
+}
+.field-boolean {
+  color: $boolean;
+  background-color: $boolean;
+  border-color: $boolean;
+}
+.field-entity {
+  color: $entity;
+  background-color: $entity;
+  border-color: $entity;
+}
+.field-object {
+  color: $object;
+  background-color: $object;
+  border-color: $object;
+}
+.field-file {
+  color: $file;
+  background-color: $file;
+  border-color: $file;
+}
+
 .badge {
 	cursor: pointer;
 	border-radius: 4px;
 	color: $white;
   transition: none;
-  &.badge-string {
-    background-color: $string;
-  }
-  &.badge-enum {
-    background-color: $enum;
-  }
-	&.badge-datetime {
-		background-color: $datetime;
-	}
-	&.badge-number {
-		background-color: $number;
-	}
-	&.badge-boolean {
-		background-color: $boolean;
-	}
-	&.badge-entity {
-		background-color: $entity;
-	}
-	&.badge-object {
-		background-color: $object;
-	}
-	&.badge-file {
-		background-color: $file;
-	}
 }
 
 mat-icon.inactive {
@@ -64,7 +83,7 @@ mat-icon.inactive {
   }
 
   &.typesTooltip {
-    width: 320px;
+    width: $typesTooltipWidth;
   }
 
   &.active {
@@ -106,7 +125,7 @@ mat-icon.inactive {
 				transition: color 0.1s ease;
 			}
 			&:hover {
-				background: transparent;
+				background: none;
 				mat-icon {
 					color: $gray-700;
 				}
@@ -132,107 +151,57 @@ mat-icon.inactive {
 		}
 	}
 
-	li {
-		font-size: 1em;
+  .subtypeTitle span {
+    background: none;
+    border: none;
+  }
 
-    .fieldTitle-string {
-      color: $string;
-    }
-    .fieldTitle-enum {
+  .chipsList-enum {
+    width: #{$typesTooltipWidth - 80px};
+    input {
+      display: block;
+      width: auto;
+      text-align: left;
       color: $enum;
     }
-		.fieldTitle-datetime {
-			color: $datetime;
-		}
-		.fieldTitle-number {
-			color: $number;
-		}
-		.fieldTitle-boolean {
-			color: $boolean;
-		}
-		.fieldTitle-entity {
-			color: $entity;
-		}
-		.fieldTitle-object {
-			color: $object;
-		}
-		.fieldTitle-file {
-			color: $file;
-		}
+  }
 
-		.field {
-			cursor: pointer;
-			[type='radio'] {
-				& + span {
-					border-radius: 4px;
-					transition: background-color 0.1s ease, color 0.1s ease;
-          &.field-string {
-            color: $string;
-          }
-          &.field-enum {
-            color: $enum;
-          }
-					&.field-datetime {
-						color: $datetime;
-					}
-					&.field-number {
-						color: $number;
-					}
-					&.field-boolean {
-						color: $boolean;
-					}
-					&.field-entity {
-						color: $entity;
-					}
-					&.field-object {
-						color: $object;
-					}
-					&.field-file {
-						color: $file;
-					}
-				}
-
-				&:checked + span,
-				& + span:hover {
-					color: $white;
-          &.field-string {
-            background-color: $string;
-          }
-          &.field-enum {
-            background-color: $enum;
-          }
-					&.field-datetime {
-						background-color: $datetime;
-					}
-					&.field-number {
-						background-color: $number;
-					}
-					&.field-boolean {
-						background-color: $boolean;
-					}
-					&.field-entity {
-						background-color: $entity;
-					}
-					&.field-object {
-						background-color: $object;
-					}
-					&.field-file {
-						background-color: $file;
-					}
-				}
-			}
-		}
-
-    .chipsList-enum {
-      width: 240px;
-      input {
-        display: block;
-        width: auto;
-        text-align: left;
-        color: $enum;
-      }
+  .backIcon {
+    mat-icon {
+      font-size: 12px;
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
     }
-	}
+  }
+}
+
+.typeBadge {
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+  &:not(.selected):not(:hover) {
+    background: none;
+  }
+  &.selected,
+  &:hover {
+    color: $white;
+  }
+
+  .entity-subtypes & {
+    background: none;
+    color: $entity;
+    border: 1px solid;
+    &:not(.selected):not(:hover) {
+      border-color: transparent;
+    }
+    &.selected,
+    &:hover {
+      color: $entity;
+      border-color: $entity;
+    }
+  }
 }
 
 .mat-chip {
