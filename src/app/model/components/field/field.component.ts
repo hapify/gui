@@ -76,7 +76,7 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 			this.subtypes = null;
 		} else if (isEntity) {
 			this.displayedSubTypesTooltip = 'entity';
-			this.subtypes = null;
+			this.subtypes = this.field.getAvailableSubTypes();
 		} else if (hasSubTypes) {
 			this.displayedSubTypesTooltip = 'subtype';
 			this.subtypes = this.field.getAvailableSubTypes();
