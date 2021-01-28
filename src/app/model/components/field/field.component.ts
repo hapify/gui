@@ -96,6 +96,7 @@ export class FieldComponent extends FieldLightComponent implements OnInit, OnDes
 
 	resetSubtypeAndTriggerInputChange(): void {
 		this.field.subtype = null;
+		this.field.value = null;
 		this.onInputChange();
 		this.toggleSubtypesTooltip();
 	}
