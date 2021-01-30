@@ -25,6 +25,7 @@ export class TemplateComponent {
 		name: string;
 	}[] = [
 		{ name: 'Hapify', value: TemplateEngine.Hpf },
+		{ name: 'EJS', value: TemplateEngine.Ejs },
 		{ name: 'JavaScript', value: TemplateEngine.JavaScript },
 	];
 	/** Available inputs */

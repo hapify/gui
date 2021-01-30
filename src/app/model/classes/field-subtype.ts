@@ -28,6 +28,7 @@ export class FieldSubType {
 		Default: null,
 		OneOne: 'oneOne',
 		OneMany: 'oneMany',
+		ManyOne: 'manyOne',
 		ManyMany: 'manyMany',
 	};
 	static Enum = {
@@ -85,9 +86,10 @@ export class FieldSubType {
 	static entity(): ILabelledValue[] {
 		return [
 			{ name: 'Default', value: FieldSubType.Entity.Default },
-			{ name: 'OneOne', value: FieldSubType.Entity.OneOne },
-			{ name: 'OneMany', value: FieldSubType.Entity.OneMany },
-			{ name: 'ManyMany', value: FieldSubType.Entity.ManyMany },
+			{ name: '1:1', value: FieldSubType.Entity.OneOne },
+			{ name: '1:N', value: FieldSubType.Entity.OneMany },
+			{ name: 'N:1', value: FieldSubType.Entity.ManyOne },
+			{ name: 'N:N', value: FieldSubType.Entity.ManyMany },
 		];
 	}
 

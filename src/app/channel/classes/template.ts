@@ -59,12 +59,18 @@ export class Template implements ITemplate {
 		if (this.engine === TemplateEngine.Hpf) {
 			return 'hpf';
 		}
+		if (this.engine === TemplateEngine.Ejs) {
+			return 'ejs';
+		}
 		return 'js';
 	}
 
 	public aceMode(): string {
 		if (this.engine === TemplateEngine.Hpf) {
 			return 'hpf';
+		}
+		if (this.engine === TemplateEngine.Ejs) {
+			return 'ejs';
 		}
 		return 'js';
 	}
